@@ -17,7 +17,7 @@ pygame.display.set_caption("Pang! Pang!!") # 게임이름
 clock = pygame.time.Clock()
 
 # 배경 이미지 불러오기
-img_path = os.path.join(current_path, "../static/games/ddong")
+img_path = os.path.join(current_path, "../images/ddong")
 background = pygame.image.load(os.path.join(img_path, "background.jpg"))
 
 # 캐릭터 불러오기
