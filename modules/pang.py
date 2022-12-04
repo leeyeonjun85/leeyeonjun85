@@ -20,7 +20,7 @@ def game_start():
 
     # 이미지 불러오기
     current_path = os.path.dirname(__file__)
-    img_path = os.path.join(current_path, "../static/games/pang")
+    img_path = os.path.join(current_path, "../images/pang")
 
     background = pygame.image.load(os.path.join(img_path, "background.jpg")) # 배경
 
