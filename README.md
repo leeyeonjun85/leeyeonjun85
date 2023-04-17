@@ -156,6 +156,14 @@ https://hyeinisfree.tistory.com/22
 https://github.com/anuraghazra/github-readme-stats
  -->
 
+<!-- 
+✅ 중간에 과부화 때문에 통계 짤림
+아래에서 정보를 얻어
+https://only-wanna.tistory.com/entry/Github-Stats%EC%9D%98-Maximum-retries-exceeded-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0
+여기에서 해결함
+https://vercel.com/leeyeonjun85
+ -->
+
 <p align="center">
 <picture>
 <source 
