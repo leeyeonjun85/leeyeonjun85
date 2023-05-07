@@ -22,7 +22,7 @@ https://hyeinisfree.tistory.com/22
 <table>
     <td style="width:40%"; align="center">
         <a href="http://leeyj85.shop/aboutme/" target='_blank'>
-            <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://leeyeonjun85.github.io/home/assets/images/profile/me01.jpg"/>
+            <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://leeyeonjun85.github.io/assets/images/profile/me01.jpg"/>
         </a>
     </td>
     <td style="width:60%";>
@@ -36,7 +36,7 @@ https://hyeinisfree.tistory.com/22
                 <img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
                 Gmail : leeyeonjun85@gmail.com
             </a><br>
-            <a href="https://leeyeonjun85.github.io/home/" target='_blank'>
+            <a href="https://leeyeonjun85.github.io/" target='_blank'>
                 <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/> 
                 Git Blog : https://leeyeonjun85.github.io
             </a><br>
@@ -59,13 +59,13 @@ https://hyeinisfree.tistory.com/22
 <!-- <div style="display: grid; grid-template-columns: 4fr 8fr; grid-template-areas:'image links';">
     <div style="grid-area: image;" align="center">
         <a href="http://leeyj85.shop/aboutme/" target='_blank'>
-        <img style="width:80%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://leeyeonjun85.github.io/home/assets/images/profile/me01.jpg"/></a>
+        <img style="width:80%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://leeyeonjun85.github.io/assets/images/profile/me01.jpg"/></a>
     </div>
     <div style="grid-area: links;">
         <h3 align="left">🔎 My Links 📌</h3>
         <a href="http://leeyj85.shop/" target='_blank'><img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>&nbsp;&nbsp; Home Page : http://leeyj85.shop/</a><br>
         <a href="mailto:leeyeonjun85@gmail.com"><img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gmail : leeyeonjun85@gmail.com</a><br>
-        <a href="https://leeyeonjun85.github.io/home/" target='_blank'><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/>&nbsp;&nbsp; Tech Blog : https://leeyeonjun85.github.io/home/</a><br>
+        <a href="https://leeyeonjun85.github.io/" target='_blank'><img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/>&nbsp;&nbsp; Tech Blog : https://leeyeonjun85.github.io/</a><br>
         <a href="https://www.instagram.com/leeyeonjun85/" target='_blank'><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white"/> https://www.instagram.com/leeyeonjun85/</a><br>
         <a href="http://leeyj85.shop/aboutme/" target='_blank'><img src="https://img.shields.io/badge/이력서-00a408?style=flat-square"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; http://leeyj85.shop/aboutme/</a><br>
         <a href="http://leeyj85.shop/portfolio/" target='_blank'><img src="https://img.shields.io/badge/포트폴리오-5b0000?style=flat-square"/>&nbsp;&nbsp; http://leeyj85.shop/portfolio/</a><br>
