@@ -38,7 +38,7 @@ https://hyeinisfree.tistory.com/22
             </a><br>
             <a href="https://leeyeonjun85.github.io/home/" target='_blank'>
                 <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/> 
-                Tech Blog : https://leeyeonjun85.github.io/home/
+                Git Blog : https://leeyeonjun85.github.io
             </a><br>
             <a href="https://www.instagram.com/leeyeonjun85/" target='_blank'>
                 <img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white"/> 
