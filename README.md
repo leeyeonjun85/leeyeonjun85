@@ -22,7 +22,7 @@ https://hyeinisfree.tistory.com/22
 <table>
     <td style="width:40%"; align="center">
         <a href="http://leeyj85.shop/aboutme/" target='_blank'>
-            <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://leeyeonjun85.github.io/assets/images/profile/me01.jpg"/>
+            <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
         </a>
     </td>
     <td style="width:60%";>
