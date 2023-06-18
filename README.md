@@ -21,12 +21,10 @@ https://hyeinisfree.tistory.com/22
 
 <table>
     <td style="width:40%"; align="center">
-        <a href="http://leeyj85.shop/aboutme/" target='_blank'>
-            <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
-        </a>
+        <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </td>
     <td style="width:60%";>
-        <h2 align="left">🔎 My Links 📌</h2>
+        <h2 style="align=center">🔎 My Links 📌</h2>
         <div>
             <a href="http://leeyj85.shop/" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
