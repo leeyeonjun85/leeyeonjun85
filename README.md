@@ -22,7 +22,7 @@ https://hyeinisfree.tistory.com/22
     <th style="width:40%"; align="center">
         <img src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </th>
-    <th style="width:60%";>
+    <th style="width:60%;">
         <h2 style="align=center">🔎 My Links 📌</h2>
         <div>
             <a href="http://43.201.111.40/" target='_blank'>
