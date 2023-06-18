@@ -33,7 +33,7 @@ https://hyeinisfree.tistory.com/22
             </a><br>
             <a href="mailto:leeyeonjun85@gmail.com">
                 <img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
-                leeyeonjun85@gmail.com
+                　leeyeonjun85@gmail.com
             </a><br>
             <a href="https://leeyeonjun85.github.io/" target='_blank'>
                 <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/> 
