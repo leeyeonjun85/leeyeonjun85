@@ -21,7 +21,7 @@ https://hyeinisfree.tistory.com/22
 
 <table>
     <td style="width:40%"; align="center">
-        <img width="40%" style="width:80%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
+        <img width="60%" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </td>
     <td style="width:60%";>
         <h2 style="align=center">🔎 My Links 📌</h2>
