@@ -18,11 +18,11 @@ https://hyeinisfree.tistory.com/22
 
 <h1>😄 Welcom~! Introduce Myself 🚀</h1>
 
-<table style="width:100%">
-    <th style="width:40%; align=center">
+<table width="100%">
+    <th width="40%" style="align=center;">
         <img src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </th>
-    <th style="width:60%;">
+    <th width="60%">
         <h2 style="align=center">🔎 My Links 📌</h2>
         <div>
             <a href="http://43.201.111.40/" target='_blank'>
