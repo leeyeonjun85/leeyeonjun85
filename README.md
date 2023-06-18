@@ -23,7 +23,7 @@ https://hyeinisfree.tistory.com/22
         <img src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </td>
     <td width="70%">
-        <h2 style="align:center;">🔎 My Links 📌</h2>
+        <h2 style="text-align:center;">🔎 My Links 📌</h2>
         <div style="text-align:left;">
             <a href="http://43.201.111.40/" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
