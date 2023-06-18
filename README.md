@@ -21,14 +21,14 @@ https://hyeinisfree.tistory.com/22
 
 <table>
     <td style="width:40%"; align="center">
-        <img style="width:50%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
+        <img style="width:80%; border-radius: 50%; border: 1px solid #888; padding: 5px" src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </td>
     <td style="width:60%";>
         <h2 style="align=center">🔎 My Links 📌</h2>
         <div>
-            <a href="http://leeyj85.shop/" target='_blank'>
+            <a href="http://43.201.111.40/" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
-                Home Page : http://leeyj85.shop/
+                Home Page : http://43.201.111.40/
             </a><br>
             <a href="mailto:leeyeonjun85@gmail.com">
                 <img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
@@ -42,14 +42,14 @@ https://hyeinisfree.tistory.com/22
                 <img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white"/> 
                 https://www.instagram.com/leeyeonjun85/
             </a><br>
-            <a href="http://leeyj85.shop/aboutme/" target='_blank'>
+            <!-- <a href="http://leeyj85.shop/aboutme/" target='_blank'>
                 <img src="https://img.shields.io/badge/이력서-00a408?style=flat-square"/> 
                 http://leeyj85.shop/aboutme/
             </a><br>
             <a href="http://leeyj85.shop/portfolio/" target='_blank'>
                 <img src="https://img.shields.io/badge/포트폴리오-5b0000?style=flat-square"/> 
                 http://leeyj85.shop/portfolio/
-            </a><br>
+            </a><br> -->
         </div>
     </td>
 </table>
