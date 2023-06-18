@@ -19,10 +19,10 @@ https://hyeinisfree.tistory.com/22
 <h1>😄 Welcom~! Introduce Myself 🚀</h1>
 
 <table style="width:100%">
-    <td style="width:40%"; align="center">
+    <th style="width:40%"; align="center">
         <img src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
-    </td>
-    <td style="width:60%";>
+    </th>
+    <th style="width:60%";>
         <h2 style="align=center">🔎 My Links 📌</h2>
         <div>
             <a href="http://43.201.111.40/" target='_blank'>
@@ -50,7 +50,7 @@ https://hyeinisfree.tistory.com/22
                 http://leeyj85.shop/portfolio/
             </a><br> -->
         </div>
-    </td>
+    </th>
 </table>
 
 <!-- <div style="display: grid; grid-template-columns: 4fr 8fr; grid-template-areas:'image links';">
