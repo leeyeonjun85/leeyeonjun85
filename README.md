@@ -19,7 +19,7 @@ https://hyeinisfree.tistory.com/22
 <h1>😄 Welcom~! Introduce Myself 🚀</h1>
 
 <table style="width:100%">
-    <th style="width:40%"; align="center">
+    <th style="width:40%; align=center">
         <img src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
     </th>
     <th style="width:60%;">
