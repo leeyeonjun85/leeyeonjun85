@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Wpf_Chat.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SignalRConfig_Server" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://localhost:7076/chathub</Value>
+    </Setting>
+    <Setting Name="SignalRConfig_VPN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">testVPN</Value>
+    </Setting>
+    <Setting Name="SignalRConfig_UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">testUser</Value>
+    </Setting>
+    <Setting Name="SignalRConfig_Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
