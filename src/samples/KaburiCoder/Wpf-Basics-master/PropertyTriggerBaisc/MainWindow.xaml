@@ -1,0 +1,121 @@
+﻿<Window x:Class="PropertyTriggerBasic.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropertyTriggerBasic"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+  <Window.Resources>
+    <Style x:Key="CustomButton" TargetType="{x:Type Button}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Button}">                     
+            <Border x:Name="border"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="10"
+                  Background="{TemplateBinding Background}">
+              <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="Pink"/>
+              </Trigger>
+              <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="DeepPink"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="border"
+                        Property="Control.Background"
+                        Value="Black"/>
+                <Setter TargetName="border"
+                        Property="Control.Foreground"
+                        Value="White"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="CustomComboItem"
+                     TargetType="{x:Type ComboBoxItem}">
+      <TextBlock
+        x:Name="txtBlock"
+        Text="{Binding Value}"
+        Foreground="{Binding Brush}"/>
+      <ControlTemplate.Triggers>
+        <Trigger Property="IsHighlighted" Value="True">
+          <Setter TargetName="txtBlock"
+                  Property="Background" Value="LightSkyBlue"/>
+        </Trigger>
+        <Trigger Property="IsSelected" Value="True">
+          <Setter TargetName="txtBlock"
+                  Property="Background" Value="HotPink"/>
+        </Trigger>
+      </ControlTemplate.Triggers>
+    </ControlTemplate>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="70"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+
+    <!--기본 버튼-->
+    <Button Grid.Row="0"
+            Grid.Column="0"
+            Margin="10"
+            FontSize="30"
+            Content="PropertyTrigger">
+      <Button.Resources>
+        <Style TargetType="{x:Type Button}">
+          <Setter Property="Foreground" Value="Blue"/>
+          <Setter Property="Background" Value="HotPink"/>
+          <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Foreground" Value="Red"/>
+              <Setter Property="Background" Value="Black"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </Button.Resources>
+    </Button>
+
+    <!--ControlTemplate가 수정된 버튼-->
+    <Button Grid.Row="0" 
+            Grid.Column="1"
+            Margin="10"
+            FontSize="30"
+            BorderBrush="Red"
+            Background="HotPink"
+            BorderThickness="10"
+            Style="{StaticResource CustomButton}">
+      ControlTemplate 테스트!
+    </Button>
+
+    <!--콤보박스 아이템의 ControlTemplate가 수정된 콤보박스-->
+    <ComboBox Grid.Row="1" 
+              Grid.Column="1"
+              Margin="10" 
+              FontSize="30"
+              ItemsSource="{Binding Items}">
+      <ComboBox.ItemContainerStyle>
+        <Style TargetType="{x:Type ComboBoxItem}">
+          <Setter Property="Template" 
+                  Value="{StaticResource CustomComboItem}"/>
+        </Style>
+      </ComboBox.ItemContainerStyle>
+    </ComboBox>
+  </Grid>
+</Window>

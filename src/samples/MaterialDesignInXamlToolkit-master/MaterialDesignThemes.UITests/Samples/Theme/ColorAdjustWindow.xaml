@@ -1,0 +1,35 @@
+﻿<Window x:Class="MaterialDesignThemes.UITests.Samples.Theme.ColorAdjustWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Test Window"
+        Width="1100"
+        Height="800"
+        Style="{StaticResource MaterialDesignWindow}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid>
+    <ToggleButton HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Checked="ChangeThemeClick"
+                  Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+    <StackPanel VerticalAlignment="Center">
+      <TextBlock HorizontalAlignment="Center"
+                 FontSize="20"
+                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                 Text="Large Text" />
+      <TextBlock Margin="0,40,0,0"
+                 HorizontalAlignment="Center"
+                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                 Text="Small Text" />
+    </StackPanel>
+  </Grid>
+</Window>

@@ -1,0 +1,37 @@
+﻿<Window x:Class="WpfOxyPlotGraph.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfOxyPlotGraph.Views" xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800">
+  <Window.Resources>
+    <Style x:Key="BaseStyle" TargetType="{x:Type Control}">
+      <Setter Property="FontSize" Value="25"/>
+      <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"/>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <oxy:PlotView Model="{Binding PlotModel}"/>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+      <ComboBox Name="cmbSubject" SelectedIndex="0">
+        <ComboBoxItem Content="국어"/>
+        <ComboBoxItem Content="수학"/>
+        <ComboBoxItem Content="영어"/>
+      </ComboBox>
+      <Button Content="조회" 
+              Command="{Binding LoadOxyPlotCommand}"
+              CommandParameter="{Binding Text ,ElementName=cmbSubject}"/>
+    </StackPanel>
+  </Grid>
+</Window>

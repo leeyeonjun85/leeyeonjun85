@@ -1,0 +1,64 @@
+﻿<Window x:Class="AttachedPropertyBasic.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AttachedPropertyBasic.Views"
+        xmlns:utils="clr-namespace:AttachedPropertyBasic.Utils"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800">
+  <Window.Resources>
+    <Style TargetType="{x:Type Label}">
+      <Setter Property="Margin" Value="10"/>
+      <Setter Property="Background" Value="AliceBlue"/>
+      <Setter Property="FontSize" Value="30"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="{x:Type TextBox}">
+      <Setter Property="Margin" Value="10"/>
+      <Setter Property="FontSize" Value="30"/>
+    </Style>
+
+    <Style TargetType="{x:Type PasswordBox}">
+      <Setter Property="Margin" Value="10"/>
+      <Setter Property="FontSize" Value="30"/>
+    </Style>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    
+    <Label Grid.Row="0" Grid.Column="1" Content="입력"/>
+    <Label Grid.Row="0" Grid.Column="2" Content="Binding Property"/>
+
+    <Label Grid.Row="1" Grid.Column="0" Content="TextBox"/>
+    <Label Grid.Row="2" Grid.Column="0" Content="PasswordBox"/>
+
+
+    <TextBox Grid.Row="1" Grid.Column="1" 
+             Text="{Binding InputText}"
+             utils:TextBoxHelper.UseOnPropertyChanged="True"
+             Background="#FFEFFFD7"/>
+    <TextBox Grid.Row="1" Grid.Column="2" 
+             Text="{Binding OutputText}"
+             Background="#FFEFFFD7"/>
+
+    <PasswordBox Grid.Row="2"
+                 Grid.Column="1"     
+                 utils:PasswordBoxHelper.BoundPassword="{Binding InputPassword, Mode=TwoWay}"
+                 Background="#FFFFD7D7"/>
+    <TextBox Grid.Row="2" 
+             Grid.Column="2" 
+             Text="{Binding OutputPassword}"
+             Background="#FFFFD7D7"/>
+  </Grid>
+</Window>
