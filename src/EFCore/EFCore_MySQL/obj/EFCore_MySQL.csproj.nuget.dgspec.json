@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj": {}
+    "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj": {}
   },
   "projects": {
-    "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj": {
+    "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj",
+        "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj",
         "projectName": "EFCore_MySQL",
-        "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj",
+        "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj",
         "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-        "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MySQL\\obj\\",
+        "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MySQL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

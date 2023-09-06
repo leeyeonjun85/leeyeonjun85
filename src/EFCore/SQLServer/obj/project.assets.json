@@ -3186,11 +3186,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\SQLServer\\SQLServer.csproj",
+      "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\SQLServer\\SQLServer.csproj",
       "projectName": "SQLServer",
-      "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\SQLServer\\SQLServer.csproj",
+      "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\SQLServer\\SQLServer.csproj",
       "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-      "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\SQLServer\\obj\\",
+      "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\SQLServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

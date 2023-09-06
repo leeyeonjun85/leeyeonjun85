@@ -1275,11 +1275,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\WPF_EFCore_GetStartedWPF\\WPF_EFCore_GetStartedWPF.csproj",
+      "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WPF_EFCore_GetStartedWPF\\WPF_EFCore_GetStartedWPF.csproj",
       "projectName": "WPF_EFCore_GetStartedWPF",
-      "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\WPF_EFCore_GetStartedWPF\\WPF_EFCore_GetStartedWPF.csproj",
+      "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WPF_EFCore_GetStartedWPF\\WPF_EFCore_GetStartedWPF.csproj",
       "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-      "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\WPF_EFCore_GetStartedWPF\\obj\\",
+      "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WPF_EFCore_GetStartedWPF\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

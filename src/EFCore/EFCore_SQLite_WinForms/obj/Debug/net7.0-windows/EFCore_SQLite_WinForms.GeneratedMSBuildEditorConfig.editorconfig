@@ -14,4 +14,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EFCore_SQLite_WinForms
-build_property.ProjectDir = C:\yeonjunsCode\CS_Study\EFCore\EFCore_SQLite_WinForms\
+build_property.ProjectDir = C:\yeonjunsCode\leeyeonjun85\src\EFCore\EFCore_SQLite_WinForms\

@@ -1309,11 +1309,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_First\\EFCore_First.csproj",
+      "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_First\\EFCore_First.csproj",
       "projectName": "EFCore_First",
-      "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_First\\EFCore_First.csproj",
+      "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_First\\EFCore_First.csproj",
       "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-      "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_First\\obj\\",
+      "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_First\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

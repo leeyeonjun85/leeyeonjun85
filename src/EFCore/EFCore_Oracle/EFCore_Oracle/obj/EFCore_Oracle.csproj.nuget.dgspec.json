@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj": {}
+    "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj": {}
   },
   "projects": {
-    "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj": {
+    "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj",
+        "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj",
         "projectName": "EFCore_Oracle",
-        "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj",
+        "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj",
         "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-        "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\obj\\",
+        "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

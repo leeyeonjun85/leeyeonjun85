@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3w3GZNOlqc8USzqYSjNpadrMcJtMcdyUAsPTnrJ8KG+eVNvfGI2q0Pp4AVNFAOjvMoZLgLHbw3aJ8J2CEqi7Yw==",
+  "dgSpecHash": "AqSNaEj7XzHismUsebsmzJfsqvPGSE0ud2g5fRfUmQlTvuNuQdSiQlNQAe/EtUrNrNKo/BcXi4sCy2yubksi0g==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MySQL\\EFCore_MySQL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\k4os.compression.lz4\\1.3.5\\k4os.compression.lz4.1.3.5.nupkg.sha512",

@@ -2151,11 +2151,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_SQLite_WinForms\\EFCore_SQLite_WinForms.csproj",
+      "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLite_WinForms\\EFCore_SQLite_WinForms.csproj",
       "projectName": "EFCore_SQLite_WinForms",
-      "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_SQLite_WinForms\\EFCore_SQLite_WinForms.csproj",
+      "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLite_WinForms\\EFCore_SQLite_WinForms.csproj",
       "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-      "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_SQLite_WinForms\\obj\\",
+      "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLite_WinForms\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

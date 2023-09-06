@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KSxmT1UHZCBK3IBoRQJMNiqS46AW2bPbsam5SiOjOS0r8NfOqGrNjxFThMv9GkFfag8cCXIOxm1lzeMjn38w8Q==",
+  "dgSpecHash": "J0SjxPgecwdzIlgtziz7d/+cTQCHz2Z7fLpo6L2TMjsi2JgRlh00YXSyhrNfUNlzzsLotTNUyb2kyiqTaMhkRA==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EF6Basic\\EF6Basic.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EF6Basic\\EF6Basic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",

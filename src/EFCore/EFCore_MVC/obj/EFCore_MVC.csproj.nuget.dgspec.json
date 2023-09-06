@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj": {}
+    "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj": {}
   },
   "projects": {
-    "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj": {
+    "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj",
+        "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj",
         "projectName": "EFCore_MVC",
-        "projectPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj",
+        "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MVC\\EFCore_MVC.csproj",
         "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-        "outputPath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_MVC\\obj\\",
+        "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_MVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",

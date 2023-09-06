@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "f4z00sEB7jkIncSA6TxSOza6KkJ/aaQMMiqdv5j3NyTh8ABIFr5HvbwlN9jA220pGiaJXE0Xu/vsmMPMD2X7Zg==",
+  "dgSpecHash": "kjDLl0jFVF746OrKxpQazjGoi+/kctdspie3gMAIR6fk2igUKod2cHFVwuN1mZ12w6j4CL2ZE+SDot73LMMWGg==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_SQLite_WinForms\\EFCore_SQLite_WinForms.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLite_WinForms\\EFCore_SQLite_WinForms.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.9\\microsoft.data.sqlite.core.7.0.9.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",

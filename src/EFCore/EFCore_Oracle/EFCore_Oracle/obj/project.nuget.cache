@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "28/HKP8pWDYBeNrFtqvfr+CkuAnw5Xr8cow+i5a0WqN6O/2hLmSwzjTVCOmQNGIq3RgXO88rngOwycUKcoqi2g==",
+  "dgSpecHash": "xxN+KfgfL36/6q62pvVuOKstQ6rZqOUaIGT2aO8bAhuouvSaADJzXvZs7jCHio0G/WTI+d7Zr1oypcN9nlrIew==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_Oracle\\EFCore_Oracle\\EFCore_Oracle.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h+HjSyTEDc/UiN7XOCCC5nafN/u52ld3CPE5F/SsjYR9hhnnYyX80YTjUnLsqR0sm7xR1glkkND2WJMNi0uU4g==",
+  "dgSpecHash": "JH2BGe/t+OHUaN/eBcE0ys2QJ8RjLYMhgZbLE+WVSNNO+LXIXLOh7Cv7ucGSBoVk2+QBYQvDNSueAq1UFhiYhw==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\SQLServer\\SQLServer.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\SQLServer\\SQLServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

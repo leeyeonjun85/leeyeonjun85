@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "B8kgcqmNpwNYe3yfkJeW5qYT9owrj3qklIO5RaxMg2oX7KNVjB89qtOGlj1cn+SNujzX06yrcabvRhkqfQFNTA==",
+  "dgSpecHash": "wI8VlzvW1dIZp5L1gmzCnsjF+QEUVypyXCoZs6rMoYx133WdOq5xT3SKXYijhzZyXZuvb1jKTCQOMDxsSSxMzA==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\EFCore\\WPF_EFCore_GetStartedWPF\\WPF_EFCore_GetStartedWPF.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WPF_EFCore_GetStartedWPF\\WPF_EFCore_GetStartedWPF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.10\\microsoft.data.sqlite.core.7.0.10.nupkg.sha512",
