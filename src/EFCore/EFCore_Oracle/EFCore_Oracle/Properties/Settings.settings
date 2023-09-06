@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EFCore_Oracle.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Oracle_Connection_String" Type="System.String" Scope="User">
+      <Value Profile="(Default)">User Id=testuser1;Password=0330;Data Source=localhost:1521/XEPDB1;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
