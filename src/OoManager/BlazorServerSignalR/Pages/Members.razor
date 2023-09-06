@@ -1,0 +1,64 @@
+﻿@page "/members"
+@using BlazorServerSignalR.Data;
+@using BlazorServerSignalR.Models;
+@using Microsoft.AspNetCore.SignalR.Client
+@inject OoDbContext _ooDbContext
+@* @implements IAsyncDisposable *@
+
+
+<PageTitle>Members</PageTitle>
+
+<h1>Members</h1>
+
+<hr>
+
+<div>
+    <input @bind="userInput" />
+    <button @onclick="AddMember">Show Members</button>
+</div>
+<div>
+    <button @onclick="ShowMembers">Show Members</button>
+</div>
+
+
+<hr>
+
+<ul>
+    @foreach (var member in members)
+    {
+        <li>@member.name</li>
+    }
+</ul>
+
+
+@code {
+    private List<ModelMembers> members = new();
+    private string userInput = string.Empty;
+
+    // protected override async Task OnInitializedAsync()
+    // {
+
+    //     members = _ooDbContext.members.Local.ToList();
+    //     // cmbSchool.DataSource = _context?.schools.Select(p => p.name).ToList();
+
+    // }
+
+    private void AddMember()
+    {
+        var addData = new ModelMembers { name = userInput };
+
+        _ooDbContext!.members.Add(addData);
+        _ooDbContext!.SaveChanges();
+        ShowMembers();
+    }
+
+    private void ShowMembers()
+    {
+        members = _ooDbContext!.members.Local.ToList();
+    }
+
+    // public async ValueTask DisposeAsync()
+    // {
+
+    // }
+}

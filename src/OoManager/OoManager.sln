@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf_SignalR", "Wpf_SignalR\Wpf_SignalR.csproj", "{5ECF2CA7-111F-40A3-920A-357367A13AB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerSignalR", "BlazorServerSignalR\BlazorServerSignalR.csproj", "{1D852D0B-85F8-4DC3-AACF-43064FE3F128}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ECF2CA7-111F-40A3-920A-357367A13AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECF2CA7-111F-40A3-920A-357367A13AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECF2CA7-111F-40A3-920A-357367A13AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECF2CA7-111F-40A3-920A-357367A13AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D852D0B-85F8-4DC3-AACF-43064FE3F128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D852D0B-85F8-4DC3-AACF-43064FE3F128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D852D0B-85F8-4DC3-AACF-43064FE3F128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D852D0B-85F8-4DC3-AACF-43064FE3F128}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7266144E-1747-4672-8204-60333D71E434}
+	EndGlobalSection
+EndGlobal

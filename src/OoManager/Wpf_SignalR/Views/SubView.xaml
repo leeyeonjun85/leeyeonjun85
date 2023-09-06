@@ -1,0 +1,135 @@
+﻿<Window x:Class="Wpf_SignalR.Views.SubView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_SignalR.Views"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="SubView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock
+            Grid.Row="1" Grid.Column="1"
+            Grid.ColumnSpan="1"
+            d:Text="이름"
+            Text="{Binding SubData.StringData}"
+            VerticalAlignment="Center"
+            />
+        <TextBlock
+            Grid.Row="1" Grid.Column="2"
+            Grid.ColumnSpan="1"
+            d:Text="나이"
+            Text="{Binding SubData.IntData}"
+            VerticalAlignment="Center"
+            />
+        <Button
+            Grid.Row="1" Grid.Column="3"
+            Grid.ColumnSpan="1"
+            Content="종료"
+            Command="{Binding BtnCloseCommand}"/>
+
+
+
+        <Grid
+            Grid.Row="3" Grid.Column="1"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="2"
+            Margin="7 3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Grid.Row="0" Grid.Column="0"
+                Grid.ColumnSpan="2"
+                d:Text="메시지 입력"
+                Text="{Binding TbMessage, UpdateSourceTrigger=PropertyChanged}"
+                Margin="7 3"
+                VerticalAlignment="Center"
+                />
+            <Button 
+                Grid.Row="1" Grid.Column="0"
+                Margin="10 3"
+                Content="OK" 
+                Command="{Binding BtnOkCommand}"/>
+            <Button 
+                Grid.Row="1" Grid.Column="1"
+                Margin="10 3"
+                Content="Cancel" 
+                Command="{Binding BtnCancelCommand}"/>
+        </Grid>
+
+        
+        
+        <StatusBar
+            Grid.Row="99" Grid.Column="0"
+            Grid.RowSpan="1" Grid.ColumnSpan="6">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem>
+                <TextBlock
+                    d:Text="Status : 현재상태"
+                    Text="{Binding StatusBar1}"
+                    x:Name="StatusBar1" />
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock
+                    d:Text="여러가지 메시지"
+                    Text="{Binding StatusBar2}"
+                    x:Name="StatusBar2" />
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4">
+                <ProgressBar
+                    Value="{Binding StatusBarProgressBar}" 
+                    Width="90" 
+                    Height="16" />
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>

@@ -1,0 +1,46 @@
+﻿@page "/"
+@using BlazorServerSignalR.Data;
+@inject ApplicationDbContext _applicationDbContext
+@inject OoDbContext _ooDbContext
+@implements IAsyncDisposable
+
+
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>환영합니다!</h1>
+
+<div>
+    <p role="status">Application Data Base CanConnect : @CanConnect_applicationDbContext</p>
+    <p role="status">O2 Data Base CanConnect : @CanConnect_ooDbContext</p>
+</div>
+
+
+
+@code {
+    bool CanConnect_applicationDbContext;
+    bool CanConnect_ooDbContext;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await _applicationDbContext.Database.EnsureCreatedAsync();
+        await _ooDbContext.Database.EnsureCreatedAsync();
+
+        Task<bool> CanConnectResult_applicationDbContext = _applicationDbContext.Database.CanConnectAsync();
+        Task<bool> CanConnectResult_ooDbContext = _ooDbContext.Database.CanConnectAsync();
+
+        await CanConnectResult_applicationDbContext;
+        await CanConnectResult_ooDbContext;
+
+        CanConnect_applicationDbContext = CanConnectResult_applicationDbContext.Result;
+        CanConnect_ooDbContext = CanConnectResult_ooDbContext.Result;
+    }
+
+
+    public async ValueTask DisposeAsync()
+    {
+        // await _applicationDbContext.DisposeAsync();
+        // await _ooDbContext.DisposeAsync();
+    }
+}
