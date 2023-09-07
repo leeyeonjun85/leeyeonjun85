@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5IQDoWcg4NGy/sNdQZnF3P0n39JB6PgXdC/tPWZ1OCsrpSvIKhqlMAECSOZrlWcrqT5mlqNdCIyXTwOVZst9qA==",
+  "dgSpecHash": "FeH7Cdw+KtWIuxVsF8HS4dAjayunnSjB72BeS/cjI/nMt64S5nQqlrBzKZFVkc/qeTSDQakmr35GN7QCKa92Ew==",
   "success": true,
-  "projectFilePath": "C:\\yeonjunsCode\\CS_Study\\WpfSQLite\\WpfSQLite.csproj",
+  "projectFilePath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WpfSQLite\\WpfSQLite.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leeye\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\leeye\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",

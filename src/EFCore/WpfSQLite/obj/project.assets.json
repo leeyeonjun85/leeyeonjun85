@@ -2271,11 +2271,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\yeonjunsCode\\CS_Study\\WpfSQLite\\WpfSQLite.csproj",
+      "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WpfSQLite\\WpfSQLite.csproj",
       "projectName": "WpfSQLite",
-      "projectPath": "C:\\yeonjunsCode\\CS_Study\\WpfSQLite\\WpfSQLite.csproj",
+      "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WpfSQLite\\WpfSQLite.csproj",
       "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-      "outputPath": "C:\\yeonjunsCode\\CS_Study\\WpfSQLite\\obj\\",
+      "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\WpfSQLite\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
