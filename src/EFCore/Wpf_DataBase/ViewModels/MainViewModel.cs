@@ -1,15 +1,22 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Configuration;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using leeyeonjun.Utiles;
 using Microsoft.Extensions.Logging;
 using Wpf_DataBase.Models;
 using Wpf_DataBase.Services;
+
 
 namespace Wpf_DataBase.ViewModels
 {
@@ -48,8 +55,16 @@ namespace Wpf_DataBase.ViewModels
         {
             _viewService = viewService;
 
-            TbName = ConfigurationManager.AppSettings["MyName"]?.ToString() ?? "이름을 입력하세요";
-            TbOld = ConfigurationManager.AppSettings["MyOld"]?.ToString() ?? "0";
+            //TbName = ConfigurationManager.AppSettings["MyName"]?.ToString() ?? "이름을 입력하세요";
+            //TbOld = ConfigurationManager.AppSettings["MyOld"]?.ToString() ?? "0";
+
+
+            JsonModel jsonModel = MyUtile.GetJsonModel();
+            TbName = jsonModel.MyProfile!.Name!;
+            TbOld = (DateTime.Now.Year - Convert.ToDateTime(jsonModel.MyProfile!.BirthDay!).Year).ToString();
+
+
+
 
             // SubView에서 message받기
             //WeakReferenceMessenger.Default.RegisterAll(this); // ObservableObject 상속한 경우
@@ -61,6 +76,10 @@ namespace Wpf_DataBase.ViewModels
         {
             _viewService.ShowSubView(new Models.SubData { StringData = TbName, IntData = Convert.ToInt16(TbOld) });
         }
+
+
+
+
 
         [RelayCommand]
         private void MongoDb(object? obj)

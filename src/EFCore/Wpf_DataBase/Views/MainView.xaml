@@ -73,6 +73,12 @@
             BorderThickness="10"
             Command="{Binding ShowSubViewCommand}"/>
 
+        <Button 
+            Grid.Row="0" Grid.Column="1"
+            Grid.ColumnSpan="1"
+            Content="Test1" 
+            Margin="5 3"
+            Command="{Binding Test1Command}"/>
 
         <Button 
             Grid.Row="2" Grid.Column="1"
