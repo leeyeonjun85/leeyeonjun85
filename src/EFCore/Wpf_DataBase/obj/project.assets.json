@@ -1278,6 +1278,16 @@
         "runtime": {
           "lib/net6.0/ZstdSharp.dll": {}
         }
+      },
+      "leeyeonjun/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/leeyeonjun.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/leeyeonjun.dll": {}
+        }
       }
     }
   },
@@ -3195,6 +3205,11 @@
         "zstdsharp.port.0.6.2.nupkg.sha512",
         "zstdsharp.port.nuspec"
       ]
+    },
+    "leeyeonjun/1.0.0": {
+      "type": "project",
+      "path": "../../BaseStudy/leeyeonjun/leeyeonjun.csproj",
+      "msbuildProject": "../../BaseStudy/leeyeonjun/leeyeonjun.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3203,7 +3218,8 @@
       "Google.Cloud.Firestore >= 3.3.0",
       "MaterialDesignThemes >= 4.9.0",
       "Microsoft.Extensions.Hosting >= 7.0.1",
-      "MongoDB.Driver >= 2.21.0"
+      "MongoDB.Driver >= 2.21.0",
+      "leeyeonjun >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3242,7 +3258,11 @@
       "frameworks": {
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\yeonjunsCode\\leeyeonjun85\\src\\BaseStudy\\leeyeonjun\\leeyeonjun.csproj": {
+              "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\BaseStudy\\leeyeonjun\\leeyeonjun.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,10 +1,8 @@
-﻿using System.IO;
-using System.Text.Json;
-using Wpf_DataBase.Models;
+﻿using System.Text.Json;
 
-namespace leeyeonjun.Utiles
+namespace leeyeonjun
 {
-    public class MyUtile
+    public class Utiles
     {
         public static JsonModel GetJsonModel()
         {

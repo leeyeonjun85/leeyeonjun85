@@ -180,3 +180,5 @@ C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wp
 C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase.csproj.CopyComplete
 C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase.genruntimeconfig.cache
 C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\ref\Wpf_DataBase.dll
+C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\bin\Debug\net7.0-windows\leeyeonjun.dll
+C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\bin\Debug\net7.0-windows\leeyeonjun.pdb

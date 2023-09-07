@@ -12,7 +12,8 @@
           "Google.Cloud.Firestore": "3.3.0",
           "MaterialDesignThemes": "4.9.0",
           "Microsoft.Extensions.Hosting": "7.0.1",
-          "MongoDB.Driver": "2.21.0"
+          "MongoDB.Driver": "2.21.0",
+          "leeyeonjun": "1.0.0"
         },
         "runtime": {
           "Wpf_DataBase.dll": {}
@@ -747,6 +748,11 @@
             "fileVersion": "0.6.2.0"
           }
         }
+      },
+      "leeyeonjun/1.0.0": {
+        "runtime": {
+          "leeyeonjun.dll": {}
+        }
       }
     }
   },
@@ -1238,6 +1244,11 @@
       "sha512": "sha512-jPao/LdUNLUz8rn3H1D8W7wQbZsRZM0iayvWI4xGejJg3XJHT56gcmYdgmCGPdJF1UEBqUjucCRrFB+4HbJsbw==",
       "path": "zstdsharp.port/0.6.2",
       "hashPath": "zstdsharp.port.0.6.2.nupkg.sha512"
+    },
+    "leeyeonjun/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
