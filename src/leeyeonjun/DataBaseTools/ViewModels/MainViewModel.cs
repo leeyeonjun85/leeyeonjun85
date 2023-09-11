@@ -7,11 +7,11 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.Logging;
-using Wpf_DataBase.Models;
-using Wpf_DataBase.Services;
+using DataBaseTools.Models;
+using DataBaseTools.Services;
+using Utiles;
 
-
-namespace Wpf_DataBase.ViewModels
+namespace DataBaseTools.ViewModels
 {
     public partial class MainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<ToMainData>>
     {
@@ -52,7 +52,7 @@ namespace Wpf_DataBase.ViewModels
             //TbOld = ConfigurationManager.AppSettings["MyOld"]?.ToString() ?? "0";
 
 
-            JsonModel jsonModel = Utiles.GetJsonModel();
+            JsonModel jsonModel = MyUtiles.GetJsonModel();
             TbName = jsonModel.MyProfile.Name;
             TbOld = (DateTime.Now.Year - Convert.ToDateTime(jsonModel.MyProfile.BirthDay).Year).ToString();
 
@@ -84,6 +84,12 @@ namespace Wpf_DataBase.ViewModels
         private void FireBase(object? obj)
         {
             _viewService.ShowFireBaseView();
+        }
+
+        [RelayCommand]
+        private void SeojungriOracle(object? obj)
+        {
+            _viewService.ShowSeojungriOracleView();
         }
 
 

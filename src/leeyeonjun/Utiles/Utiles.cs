@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 
-namespace leeyeonjun.Utiles
+namespace Utiles
 {
-    public class Utiles
+    public class MyUtiles
     {
         public static JsonModel GetJsonModel()
         {

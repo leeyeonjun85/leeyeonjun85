@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace leeyeonjun.Utiles
+namespace Utiles
 {
     public class JsonModel
     {
@@ -28,7 +28,7 @@ namespace leeyeonjun.Utiles
     public class ConnectionStrings
     {
         [JsonInclude]
-        public required string DefaultConnection { get; set; }
+        public required string SeojungriOracle { get; set; }
     }
 
     public class Edcore
