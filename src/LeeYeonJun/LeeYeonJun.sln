@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseTools", "DataBaseTo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfirmedPublish", "..\..\..\EdcoreWorks\SolaceExamples\ConfirmedDelivery\ConfirmedPublish.csproj", "{7E99B4E4-F242-4E5B-B253-D7D382E572C6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{5184ED3E-CAF1-4BA6-84AB-73BFAF55E5D4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utiles", "Utiles\Utiles.csproj", "{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +28,10 @@ Global
 		{7E99B4E4-F242-4E5B-B253-D7D382E572C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E99B4E4-F242-4E5B-B253-D7D382E572C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E99B4E4-F242-4E5B-B253-D7D382E572C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
