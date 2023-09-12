@@ -10,6 +10,7 @@ namespace DataBaseTools.Services
         void ShowMainView();
         void ShowMongoDbView();
         void ShowSeojungriOracleView();
+        void ShowSQLiteView();
         void ShowSubView(SubData subData);
         void ShowView<TView, TViewModel>(object? parameter = null)
             where TView : Window

@@ -13,8 +13,12 @@
 <hr>
 
 <div>
+    <button @onclick="ConnectDataBase">Connect DataBase</button>
+</div>
+
+<div>
     <input @bind="userInput" />
-    <button @onclick="AddMember">Show Members</button>
+    <button @onclick="AddMember">Add Member</button>
 </div>
 <div>
     <button @onclick="ShowMembers">Show Members</button>
@@ -42,6 +46,14 @@
     //     // cmbSchool.DataSource = _context?.schools.Select(p => p.name).ToList();
 
     // }
+
+    protected void ConnectDataBase()
+    {
+        _ooDbContext
+        members = _ooDbContext.members.Local.ToList();
+        // cmbSchool.DataSource = _context?.schools.Select(p => p.name).ToList();
+
+    }
 
     private void AddMember()
     {

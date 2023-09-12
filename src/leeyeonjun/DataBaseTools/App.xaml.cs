@@ -28,10 +28,17 @@ namespace DataBaseTools
 
             JsonModel jsonModel = MyUtiles.GetJsonModel();
 
-            // Log Database : EFCore SQLite
-            builder.Services.AddDbContext<SeojungriOracleContext>(p =>
+            // Database : EFCore SeojungriOracle
+            builder.Services.AddDbContext<TestOracleContext>(p =>
             {
                 p.UseOracle(jsonModel.ConnectionStrings.SeojungriOracle);
+                p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
+            });
+
+            // Database : EFCore SQLite
+            builder.Services.AddDbContext<TestSQLiteContext>(p =>
+            {
+                p.UseSqlite(jsonModel.ConnectionStrings.SQLite);
                 p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
             });
 
@@ -41,6 +48,8 @@ namespace DataBaseTools
             builder.Services.AddTransient<MongoDbView>();
             builder.Services.AddTransient<FireBaseView>();
             builder.Services.AddTransient<SeojungriOracleView>();
+            builder.Services.AddTransient<SQLiteView>();
+
 
             // ViewModels
             builder.Services.AddSingleton<MainViewModel>();
@@ -48,6 +57,7 @@ namespace DataBaseTools
             builder.Services.AddTransient<MongoDbViewModel>();
             builder.Services.AddTransient<FireBaseViewModel>();
             builder.Services.AddTransient<SeojungriOracleViewModel>();
+            builder.Services.AddTransient<SQLiteViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>

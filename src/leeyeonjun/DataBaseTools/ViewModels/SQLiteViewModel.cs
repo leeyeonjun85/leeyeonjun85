@@ -15,16 +15,15 @@ using System.Windows.Forms;
 using System;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace DataBaseTools.ViewModels
 {
-    public partial class SeojungriOracleViewModel : ViewModelBase, IParameterReceiver
+    public partial class SQLiteViewModel : ViewModelBase, IParameterReceiver
     {
         private readonly IViewService _viewService;
-        private readonly TestOracleContext _context;
+        private readonly TestSQLiteContext _context;
 
         [ObservableProperty]
         private string _statusBar1 = "Status : Ready";
@@ -43,20 +42,20 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private int _addYearsText = 0;
         [ObservableProperty]
-        private ObservableCollection<TestOracleModel> _yeonjunTestItemsSource = new();
+        private ObservableCollection<TestSQLiteModel> _yeonjunTestItemsSource = new();
         [ObservableProperty]
-        private TestOracleModel _selectedData = new();
+        private TestSQLiteModel _selectedData = new();
         [ObservableProperty]
         private string _selectedDataString = "아이디 / 이름 / 나이";
 
-        public SeojungriOracleViewModel(
+        public SQLiteViewModel(
             IViewService viewService,
-            TestOracleContext context
+            TestSQLiteContext context
             )
         {
             _viewService = viewService;
             _context = context;
-            
+
         }
 
 
@@ -64,7 +63,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnUpdate(object? obj)
         {
-            //TestOracleModel foundata = _context.yeonjunTest.Find(SelectedData.Id)!;
+            //TestSQLiteModel foundata = _context.yeonjunTest.Find(SelectedData.Id)!;
 
             _context.Entry(SelectedData).State = EntityState.Modified;
             _context.SaveChanges();
@@ -82,7 +81,7 @@ namespace DataBaseTools.ViewModels
         {
             if (obj is not MouseButtonEventArgs args) return;
             if (args!.OriginalSource is not TextBlock textBlock) return;
-            if (textBlock.DataContext is not TestOracleModel yeonjunTest) return;
+            if (textBlock.DataContext is not TestSQLiteModel yeonjunTest) return;
             SelectedData = yeonjunTest;
             SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Years}";
         }
@@ -91,28 +90,27 @@ namespace DataBaseTools.ViewModels
         private void BtnConnect(object? obj)
         {
             //_context.Database.EnsureCreated();
-            if (_context.Database.CanConnect())
+
+            if (!_context.Database.GetService<IRelationalDatabaseCreator>().Exists())
             {
-                if (!_context.Database.GetService<IRelationalDatabaseCreator>().Exists())
-                {
-                    RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)_context.Database.GetService<IDatabaseCreator>();
-                    databaseCreator.CreateTables();
-                    StatusBar1 = "Status : Connected"; ;
-                    StatusBar2 = "서정리 오라클 데이터베이스를 생성하였습니다.";
-                }
-
-                StatusBar1 = "Status : Connected"; ;
-                StatusBar2 = "서정리 오라클 데이터베이스에 연결되었습니다.";
-
-                _context.yeonjunTest.Load();
-                YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
+                RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)_context.Database.GetService<IDatabaseCreator>();
+                databaseCreator.CreateTables();
+                StatusBar1 = "Status : Connected";
+                StatusBar2 = "SQLite 데이터베이스를 생성하였습니다.";
             }
+
+            StatusBar1 = "Status : Connected"; ;
+            StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
+
+            _context.yeonjunTest.Load();
+            YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
+
         }
 
         [RelayCommand]
         private void AddData(object? obj)
         {
-            _context.yeonjunTest.Add(new TestOracleModel() { Name = AddNameText, Years = AddYearsText });
+            _context.yeonjunTest.Add(new TestSQLiteModel() { Name = AddNameText, Years = AddYearsText });
             _context.SaveChanges();
         }
 
@@ -140,12 +138,12 @@ namespace DataBaseTools.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.LOGGER!.LogInformation("서정리 오라클이 시작되었습니다.");
+            App.LOGGER!.LogInformation("SQLite가 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.LOGGER!.LogInformation("서정리 오라클이 종료되었습니다.");
+            App.LOGGER!.LogInformation("SQLite가 종료되었습니다.");
         }
 
         public void ReceiveParameter(object parameter)

@@ -66,5 +66,10 @@ namespace DataBaseTools.Services
         {
             ShowView<SeojungriOracleView, SeojungriOracleViewModel>();
         }
+
+        public void ShowSQLiteView()
+        {
+            ShowView<SQLiteView, SQLiteViewModel>();
+        }
     }
 }

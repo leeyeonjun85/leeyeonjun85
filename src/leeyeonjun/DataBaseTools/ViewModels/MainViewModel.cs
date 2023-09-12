@@ -92,6 +92,11 @@ namespace DataBaseTools.ViewModels
             _viewService.ShowSeojungriOracleView();
         }
 
+        [RelayCommand]
+        private void SQLite(object? obj)
+        {
+            _viewService.ShowSQLiteView();
+        }
 
         public void Receive(ValueChangedMessage<ToMainData> message)
         {

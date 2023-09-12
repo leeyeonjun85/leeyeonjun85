@@ -98,7 +98,12 @@
             Content="SeojungriOracle" 
             Margin="5 3"
             Command="{Binding SeojungriOracleCommand}"/>
-
+        <Button 
+            Grid.Row="2" Grid.Column="4"
+            Grid.ColumnSpan="1"
+            Content="SQLite" 
+            Margin="5 3"
+            Command="{Binding SQLiteCommand}"/>
 
 
 

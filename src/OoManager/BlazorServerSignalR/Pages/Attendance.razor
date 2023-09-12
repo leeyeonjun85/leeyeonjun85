@@ -47,6 +47,8 @@
     private string? userInput;
     private string? messageInput;
 
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+
     protected override async Task OnInitializedAsync()
     {
 
@@ -87,8 +89,7 @@
         }
     }
 
-    public bool IsConnected =>
-        hubConnection?.State == HubConnectionState.Connected;
+
 
     public async ValueTask DisposeAsync()
     {

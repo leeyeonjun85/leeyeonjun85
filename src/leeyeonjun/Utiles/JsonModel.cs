@@ -29,6 +29,8 @@ namespace Utiles
     {
         [JsonInclude]
         public required string SeojungriOracle { get; set; }
+        [JsonInclude]
+        public required string SQLite { get; set; }
     }
 
     public class Edcore
