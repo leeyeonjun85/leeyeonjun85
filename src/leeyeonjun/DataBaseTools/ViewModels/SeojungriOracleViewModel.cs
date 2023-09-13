@@ -1,21 +1,18 @@
-﻿using System.ComponentModel;
-using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
 using DataBaseTools.Models;
-using Serilog.Context;
 using DataBaseTools.Services;
 using Edcore.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System.Windows.Forms;
-using System;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -56,7 +53,7 @@ namespace DataBaseTools.ViewModels
         {
             _viewService = viewService;
             _context = context;
-            
+
         }
 
 
