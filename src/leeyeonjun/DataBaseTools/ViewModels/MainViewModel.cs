@@ -98,6 +98,12 @@ namespace DataBaseTools.ViewModels
             _viewService.ShowSQLiteView();
         }
 
+        [RelayCommand]
+        private void Sftp(object? obj)
+        {
+            _viewService.ShowSftpView();
+        }
+
         public void Receive(ValueChangedMessage<ToMainData> message)
         {
             TbMessage = message.Value.Message;

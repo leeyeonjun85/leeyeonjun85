@@ -49,6 +49,7 @@ namespace DataBaseTools
             builder.Services.AddTransient<FireBaseView>();
             builder.Services.AddTransient<SeojungriOracleView>();
             builder.Services.AddTransient<SQLiteView>();
+            builder.Services.AddTransient<SftpView>();
 
 
             // ViewModels
@@ -58,6 +59,7 @@ namespace DataBaseTools
             builder.Services.AddTransient<FireBaseViewModel>();
             builder.Services.AddTransient<SeojungriOracleViewModel>();
             builder.Services.AddTransient<SQLiteViewModel>();
+            builder.Services.AddTransient<SftpViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>

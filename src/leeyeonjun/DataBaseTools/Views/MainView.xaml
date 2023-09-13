@@ -104,7 +104,12 @@
             Content="SQLite" 
             Margin="5 3"
             Command="{Binding SQLiteCommand}"/>
-
+        <Button 
+            Grid.Row="3" Grid.Column="1"
+            Grid.ColumnSpan="1"
+            Content="Sftp" 
+            Margin="5 3"
+            Command="{Binding SftpCommand}"/>
 
 
 

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
+using static System.Net.WebRequestMethods;
 
 namespace Utiles
 {
@@ -37,6 +38,8 @@ namespace Utiles
     {
         [JsonInclude]
         public required Solace Solace { get; set; }
+        [JsonInclude]
+        public required SFTP SFTP { get; set; }
     }
 
     public class Solace
@@ -49,5 +52,16 @@ namespace Utiles
         public required string UserName { get; set; }
         [JsonInclude]
         public required string Password { get; set; }
+    }
+    public class SFTP
+    {
+        [JsonInclude]
+        public required string host { get; set; }
+        [JsonInclude]
+        public required string port { get; set; }
+        [JsonInclude]
+        public required string username { get; set; }
+        [JsonInclude]
+        public required string password { get; set; }
     }
 }

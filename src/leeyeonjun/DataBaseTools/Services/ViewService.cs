@@ -71,5 +71,10 @@ namespace DataBaseTools.Services
         {
             ShowView<SQLiteView, SQLiteViewModel>();
         }
+
+        public void ShowSftpView()
+        {
+            ShowView<SftpView, SftpViewModel>();
+        }
     }
 }

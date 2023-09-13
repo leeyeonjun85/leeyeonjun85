@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utiles", "Utiles\Utiles.csproj", "{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{7448F614-A594-4A9C-815D-C65F3E85B7FB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7448F614-A594-4A9C-815D-C65F3E85B7FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7448F614-A594-4A9C-815D-C65F3E85B7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7448F614-A594-4A9C-815D-C65F3E85B7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7448F614-A594-4A9C-815D-C65F3E85B7FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

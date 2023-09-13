@@ -11,6 +11,7 @@ namespace DataBaseTools.Services
         void ShowMongoDbView();
         void ShowSeojungriOracleView();
         void ShowSQLiteView();
+        void ShowSftpView();
         void ShowSubView(SubData subData);
         void ShowView<TView, TViewModel>(object? parameter = null)
             where TView : Window
