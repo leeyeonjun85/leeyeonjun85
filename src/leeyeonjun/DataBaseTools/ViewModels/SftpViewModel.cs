@@ -7,17 +7,20 @@ using DataBaseTools.Services;
 using Edcore.Models;
 using Microsoft.Extensions.Logging;
 using Renci.SshNet;
+using Renci.SshNet.Sftp;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using Utiles;
+using static System.Net.WebRequestMethods;
 
 namespace DataBaseTools.ViewModels
 {
     public partial class SftpViewModel : ViewModelBase, IParameterReceiver
     {
         private readonly IViewService _viewService;
+        private SftpClient? client;
 
         [ObservableProperty]
         private string _statusBar1 = "Status : Ready";
@@ -25,6 +28,8 @@ namespace DataBaseTools.ViewModels
         private string _statusBar2 = "Hellow world!";
         [ObservableProperty]
         private int _statusBarProgressBar = 0;
+        [ObservableProperty]
+        private bool _isConnected;
 
         [ObservableProperty]
         private SubData _subData = new();
@@ -36,7 +41,7 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private int _addYearsText = 0;
         [ObservableProperty]
-        private ObservableCollection<TestSQLiteModel> _yeonjunTestItemsSource = new();
+        private ObservableCollection<SftpModel> _yeonjunTestItemsSource = new();
         [ObservableProperty]
         private TestSQLiteModel _selectedData = new();
         [ObservableProperty]
@@ -47,22 +52,6 @@ namespace DataBaseTools.ViewModels
             )
         {
             _viewService = viewService;
-
-            JsonModel jsonModel = MyUtiles.GetJsonModel();
-            var connectInfo = new ConnectionInfo(jsonModel.Edcore.SFTP.host,
-                                        Convert.ToInt32(jsonModel.Edcore.SFTP.port),
-                                        jsonModel.Edcore.SFTP.username,
-                                        new PasswordAuthenticationMethod(jsonModel.Edcore.SFTP.username, jsonModel.Edcore.SFTP.password));
-            var client = new SftpClient(connectInfo);
-
-            client.KeepAliveInterval = TimeSpan.FromSeconds(60);
-            client.ConnectionInfo.Timeout = TimeSpan.FromMinutes(180);
-            client.OperationTimeout = TimeSpan.FromMinutes(180);
-
-            // SFTP 서버 연결
-            client.Connect();
-
-            bool IsConnected = client.IsConnected;
         }
 
 
@@ -93,26 +82,53 @@ namespace DataBaseTools.ViewModels
         //    SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Years}";
         //}
 
-        //[RelayCommand]
-        //private void BtnConnect(object? obj)
-        //{
-        //    //_context.Database.EnsureCreated();
+        [RelayCommand]
+        private void BtnConnect(object? obj)
+        {
+            try
+            {
+                JsonModel jsonModel = MyUtiles.GetJsonModel();
+                var connectInfo = new ConnectionInfo(jsonModel.Edcore.SFTP.host,
+                    Convert.ToInt32(jsonModel.Edcore.SFTP.port),
+                    jsonModel.Edcore.SFTP.username,
+                    new PasswordAuthenticationMethod(jsonModel.Edcore.SFTP.username, jsonModel.Edcore.SFTP.password));
+                client = new SftpClient(connectInfo);
 
-        //    if (!_context.Database.GetService<IRelationalDatabaseCreator>().Exists())
-        //    {
-        //        RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)_context.Database.GetService<IDatabaseCreator>();
-        //        databaseCreator.CreateTables();
-        //        StatusBar1 = "Status : Connected";
-        //        StatusBar2 = "SQLite 데이터베이스를 생성하였습니다.";
-        //    }
+                client.KeepAliveInterval = TimeSpan.FromSeconds(60);
+                client.ConnectionInfo.Timeout = TimeSpan.FromMinutes(180);
+                client.OperationTimeout = TimeSpan.FromMinutes(180);
 
-        //    StatusBar1 = "Status : Connected"; ;
-        //    StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
+                client.Connect();
 
-        //    _context.yeonjunTest.Load();
-        //    YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
+                IsConnected = client.IsConnected;
+                if (IsConnected)
+                {
+                    GetListDirectory();
+                    StatusBar1 = "Status : Connected"; ;
+                    StatusBar2 = "SFTP 서버에 연결되었습니다.";
+                }
+                else { MessageBox.Show($"연결에 문제가 있습니다. {client.IsConnected}"); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+                throw;
+            }
+        }
 
-        //}
+        private void GetListDirectory()
+        {
+            if ( client is not null)
+            {
+                client.ChangeDirectory("/D:/SFTP");
+                foreach (SftpFile f in client.ListDirectory("."))
+                {
+
+                    YeonjunTestItemsSource.Add(new SftpModel() { Name = f.Name, IsDirectory = f.IsDirectory });
+                }
+            }
+            
+        }
 
         //[RelayCommand]
         //private void AddData(object? obj)
@@ -151,6 +167,7 @@ namespace DataBaseTools.ViewModels
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
             App.LOGGER!.LogInformation("SQLite가 종료되었습니다.");
+            client.Disconnect();
         }
 
         public void ReceiveParameter(object parameter)
