@@ -5,7 +5,7 @@
 
 ## DataBaseTools
 ### NuGet
-```bash
+```PM
 Install-Package CommunityToolkit.Mvvm
 Install-Package Microsoft.Extensions.Hosting
 Install-Package Serilog.Extensions.Logging.File
@@ -16,4 +16,4 @@ Install-Package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
 
-
+PM> Install-Package SSH.NET
