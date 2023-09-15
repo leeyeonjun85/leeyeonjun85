@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,6 +75,21 @@ namespace DataBaseTools.ViewModels
             {
                 string[] files = Directory.GetFiles(folderBrowserDialog.SelectedPath, "*", SearchOption.AllDirectories);
                 string[] dirs = Directory.GetDirectories(folderBrowserDialog.SelectedPath, "*", SearchOption.AllDirectories);
+                string selectedDir = folderBrowserDialog.SelectedPath.Split(Path.DirectorySeparatorChar)[^1];
+                client?.CreateDirectory(selectedDir);
+                client?.ChangeDirectory(selectedDir);
+                foreach (string dir in dirs) 
+                {
+                    List<string> makeDirList = dir.Split(Path.DirectorySeparatorChar).ToList<string>();
+                    string[] makeDirList1 = dir.Split(Path.DirectorySeparatorChar);
+                    int idx = makeDirList.IndexOf(selectedDir);
+                    var makeDirList2 = makeDirList1[idx..];
+
+
+
+                    //client?.CreateDirectory(dir[4..]);
+                    //client?.CreateDirectory(makeDir);
+                }
 
                 IEnumerable<FileSystemInfo> fileSystemInfos = new DirectoryInfo(folderBrowserDialog.SelectedPath).EnumerateFileSystemInfos();
                 foreach (FileSystemInfo info in fileSystemInfos)
