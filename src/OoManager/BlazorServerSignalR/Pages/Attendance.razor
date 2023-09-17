@@ -1,8 +1,9 @@
 ﻿@page "/attendance"
 @using BlazorServerSignalR.Data;
 @using Microsoft.AspNetCore.SignalR.Client
+@using OoManager.Common;
 @inject NavigationManager Navigation
-@inject ApplicationDbContext _dbContext
+@inject BlazorServerSignalRDbContext _dbContext
 @implements IAsyncDisposable
 
 

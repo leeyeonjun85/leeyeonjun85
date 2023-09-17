@@ -51,7 +51,6 @@ namespace DataBaseTools
             builder.Services.AddTransient<SQLiteView>();
             builder.Services.AddTransient<SftpView>();
 
-
             // ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddTransient<SubViewModel>();

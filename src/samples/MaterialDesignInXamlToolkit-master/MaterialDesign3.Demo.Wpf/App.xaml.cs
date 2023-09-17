@@ -1,4 +1,6 @@
-﻿using ShowMeTheXAML;
+﻿using System.Globalization;
+using System.Threading;
+using ShowMeTheXAML;
 
 namespace MaterialDesign3Demo;
 
@@ -24,12 +26,19 @@ public partial class App : Application
 
 
         //Illustration of setting culture info fully in WPF:
-        /*             
-        Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
-        Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+
+        //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("ko-KR");
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("ko-KR");
+
+        //Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
                     XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-        */
+
 
         XamlDisplay.Init();
 

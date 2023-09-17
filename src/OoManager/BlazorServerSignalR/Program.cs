@@ -2,10 +2,10 @@ using BlazorServerSignalR.Areas.Identity;
 using BlazorServerSignalR.Data;
 using BlazorServerSignalR.Hubs;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using OoManager.Common;
 
 namespace BlazorServerSignalR
 {
@@ -15,17 +15,27 @@ namespace BlazorServerSignalR
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configuration Directory
+            IConfigurationSection cofigDir = builder.Configuration.GetSection("Directory");
+            string dirRoot = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, cofigDir["Root"] ?? "OoManager");
+            string dirDataBase = Path.Combine(dirRoot, cofigDir["DataBase"] ?? "DataBase");
+
+            // Validate Directory
+            if (!Directory.Exists(dirRoot))
+                Directory.CreateDirectory(dirRoot);
+            if (!Directory.Exists(dirDataBase))
+                Directory.CreateDirectory(dirDataBase);
+
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<BlazorServerSignalRDbContext>(options =>
                 //options.UseSqlServer(connectionString));
-                options.UseSqlite($"Data Source=BlazorServerSignalR.db"));
+                options.UseSqlite($"Data Source={dirDataBase}{Path.DirectorySeparatorChar}BlazorServerSignalR.db"));
             builder.Services.AddDbContext<OoDbContext>(options =>
-                options.UseSqlite($"Data Source=OoDb.db"));
+                options.UseSqlite($"Data Source={dirDataBase}{Path.DirectorySeparatorChar}OoDb.db"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                .AddEntityFrameworkStores<BlazorServerSignalRDbContext>();
 
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
@@ -83,7 +93,7 @@ namespace BlazorServerSignalR
 
             //허브를 Blazor로 매핑하기 위하여 엔드포인트를 추가
             app.MapHub<ChatHub>("/chathub");
-            app.MapHub<AttendanceCheck>("/attendanceCheck");
+            app.MapHub<OoHub>("/ooHub");
 
             app.MapFallbackToPage("/_Host");
 

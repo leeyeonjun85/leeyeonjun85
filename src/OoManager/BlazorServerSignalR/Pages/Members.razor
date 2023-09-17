@@ -1,7 +1,8 @@
 ﻿@page "/members"
 @using BlazorServerSignalR.Data;
-@using BlazorServerSignalR.Models;
 @using Microsoft.AspNetCore.SignalR.Client
+@using Microsoft.EntityFrameworkCore;
+@using OoManager.Common;
 @inject OoDbContext _ooDbContext
 @* @implements IAsyncDisposable *@
 
@@ -13,17 +14,12 @@
 <hr>
 
 <div>
-    <button @onclick="ConnectDataBase">Connect DataBase</button>
-</div>
-
-<div>
     <input @bind="userInput" />
     <button @onclick="AddMember">Add Member</button>
 </div>
 <div>
     <button @onclick="ShowMembers">Show Members</button>
 </div>
-
 
 <hr>
 
@@ -38,29 +34,29 @@
 @code {
     private List<ModelMembers> members = new();
     private string userInput = string.Empty;
+    bool _ooDbContextIsConnected;
 
-    // protected override async Task OnInitializedAsync()
-    // {
-
-    //     members = _ooDbContext.members.Local.ToList();
-    //     // cmbSchool.DataSource = _context?.schools.Select(p => p.name).ToList();
-
-    // }
-
-    protected void ConnectDataBase()
+    protected override async Task OnInitializedAsync()
     {
-        _ooDbContext
-        members = _ooDbContext.members.Local.ToList();
-        // cmbSchool.DataSource = _context?.schools.Select(p => p.name).ToList();
+        await Task.Run(async () =>
+        {
+            Task<bool> ooDbContextIsConnected = _ooDbContext.Database.CanConnectAsync();
+            _ooDbContextIsConnected = ooDbContextIsConnected.Result;
 
+            if (_ooDbContextIsConnected)
+            {
+                await _ooDbContext.members.LoadAsync();
+                members = _ooDbContext.members.Local.ToList();
+            }
+        });
     }
 
     private void AddMember()
     {
         var addData = new ModelMembers { name = userInput };
 
-        _ooDbContext!.members.Add(addData);
-        _ooDbContext!.SaveChanges();
+        _ooDbContext.members.Add(addData);
+        _ooDbContext.SaveChanges();
         ShowMembers();
     }
 
@@ -68,9 +64,4 @@
     {
         members = _ooDbContext!.members.Local.ToList();
     }
-
-    // public async ValueTask DisposeAsync()
-    // {
-
-    // }
 }

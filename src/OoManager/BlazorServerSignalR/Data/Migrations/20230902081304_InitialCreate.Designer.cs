@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using OoManager.Common;
 
 #nullable disable
 
 namespace BlazorServerSignalR.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(BlazorServerSignalRDbContext))]
     [Migration("20230902081304_InitialCreate")]
     partial class InitialCreate
     {

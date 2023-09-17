@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using BlazorServerSignalR.Data;
-@inject ApplicationDbContext _applicationDbContext
+@using OoManager.Common;
+@inject BlazorServerSignalRDbContext _applicationDbContext
 @inject OoDbContext _ooDbContext
 @implements IAsyncDisposable
 
