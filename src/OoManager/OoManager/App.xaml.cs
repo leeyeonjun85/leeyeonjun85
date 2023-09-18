@@ -92,5 +92,8 @@ namespace OoManager
             var viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
             viewService.ShowMainView();
         }
+
+
+
     }
 }
