@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Firebase.Database;
 using Microsoft.AspNetCore.SignalR.Client;
 using OoManager.Common;
 using OoManager.Services;
@@ -50,7 +51,7 @@ namespace OoManager.Models
 
         
         [ObservableProperty]
-        private ObservableCollection<ModelMembers> _members = new();
+        private ObservableCollection<OoMembers> _members = new();
         [ObservableProperty]
         private bool _canConnectDb;
         [ObservableProperty]
@@ -59,5 +60,8 @@ namespace OoManager.Models
         private string _chatSendText = "";
         [ObservableProperty]
         private string _chatText = "=== 채팅을 시작합니다 ===";
+
+        [ObservableProperty]
+        private FirebaseClient? _firebaseClient;
     }
 }

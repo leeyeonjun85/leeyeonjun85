@@ -25,15 +25,15 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private void AddMember(object obj)
         {
-            var addData = new ModelMembers { name = AppModel.AddMemeberName };
+            //var addData = new ModelMembers { name = AppModel.AddMemeberName };
 
-            AppModel.OoDbContext.members.Add(addData);
-            AppModel.OoDbContext.SaveChanges();
+            //AppModel.OoDbContext.members.Add(addData);
+            //AppModel.OoDbContext.SaveChanges();
 
-            AppModel.OoDbContext.members.Load();
-            AppModel.Members = AppModel.OoDbContext.members.Local.ToObservableCollection();
+            //AppModel.OoDbContext.members.Load();
+            //AppModel.Members = AppModel.OoDbContext.members.Local.ToObservableCollection();
 
-            AppModel.OoHubConnection.SendAsync("OoMessage", OoMessageType.MemberAdd);
+            //AppModel.OoHubConnection.SendAsync("OoMessage", OoMessageType.MemberAdd);
         }
 
 

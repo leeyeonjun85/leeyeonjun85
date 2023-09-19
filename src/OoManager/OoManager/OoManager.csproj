@@ -25,6 +25,7 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+        <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
         <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
@@ -34,6 +35,7 @@
 
 
     <ItemGroup>
+      <ProjectReference Include="..\..\leeyeonjun\Utiles\Utiles.csproj" />
       <ProjectReference Include="..\Common\Common.csproj" />
     </ItemGroup>
 

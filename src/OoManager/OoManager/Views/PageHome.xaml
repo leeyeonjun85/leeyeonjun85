@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:OoManager"
       xmlns:ViewModels="clr-namespace:OoManager.ViewModels"
       mc:Ignorable="d" 
+      Background="White"
       d:DesignHeight="450" d:DesignWidth="800">
     <Page.DataContext>
         <ViewModels:PageHomeViewModel />
@@ -49,9 +50,13 @@
             Grid.Row="2" Grid.Column="4"
             Content="Chat"
             Command="{Binding ChatSendCommand}"/>
+        <Button 
+            Grid.Row="3" Grid.Column="4"
+            Content="Get Fire Base"
+            Command="{Binding GetFireBaseCommand}"/>
         <TextBlock
             Grid.Row="3" Grid.Column="1"
-            Grid.ColumnSpan="4"
+            Grid.ColumnSpan="3"
             Grid.RowSpan="3"
             FontSize="16"
             Text="{Binding AppModel.ChatText}"/>

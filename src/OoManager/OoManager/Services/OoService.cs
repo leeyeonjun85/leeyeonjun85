@@ -32,13 +32,15 @@ namespace OoManager.Services
                 },
             };
 
+
+            
+
             AppModel.SelectedIndex = 0;
 
-            AppModel.OoDbContext.Database.EnsureCreated();
-            AppModel.CanConnectDb = AppModel.OoDbContext.Database.CanConnect();
-
-            AppModel.OoDbContext.members.Load();
-            AppModel.Members = AppModel.OoDbContext.members.Local.ToObservableCollection();
+            //AppModel.OoDbContext.Database.EnsureCreated();
+            //AppModel.CanConnectDb = AppModel.OoDbContext.Database.CanConnect();
+            //AppModel.OoDbContext.members.Load();
+            //AppModel.Members = AppModel.OoDbContext.members.Local.ToObservableCollection();
 
             return AppModel;
         }

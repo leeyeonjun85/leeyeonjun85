@@ -1,15 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using Firebase.Database;
+using Firebase.Database.Query;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
 using OoManager.Common;
 using OoManager.Models;
 using OoManager.Services;
+using Utiles;
 
 namespace OoManager.ViewModels
 {
@@ -30,6 +36,7 @@ namespace OoManager.ViewModels
             AppModel.OoService = ooService;
             AppModel.ViewService = viewService;
         }
+
 
         [RelayCommand]
         private void SelectionChanged(object obj)

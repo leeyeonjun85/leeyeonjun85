@@ -12,6 +12,8 @@ namespace Utiles
         public required ConnectionStrings ConnectionStrings { get; set; }
         [JsonInclude]
         public required Edcore Edcore { get; set; }
+        [JsonInclude]
+        public required OoManager OoManager { get; set; }
     }
 
     public class MyProfile
@@ -63,5 +65,11 @@ namespace Utiles
         public required string username { get; set; }
         [JsonInclude]
         public required string password { get; set; }
+    }
+
+    public class OoManager
+    {
+        [JsonInclude]
+        public required string FireBaseAuth { get; set; }
     }
 }
