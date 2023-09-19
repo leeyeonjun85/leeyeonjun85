@@ -85,8 +85,6 @@ namespace DataBaseTools.ViewModels
                     int idx = makeDirList.IndexOf(selectedDir);
                     var makeDirList2 = makeDirList1[idx..];
 
-
-
                     //client?.CreateDirectory(dir[4..]);
                     //client?.CreateDirectory(makeDir);
                 }
