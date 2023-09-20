@@ -45,20 +45,20 @@
 
 
             <Button
-                Grid.Column="0"
+                Grid.Column="1"
                 Content="초기화"
                 Margin="5"
                 Command="{Binding InitFireBaseCommand}"/>
-            <!--<Button
+            <Button
                 Grid.Column="0"
                 Content="새로고침"
                 Margin="5"
-                Command="{Binding RefreshCommand}"/>-->
-            <Button
+                Command="{Binding RefreshCommand}"/>
+            <!--<Button
                 Grid.Column="1"
                 Content="회원 추가"
                 Margin="5"
-                Command="{Binding AddMemberCommand}"/>
+                Command="{Binding AddMemberCommand}"/>-->
             <Button
                 Grid.Column="2"
                 Content="회원 수정"
