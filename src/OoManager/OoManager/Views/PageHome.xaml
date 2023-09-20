@@ -50,10 +50,6 @@
             Grid.Row="2" Grid.Column="4"
             Content="Chat"
             Command="{Binding ChatSendCommand}"/>
-        <Button 
-            Grid.Row="3" Grid.Column="4"
-            Content="Get Fire Base"
-            Command="{Binding GetFireBaseCommand}"/>
         <TextBlock
             Grid.Row="3" Grid.Column="1"
             Grid.ColumnSpan="3"

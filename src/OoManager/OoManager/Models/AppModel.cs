@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -54,8 +55,39 @@ namespace OoManager.Models
         private ObservableCollection<OoMembers> _members = new();
         [ObservableProperty]
         private bool _canConnectDb;
+
         [ObservableProperty]
-        private string _addMemeberName = "";
+        private OoMembers _selectedMember;
+
+        [ObservableProperty]
+        private string? _key;
+        [ObservableProperty]
+        private string? _member_class;
+        [ObservableProperty]
+        private int _member_grade;
+        [ObservableProperty]
+        private string? _member_grade_str;
+        [ObservableProperty]
+        private string? _member_money;
+        [ObservableProperty]
+        private string? _member_motherphone;
+        [ObservableProperty]
+        private string? _member_name;
+        [ObservableProperty]
+        private string? _member_status;
+        [ObservableProperty]
+        private string? _member_text;
+        [ObservableProperty]
+        private int _member_xp;
+        [ObservableProperty]
+        private string? _member_xp_log;
+        [ObservableProperty]
+        private int _mid;
+        [ObservableProperty]
+        private string? _wid;
+
+
+
         [ObservableProperty]
         private string _chatSendText = "";
         [ObservableProperty]

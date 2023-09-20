@@ -34,45 +34,8 @@ namespace OoManager.ViewModels
             IsActive = true;
         }
 
-        [RelayCommand]
-        private void ChatSend(object obj)
-        {
-            AppModel.ChatHubConnection.SendAsync("SendMessage", "WPF유저", AppModel.ChatSendText);
-        }
 
-        [RelayCommand]
-        private async void GetFireBase(object obj)
-        {
-            Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> members1 =  GetMembersAsync(obj);
-            await members1;
-            IReadOnlyCollection<FirebaseObject<OoMembers>> members = members1.Result;
-            
-            foreach (var member in members)
-            {
-                AppModel.Members.Add(member.Object);
-            }
-
-
-            //var members3 = members2.ToObservable();
-            //AppModel.Members = (ObservableCollection<OoMembers>)members3.ToList();
-
-
-            //MessageBox.Show(members2.ToString());
-        }
-
-        public async Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> GetMembersAsync(object obj)
-        {
-            string FirebaseDatabaseUrl = "https://leeyeonjundb-default-rtdb.asia-southeast1.firebasedatabase.app";
-            JsonModel jsonModel = MyUtiles.GetJsonModel();
-            AppModel.FirebaseClient = new FirebaseClient(FirebaseDatabaseUrl, new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
-
-            IReadOnlyCollection<FirebaseObject<OoMembers>> Members = await AppModel.FirebaseClient
-                    .Child("o2study")
-                    .Child("member")
-                    .OnceAsync<OoMembers>();
-
-            return Members;
-        }
+        
 
 
         public void Receive(ValueChangedMessage<AppModel> message)
