@@ -36,15 +36,21 @@ namespace OoManager.ViewModels
         {
             var aaa = AppModel.SelectedMember;
 
-            await AppModel.FirebaseClient
-                        .Child("o2study")
+            await AppModel.FirebaseDB
                         .Child("member")
                         .Child(AppModel.SelectedMember.Key)
                         .PutAsync(AppModel.SelectedMember);
         }
-
         [RelayCommand]
         private async void Test11(object obj)
+        { 
+            
+        
+        }
+
+
+            [RelayCommand]
+        private async void Test22(object obj)
         {
             List<Tuple<string, string, int>> memeberList = new();
 
@@ -118,8 +124,7 @@ namespace OoManager.ViewModels
                     mid = mid,
                 };
 
-                await AppModel.FirebaseClient
-                        .Child("o2study")
+                await AppModel.FirebaseDB
                         .Child("member")
                         .PostAsync(newMember);
 
@@ -134,8 +139,7 @@ namespace OoManager.ViewModels
         {
             var aaa = AppModel.SelectedMember;
 
-            await AppModel.FirebaseClient
-                    .Child("o2study")
+            await AppModel.FirebaseDB
                     .Child("member")
                     .Child(AppModel.SelectedMember.Key)
                     .DeleteAsync();
@@ -184,8 +188,7 @@ namespace OoManager.ViewModels
                     mid = mid,
                 };
 
-                await AppModel.FirebaseClient
-                        .Child("o2study")
+                await AppModel.FirebaseDB
                         .Child("member")
                         .PostAsync(newMember);
 
@@ -223,10 +226,10 @@ namespace OoManager.ViewModels
         {
             string FirebaseDatabaseUrl = "https://leeyeonjundb-default-rtdb.asia-southeast1.firebasedatabase.app";
             JsonModel jsonModel = MyUtiles.GetJsonModel();
-            AppModel.FirebaseClient = new FirebaseClient(FirebaseDatabaseUrl, new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
+            FirebaseClient client = new FirebaseClient(FirebaseDatabaseUrl, new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
+            AppModel.FirebaseDB = client.Child("o2study");
 
-            IReadOnlyCollection<FirebaseObject<OoMembers>> Members = await AppModel.FirebaseClient
-                    .Child("o2study")
+            IReadOnlyCollection<FirebaseObject<OoMembers>> Members = await AppModel.FirebaseDB
                     .Child("member")
                     .OnceAsync<OoMembers>();
 

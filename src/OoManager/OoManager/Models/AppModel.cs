@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Database;
+using Firebase.Database.Query;
 using Microsoft.AspNetCore.SignalR.Client;
 using OoManager.Common;
 using OoManager.Services;
@@ -94,6 +95,6 @@ namespace OoManager.Models
         private string _chatText = "=== 채팅을 시작합니다 ===";
 
         [ObservableProperty]
-        private FirebaseClient? _firebaseClient;
+        private ChildQuery? _firebaseDB;
     }
 }
