@@ -48,7 +48,12 @@
                 Grid.Column="0"
                 Content="초기화"
                 Margin="5"
-                Command="{Binding Test11Command}"/>
+                Command="{Binding InitFireBaseCommand}"/>
+            <!--<Button
+                Grid.Column="0"
+                Content="새로고침"
+                Margin="5"
+                Command="{Binding RefreshCommand}"/>-->
             <Button
                 Grid.Column="1"
                 Content="회원 추가"
@@ -163,11 +168,6 @@
                 <DataGridTextColumn 
                     Binding="{Binding mid}" 
                     Header="Mid" 
-                    Width="5*"
-                    IsReadOnly="True"/>
-                <DataGridTextColumn 
-                    Binding="{Binding wid}" 
-                    Header="Wid" 
                     Width="5*"
                     IsReadOnly="True"/>
             </DataGrid.Columns>

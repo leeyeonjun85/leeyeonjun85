@@ -21,7 +21,6 @@ namespace OoManager.Models
         [ObservableProperty]
         private int _testInt = 0;
 
-
         [ObservableProperty]
         private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
 

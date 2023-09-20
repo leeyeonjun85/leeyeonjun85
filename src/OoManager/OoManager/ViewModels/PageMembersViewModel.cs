@@ -23,13 +23,19 @@ namespace OoManager.ViewModels
         private AppModel _appModel = new();
         #endregion
 
-        int mid = 10;
-
 
         public PageMembersViewModel()
         {
             IsActive = true;
         }
+
+        [RelayCommand]
+        private async void Refresh(object obj)
+        {
+            AppModel.Members = new();
+            GetFireBase(AppModel);
+        }
+
 
         [RelayCommand]
         private async void UpdateMember(object obj)
@@ -42,15 +48,7 @@ namespace OoManager.ViewModels
                         .PutAsync(AppModel.SelectedMember);
         }
         [RelayCommand]
-        private async void Test11(object obj)
-        { 
-            
-        
-        }
-
-
-            [RelayCommand]
-        private async void Test22(object obj)
+        private async void InitFireBase(object obj)
         {
             List<Tuple<string, string, int>> memeberList = new();
 
@@ -88,7 +86,7 @@ namespace OoManager.ViewModels
                 AppModel.Member_grade_str = item.Item1;
                 AppModel.Member_name = item.Item2;
                 AppModel.Member_xp = item.Item3;
-                mid += 1;
+
 
                 if (AppModel.Member_grade_str == "초1")
                     AppModel.Member_grade = 8;
@@ -121,7 +119,6 @@ namespace OoManager.ViewModels
                     member_grade_str = AppModel.Member_grade_str,
                     member_name = AppModel.Member_name,
                     member_xp = AppModel.Member_xp,
-                    mid = mid,
                 };
 
                 await AppModel.FirebaseDB
@@ -152,8 +149,6 @@ namespace OoManager.ViewModels
                 return;
             else
             {
-                mid += 1;
-
                 if (AppModel.Member_grade_str == "초1")
                     AppModel.Member_grade = 8;
                 else if (AppModel.Member_grade_str == "초2")
@@ -185,7 +180,6 @@ namespace OoManager.ViewModels
                     member_grade_str = AppModel.Member_grade_str,
                     member_name = AppModel.Member_name,
                     member_xp = AppModel.Member_xp,
-                    mid = mid,
                 };
 
                 await AppModel.FirebaseDB
@@ -210,6 +204,15 @@ namespace OoManager.ViewModels
 
         private async void GetFireBase(AppModel AppModel)
         {
+            string FirebaseDatabaseUrl = "https://leeyeonjundb-default-rtdb.asia-southeast1.firebasedatabase.app";
+            JsonModel jsonModel = MyUtiles.GetJsonModel();
+
+            FirebaseClient client = new(FirebaseDatabaseUrl,
+                                        new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
+
+            AppModel.FirebaseDB = client.Child("o2study_test");
+
+            // Get members
             Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> members1 = GetMembersAsync(AppModel);
             await members1;
             IReadOnlyCollection<FirebaseObject<OoMembers>> members = members1.Result;
@@ -224,11 +227,6 @@ namespace OoManager.ViewModels
 
         public async Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> GetMembersAsync(AppModel AppModel)
         {
-            string FirebaseDatabaseUrl = "https://leeyeonjundb-default-rtdb.asia-southeast1.firebasedatabase.app";
-            JsonModel jsonModel = MyUtiles.GetJsonModel();
-            FirebaseClient client = new FirebaseClient(FirebaseDatabaseUrl, new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
-            AppModel.FirebaseDB = client.Child("o2study");
-
             IReadOnlyCollection<FirebaseObject<OoMembers>> Members = await AppModel.FirebaseDB
                     .Child("member")
                     .OnceAsync<OoMembers>();
