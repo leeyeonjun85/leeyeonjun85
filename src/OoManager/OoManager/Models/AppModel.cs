@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Database;
+using Firebase.Database.Query;
 using Microsoft.AspNetCore.SignalR.Client;
 using OoManager.Common;
 using OoManager.Services;
@@ -19,7 +20,6 @@ namespace OoManager.Models
         private string _testString = "test 스트링";
         [ObservableProperty]
         private int _testInt = 0;
-
 
         [ObservableProperty]
         private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
@@ -94,6 +94,6 @@ namespace OoManager.Models
         private string _chatText = "=== 채팅을 시작합니다 ===";
 
         [ObservableProperty]
-        private FirebaseClient? _firebaseClient;
+        private ChildQuery? _firebaseDB;
     }
 }
