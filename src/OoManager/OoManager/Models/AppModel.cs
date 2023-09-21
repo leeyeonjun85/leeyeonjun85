@@ -16,18 +16,19 @@ namespace OoManager.Models
 {
     public partial class AppModel : ViewModelBase
     {
-        [ObservableProperty]
-        private string _testString = "test 스트링";
-        [ObservableProperty]
-        private int _testInt = 0;
+        public string CurrentPage { get; set; } = "MainView";
+        public int TestInt { get; set; } = 0;
+        public string WindowTitle { get; set; } = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
 
-        [ObservableProperty]
-        private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
+
+        //public ObservableCollection<NavigationItem>? NavigationList { get; set; }
+        public int SelectedIndex { get; set; }
+        public NavigationItem? SelectedItem { get; set; } 
+
+
 
         [ObservableProperty]
         private OoDbContext? _ooDbContext;
-        [ObservableProperty]
-        private IViewService? _viewService;
         [ObservableProperty]
         private IOoService? _ooService;
         [ObservableProperty]
@@ -38,12 +39,7 @@ namespace OoManager.Models
         private Regex? _regexIsNumeric = new Regex("[0-9]+"); //regex that matches Numeric
 
 
-        [ObservableProperty]
-        private List<NavigationItem>? _navigationList;
-        [ObservableProperty]
-        private int _selectedIndex;
-        [ObservableProperty]
-        private NavigationItem? _selectedItem;
+        
 
         [ObservableProperty]
         private Visibility _pageHomeVisibility = Visibility.Visible;

@@ -1,31 +1,19 @@
-﻿using System.Text;
-using System;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic.ApplicationServices;
-using OoManager.Common;
 using OoManager.Models;
-using Firebase.Database;
-using Utiles;
-using Firebase.Database.Query;
-using System.Collections.Generic;
-using System.Windows;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 
 namespace OoManager.ViewModels
 {
-    public partial class PageHomeViewModel : ViewModelBase, IRecipient<ValueChangedMessage<AppModel>>
+    public partial class PageHomeViewModel : ViewModelBase, IRecipient<ValueChangedMessage<object[]>>
     {
         #region 바인딩 멤버
         [ObservableProperty]
         private AppModel _appModel = new();
+        [ObservableProperty]
+        private PageHomeModel _pageHome = new();
         #endregion
 
 
@@ -35,12 +23,18 @@ namespace OoManager.ViewModels
         }
 
 
-        
-
-
-        public void Receive(ValueChangedMessage<AppModel> message)
+        [RelayCommand]
+        private void Test1(object obj)
         {
-            AppModel = message.Value;
+            MessageBox.Show($"{PageHome.Text1}");
+        }
+
+
+        public void Receive(ValueChangedMessage<object[]> message)
+        {
+            AppModel = (AppModel)message.Value[0];
+
+            PageHome = (PageHomeModel)message.Value[1];
         }
     }
 }

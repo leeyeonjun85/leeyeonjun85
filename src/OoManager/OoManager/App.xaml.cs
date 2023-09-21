@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OoManager.Common;
+using OoManager.Models;
 using OoManager.Services;
 using OoManager.ViewModels;
 using OoManager.Views;
@@ -65,7 +66,6 @@ namespace OoManager
             });
 
             // Services
-            builder.Services.AddSingleton<IViewService, ViewService>();
             builder.Services.AddSingleton<IOoService, OoService>();
 
             IHost host = builder.Build();
@@ -84,13 +84,18 @@ namespace OoManager
 
             LOGGER = (ILogger<App>?)Ioc.Default.GetService(typeof(ILogger<App>));
 
+
             Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.DeepPurple];
             Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Lime];
             ITheme theme = Theme.Create(new MaterialDesignLightTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
 
-            var viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
-            viewService.ShowMainView();
+
+            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(MainViewModel))!;
+            Window view = (Window)Ioc.Default.GetService(typeof(MainView))!;
+            viewModel.SetWindow(view);
+            view.DataContext = viewModel;
+            view.Show();
         }
 
 

@@ -29,32 +29,32 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock
+        <TextBox
             Grid.Row="1" Grid.Column="2"
             Grid.ColumnSpan="3"
             FontSize="30"
-            Text="메인페이지입니다."/>
+            Text="{Binding AppModel.CurrentPage, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock
             Grid.Row="1" Grid.Column="1"
             Grid.ColumnSpan="1"
             FontSize="30"
-            Text="{Binding AppModel.TestInt}"/>
-        <TextBox 
-            Grid.Row="2" Grid.Column="1"
-            Grid.ColumnSpan="3"
-            FontSize="16"
-            VerticalAlignment="Center"
-            Text="{Binding AppModel.ChatSendText}"/>
+            Text="{Binding AppModel.TestInt, UpdateSourceTrigger=PropertyChanged}"/>
+        
+
         <Button 
-            Grid.Row="2" Grid.Column="4"
-            Content="Chat"
-            Command="{Binding ChatSendCommand}"/>
-        <TextBlock
-            Grid.Row="3" Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="3"
+            Grid.Row="0" Grid.Column="1"
+            Content="Test1"
+            Command="{Binding Test1Command}"/>
+        <TextBox
+            Grid.Row="0" Grid.Column="2"
+            Grid.RowSpan="1" Grid.ColumnSpan="1"
             FontSize="16"
-            Text="{Binding AppModel.ChatText}"/>
+            Text="{Binding PageHome.Text1, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox
+            Grid.Row="0" Grid.Column="3"
+            Grid.RowSpan="1" Grid.ColumnSpan="1"
+            FontSize="16"
+            Text="{Binding PageHome.Text1, UpdateSourceTrigger=PropertyChanged}" Cursor=""/>
     </Grid>
 </Page>

@@ -10,7 +10,8 @@ namespace OoManager.Services
     {
         HubConnection GetChatHubConnection(string ServerAddress, string MethodName, Action<string, string> ReceiveMessageHandler);
         HubConnection GetOoHubConnection(string ServerAddress, string MethodName, Action<OoMessageType, string[]?> ReceiveMessageHandler);
-        AppModel InitApp(AppModel AppModel);
+        (AppModel, PageHomeModel) InitApp(AppModel AppModel, PageHomeModel PageHome);
+        AppModel InitAppModel(AppModel appModel);
         Task SendAsync(HubConnection hubConnection, string userInput, string messageInput);
         Task StartAsync(HubConnection hubConnection);
     }

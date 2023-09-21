@@ -12,38 +12,50 @@ namespace OoManager.Services
 {
     public class OoService : IOoService
     {
-        public AppModel InitApp(AppModel AppModel)
+        public (AppModel, PageHomeModel) InitApp(AppModel AppModel, PageHomeModel PageHome)
         {
-            AppModel.NavigationList = new()
-            {
-                new NavigationItem
-                {
-                    Title = "Home",
-                    SelectedIcon = PackIconKind.Home,
-                    UnselectedIcon = PackIconKind.HomeOutline,
-                    Source = "/Views/PageHome.xaml",
-                },
-                new NavigationItem
-                {
-                    Title = "Members",
-                    SelectedIcon = PackIconKind.Users,
-                    UnselectedIcon = PackIconKind.UsersOutline,
-                    Source = "/Views/PageMembers.xaml",
-                },
-            };
+            //AppModel.NavigationList = new()
+            //{
+            //    new NavigationItem
+            //    {
+            //        Title = "Home",
+            //        SelectedIcon = PackIconKind.Home,
+            //        UnselectedIcon = PackIconKind.HomeOutline,
+            //        Source = "/Views/PageHome.xaml",
+            //    },
+            //    new NavigationItem
+            //    {
+            //        Title = "Members",
+            //        SelectedIcon = PackIconKind.Users,
+            //        UnselectedIcon = PackIconKind.UsersOutline,
+            //        Source = "/Views/PageMembers.xaml",
+            //    },
+            //};
 
 
-            
+
 
             AppModel.SelectedIndex = 0;
+
 
             //AppModel.OoDbContext.Database.EnsureCreated();
             //AppModel.CanConnectDb = AppModel.OoDbContext.Database.CanConnect();
             //AppModel.OoDbContext.members.Load();
             //AppModel.Members = AppModel.OoDbContext.members.Local.ToObservableCollection();
 
+            return (AppModel, PageHome);
+        }
+
+
+        public AppModel InitAppModel(AppModel AppModel)
+        {
+            AppModel.SelectedIndex = 0;
+
+
             return AppModel;
         }
+
+
         public HubConnection GetChatHubConnection(string ServerAddress, string MethodName, Action<string, string> ReceiveMessageHandler)
         {
             HubConnection hubConnection = new HubConnectionBuilder()
@@ -111,5 +123,7 @@ namespace OoManager.Services
 
             return hubConnection;
         }
+
+        
     }
 }

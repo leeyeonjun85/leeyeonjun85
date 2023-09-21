@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Firebase.Database;
 using Firebase.Database.Query;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
 using OoManager.Common;
 using OoManager.Models;
 using OoManager.Services;
+using OoManager.Views;
 using Utiles;
 
 namespace OoManager.ViewModels
@@ -24,17 +28,42 @@ namespace OoManager.ViewModels
         #region 바인딩 멤버
         [ObservableProperty]
         private AppModel _appModel = new();
+
+        [ObservableProperty]
+        private PageHomeModel _pageHome = new();
+
+        [ObservableProperty]
+        private ObservableCollection<NavigationItem> _navigationList = new();
         #endregion
 
 
         public MainViewModel(
             OoDbContext ooDbContext,
-            IOoService ooService,
-            IViewService viewService)
+            IOoService ooService)
         {
             AppModel.OoDbContext = ooDbContext;
             AppModel.OoService = ooService;
-            AppModel.ViewService = viewService;
+
+            NavigationList = new()
+            {
+                new NavigationItem
+                {
+                    Title = "Home",
+                    SelectedIcon = PackIconKind.Home,
+                    UnselectedIcon = PackIconKind.HomeOutline,
+                    Source = "/Views/PageHome.xaml",
+                },
+                new NavigationItem
+                {
+                    Title = "Members",
+                    SelectedIcon = PackIconKind.Users,
+                    UnselectedIcon = PackIconKind.UsersOutline,
+                    Source = "/Views/PageMembers.xaml",
+                },
+            };
+
+            AppModel.SelectedIndex = 1;
+            AppModel.SelectedItem = NavigationList[1];
         }
 
 
@@ -43,43 +72,41 @@ namespace OoManager.ViewModels
         {
             if (obj is NavigationItem navigationItem)
             {
-                if (AppModel.ChatHubConnection is not null)
-                    AppModel.ChatHubConnection.DisposeAsync();
-
-                if (AppModel.OoHubConnection is not null)
-                    AppModel.OoHubConnection.DisposeAsync();
-
                 switch (navigationItem.Title)
                 {
                     case "Home":
                         {
-                            AppModel.SelectedIndex = 0;
-                            AppModel.PageHomeVisibility = Visibility.Visible;
-                            AppModel.PageMembersVisibility = Visibility.Hidden;
+                            //AppModel.SelectedIndex = 0;
+                            //AppModel.PageHomeVisibility = Visibility.Visible;
+                            //AppModel.PageMembersVisibility = Visibility.Hidden;
 
-                            string chathubSeverAddress = "https://172.30.1.45:7076/chathub";
-                            AppModel.ChatHubConnection = AppModel.OoService.GetChatHubConnection(chathubSeverAddress, "ReceiveMessage", chathubReceiveMessageHandler);
-                            AppModel.OoService.StartAsync(AppModel.ChatHubConnection);
+                            AppModel.SelectedIndex = 1;
+                            AppModel.SelectedItem = NavigationList[1];
+                            AppModel.PageHomeVisibility = Visibility.Hidden;
+                            AppModel.PageMembersVisibility = Visibility.Visible;
 
                             break;
                         }
                     case "Members":
                         {
-                            AppModel.SelectedIndex = 1;
-                            AppModel.PageHomeVisibility = Visibility.Hidden;
-                            AppModel.PageMembersVisibility = Visibility.Visible;
+                            AppModel.SelectedIndex = 0;
+                            AppModel.SelectedItem = NavigationList[0];
+                            AppModel.PageHomeVisibility = Visibility.Visible;
+                            AppModel.PageMembersVisibility = Visibility.Hidden;
 
-                            string ooHubSeverAddress = "https://172.30.1.45:7076/ooHub";
-                            AppModel.OoHubConnection = AppModel.OoService.GetOoHubConnection(ooHubSeverAddress, "OoMessage", ooHubReceiveMessageHandler);
-                            AppModel.OoService.StartAsync(AppModel.OoHubConnection);
+                            //AppModel.SelectedIndex = 1;
+                            //AppModel.PageHomeVisibility = Visibility.Hidden;
+                            //AppModel.PageMembersVisibility = Visibility.Visible;
+
                             break;
                         }
                     default: throw new Exception();
                 }
 
                 AppModel.TestInt += 1;
-                ValueChangedMessage<AppModel> message = new(AppModel);
-                WeakReferenceMessenger.Default.Send(message);
+
+                object[] message = new object[] { AppModel, PageHome };
+                WeakReferenceMessenger.Default.Send(new ValueChangedMessage<object[]>(message));
             }
             else throw new Exception();
         }
@@ -98,7 +125,11 @@ namespace OoManager.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            AppModel.OoService?.InitApp(AppModel);
+            //AppModel = AppModel.OoService?.InitAppModel(AppModel);
+
+            //AppModel.SelectedIndex = 0;
+            //AppModel.SelectedItem = AppModel.NavigationList[0];
+
             App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 

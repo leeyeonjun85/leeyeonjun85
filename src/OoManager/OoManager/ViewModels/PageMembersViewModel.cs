@@ -1,26 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Firebase.Database.Query;
 using Firebase.Database;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.EntityFrameworkCore;
-using OoManager.Common;
+using Firebase.Database.Query;
 using OoManager.Models;
 using Utiles;
-using System.Net;
-using System;
 
 namespace OoManager.ViewModels
 {
-    public partial class PageMembersViewModel : ViewModelBase, IRecipient<ValueChangedMessage<AppModel>>
+    public partial class PageMembersViewModel : ViewModelBase, IRecipient<ValueChangedMessage<object[]>>
     {
         #region 바인딩 멤버
         [ObservableProperty]
         private AppModel _appModel = new();
+        [ObservableProperty]
+        private PageHomeModel _pageHome = new();
         #endregion
 
         int mid = 0;
@@ -75,8 +73,6 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async void UpdateMember(object obj)
         {
-            var aaa = AppModel.SelectedMember;
-
             await AppModel.FirebaseDB
                         .Child("member")
                         .Child(AppModel.SelectedMember.Key)
@@ -85,7 +81,7 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async void InitFireBase(object obj)
         {
-            
+
             List<Tuple<string, string, int>> memeberList = new();
 
             memeberList.Add(new Tuple<string, string, int>("고1", "이연준", 10));
@@ -119,8 +115,8 @@ namespace OoManager.ViewModels
             memeberList.Add(new Tuple<string, string, int>("중3", "이신아", 10));
             memeberList.Add(new Tuple<string, string, int>("중3", "이우주", 10));
             memeberList.Add(new Tuple<string, string, int>("고3", "오예은", 10));
-            
-            foreach(var item in memeberList)
+
+            foreach (var item in memeberList)
             {
                 mid += 1;
                 AppModel.Member_grade_str = item.Item1;
@@ -188,55 +184,12 @@ namespace OoManager.ViewModels
         {
             if (string.IsNullOrEmpty(AppModel.Member_name))
                 return;
-            else
-            {
-                if (AppModel.Member_grade_str == "초1")
-                    AppModel.Member_grade = 8;
-                else if (AppModel.Member_grade_str == "초2")
-                    AppModel.Member_grade = 9;
-                else if (AppModel.Member_grade_str == "초3")
-                    AppModel.Member_grade = 10;
-                else if (AppModel.Member_grade_str == "초4")
-                    AppModel.Member_grade = 11;
-                else if (AppModel.Member_grade_str == "초5")
-                    AppModel.Member_grade = 12;
-                else if (AppModel.Member_grade_str == "초6")
-                    AppModel.Member_grade = 13;
-                else if (AppModel.Member_grade_str == "중1")
-                    AppModel.Member_grade = 14;
-                else if (AppModel.Member_grade_str == "중2")
-                    AppModel.Member_grade = 15;
-                else if (AppModel.Member_grade_str == "중3")
-                    AppModel.Member_grade = 16;
-                else if (AppModel.Member_grade_str == "고1")
-                    AppModel.Member_grade = 17;
-                else if (AppModel.Member_grade_str == "고2")
-                    AppModel.Member_grade = 18;
-                else if (AppModel.Member_grade_str == "고3")
-                    AppModel.Member_grade = 19;
-
-                OoMembers newMember = new()
-                {
-                    member_grade = AppModel.Member_grade,
-                    member_grade_str = AppModel.Member_grade_str,
-                    member_name = AppModel.Member_name,
-                    member_xp = AppModel.Member_xp,
-                };
-
-                await AppModel.FirebaseDB
-                        .Child("member")
-                        .PostAsync(newMember);
-
-                AppModel.Member_grade_str = "";
-                AppModel.Member_name = "";
-                AppModel.Member_xp = 10;
-            }
         }
 
 
 
-        
-        
+
+
 
 
 
@@ -263,7 +216,7 @@ namespace OoManager.ViewModels
                 OoMembers addMemeber = member.Object;
                 addMemeber.Key = member.Key;
                 AppModel.Members.Add(addMemeber);
-            } 
+            }
         }
 
         public async Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> GetMembersAsync(AppModel AppModel)
@@ -276,11 +229,13 @@ namespace OoManager.ViewModels
         }
 
 
-        public void Receive(ValueChangedMessage<AppModel> message)
+        public void Receive(ValueChangedMessage<object[]> message)
         {
-            AppModel = message.Value;
+            AppModel = (AppModel)message.Value[0];
             AppModel.Members = new();
             GetFireBase(AppModel);
+
+            PageHome = (PageHomeModel)message.Value[1];
         }
     }
 }

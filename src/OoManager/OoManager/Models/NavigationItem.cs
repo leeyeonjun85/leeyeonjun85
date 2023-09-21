@@ -5,17 +5,13 @@ using OoManager.ViewModels;
 
 namespace OoManager.Models
 {
-    public partial class NavigationItem : ViewModelBase
+    public class NavigationItem
     {
         public string? Title { get; set; }
         public PackIconKind SelectedIcon { get; set; }
         public PackIconKind UnselectedIcon { get; set; }
         public string? Source { get; set; }
-
-        [ObservableProperty]
-        private object? _notification = null;
-
-        [ObservableProperty]
-        private bool _isAbled = true;
+        private object? Notification { get; set; } = null;
+        private bool IsAbled { get; set; } = true;
     }
 }

@@ -99,9 +99,9 @@
                 Grid.Row="2"
                 VerticalAlignment="Top"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
-                ItemsSource="{Binding AppModel.NavigationList}"
-                SelectedIndex="{Binding AppModel.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding AppModel.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                ItemsSource="{Binding NavigationList}"
+                SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
                     <Style 
                         TargetType="ListBoxItem" 
@@ -134,7 +134,7 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
                             Command="{Binding SelectionChangedCommand}"
-                            CommandParameter="{Binding AppModel.SelectedItem}"/>
+                            CommandParameter="{Binding SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
