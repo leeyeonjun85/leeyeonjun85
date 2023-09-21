@@ -51,13 +51,9 @@ namespace DataBaseTools.ViewModels
             //TbName = ConfigurationManager.AppSettings["MyName"]?.ToString() ?? "이름을 입력하세요";
             //TbOld = ConfigurationManager.AppSettings["MyOld"]?.ToString() ?? "0";
 
-
             JsonModel jsonModel = MyUtiles.GetJsonModel();
             TbName = jsonModel.MyProfile.Name;
             TbOld = (DateTime.Now.Year - Convert.ToDateTime(jsonModel.MyProfile.BirthDay).Year).ToString();
-
-
-
 
             // SubView에서 message받기
             //WeakReferenceMessenger.Default.RegisterAll(this); // ObservableObject 상속한 경우
