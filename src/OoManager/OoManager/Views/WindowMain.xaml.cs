@@ -3,11 +3,11 @@
 namespace OoManager.Views
 {
     /// <summary>
-    /// MainView.xaml에 대한 상호 작용 논리
+    /// WindowMain.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainView : Window
+    public partial class WindowMain : Window
     {
-        public MainView()
+        public WindowMain()
         {
             InitializeComponent();
         }

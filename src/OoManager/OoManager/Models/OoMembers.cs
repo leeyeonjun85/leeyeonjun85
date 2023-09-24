@@ -12,7 +12,7 @@ namespace OoManager.Models
         public string member_motherphone { get; set; } = "010-";
         public string member_name { get; set; } = string.Empty;
         public string member_status { get; set; } = "재원";
-        public string member_text { get; set; } = $"데이터 복구 {DateTime.Now:yyyy-MM-dd hh:mm:ss}";
+        public string member_text { get; set; } = string.Empty;
         public int member_xp { get; set; } = 10;
         public string member_xp_log { get; set; } = "회원등록 10xp";
         public int mid { get; set; } = 0;

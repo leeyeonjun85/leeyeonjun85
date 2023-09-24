@@ -7,13 +7,11 @@ using OoManager.Models;
 
 namespace OoManager.ViewModels
 {
-    public partial class PageHomeViewModel : ViewModelBase, IRecipient<ValueChangedMessage<object[]>>
+    public partial class PageHomeViewModel : ViewModelBase, IRecipient<ValueChangedMessage<AppData>>
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppModel _appModel = new();
-        [ObservableProperty]
-        private PageHomeModel _pageHome = new();
+        private AppData _appData = new();
         #endregion
 
 
@@ -23,18 +21,11 @@ namespace OoManager.ViewModels
         }
 
 
-        [RelayCommand]
-        private void Test1(object obj)
+
+
+        public void Receive(ValueChangedMessage<AppData> message)
         {
-            MessageBox.Show($"{PageHome.Text1}");
-        }
-
-
-        public void Receive(ValueChangedMessage<object[]> message)
-        {
-            AppModel = (AppModel)message.Value[0];
-
-            PageHome = (PageHomeModel)message.Value[1];
+            AppData = message.Value;
         }
     }
 }

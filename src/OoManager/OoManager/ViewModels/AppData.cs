@@ -14,16 +14,26 @@ using OoManager.ViewModels;
 
 namespace OoManager.Models
 {
-    public partial class AppModel : ViewModelBase
+    public partial class AppData : ViewModelBase
     {
-        public string CurrentPage { get; set; } = "MainView";
-        public int TestInt { get; set; } = 0;
-        public string WindowTitle { get; set; } = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
+        // WindowMain
+        [ObservableProperty]
+        private string _currentPage = "MainView";
+        [ObservableProperty]
+        private int _testInt = 0;
+        [ObservableProperty]
+        private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
 
-
-        //public ObservableCollection<NavigationItem>? NavigationList { get; set; }
-        public int SelectedIndex { get; set; }
-        public NavigationItem? SelectedItem { get; set; } 
+        [ObservableProperty]
+        private ObservableCollection<NavigationItem> _navigationList = new();
+        [ObservableProperty]
+        private int _selectedIndex;
+        [ObservableProperty]
+        private NavigationItem? _selectedItem;
+        [ObservableProperty]
+        private Visibility _pageHomeVisibility = Visibility.Visible;
+        [ObservableProperty]
+        private Visibility _pageMembersVisibility = Visibility.Hidden;
 
 
 
@@ -35,25 +45,23 @@ namespace OoManager.Models
         private HubConnection? _chatHubConnection;
         [ObservableProperty]
         private HubConnection? _ooHubConnection;
+        //[ObservableProperty]
+        //private Regex? _regexIsNumeric = new Regex("[0-9]+"); //regex that matches Numeric
+
+
+
+
         [ObservableProperty]
-        private Regex? _regexIsNumeric = new Regex("[0-9]+"); //regex that matches Numeric
+        private ChildQuery? _firebaseDB;
 
 
-        
-
-        [ObservableProperty]
-        private Visibility _pageHomeVisibility = Visibility.Visible;
-        [ObservableProperty]
-        private Visibility _pageMembersVisibility = Visibility.Hidden;
-
-        
         [ObservableProperty]
         private ObservableCollection<OoMembers> _members = new();
         [ObservableProperty]
         private bool _canConnectDb;
 
         [ObservableProperty]
-        private OoMembers _selectedMember;
+        private OoMembers? _selectedMember;
 
         [ObservableProperty]
         private string? _key;
@@ -89,7 +97,6 @@ namespace OoManager.Models
         [ObservableProperty]
         private string _chatText = "=== 채팅을 시작합니다 ===";
 
-        [ObservableProperty]
-        private ChildQuery? _firebaseDB;
+        
     }
 }

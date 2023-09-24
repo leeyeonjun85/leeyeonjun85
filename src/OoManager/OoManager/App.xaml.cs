@@ -51,12 +51,14 @@ namespace OoManager
                 options.UseSqlite($"Data Source={pathDataBase}{Path.DirectorySeparatorChar}OoDb.db"));
 
             // Views
-            builder.Services.AddSingleton<MainView>();
+            builder.Services.AddSingleton<WindowMain>();
             builder.Services.AddTransient<SubView>();
+            builder.Services.AddSingleton<WindowMemberAdd>();
 
             // ViewModels
-            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<WindowMainViewModel>();
             builder.Services.AddTransient<SubViewModel>();
+            builder.Services.AddTransient<WindowMemberAddViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>
@@ -67,6 +69,7 @@ namespace OoManager
 
             // Services
             builder.Services.AddSingleton<IOoService, OoService>();
+            builder.Services.AddSingleton<AppData>();
 
             IHost host = builder.Build();
             return host.Services;
@@ -91,8 +94,8 @@ namespace OoManager
             Resources.SetTheme(theme);
 
 
-            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(MainViewModel))!;
-            Window view = (Window)Ioc.Default.GetService(typeof(MainView))!;
+            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMainViewModel))!;
+            Window view = (Window)Ioc.Default.GetService(typeof(WindowMain))!;
             viewModel.SetWindow(view);
             view.DataContext = viewModel;
             view.Show();

@@ -1,4 +1,4 @@
-﻿<Window x:Class="OoManager.Views.MainView"
+﻿<Window x:Class="OoManager.Views.WindowMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -65,8 +65,10 @@
             <TextBlock
                 Grid.Row="0" Grid.Column="1"
                 Grid.ColumnSpan="2"
-                FontSize="30"
-                Text="{Binding AppModel.SelectedItem.Title}"/>
+                FontSize="34"
+                VerticalAlignment="Center"
+                d:Text="Test Page"
+                Text="{Binding AppData.SelectedItem.Title}"/>
         </Grid>
 
         <Grid
@@ -99,9 +101,9 @@
                 Grid.Row="2"
                 VerticalAlignment="Top"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
-                ItemsSource="{Binding NavigationList}"
-                SelectedIndex="{Binding SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                ItemsSource="{Binding AppData.NavigationList}"
+                SelectedIndex="{Binding AppData.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding AppData.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
                     <Style 
                         TargetType="ListBoxItem" 
@@ -134,7 +136,7 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
                             Command="{Binding SelectionChangedCommand}"
-                            CommandParameter="{Binding SelectedItem}"/>
+                            CommandParameter="{Binding AppData.SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
@@ -144,14 +146,14 @@
         <Frame
             Grid.Row="1" Grid.Column="1"
             Grid.RowSpan="12" Grid.ColumnSpan="11"
-            Visibility="{Binding AppModel.PageHomeVisibility}"
+            Visibility="{Binding AppData.PageHomeVisibility}"
             NavigationUIVisibility="Hidden"
             Source="/Views/PageHome.xaml"/>
 
         <Frame
             Grid.Row="1" Grid.Column="1"
             Grid.RowSpan="12" Grid.ColumnSpan="11"
-            Visibility="{Binding AppModel.PageMembersVisibility}"
+            Visibility="{Binding AppData.PageMembersVisibility}"
             NavigationUIVisibility="Hidden"
             Source="/Views/PageMembers.xaml"/>
 

@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Firebase.Database;
 using Firebase.Database.Query;
 using OoManager.Models;
+using OoManager.Views;
 using Utiles;
 
 namespace OoManager.ViewModels
 {
-    public partial class PageMembersViewModel : ViewModelBase, IRecipient<ValueChangedMessage<object[]>>
+    public partial class PageMembersViewModel : ViewModelBase, IRecipient<ValueChangedMessage<AppData>>
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppModel _appModel = new();
-        [ObservableProperty]
-        private PageHomeModel _pageHome = new();
+        private AppData _appData = new();
         #endregion
-
-        int mid = 0;
 
         public PageMembersViewModel()
         {
@@ -29,35 +29,37 @@ namespace OoManager.ViewModels
         }
 
         [RelayCommand]
-        private async void Refresh(object obj)
+        private async Task RefreshAsync(object obj)
         {
-            IReadOnlyCollection<FirebaseObject<object>> Lectures1 = await AppModel.FirebaseDB
-                    .Child("lecture")
-                    .OnceAsync<object>();
+            AppData.OoService.RefreshMembersAsync(AppData);
 
-            IReadOnlyCollection<FirebaseObject<string>> Lectures2 = await AppModel.FirebaseDB
-                    .Child("lecture")
-                    .OnceAsync<string>();
+            //IReadOnlyCollection<FirebaseObject<object>> Lectures1 = await AppData.FirebaseDB
+            //        .Child("lecture")
+            //        .OnceAsync<object>();
 
-            IReadOnlyCollection<FirebaseObject<OoLectures>> Lectures3 = await AppModel.FirebaseDB
-                    .Child("lecture")
-                    .OnceAsync<OoLectures>();
+            //IReadOnlyCollection<FirebaseObject<string>> Lectures2 = await AppData.FirebaseDB
+            //        .Child("lecture")
+            //        .OnceAsync<string>();
 
-            OoLectures lecture1 = new()
-            {
-                mid = 1,
-                o2_class_date = DateTime.Now.ToString("yyyy-MM-dd"),
-                o2_class_homework = "테스트 숙제",
-                o2_class_lecture = "테스트 수업",
-                o2_class_memo = "테스트 메모",
-                o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("hh:mm"),
-                o2_class_time_out = DateTime.Now.ToString("hh:mm"),
-            };
+            //IReadOnlyCollection<FirebaseObject<OoLectures>> Lectures3 = await AppData.FirebaseDB
+            //        .Child("lecture")
+            //        .OnceAsync<OoLectures>();
 
-            await AppModel.FirebaseDB
-                    .Child("lecture")
-                    .Child(DateTime.Now.ToString("yyyy-MM-dd"))
-                    .PostAsync(lecture1);
+            //OoLectures lecture1 = new()
+            //{
+            //    mid = 1,
+            //    o2_class_date = DateTime.Now.ToString("yyyy-MM-dd"),
+            //    o2_class_homework = "테스트 숙제",
+            //    o2_class_lecture = "테스트 수업",
+            //    o2_class_memo = "테스트 메모",
+            //    o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("hh:mm"),
+            //    o2_class_time_out = DateTime.Now.ToString("hh:mm"),
+            //};
+
+            //await AppData.FirebaseDB
+            //        .Child("lecture")
+            //        .Child(DateTime.Now.ToString("yyyy-MM-dd"))
+            //        .PostAsync(lecture1);
         }
 
 
@@ -65,177 +67,60 @@ namespace OoManager.ViewModels
         //[RelayCommand]
         //private async void Refresh(object obj)
         //{
-        //    AppModel.Members = new();
-        //    GetFireBase(AppModel);
+        //    AppData.Members = new();
+        //    GetFireBase(AppData);
         //}
 
 
         [RelayCommand]
         private async void UpdateMember(object obj)
         {
-            await AppModel.FirebaseDB
+            await AppData.FirebaseDB
                         .Child("member")
-                        .Child(AppModel.SelectedMember.Key)
-                        .PutAsync(AppModel.SelectedMember);
+                        .Child(AppData.SelectedMember.Key)
+                        .PutAsync(AppData.SelectedMember);
         }
+
         [RelayCommand]
-        private async void InitFireBase(object obj)
+        private async Task InitMembersAsync(object obj)
         {
-
-            List<Tuple<string, string, int>> memeberList = new();
-
-            memeberList.Add(new Tuple<string, string, int>("고1", "이연준", 10));
-            memeberList.Add(new Tuple<string, string, int>("고2", "이채은", 10));
-            memeberList.Add(new Tuple<string, string, int>("초1", "도연우", 735));
-            memeberList.Add(new Tuple<string, string, int>("초1", "박재현", 950));
-            memeberList.Add(new Tuple<string, string, int>("초1", "도연우", 735));
-            memeberList.Add(new Tuple<string, string, int>("초1", "임수현", 185));
-            memeberList.Add(new Tuple<string, string, int>("초1", "서동인", 45));
-            memeberList.Add(new Tuple<string, string, int>("초2", "김윤", 80));
-            memeberList.Add(new Tuple<string, string, int>("초2", "박서연", 885));
-            memeberList.Add(new Tuple<string, string, int>("초2", "도화랑", 375));
-            memeberList.Add(new Tuple<string, string, int>("초3", "유희건", 1585));
-            memeberList.Add(new Tuple<string, string, int>("초3", "이윤지", 990));
-            memeberList.Add(new Tuple<string, string, int>("초4", "임서진", 775));
-            memeberList.Add(new Tuple<string, string, int>("초4", "김민", 435));
-            memeberList.Add(new Tuple<string, string, int>("초4", "박시연", 925));
-            memeberList.Add(new Tuple<string, string, int>("초5", "이세연", 460));
-            memeberList.Add(new Tuple<string, string, int>("초5", "유지흔", 1210));
-            memeberList.Add(new Tuple<string, string, int>("초5", "정윤후", 185));
-            memeberList.Add(new Tuple<string, string, int>("초5", "서민지", 905));
-            memeberList.Add(new Tuple<string, string, int>("초5", "서아인", 420));
-            memeberList.Add(new Tuple<string, string, int>("중1", "김태연", 40));
-            memeberList.Add(new Tuple<string, string, int>("중1", "윤미래", 10));
-            memeberList.Add(new Tuple<string, string, int>("중1", "도하율", 10));
-            memeberList.Add(new Tuple<string, string, int>("중2", "오채은", 10));
-            memeberList.Add(new Tuple<string, string, int>("중2", "서아민", 10));
-            memeberList.Add(new Tuple<string, string, int>("중3", "김태은", 10));
-            memeberList.Add(new Tuple<string, string, int>("중3", "지예도", 10));
-            memeberList.Add(new Tuple<string, string, int>("중3", "구영우", 55));
-            memeberList.Add(new Tuple<string, string, int>("중3", "이신아", 10));
-            memeberList.Add(new Tuple<string, string, int>("중3", "이우주", 10));
-            memeberList.Add(new Tuple<string, string, int>("고3", "오예은", 10));
-
-            foreach (var item in memeberList)
-            {
-                mid += 1;
-                AppModel.Member_grade_str = item.Item1;
-                AppModel.Member_name = item.Item2;
-                AppModel.Member_xp = item.Item3;
-
-
-                if (AppModel.Member_grade_str == "초1")
-                    AppModel.Member_grade = 8;
-                else if (AppModel.Member_grade_str == "초2")
-                    AppModel.Member_grade = 9;
-                else if (AppModel.Member_grade_str == "초3")
-                    AppModel.Member_grade = 10;
-                else if (AppModel.Member_grade_str == "초4")
-                    AppModel.Member_grade = 11;
-                else if (AppModel.Member_grade_str == "초5")
-                    AppModel.Member_grade = 12;
-                else if (AppModel.Member_grade_str == "초6")
-                    AppModel.Member_grade = 13;
-                else if (AppModel.Member_grade_str == "중1")
-                    AppModel.Member_grade = 14;
-                else if (AppModel.Member_grade_str == "중2")
-                    AppModel.Member_grade = 15;
-                else if (AppModel.Member_grade_str == "중3")
-                    AppModel.Member_grade = 16;
-                else if (AppModel.Member_grade_str == "고1")
-                    AppModel.Member_grade = 17;
-                else if (AppModel.Member_grade_str == "고2")
-                    AppModel.Member_grade = 18;
-                else if (AppModel.Member_grade_str == "고3")
-                    AppModel.Member_grade = 19;
-
-                OoMembers newMember = new()
-                {
-                    mid = mid,
-                    member_grade = AppModel.Member_grade,
-                    member_grade_str = AppModel.Member_grade_str,
-                    member_name = AppModel.Member_name,
-                    member_xp = AppModel.Member_xp,
-                };
-
-                await AppModel.FirebaseDB
-                        .Child("member")
-                        .PostAsync(newMember);
-
-                AppModel.Member_grade_str = "";
-                AppModel.Member_name = "";
-                AppModel.Member_xp = 10;
-            }
+            Task<AppData> _appData = AppData.OoService!.InitMembers(AppData);
+            await _appData;
+            AppData = _appData.Result;
         }
 
         [RelayCommand]
         private async void DeleteMember(object obj)
         {
-            var aaa = AppModel.SelectedMember;
+            var aaa = AppData.SelectedMember;
 
-            await AppModel.FirebaseDB
+            await AppData.FirebaseDB
                     .Child("member")
-                    .Child(AppModel.SelectedMember.Key)
+                    .Child(AppData.SelectedMember.Key)
                     .DeleteAsync();
         }
 
         [RelayCommand]
-        private async void AddMember(object obj)
+        private void AddMember(object obj)
         {
-            if (string.IsNullOrEmpty(AppModel.Member_name))
-                return;
+            //if (string.IsNullOrEmpty(AppData.Member_name))
+            //    return;
+
+            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberAddViewModel))!;
+            Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberAdd))!;
+            viewModel.SetWindow(view);
+            view.DataContext = viewModel;
+            view.Show();
         }
 
 
-
-
-
-
-
-
-
-
-
-        private async void GetFireBase(AppModel AppModel)
+        public void Receive(ValueChangedMessage<AppData> message)
         {
-            string FirebaseDatabaseUrl = "https://leeyeonjundb-default-rtdb.asia-southeast1.firebasedatabase.app";
-            JsonModel jsonModel = MyUtiles.GetJsonModel();
+            AppData = message.Value;
+            AppData.Members = new();
 
-            FirebaseClient client = new(FirebaseDatabaseUrl,
-                                        new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
-
-            AppModel.FirebaseDB = client.Child("o2study");
-
-            // Get members
-            Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> members1 = GetMembersAsync(AppModel);
-            await members1;
-            IReadOnlyCollection<FirebaseObject<OoMembers>> members = members1.Result;
-
-            foreach (var member in members)
-            {
-                OoMembers addMemeber = member.Object;
-                addMemeber.Key = member.Key;
-                AppModel.Members.Add(addMemeber);
-            }
-        }
-
-        public async Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> GetMembersAsync(AppModel AppModel)
-        {
-            IReadOnlyCollection<FirebaseObject<OoMembers>> Members = await AppModel.FirebaseDB
-                    .Child("member")
-                    .OnceAsync<OoMembers>();
-
-            return Members;
-        }
-
-
-        public void Receive(ValueChangedMessage<object[]> message)
-        {
-            AppModel = (AppModel)message.Value[0];
-            AppModel.Members = new();
-            GetFireBase(AppModel);
-
-            PageHome = (PageHomeModel)message.Value[1];
+            AppData = AppData.OoService!.GetFireBase(AppData);
+            AppData.OoService!.RefreshMembersAsync(AppData);
         }
     }
 }
