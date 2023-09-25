@@ -1,37 +1,28 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
-using OoManager.Common;
+using CommunityToolkit.Mvvm.Messaging;
 using OoManager.Models;
 using OoManager.Services;
 
 namespace OoManager.ViewModels
 {
-    public partial class WindowMemberAddViewModel : ViewModelBase
+    public partial class WindowMemberAddViewModel : ViewModelBase, IParameterReceiver
     {
         #region 바인딩 멤버
         [ObservableProperty]
         private AppData _appData = new();
-        [ObservableProperty]
-        private MemberAdd _memberAdd = new();
         #endregion
 
 
-        public WindowMemberAddViewModel(
-            OoDbContext ooDbContext,
-            IOoService ooService)
+        public WindowMemberAddViewModel()
         {
-            AppData.OoDbContext = ooDbContext;
-            AppData.OoService = ooService;
+            IsActive = true;
         }
 
 
-        
+
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -39,6 +30,14 @@ namespace OoManager.ViewModels
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
+        }
+
+        void IParameterReceiver.ReceiveParameter(object parameter)
+        {
+            if (parameter is AppData _appData)
+            {
+                AppData = _appData;
+            }
         }
     }
 }

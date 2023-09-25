@@ -22,7 +22,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -39,20 +38,15 @@
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="학년"
-            ItemsSource="{Binding MemberAdd.GradeStrings}"
-            SelectedValue="{Binding MemberAdd.SelectedGrade}"/>
-
-
-
-
-
+            ItemsSource="{Binding AppData.MemberData.GradeStrings}"
+            SelectedValue="{Binding AppData.MemberData.SelectedGrade}"/>
 
         <TextBox
             Grid.Row="1" Grid.Column="1"
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="이름"
-            Text="{Binding MemeberData.StringData}"
+            Text="{Binding AppData.MemeberData.Member.member_name}"
             VerticalAlignment="Center"
             />
         <TextBox
@@ -60,20 +54,50 @@
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="교육비"
-            Text="{Binding MemeberData.StringData}"
+            Text="{Binding AppData.MemeberData.Member.member_money}"
             VerticalAlignment="Center"
+            />
+
+        <ComboBox
+            Grid.Row="1" Grid.Column="5"
+            Grid.ColumnSpan="1"
+            Margin="5 0"
+            materialDesign:HintAssist.Hint="재원"
+            ItemsSource="{Binding AppData.MemberData.StateStrings}"
+            SelectedValue="{Binding AppData.MemberData.SelectedState}"/>
+
+        <TextBox
+            Grid.Row="2" Grid.Column="0"
+            Grid.ColumnSpan="1"
+            Margin="5 0"
+            materialDesign:HintAssist.Hint="전화번호"
+            Text="{Binding AppData.MemeberData.Member.member_motherphone}"
+            VerticalAlignment="Center"
+            />
+
+        <TextBox
+            Grid.Row="2" Grid.Column="2"
+            Grid.ColumnSpan="1"
+            Margin="5 0"
+            materialDesign:HintAssist.Hint="수업일정"
+            Text="{Binding AppData.MemeberData.Member.member_class}"
+            VerticalAlignment="Center"
+            />
+
+        <TextBox
+            Grid.Row="3" Grid.Column="0"
+            Grid.RowSpan="2" Grid.ColumnSpan="6"
+            Margin="5 0"
+            materialDesign:HintAssist.Hint="메모"
+            Text="{Binding AppData.MemeberData.Member.member_text}"
             />  
 
-        
-
-
         <Grid
-            Grid.Row="3" Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="2"
+            Grid.Row="5" Grid.Column="0"
+            Grid.ColumnSpan="6"
+            Grid.RowSpan="1"
             Margin="7 3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -81,66 +105,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox
-                Grid.Row="0" Grid.Column="0"
-                Grid.ColumnSpan="2"
-                d:Text="메시지 입력"
-                Text="{Binding TbMessage, UpdateSourceTrigger=PropertyChanged}"
-                Margin="7 3"
-                VerticalAlignment="Center"
-                />
             <Button 
                 Grid.Row="1" Grid.Column="0"
-                Margin="10 3"
+                Margin="10 0"
                 Content="OK" 
                 Command="{Binding BtnOkCommand}"/>
             <Button 
                 Grid.Row="1" Grid.Column="1"
-                Margin="10 3"
+                Margin="10 0"
                 Content="Cancel" 
                 Command="{Binding BtnCancelCommand}"/>
         </Grid>
-
-        
-        
-        <StatusBar
-            Grid.Row="99" Grid.Column="0"
-            Grid.RowSpan="1" Grid.ColumnSpan="6">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-
-            <StatusBarItem>
-                <TextBlock
-                    d:Text="Status : 현재상태"
-                    Text="{Binding StatusBar1}"
-                    x:Name="StatusBar1" />
-            </StatusBarItem>
-            <Separator Grid.Column="1" />
-            <StatusBarItem Grid.Column="2">
-                <TextBlock
-                    d:Text="여러가지 메시지"
-                    Text="{Binding StatusBar2}"
-                    x:Name="StatusBar2" />
-            </StatusBarItem>
-            <Separator Grid.Column="3" />
-            <StatusBarItem Grid.Column="4">
-                <ProgressBar
-                    Value="{Binding StatusBarProgressBar}" 
-                    Width="90" 
-                    Height="16" />
-            </StatusBarItem>
-        </StatusBar>
-
     </Grid>
 </Window>

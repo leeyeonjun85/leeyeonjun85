@@ -8,7 +8,7 @@ namespace OoManager.Services
     public interface IOoService
     {
         AppData GetFireBase(AppData AppData);
-        Task<IReadOnlyCollection<FirebaseObject<OoMembers>>> GetMembersAsync(AppData AppData);
+        Task<IReadOnlyCollection<FirebaseObject<Member>>> GetMembersAsync(AppData AppData);
         AppData InitApp(AppData AppData);
         Task<AppData> InitMembers(AppData AppData);
         void RefreshMembersAsync(AppData AppData);

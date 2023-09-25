@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
@@ -31,7 +33,22 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task RefreshAsync(object obj)
         {
-            AppData.OoService.RefreshMembersAsync(AppData);
+            
+
+            await Task.Run(() => {
+                Dispatcher dispatchObject = System.Windows.Application.Current.Dispatcher;
+                if (dispatchObject == null || dispatchObject.CheckAccess())
+                {
+                    AppData.OoService!.RefreshMembersAsync(AppData);
+                }
+
+                else dispatchObject.Invoke(() =>
+                {
+                    AppData.OoService!.RefreshMembersAsync(AppData);
+                });
+            });
+
+            
 
             //IReadOnlyCollection<FirebaseObject<object>> Lectures1 = await AppData.FirebaseDB
             //        .Child("lecture")
@@ -75,10 +92,10 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async void UpdateMember(object obj)
         {
-            await AppData.FirebaseDB
-                        .Child("member")
-                        .Child(AppData.SelectedMember.Key)
-                        .PutAsync(AppData.SelectedMember);
+            //await AppData.FirebaseDB
+            //            .Child("member")
+            //            .Child(AppData.SelectedMember.Key)
+            //            .PutAsync(AppData.SelectedMember);
         }
 
         [RelayCommand]
@@ -92,23 +109,24 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async void DeleteMember(object obj)
         {
-            var aaa = AppData.SelectedMember;
+            //var aaa = AppData.SelectedMember;
 
-            await AppData.FirebaseDB
-                    .Child("member")
-                    .Child(AppData.SelectedMember.Key)
-                    .DeleteAsync();
+            //await AppData.FirebaseDB
+            //        .Child("member")
+            //        .Child(AppData.SelectedMember.Key)
+            //        .DeleteAsync();
         }
 
         [RelayCommand]
         private void AddMember(object obj)
         {
-            //if (string.IsNullOrEmpty(AppData.Member_name))
-            //    return;
-
             ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberAddViewModel))!;
             Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberAdd))!;
             viewModel.SetWindow(view);
+            if (viewModel is IParameterReceiver parameterReceiver)
+            {
+                parameterReceiver.ReceiveParameter(AppData);
+            }
             view.DataContext = viewModel;
             view.Show();
         }

@@ -119,57 +119,57 @@
             ItemsSource="{Binding AppData.Members}">
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                    Binding="{Binding member_class}" 
+                    Binding="{Binding Member.member_class}" 
                     Header="수업" 
                     Width="5*"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_grade}"
+                    Binding="{Binding Member.member_grade}"
                     Header="나이" 
                     Width="5*" 
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_grade_str}"
+                    Binding="{Binding Member.member_grade_str}"
                     Header="학년" 
                     Width="5*" 
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_money}" 
+                    Binding="{Binding Member.member_money}" 
                     Header="교육비" 
                     Width="5"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_motherphone}"
+                    Binding="{Binding Member.member_motherphone}"
                     Header="전화" 
                     Width="5*" 
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_name}" 
+                    Binding="{Binding Member.member_name}" 
                     Header="이름" 
                     Width="5*"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_status}"
+                    Binding="{Binding Member.member_status}"
                     Header="상태" 
                     Width="5*" 
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_text}" 
+                    Binding="{Binding Member.member_text}" 
                     Header="Memo" 
                     Width="5*"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_xp}" 
+                    Binding="{Binding Member.member_xp}" 
                     Header="Xp" 
                     Width="5*"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding member_xp_log}" 
+                    Binding="{Binding Member.member_xp_log}" 
                     Header="XpLog" 
                     Width="5*"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding mid}" 
+                    Binding="{Binding Member.mid}" 
                     Header="Mid" 
                     Width="5*"
                     IsReadOnly="True"/>
