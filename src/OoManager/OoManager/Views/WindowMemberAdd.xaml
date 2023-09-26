@@ -39,14 +39,14 @@
             Margin="5 0"
             materialDesign:HintAssist.Hint="학년"
             ItemsSource="{Binding AppData.MemberData.GradeStrings}"
-            SelectedValue="{Binding AppData.MemberData.SelectedGrade}"/>
+            SelectedValue="{Binding GradeString}"/>
 
         <TextBox
             Grid.Row="1" Grid.Column="1"
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="이름"
-            Text="{Binding AppData.MemeberData.Member.member_name}"
+            Text="{Binding Name}"
             VerticalAlignment="Center"
             />
         <TextBox
@@ -54,7 +54,7 @@
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="교육비"
-            Text="{Binding AppData.MemeberData.Member.member_money}"
+            Text="{Binding Money}"
             VerticalAlignment="Center"
             />
 
@@ -64,14 +64,14 @@
             Margin="5 0"
             materialDesign:HintAssist.Hint="재원"
             ItemsSource="{Binding AppData.MemberData.StateStrings}"
-            SelectedValue="{Binding AppData.MemberData.SelectedState}"/>
+            SelectedValue="{Binding Status}"/>
 
         <TextBox
             Grid.Row="2" Grid.Column="0"
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="전화번호"
-            Text="{Binding AppData.MemeberData.Member.member_motherphone}"
+            Text="{Binding Phonenumber}"
             VerticalAlignment="Center"
             />
 
@@ -80,7 +80,7 @@
             Grid.ColumnSpan="1"
             Margin="5 0"
             materialDesign:HintAssist.Hint="수업일정"
-            Text="{Binding AppData.MemeberData.Member.member_class}"
+            Text="{Binding ClassPlan}"
             VerticalAlignment="Center"
             />
 
@@ -89,7 +89,7 @@
             Grid.RowSpan="2" Grid.ColumnSpan="6"
             Margin="5 0"
             materialDesign:HintAssist.Hint="메모"
-            Text="{Binding AppData.MemeberData.Member.member_text}"
+            Text="{Binding Memo}"
             />  
 
         <Grid

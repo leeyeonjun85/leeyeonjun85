@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Firebase.Database;
-using Firebase.Database.Query;
 using OoManager.Models;
 using OoManager.Views;
-using Utiles;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace OoManager.ViewModels
 {
@@ -33,9 +26,10 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task RefreshAsync(object obj)
         {
-            
 
-            await Task.Run(() => {
+
+            await Task.Run(() =>
+            {
                 Dispatcher dispatchObject = System.Windows.Application.Current.Dispatcher;
                 if (dispatchObject == null || dispatchObject.CheckAccess())
                 {
@@ -48,7 +42,7 @@ namespace OoManager.ViewModels
                 });
             });
 
-            
+
 
             //IReadOnlyCollection<FirebaseObject<object>> Lectures1 = await AppData.FirebaseDB
             //        .Child("lecture")
@@ -136,6 +130,7 @@ namespace OoManager.ViewModels
         {
             AppData = message.Value;
             AppData.Members = new();
+            AppData.MemberData = new();
 
             AppData = AppData.OoService!.GetFireBase(AppData);
             AppData.OoService!.RefreshMembersAsync(AppData);

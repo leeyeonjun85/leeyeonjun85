@@ -83,8 +83,11 @@ namespace OoManager.Services
 
             foreach (var member in members)
             {
-                AppData.MemberData!.Member = member.Object;
+                AppData.MemberData = new();
                 AppData.MemberData.Key = member.Key;
+                AppData.MemberData!.Member = member.Object;
+                AppData.MemberData.SelectedGrade = member.Object.member_grade_str;
+                AppData.MemberData.SelectedState = member.Object.member_status;
                 AppData.Members.Add(AppData.MemberData);
             }
         }
@@ -96,7 +99,7 @@ namespace OoManager.Services
             List<Tuple<string, string, int>> memeberList = new()
             {
                 new Tuple<string, string, int>("고1", "이연준", 10),
-                new Tuple<string, string, int>("고2", "이채은", 10)
+                new Tuple<string, string, int>("고2", "이채은", 100)
 
                 //new Tuple<string, string, int>("초1", "도연우", 735),
                 //new Tuple<string, string, int>("초1", "박재현", 950),
@@ -131,21 +134,25 @@ namespace OoManager.Services
 
             foreach (var _memeber in memeberList)
             {
-                mid += 1;
                 AppData.MemberData.Member = new();
                 AppData.MemberData.Member.member_grade_str = _memeber.Item1;
                 AppData.MemberData.Member.member_name = _memeber.Item2;
                 AppData.MemberData.Member.member_xp = _memeber.Item3;
+                AppData.MemberData.Member.mid = mid + 1;
 
                 AppData = ConvertGradeOld(AppData);
 
-                await AppData.FirebaseDB
+                //await AppData.FirebaseDB
+                //        .Child("member")
+                //        .PostAsync(AppData.MemberData.Member);
+
+                Task<FirebaseObject<Member>> returnMember = AppData.FirebaseDB
                         .Child("member")
                         .PostAsync(AppData.MemberData.Member);
-
-                AppData.MemberData.Member.member_grade_str = string.Empty;
-                AppData.MemberData.Member.member_name = string.Empty;
-                AppData.MemberData.Member.member_xp = 10;
+                await returnMember;
+                AppData.MemberData.Key = returnMember.Result.Key;
+                AppData.Members.Add(AppData.MemberData);
+                AppData.MemberData = new();
             }
             return AppData;
         }
