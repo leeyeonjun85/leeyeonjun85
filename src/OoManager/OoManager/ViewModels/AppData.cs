@@ -22,8 +22,6 @@ namespace OoManager.Models
         [ObservableProperty]
         private string _currentPage = "MainView";
         [ObservableProperty]
-        private int _testInt = 0;
-        [ObservableProperty]
         private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
 
         [ObservableProperty]
@@ -61,6 +59,6 @@ namespace OoManager.Models
         private bool _canConnectDb;
 
         [ObservableProperty]
-        private Member? _selectedMember;
+        private MemberData? _selectedMember;
     }
 }

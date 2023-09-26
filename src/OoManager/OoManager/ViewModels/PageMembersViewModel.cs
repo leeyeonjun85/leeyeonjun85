@@ -3,8 +3,10 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using Firebase.Database.Query;
 using OoManager.Models;
 using OoManager.Views;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -84,12 +86,20 @@ namespace OoManager.ViewModels
 
 
         [RelayCommand]
-        private async void UpdateMember(object obj)
+        private void UpdateMember(object obj)
         {
-            //await AppData.FirebaseDB
-            //            .Child("member")
-            //            .Child(AppData.SelectedMember.Key)
-            //            .PutAsync(AppData.SelectedMember);
+            if (AppData.SelectedMember is not null)
+            {
+                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberUpdateViewModel))!;
+                Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberUpdate))!;
+                viewModel.SetWindow(view);
+                if (viewModel is IParameterReceiver parameterReceiver)
+                {
+                    parameterReceiver.ReceiveParameter(AppData);
+                }
+                view.DataContext = viewModel;
+                view.Show();
+            };
         }
 
         [RelayCommand]
@@ -101,14 +111,24 @@ namespace OoManager.ViewModels
         }
 
         [RelayCommand]
-        private async void DeleteMember(object obj)
+        private async Task DeleteMemberAsync(object obj)
         {
-            //var aaa = AppData.SelectedMember;
-
-            //await AppData.FirebaseDB
-            //        .Child("member")
-            //        .Child(AppData.SelectedMember.Key)
-            //        .DeleteAsync();
+            if (AppData.SelectedMember is not null)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show(
+                    $"정말로 '{AppData.SelectedMember.Member.member_name}' 회원을 삭제하시겠습니까?{Environment.NewLine}(삭제하면 복구할 수 없습니다.)",
+                    "삭제 확인",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Warning);
+                if (messageBoxResult == MessageBoxResult.OK)
+                {
+                    await AppData.FirebaseDB!
+                        .Child("member")
+                        .Child(AppData.SelectedMember.Key)
+                        .DeleteAsync();
+                    AppData.Members.Remove(AppData.SelectedMember);
+                }
+            };
         }
 
         [RelayCommand]

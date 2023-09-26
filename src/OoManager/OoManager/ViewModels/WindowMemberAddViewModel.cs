@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Firebase.Database;
+using Firebase.Database.Query;
 using OoManager.Models;
 using System;
 using System.ComponentModel;
@@ -27,7 +29,11 @@ namespace OoManager.ViewModels
         [ObservableProperty]
         private string _classPlan = "월화수목금";
         [ObservableProperty]
+        private int _xp = 10;
+        [ObservableProperty]
         private string _memo = $"회원등록 : {DateTime.Now:yyyy-MM-dd}";
+        [ObservableProperty]
+        private string _xpMemo = string.Empty;
         #endregion
 
 
@@ -37,12 +43,33 @@ namespace OoManager.ViewModels
         }
 
 
-        [RelayCommand]
-        private void BtnOk(object obj)
-        {
-            Console.WriteLine(AppData.ToString());
 
-            Window?.Close();
+
+
+        [RelayCommand]
+        private async Task BtnOkAsync(object obj)
+        {
+            if (!string.IsNullOrEmpty(this.Name))
+            {
+                AppData.MemberData.Member.member_class = ClassPlan;
+                AppData.MemberData.Member.member_grade_str = GradeString;
+                AppData.MemberData.Member.member_money = Money;
+                AppData.MemberData.Member.member_motherphone = Phonenumber;
+                AppData.MemberData.Member.member_name = Name;
+                AppData.MemberData.Member.member_status = Status;
+                AppData.MemberData.Member.member_text = Memo;
+                AppData.MemberData.Member.member_xp = Xp;
+                AppData.MemberData.Member.member_xp_log = $"회원등록 {Xp}xp";
+                AppData = AppData.OoService!.ConvertGradeOld(AppData);
+                AppData.MemberData.Member.mid = AppData.Members[^1].Member.mid + 1;
+
+                Task<AppData> _appData = AppData.OoService!.AddMemberAsync(AppData);
+                await _appData;
+                AppData = _appData.Result;
+
+                Window?.Close();
+            }
+            else MessageBox.Show("회원등록하려면 이름은 꼭 써야해!!");
         }
 
         [RelayCommand]

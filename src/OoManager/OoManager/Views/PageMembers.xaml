@@ -67,11 +67,11 @@
                 Content="회원 삭제"
                 Margin="5"
                 Command="{Binding DeleteMemberCommand}"/>
-            <Button
+            <!--<Button
                 Grid.Column="4"
                 Content="초기화"
                 Margin="5"
-                Command="{Binding InitMembersCommand}"/>
+                Command="{Binding InitMembersCommand}"/>-->
 
         </Grid>
 
@@ -91,27 +91,15 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-
-            <TextBox
-                Grid.Row="0" Grid.Column="0"
-                Text="{Binding AppData.Member_grade_str}"/>
-            <TextBox
-                Grid.Row="0" Grid.Column="1"
-                Text="{Binding AppData.Member_name}"/>
-            <TextBox
-                Grid.Row="0" Grid.Column="2"
-                Text="{Binding AppData.Member_xp}"/>
-
         </Grid>
         
         
         <DataGrid
-            Grid.Row="2" Grid.Column="0"
+            Grid.Row="1" Grid.Column="0"
             Grid.ColumnSpan="6"
             Grid.RowSpan="5"
             Margin="10"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
-            HeadersVisibility="All"
             AutoGenerateColumns="False"
             CanUserAddRows="False"
             SelectedItem="{Binding AppData.SelectedMember}"

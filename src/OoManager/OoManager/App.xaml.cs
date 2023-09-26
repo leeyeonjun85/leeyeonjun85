@@ -53,12 +53,14 @@ namespace OoManager
             // Views
             builder.Services.AddSingleton<WindowMain>();
             builder.Services.AddTransient<SubView>();
-            builder.Services.AddSingleton<WindowMemberAdd>();
+            builder.Services.AddTransient<WindowMemberAdd>();
+            builder.Services.AddTransient<WindowMemberUpdate>();
 
             // ViewModels
             builder.Services.AddSingleton<WindowMainViewModel>();
             builder.Services.AddTransient<SubViewModel>();
             builder.Services.AddTransient<WindowMemberAddViewModel>();
+            builder.Services.AddTransient<WindowMemberUpdateViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>
@@ -69,7 +71,6 @@ namespace OoManager
 
             // Services
             builder.Services.AddSingleton<IOoService, OoService>();
-            builder.Services.AddSingleton<AppData>();
 
             IHost host = builder.Build();
             return host.Services;
@@ -87,12 +88,10 @@ namespace OoManager
 
             LOGGER = (ILogger<App>?)Ioc.Default.GetService(typeof(ILogger<App>));
 
-
             Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.DeepPurple];
             Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Lime];
             ITheme theme = Theme.Create(new MaterialDesignLightTheme(), primaryColor, accentColor);
             Resources.SetTheme(theme);
-
 
             ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMainViewModel))!;
             Window view = (Window)Ioc.Default.GetService(typeof(WindowMain))!;
@@ -100,8 +99,5 @@ namespace OoManager
             view.DataContext = viewModel;
             view.Show();
         }
-
-
-
     }
 }

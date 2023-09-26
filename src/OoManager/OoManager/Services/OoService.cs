@@ -134,11 +134,12 @@ namespace OoManager.Services
 
             foreach (var _memeber in memeberList)
             {
+                mid += 1;
                 AppData.MemberData.Member = new();
                 AppData.MemberData.Member.member_grade_str = _memeber.Item1;
                 AppData.MemberData.Member.member_name = _memeber.Item2;
                 AppData.MemberData.Member.member_xp = _memeber.Item3;
-                AppData.MemberData.Member.mid = mid + 1;
+                AppData.MemberData.Member.mid = mid;
 
                 AppData = ConvertGradeOld(AppData);
 
@@ -189,6 +190,27 @@ namespace OoManager.Services
                 AppData.MemberData.Member.member_grade = 19;
 
             return AppData;
+        }
+
+        public async Task<AppData> AddMemberAsync(AppData AppData)
+        {
+            Task<FirebaseObject<Member>> returnMember = AppData.FirebaseDB
+                       .Child("member")
+                       .PostAsync(AppData.MemberData.Member);
+            await returnMember;
+            AppData.MemberData.Key = returnMember.Result.Key;
+            AppData.Members.Add(AppData.MemberData);
+            AppData.MemberData = new();
+
+            return AppData;
+        }
+
+        public async Task UpdateMemberAsync(AppData AppData)
+        {
+            await AppData.FirebaseDB
+                .Child("member")
+                .Child(AppData.MemberData.Key)
+                .PutAsync(AppData.MemberData.Member);
         }
     }
 }
