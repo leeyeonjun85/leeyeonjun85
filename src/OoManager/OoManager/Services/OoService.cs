@@ -41,7 +41,6 @@ namespace OoManager.Services
             //AppData.SelectedIndex = 0;
             //AppData.SelectedItem = AppData.NavigationList[0];
 
-
             // Init GireBase
             AppData = GetFireBase(AppData);
 

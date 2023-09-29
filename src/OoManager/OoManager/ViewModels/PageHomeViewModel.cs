@@ -15,10 +15,9 @@ namespace OoManager.ViewModels
         #endregion
 
 
-        public PageHomeViewModel(AppData AppData)
+        public PageHomeViewModel()
         {
             IsActive = true;
-            this.AppData = AppData;
         }
 
 

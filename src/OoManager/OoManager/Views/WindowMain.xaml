@@ -68,7 +68,7 @@
                 FontSize="34"
                 VerticalAlignment="Center"
                 d:Text="Test Page"
-                Text="{Binding AppData.CurrentPage}"/>
+                Text="{Binding AppData.SelectedItem.Title}"/>
         </Grid>
 
         <Grid
@@ -146,6 +146,12 @@
         <Frame
             Grid.Row="1" Grid.Column="1"
             Grid.RowSpan="12" Grid.ColumnSpan="11"
+            NavigationUIVisibility="Hidden"
+            Source="{Binding AppData.SelectedItem.Source}"/>
+        
+        <!--<Frame
+            Grid.Row="1" Grid.Column="1"
+            Grid.RowSpan="12" Grid.ColumnSpan="11"
             Visibility="{Binding AppData.PageHomeVisibility}"
             NavigationUIVisibility="Hidden"
             Source="/Views/PageHome.xaml"/>
@@ -162,7 +168,7 @@
             Grid.RowSpan="12" Grid.ColumnSpan="11"
             Visibility="{Binding AppData.PageLectureVisibility}"
             NavigationUIVisibility="Hidden"
-            Source="/Views/PageLecture.xaml"/>
+            Source="/Views/PageLecture.xaml"/>-->
 
 
 
