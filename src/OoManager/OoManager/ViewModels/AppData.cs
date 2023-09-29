@@ -34,6 +34,8 @@ namespace OoManager.Models
         private Visibility _pageHomeVisibility = Visibility.Visible;
         [ObservableProperty]
         private Visibility _pageMembersVisibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _pageLectureVisibility = Visibility.Hidden;
 
         [ObservableProperty]
         private OoDbContext? _ooDbContext;

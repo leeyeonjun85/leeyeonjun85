@@ -16,6 +16,9 @@
         <Page Remove="Resources\favicon_package_v0.16\**" />
         <Content Include="Resources\o2_icon\favicon_package_v0.16\favicon.ico" />
 		<SplashScreen Include="Resources\o2_icon\favicon_package_v0.16\apple-touch-icon.png" />
+		<Compile Update="Views\PageLecture.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
 		<Compile Update="Views\PageMembers.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>

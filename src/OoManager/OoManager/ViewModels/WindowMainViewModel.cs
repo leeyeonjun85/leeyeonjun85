@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Forms;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -41,19 +40,28 @@ namespace OoManager.ViewModels
                         {
                             AppData.PageHomeVisibility = Visibility.Visible;
                             AppData.PageMembersVisibility = Visibility.Hidden;
-
+                            AppData.PageLectureVisibility = Visibility.Hidden;
                             break;
                         }
                     case "Members":
                         {
                             AppData.PageHomeVisibility = Visibility.Hidden;
                             AppData.PageMembersVisibility = Visibility.Visible;
-
+                            AppData.PageLectureVisibility = Visibility.Hidden;
                             break;
                         }
+                    case "Lectures":
+                        {
+                            AppData.PageHomeVisibility = Visibility.Hidden;
+                            AppData.PageMembersVisibility = Visibility.Hidden;
+                            AppData.PageLectureVisibility = Visibility.Visible;
+                            break;
+                        }
+
+                        
+
                     default: throw new Exception();
                 }
-                AppData.TestInt += 1;
 
                 WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
 

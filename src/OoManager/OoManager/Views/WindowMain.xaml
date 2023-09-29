@@ -157,9 +157,14 @@
             NavigationUIVisibility="Hidden"
             Source="/Views/PageMembers.xaml"/>
 
+        <Frame
+            Grid.Row="1" Grid.Column="1"
+            Grid.RowSpan="12" Grid.ColumnSpan="11"
+            Visibility="{Binding AppData.PageLectureVisibility}"
+            NavigationUIVisibility="Hidden"
+            Source="/Views/PageLecture.xaml"/>
 
-        
-        
-        
+
+
     </Grid> 
 </Window>

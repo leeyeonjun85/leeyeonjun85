@@ -29,6 +29,13 @@ namespace OoManager.Services
                     UnselectedIcon = PackIconKind.UsersOutline,
                     Source = "/Views/PageMembers.xaml",
                 },
+                new NavigationItem
+                {
+                    Title = "Lectures",
+                    SelectedIcon = PackIconKind.CalendarMultipleCheck,
+                    UnselectedIcon = PackIconKind.CalendarCheck,
+                    Source = "/Views/PageLecture.xaml",
+                },
             };
 
             AppData.SelectedIndex = 0;

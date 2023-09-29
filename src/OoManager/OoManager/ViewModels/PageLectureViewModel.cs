@@ -13,14 +13,14 @@ using System.Windows.Threading;
 
 namespace OoManager.ViewModels
 {
-    public partial class PageMembersViewModel : ViewModelBase, IRecipient<ValueChangedMessage<AppData>>
+    public partial class PageLectureViewModel : ViewModelBase, IRecipient<ValueChangedMessage<AppData>>
     {
         #region 바인딩 멤버
         [ObservableProperty]
         private AppData _appData = new();
         #endregion
 
-        public PageMembersViewModel()
+        public PageLectureViewModel()
         {
             IsActive = true;
         }
@@ -28,6 +28,8 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task RefreshAsync(object obj)
         {
+
+
             await Task.Run(() =>
             {
                 Dispatcher dispatchObject = System.Windows.Application.Current.Dispatcher;
