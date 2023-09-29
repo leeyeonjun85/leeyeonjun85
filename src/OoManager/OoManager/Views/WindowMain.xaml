@@ -68,7 +68,7 @@
                 FontSize="34"
                 VerticalAlignment="Center"
                 d:Text="Test Page"
-                Text="{Binding AppData.SelectedItem.Title}"/>
+                Text="{Binding AppData.CurrentPage}"/>
         </Grid>
 
         <Grid

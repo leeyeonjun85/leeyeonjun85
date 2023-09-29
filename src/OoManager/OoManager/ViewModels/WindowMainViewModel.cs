@@ -26,6 +26,7 @@ namespace OoManager.ViewModels
         {
             AppData.OoDbContext = ooDbContext;
             AppData.OoService = ooService;
+            
         }
 
 
@@ -63,6 +64,7 @@ namespace OoManager.ViewModels
                     default: throw new Exception();
                 }
 
+                AppData.CurrentPage = navigationItem.Title;
                 WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
 
                 //object[] message = new object[] { AppData, PageHome };
@@ -73,7 +75,8 @@ namespace OoManager.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            AppData = AppData.OoService.InitApp(AppData);
+            AppData.SelectedItem = AppData.NavigationList[0];
+            AppData = AppData.OoService!.InitApp(AppData);
             App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 

@@ -13,33 +13,44 @@ namespace OoManager.Services
     {
         public AppData InitApp(AppData AppData)
         {
-            AppData.NavigationList = new()
-            {
-                new NavigationItem
-                {
-                    Title = "Home",
-                    SelectedIcon = PackIconKind.Home,
-                    UnselectedIcon = PackIconKind.HomeOutline,
-                    Source = "/Views/PageHome.xaml",
-                },
-                new NavigationItem
-                {
-                    Title = "Members",
-                    SelectedIcon = PackIconKind.Users,
-                    UnselectedIcon = PackIconKind.UsersOutline,
-                    Source = "/Views/PageMembers.xaml",
-                },
-                new NavigationItem
-                {
-                    Title = "Lectures",
-                    SelectedIcon = PackIconKind.CalendarMultipleCheck,
-                    UnselectedIcon = PackIconKind.CalendarCheck,
-                    Source = "/Views/PageLecture.xaml",
-                },
-            };
+            //AppData.NavigationList = new()
+            //{
+            //    new NavigationItem
+            //    {
+            //        Title = "Home",
+            //        SelectedIcon = PackIconKind.Home,
+            //        UnselectedIcon = PackIconKind.HomeOutline,
+            //        Source = "/Views/PageHome.xaml",
+            //    },
+            //    new NavigationItem
+            //    {
+            //        Title = "Members",
+            //        SelectedIcon = PackIconKind.Users,
+            //        UnselectedIcon = PackIconKind.UsersOutline,
+            //        Source = "/Views/PageMembers.xaml",
+            //    },
+            //    new NavigationItem
+            //    {
+            //        Title = "Lectures",
+            //        SelectedIcon = PackIconKind.CalendarMultipleCheck,
+            //        UnselectedIcon = PackIconKind.CalendarCheck,
+            //        Source = "/Views/PageLecture.xaml",
+            //    },
+            //};
 
-            AppData.SelectedIndex = 0;
-            AppData.SelectedItem = AppData.NavigationList[0];
+            //AppData.SelectedIndex = 0;
+            //AppData.SelectedItem = AppData.NavigationList[0];
+
+
+            // Init GireBase
+            AppData = GetFireBase(AppData);
+
+            // Init Members
+            AppData.Members = new();
+            AppData.MemberData = new();
+            AppData.OoService!.RefreshMembersAsync(AppData);
+            AppData.TotalMembers = AppData.Members.Count;
+            AppData.TotalMembersString = $"총 {AppData.TotalMembers}명";
 
             return AppData;
         }

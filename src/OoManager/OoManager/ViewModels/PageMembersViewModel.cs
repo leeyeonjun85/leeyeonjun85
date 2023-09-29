@@ -150,7 +150,6 @@ namespace OoManager.ViewModels
             AppData.Members = new();
             AppData.MemberData = new();
 
-            AppData = AppData.OoService!.GetFireBase(AppData);
             AppData.OoService!.RefreshMembersAsync(AppData);
         }
     }

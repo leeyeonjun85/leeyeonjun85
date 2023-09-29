@@ -7,6 +7,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Firebase.Database;
 using Firebase.Database.Query;
+using MaterialDesignThemes.Wpf;
 using Microsoft.AspNetCore.SignalR.Client;
 using OoManager.Common;
 using OoManager.Services;
@@ -25,17 +26,50 @@ namespace OoManager.Models
         private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
 
         [ObservableProperty]
-        private ObservableCollection<NavigationItem> _navigationList = new();
-        [ObservableProperty]
-        private int _selectedIndex;
+        private ObservableCollection<NavigationItem> _navigationList = new()
+            {
+                new NavigationItem
+                {
+                    Title = "Home",
+                    SelectedIcon = PackIconKind.Home,
+                    UnselectedIcon = PackIconKind.HomeOutline,
+                    Source = "/Views/PageHome.xaml",
+                },
+                new NavigationItem
+                {
+                    Title = "Members",
+                    SelectedIcon = PackIconKind.Users,
+                    UnselectedIcon = PackIconKind.UsersOutline,
+                    Source = "/Views/PageMembers.xaml",
+                },
+                new NavigationItem
+                {
+                    Title = "Lectures",
+                    SelectedIcon = PackIconKind.CalendarMultipleCheck,
+                    UnselectedIcon = PackIconKind.CalendarCheck,
+                    Source = "/Views/PageLecture.xaml",
+                },
+            };
+        
         [ObservableProperty]
         private NavigationItem? _selectedItem;
+        [ObservableProperty]
+        private int _selectedIndex = 0;
         [ObservableProperty]
         private Visibility _pageHomeVisibility = Visibility.Visible;
         [ObservableProperty]
         private Visibility _pageMembersVisibility = Visibility.Hidden;
         [ObservableProperty]
         private Visibility _pageLectureVisibility = Visibility.Hidden;
+
+
+        // Page Home
+        [ObservableProperty]
+        private int _totalMembers;
+        [ObservableProperty]
+        private string _totalMembersString = string.Empty;
+
+        
 
         [ObservableProperty]
         private OoDbContext? _ooDbContext;
