@@ -36,42 +36,37 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox
-            Grid.Row="1" Grid.Column="2"
-            Grid.ColumnSpan="3"
-            FontSize="30"
-            Text="{Binding AppModel.CurrentPage, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock
-            Grid.Row="1" Grid.Column="1"
-            Grid.ColumnSpan="1"
-            FontSize="30"
-            Text="{Binding AppModel.TestInt, UpdateSourceTrigger=PropertyChanged}"/>
-        
-
         <Button 
             Grid.Row="0" Grid.Column="1"
-            Content="Test1"
-            Command="{Binding Test1Command}"/>
+            Content="새로고침"
+            Command="{Binding RefreshPageHomeCommand}"/>
         <TextBox
             Grid.Row="0" Grid.Column="2"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
-            FontSize="16"
-            Text="{Binding AppData.CurrentPage, UpdateSourceTrigger=PropertyChanged}"/>
+            Margin="5 0"
+            VerticalAlignment="Center"
+            d:Text="현재 페이지"
+            Text="{Binding AppData.CurrentPage}"/>
         <TextBox
             Grid.Row="0" Grid.Column="3"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
-            FontSize="16"
-            Text="{Binding AppData.TotalMembersString, UpdateSourceTrigger=PropertyChanged}"/>
+            Margin="5 0"
+            VerticalAlignment="Center"
+            d:Text="총 00명"
+            Text="{Binding AppData.TotalMembersString}"/>
         <TextBox
             Grid.Row="1" Grid.Column="1"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
-            FontSize="16"
-            Text="{Binding AppData.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"/>
+            Margin="5 0"
+            VerticalAlignment="Center"
+            d:Text="SelectedIndex"
+            Text="{Binding AppData.SelectedIndex}"/>
         <TextBox
-            Grid.Row="1" Grid.Column="1"
+            Grid.Row="1" Grid.Column="2"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
-            FontSize="16"
-            Text="{Binding AppData.SelectedItem, UpdateSourceTrigger=PropertyChanged}"/>
+            Margin="5 0"
+            VerticalAlignment="Center"
+            d:Text="SelectedItem"
+            Text="{Binding AppData.SelectedItem}"/>
     </Grid>
 </Page>

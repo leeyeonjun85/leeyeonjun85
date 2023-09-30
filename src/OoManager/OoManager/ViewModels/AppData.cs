@@ -53,17 +53,8 @@ namespace OoManager.Models
         [ObservableProperty]
         private NavigationItem? _selectedItem;
         [ObservableProperty]
-        private int _selectedIndex = 0;
-        //[ObservableProperty]
-        //private NavigationItem? _selectedItem = new NavigationItem
-        //        {
-        //            Title = "Home",
-        //            SelectedIcon = PackIconKind.Home,
-        //            UnselectedIcon = PackIconKind.HomeOutline,
-        //            Source = "/Views/PageHome.xaml",
-        //        };
-        //[ObservableProperty]
-        //private string _frameSource = "/Views/PageHome.xaml";
+        private int _selectedIndex;
+
         [ObservableProperty]
         private Visibility _pageHomeVisibility = Visibility.Visible;
         [ObservableProperty]

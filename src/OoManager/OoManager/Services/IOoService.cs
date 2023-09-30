@@ -11,9 +11,12 @@ namespace OoManager.Services
         AppData ConvertGradeOld(AppData AppData);
         AppData GetFireBase(AppData AppData);
         Task<IReadOnlyCollection<FirebaseObject<Member>>> GetMembersAsync(AppData AppData);
-        AppData InitApp(AppData AppData);
+        Task<AppData> InitAppAsync(AppData AppData);
         Task<AppData> InitMembers(AppData AppData);
-        void RefreshMembersAsync(AppData AppData);
+        Task<AppData> OpenPageHomeAsync(AppData AppData);
+        Task<AppData> OpenPageLectureAsync(AppData AppData);
+        Task<AppData> OpenPageMembersAsync(AppData AppData);
+        Task<AppData> RefreshMembersAsync(AppData AppData);
         Task UpdateMemberAsync(AppData AppData);
     }
 }

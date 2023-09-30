@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
-using MaterialDesignThemes.Wpf;
 using OoManager.Models;
 using Utiles;
 
@@ -11,45 +10,65 @@ namespace OoManager.Services
 {
     public class OoService : IOoService
     {
-        public AppData InitApp(AppData AppData)
+        public async Task<AppData> InitAppAsync(AppData AppData)
         {
-            //AppData.NavigationList = new()
-            //{
-            //    new NavigationItem
-            //    {
-            //        Title = "Home",
-            //        SelectedIcon = PackIconKind.Home,
-            //        UnselectedIcon = PackIconKind.HomeOutline,
-            //        Source = "/Views/PageHome.xaml",
-            //    },
-            //    new NavigationItem
-            //    {
-            //        Title = "Members",
-            //        SelectedIcon = PackIconKind.Users,
-            //        UnselectedIcon = PackIconKind.UsersOutline,
-            //        Source = "/Views/PageMembers.xaml",
-            //    },
-            //    new NavigationItem
-            //    {
-            //        Title = "Lectures",
-            //        SelectedIcon = PackIconKind.CalendarMultipleCheck,
-            //        UnselectedIcon = PackIconKind.CalendarCheck,
-            //        Source = "/Views/PageLecture.xaml",
-            //    },
-            //};
-
-            //AppData.SelectedIndex = 0;
-            //AppData.SelectedItem = AppData.NavigationList[0];
-
-            // Init GireBase
+            // Init FireBase
             AppData = GetFireBase(AppData);
 
+            // Open PageHome
+            Task<AppData> _appData = OpenPageHomeAsync(AppData);
+            await _appData;
+            AppData = _appData.Result;
+
+            return AppData;
+        }
+
+        public async Task<AppData> OpenPageHomeAsync(AppData AppData)
+        {
+            // Init PageHome
+            AppData.SelectedIndex = 0;
+            AppData.SelectedItem = AppData.NavigationList[0];
+            AppData.CurrentPage = AppData.SelectedItem.Title!;
+
             // Init Members
-            AppData.Members = new();
-            AppData.MemberData = new();
-            AppData.OoService!.RefreshMembersAsync(AppData);
+            Task<AppData> _appData = RefreshMembersAsync(AppData);
+            await _appData;
+            AppData = _appData.Result;
+
+            // Init Members Information
             AppData.TotalMembers = AppData.Members.Count;
             AppData.TotalMembersString = $"총 {AppData.TotalMembers}명";
+
+            await Task.Delay(10);
+
+            return AppData;
+        }
+
+        public async Task<AppData> OpenPageMembersAsync(AppData AppData)
+        {
+            // Init PageMembers
+            AppData.SelectedIndex = 1;
+            AppData.SelectedItem = AppData.NavigationList[1];
+            AppData.CurrentPage = AppData.SelectedItem.Title!;
+
+            // Init Members
+            Task<AppData> _appData = RefreshMembersAsync(AppData);
+            await _appData;
+            AppData = _appData.Result;
+
+            await Task.Delay(10);
+
+            return AppData;
+        }
+
+        public async Task<AppData> OpenPageLectureAsync(AppData AppData)
+        {
+            // Init PageLecture
+            AppData.SelectedIndex = 2;
+            AppData.SelectedItem = AppData.NavigationList[2];
+            AppData.CurrentPage = AppData.SelectedItem.Title!;
+
+            await Task.Delay(10);
 
             return AppData;
         }
@@ -89,9 +108,9 @@ namespace OoManager.Services
             return Members;
         }
 
-        public async void RefreshMembersAsync(AppData AppData)
+        public async Task<AppData> RefreshMembersAsync(AppData AppData)
         {
-            AppData.Members.Clear();
+            AppData.Members = new();
 
             // Get members
             Task<IReadOnlyCollection<FirebaseObject<Member>>> members1 = GetMembersAsync(AppData);
@@ -107,6 +126,8 @@ namespace OoManager.Services
                 AppData.MemberData.SelectedState = member.Object.member_status;
                 AppData.Members.Add(AppData.MemberData);
             }
+
+            return AppData;
         }
 
         public async Task<AppData> InitMembers(AppData AppData)

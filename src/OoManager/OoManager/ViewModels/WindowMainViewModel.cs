@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -26,12 +27,11 @@ namespace OoManager.ViewModels
         {
             AppData.OoDbContext = ooDbContext;
             AppData.OoService = ooService;
-            
         }
 
 
         [RelayCommand]
-        private void SelectionChanged(object obj)
+        private async Task SelectionChangedAsync(object obj)
         {
             if (obj is NavigationItem navigationItem)
             {
@@ -39,44 +39,37 @@ namespace OoManager.ViewModels
                 {
                     case "Home":
                         {
-                            AppData.PageHomeVisibility = Visibility.Visible;
-                            AppData.PageMembersVisibility = Visibility.Hidden;
-                            AppData.PageLectureVisibility = Visibility.Hidden;
+                            Task<AppData> _appData = AppData.OoService!.OpenPageHomeAsync(AppData);
+                            await _appData; AppData = _appData.Result;
                             break;
                         }
                     case "Members":
                         {
-                            AppData.PageHomeVisibility = Visibility.Hidden;
-                            AppData.PageMembersVisibility = Visibility.Visible;
-                            AppData.PageLectureVisibility = Visibility.Hidden;
+                            Task<AppData> _appData = AppData.OoService!.OpenPageMembersAsync(AppData);
+                            await _appData; AppData = _appData.Result;
                             break;
                         }
                     case "Lectures":
                         {
-                            AppData.PageHomeVisibility = Visibility.Hidden;
-                            AppData.PageMembersVisibility = Visibility.Hidden;
-                            AppData.PageLectureVisibility = Visibility.Visible;
+                            Task<AppData> _appData = AppData.OoService!.OpenPageLectureAsync(AppData);
+                            await _appData; AppData = _appData.Result;
                             break;
                         }
-
-                        
 
                     default: throw new Exception();
                 }
 
-                AppData.CurrentPage = navigationItem.Title;
                 WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
-
-                //object[] message = new object[] { AppData, PageHome };
-                //WeakReferenceMessenger.Default.Send(new ValueChangedMessage<object[]>(message));
             }
             else throw new Exception();
         }
 
-        protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
+        protected async override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            AppData.SelectedItem = AppData.NavigationList[0];
-            AppData = AppData.OoService!.InitApp(AppData);
+            Task<AppData> _appData = AppData.OoService!.InitAppAsync(AppData);
+            await _appData; AppData = _appData.Result;
+            WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
+
             App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 

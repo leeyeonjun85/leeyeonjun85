@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -6,10 +9,6 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using Firebase.Database.Query;
 using OoManager.Models;
 using OoManager.Views;
-using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 
 namespace OoManager.ViewModels
 {
@@ -28,19 +27,21 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task RefreshAsync(object obj)
         {
-            await Task.Run(() =>
-            {
-                Dispatcher dispatchObject = System.Windows.Application.Current.Dispatcher;
-                if (dispatchObject == null || dispatchObject.CheckAccess())
-                {
-                    AppData.OoService!.RefreshMembersAsync(AppData);
-                }
 
-                else dispatchObject.Invoke(() =>
-                {
-                    AppData.OoService!.RefreshMembersAsync(AppData);
-                });
-            });
+            //Dispatcher dispatchObject = System.Windows.Application.Current.Dispatcher;
+            //if (dispatchObject == null || dispatchObject.CheckAccess())
+            //{
+            Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
+            await _appData;
+            AppData = _appData.Result;
+            //}
+            //else dispatchObject.Invoke(() =>
+            //{
+            //    Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
+            //    await _appData;
+            //    AppData = _appData.Result;
+            //});
+
 
 
 
@@ -147,10 +148,6 @@ namespace OoManager.ViewModels
         public void Receive(ValueChangedMessage<AppData> message)
         {
             AppData = message.Value;
-            AppData.Members = new();
-            AppData.MemberData = new();
-
-            AppData.OoService!.RefreshMembersAsync(AppData);
         }
     }
 }
