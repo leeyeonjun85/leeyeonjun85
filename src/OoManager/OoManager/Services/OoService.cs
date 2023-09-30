@@ -26,9 +26,9 @@ namespace OoManager.Services
         public async Task<AppData> OpenPageHomeAsync(AppData AppData)
         {
             // Init PageHome
-            AppData.SelectedIndex = 0;
-            AppData.SelectedItem = AppData.NavigationList[0];
-            AppData.CurrentPage = AppData.SelectedItem.Title!;
+            AppData.SelectedPageIndex = 0;
+            AppData.SelectedPage = AppData.NavigationList[0];
+            AppData.SelectedPageTitle = "프로그램 / 회원 정보";
 
             // Init Members
             Task<AppData> _appData = RefreshMembersAsync(AppData);
@@ -36,8 +36,14 @@ namespace OoManager.Services
             AppData = _appData.Result;
 
             // Init Members Information
-            AppData.TotalMembers = AppData.Members.Count;
-            AppData.TotalMembersString = $"총 {AppData.TotalMembers}명";
+            AppData.MembersTotal = AppData.Members.Count;
+            AppData.MembersTotalString = $"총 {AppData.MembersTotal}명";
+
+            // Init Program Information
+            if (AppData.MembersTotal > 0)
+                AppData.FireBaseState = "연결 성공";
+            else AppData.FireBaseState = "연결 실패";
+
 
             await Task.Delay(10);
 
@@ -47,9 +53,9 @@ namespace OoManager.Services
         public async Task<AppData> OpenPageMembersAsync(AppData AppData)
         {
             // Init PageMembers
-            AppData.SelectedIndex = 1;
-            AppData.SelectedItem = AppData.NavigationList[1];
-            AppData.CurrentPage = AppData.SelectedItem.Title!;
+            AppData.SelectedPageIndex = 1;
+            AppData.SelectedPage = AppData.NavigationList[1];
+            AppData.SelectedPageTitle = "회원 관리";
 
             // Init Members
             Task<AppData> _appData = RefreshMembersAsync(AppData);
@@ -64,9 +70,9 @@ namespace OoManager.Services
         public async Task<AppData> OpenPageLectureAsync(AppData AppData)
         {
             // Init PageLecture
-            AppData.SelectedIndex = 2;
-            AppData.SelectedItem = AppData.NavigationList[2];
-            AppData.CurrentPage = AppData.SelectedItem.Title!;
+            AppData.SelectedPageIndex = 2;
+            AppData.SelectedPage = AppData.NavigationList[2];
+            AppData.SelectedPageTitle = "수업 관리";
 
             await Task.Delay(10);
 

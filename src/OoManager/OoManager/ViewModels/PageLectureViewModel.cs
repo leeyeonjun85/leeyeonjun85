@@ -28,7 +28,7 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private void BtnTest1(object obj)
         {
-            MessageBox.Show($"{AppData.CurrentPage}");
+            MessageBox.Show($"{AppData.SelectedPage!.Title}");
         }
 
 

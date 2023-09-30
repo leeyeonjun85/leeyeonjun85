@@ -68,7 +68,7 @@
                 FontSize="34"
                 VerticalAlignment="Center"
                 d:Text="Test Page"
-                Text="{Binding AppData.SelectedItem.Title}"/>
+                Text="{Binding AppData.SelectedPageTitle}"/>
         </Grid>
 
         <Grid
@@ -102,8 +102,8 @@
                 VerticalAlignment="Top"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
                 ItemsSource="{Binding AppData.NavigationList}"
-                SelectedIndex="{Binding AppData.SelectedIndex, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding AppData.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                SelectedIndex="{Binding AppData.SelectedPageIndex, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding AppData.SelectedPage, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
                     <Style 
                         TargetType="ListBoxItem" 
@@ -136,7 +136,7 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
                             Command="{Binding SelectionChangedCommand}"
-                            CommandParameter="{Binding AppData.SelectedItem}"/>
+                            CommandParameter="{Binding AppData.SelectedPage}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
@@ -147,7 +147,7 @@
             Grid.Row="1" Grid.Column="1"
             Grid.RowSpan="12" Grid.ColumnSpan="11"
             NavigationUIVisibility="Hidden"
-            Source="{Binding AppData.SelectedItem.Source}"/>
+            Source="{Binding AppData.SelectedPage.Source}"/>
         
         <!--<Frame
             Grid.Row="1" Grid.Column="1"
