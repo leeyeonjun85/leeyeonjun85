@@ -6,8 +6,8 @@ namespace OoManager.Models
     public class Member
     {
         public string member_class { get; set; } = "월화수목금";
-        public int member_grade { get; set; } = 14;
         public string member_grade_str { get; set; } = "중1";
+        public int member_grade { get; set; } = 14;
         public string member_money { get; set; } = "150000";
         public string member_motherphone { get; set; } = "010-0000-0000";
         public string member_name { get; set; } = string.Empty;

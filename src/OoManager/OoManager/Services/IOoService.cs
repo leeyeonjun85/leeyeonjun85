@@ -8,7 +8,8 @@ namespace OoManager.Services
     public interface IOoService
     {
         Task<AppData> AddMemberAsync(AppData AppData);
-        AppData ConvertGradeOld(AppData AppData);
+        //AppData ConvertGradeOld(AppData AppData);
+        int ConvertGradeOld(string GradeString);
         AppData GetFireBase(AppData AppData);
         Task<IReadOnlyCollection<FirebaseObject<Member>>> GetMembersAsync(AppData AppData);
         Task<AppData> InitAppAsync(AppData AppData);

@@ -170,101 +170,115 @@
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
 
-                <Border
-                    Grid.Row="0"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="총 회원 수 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.MembersTotalString}"/>
-                    </DockPanel>
-                </Border>
+                <Label 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="총 회원 수 :"
+                    Grid.Row="0" Grid.Column="0"/>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    d:Text="5"
+                    Text="{Binding AppData.MembersTotal}"
+                    Grid.Row="0" Grid.Column="1"/>
+                <Label 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="명"
+                    Grid.Row="0" Grid.Column="2"/>
 
-                <Border
-                    Grid.Row="1"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="재원 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.TotalMembersString}"/>
-                    </DockPanel>
-                </Border>
+                
+                <Label 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="재원 :"
+                    Grid.Row="1" Grid.Column="0"/>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    d:Text="5"
+                    Text="{Binding AppData.MembersNormal}"
+                    Grid.Row="1" Grid.Column="1"/>
+                <Label 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="명"
+                    Grid.Row="1" Grid.Column="2"/>
 
-                <Border
-                    Grid.Row="2"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="휴원 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.TotalMembersString}"/>
-                    </DockPanel>
-                </Border>
+                
+                <Label 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="휴원 :"
+                    Grid.Row="2" Grid.Column="0"/>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    d:Text="5"
+                    Text="{Binding AppData.MembersRest}"
+                    Grid.Row="2" Grid.Column="1"/>
+                <Label 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="명"
+                    Grid.Row="2" Grid.Column="2"/>
 
-                <Border
-                    Grid.Row="3"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="보류 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.TotalMembersString}"/>
-                    </DockPanel>
-                </Border>
+                
+                <Label 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="보류 :"
+                    Grid.Row="3" Grid.Column="0"/>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    d:Text="5"
+                    Text="{Binding AppData.MembersPutOff}"
+                    Grid.Row="3" Grid.Column="1"/>
+                <Label 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="명"
+                    Grid.Row="3" Grid.Column="2"/>
 
-                <Border
-                    Grid.Row="4"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="재원 회비 합계 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.TotalMembersString}"/>
-                    </DockPanel>
-                </Border>
+
+                <Label 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="재원 회비 합계 :"
+                    Grid.Row="4" Grid.Column="0"/>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    d:Text="5"
+                    Text="{Binding AppData.MembersTotalMoney}"
+                    Grid.Row="4" Grid.Column="1"/>
+                <Label 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="원"
+                    Grid.Row="4" Grid.Column="2"/>
 
             </Grid>
         </GroupBox>

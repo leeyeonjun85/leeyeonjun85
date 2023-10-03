@@ -16,5 +16,9 @@ namespace OoManager.Models
         public List<string> StateStrings { get; set; } = new()
             { "재원", "휴원", "보류" };
         public string SelectedState { get; set; } = "재원";
+        public string XpUpdateToolTip { get; set; } = string.Empty;
+        public string BonusToolTip { get; set; } = string.Empty;
+        public string MemberUpdateToolTip { get; set; } = string.Empty;
+        public string LectureUpdateToolTip { get; set; } = string.Empty;
     }
 }

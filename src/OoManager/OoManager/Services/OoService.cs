@@ -37,7 +37,31 @@ namespace OoManager.Services
 
             // Init Members Information
             AppData.MembersTotal = AppData.Members.Count;
-            AppData.MembersTotalString = $"총 {AppData.MembersTotal}명";
+            AppData.MembersNormal = AppData.MembersRest = AppData.MembersPutOff = AppData.MembersTotalMoney = 0;
+            foreach (var member in AppData.Members)
+            {
+                switch (member.Member.member_status)
+                {
+                    case "재원":
+                        {
+                            AppData.MembersNormal += 1;
+                            AppData.MembersTotalMoney += Convert.ToInt32(member.Member.member_money);
+                            break;
+                        }
+                    case "휴원":
+                        {
+                            AppData.MembersRest += 1;
+                            break;
+                        }
+                    case "보류":
+                        {
+                            AppData.MembersPutOff += 1;
+                            break;
+                        }
+
+                    default: throw new Exception();
+                }
+            }
 
             // Init Program Information
             if (AppData.MembersTotal > 0)
@@ -119,17 +143,21 @@ namespace OoManager.Services
             AppData.Members = new();
 
             // Get members
-            Task<IReadOnlyCollection<FirebaseObject<Member>>> members1 = GetMembersAsync(AppData);
-            await members1;
-            IReadOnlyCollection<FirebaseObject<Member>> members = members1.Result;
+            Task<IReadOnlyCollection<FirebaseObject<Member>>> _members = GetMembersAsync(AppData);
+            await _members;
+            IReadOnlyCollection<FirebaseObject<Member>> members = _members.Result;
 
             foreach (var member in members)
             {
                 AppData.MemberData = new();
                 AppData.MemberData.Key = member.Key;
-                AppData.MemberData!.Member = member.Object;
+                AppData.MemberData.Member = member.Object;
                 AppData.MemberData.SelectedGrade = member.Object.member_grade_str;
                 AppData.MemberData.SelectedState = member.Object.member_status;
+                AppData.MemberData.XpUpdateToolTip = $"{AppData.MemberData.Member.member_name} XP 수정하기";
+                AppData.MemberData.BonusToolTip = $"{AppData.MemberData.Member.member_name}에게 +5xp";
+                AppData.MemberData.MemberUpdateToolTip = $"{AppData.MemberData.Member.member_name} 회원정보 수정하기";
+                AppData.MemberData.LectureUpdateToolTip = $"{AppData.MemberData.Member.member_name} 수업 수정하기";
                 AppData.Members.Add(AppData.MemberData);
             }
 
@@ -181,11 +209,10 @@ namespace OoManager.Services
                 mid += 1;
                 AppData.MemberData.Member = new();
                 AppData.MemberData.Member.member_grade_str = _memeber.Item1;
+                AppData.MemberData.Member.member_grade = ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
                 AppData.MemberData.Member.member_name = _memeber.Item2;
                 AppData.MemberData.Member.member_xp = _memeber.Item3;
                 AppData.MemberData.Member.mid = mid;
-
-                AppData = ConvertGradeOld(AppData);
 
                 //await AppData.FirebaseDB
                 //        .Child("member")
@@ -202,38 +229,63 @@ namespace OoManager.Services
             return AppData;
         }
 
-        public AppData ConvertGradeOld(AppData AppData)
-        {
-            if (AppData.MemberData.Member.member_grade_str == "6살")
-                AppData.MemberData.Member.member_grade = 6;
-            else if (AppData.MemberData.Member.member_grade_str == "7살")
-                AppData.MemberData.Member.member_grade = 7;
-            else if (AppData.MemberData.Member.member_grade_str == "초1")
-                AppData.MemberData.Member.member_grade = 8;
-            else if (AppData.MemberData.Member.member_grade_str == "초2")
-                AppData.MemberData.Member.member_grade = 9;
-            else if (AppData.MemberData.Member.member_grade_str == "초3")
-                AppData.MemberData.Member.member_grade = 10;
-            else if (AppData.MemberData.Member.member_grade_str == "초4")
-                AppData.MemberData.Member.member_grade = 11;
-            else if (AppData.MemberData.Member.member_grade_str == "초5")
-                AppData.MemberData.Member.member_grade = 12;
-            else if (AppData.MemberData.Member.member_grade_str == "초6")
-                AppData.MemberData.Member.member_grade = 13;
-            else if (AppData.MemberData.Member.member_grade_str == "중1")
-                AppData.MemberData.Member.member_grade = 14;
-            else if (AppData.MemberData.Member.member_grade_str == "중2")
-                AppData.MemberData.Member.member_grade = 15;
-            else if (AppData.MemberData.Member.member_grade_str == "중3")
-                AppData.MemberData.Member.member_grade = 16;
-            else if (AppData.MemberData.Member.member_grade_str == "고1")
-                AppData.MemberData.Member.member_grade = 17;
-            else if (AppData.MemberData.Member.member_grade_str == "고2")
-                AppData.MemberData.Member.member_grade = 18;
-            else if (AppData.MemberData.Member.member_grade_str == "고3")
-                AppData.MemberData.Member.member_grade = 19;
+        //public AppData ConvertGradeOld(AppData AppData)
+        //{
+        //    if (AppData.MemberData.Member.member_grade_str == "6살")
+        //        AppData.MemberData.Member.member_grade = 6;
+        //    else if (AppData.MemberData.Member.member_grade_str == "7살")
+        //        AppData.MemberData.Member.member_grade = 7;
+        //    else if (AppData.MemberData.Member.member_grade_str == "초1")
+        //        AppData.MemberData.Member.member_grade = 8;
+        //    else if (AppData.MemberData.Member.member_grade_str == "초2")
+        //        AppData.MemberData.Member.member_grade = 9;
+        //    else if (AppData.MemberData.Member.member_grade_str == "초3")
+        //        AppData.MemberData.Member.member_grade = 10;
+        //    else if (AppData.MemberData.Member.member_grade_str == "초4")
+        //        AppData.MemberData.Member.member_grade = 11;
+        //    else if (AppData.MemberData.Member.member_grade_str == "초5")
+        //        AppData.MemberData.Member.member_grade = 12;
+        //    else if (AppData.MemberData.Member.member_grade_str == "초6")
+        //        AppData.MemberData.Member.member_grade = 13;
+        //    else if (AppData.MemberData.Member.member_grade_str == "중1")
+        //        AppData.MemberData.Member.member_grade = 14;
+        //    else if (AppData.MemberData.Member.member_grade_str == "중2")
+        //        AppData.MemberData.Member.member_grade = 15;
+        //    else if (AppData.MemberData.Member.member_grade_str == "중3")
+        //        AppData.MemberData.Member.member_grade = 16;
+        //    else if (AppData.MemberData.Member.member_grade_str == "고1")
+        //        AppData.MemberData.Member.member_grade = 17;
+        //    else if (AppData.MemberData.Member.member_grade_str == "고2")
+        //        AppData.MemberData.Member.member_grade = 18;
+        //    else if (AppData.MemberData.Member.member_grade_str == "고3")
+        //        AppData.MemberData.Member.member_grade = 19;
 
-            return AppData;
+        //    return AppData;
+        //}
+
+        public int ConvertGradeOld(string GradeString)
+        {
+            int GradeInt;
+            switch (GradeString)
+            {
+                case "6살" : { GradeInt = 6; break; }
+                case "7살" : { GradeInt = 7; break; }
+                case "초1" : { GradeInt = 8; break; }
+                case "초2" : { GradeInt = 9; break; }
+                case "초3" : { GradeInt = 10; break; }
+                case "초4" : { GradeInt = 11; break; }
+                case "초5" : { GradeInt = 12; break; }
+                case "초6" : { GradeInt = 13; break; }
+                case "중1" : { GradeInt = 14; break; }
+                case "중2" : { GradeInt = 15; break; }
+                case "중3" : { GradeInt = 16; break; }
+                case "고1" : { GradeInt = 17; break; }
+                case "고2" : { GradeInt = 18; break; }
+                case "고3" : { GradeInt = 19; break; }
+                default: throw new Exception("입력된 학년 문자열에 문제가 있습니다.");
+            }
+
+            return GradeInt;
         }
 
         public async Task<AppData> AddMemberAsync(AppData AppData)
@@ -251,10 +303,29 @@ namespace OoManager.Services
 
         public async Task UpdateMemberAsync(AppData AppData)
         {
+            // 데이터베이스에 멤버 업데이트
             await AppData.FirebaseDB
                 .Child("member")
                 .Child(AppData.MemberData.Key)
                 .PutAsync(AppData.MemberData.Member);
+
+            // 화면에 멤버 업데이트
+            foreach (var member in AppData.Members)
+            {
+                if (member.Key == AppData.MemberData.Key)
+                {
+                    member.Member = AppData.MemberData.Member;
+                    member.SelectedGrade = AppData.MemberData.SelectedGrade;
+                    member.SelectedState = AppData.MemberData.SelectedState;
+                    member.BonusToolTip = AppData.MemberData.BonusToolTip;
+
+                    AppData.MemberData = new();
+
+                    Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
+                    await _appData;
+                    AppData = _appData.Result;
+                }
+            }
         }
     }
 }

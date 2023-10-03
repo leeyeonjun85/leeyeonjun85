@@ -8,7 +8,7 @@ using OoManager.Models;
 
 namespace OoManager.ViewModels
 {
-    public partial class WindowMemberUpdateViewModel : ViewModelBase, IParameterReceiver
+    public partial class WindowXpUpdateViewModel : ViewModelBase, IParameterReceiver
     {
         #region 바인딩 멤버
         [ObservableProperty]
@@ -19,14 +19,6 @@ namespace OoManager.ViewModels
         [ObservableProperty]
         private string _name = string.Empty;
         [ObservableProperty]
-        private string _money = "150000";
-        [ObservableProperty]
-        private string _status = "재원";
-        [ObservableProperty]
-        private string _phonenumber = "010-0000-0000";
-        [ObservableProperty]
-        private string _classPlan = "월화수목금";
-        [ObservableProperty]
         private int _xp = 10;
         [ObservableProperty]
         private string _memo = $"회원등록 : {DateTime.Now:yyyy-MM-dd}";
@@ -35,14 +27,10 @@ namespace OoManager.ViewModels
         #endregion
 
 
-        public WindowMemberUpdateViewModel()
+        public WindowXpUpdateViewModel()
         {
             IsActive = true;
         }
-
-
-
-
 
         [RelayCommand]
         private async Task BtnOkAsync(object obj)
@@ -51,13 +39,9 @@ namespace OoManager.ViewModels
             {
                 if (!string.IsNullOrEmpty(this.Name))
                 {
-                    AppData.MemberData.Member.member_class = ClassPlan;
                     AppData.MemberData.Member.member_grade_str = GradeString;
                     AppData.MemberData.Member.member_grade = AppData.OoService!.ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
-                    AppData.MemberData.Member.member_money = Money;
-                    AppData.MemberData.Member.member_motherphone = Phonenumber;
                     AppData.MemberData.Member.member_name = Name;
-                    AppData.MemberData.Member.member_status = Status;
                     AppData.MemberData.Member.member_text = Memo;
                     AppData.MemberData.Member.member_xp = Xp;
                     AppData.MemberData.Member.member_xp_log = XpMemo;
@@ -99,10 +83,6 @@ namespace OoManager.ViewModels
 
                 GradeString = AppData.MemberData.Member.member_grade_str;
                 Name = AppData.MemberData.Member.member_name;
-                Money = AppData.MemberData.Member.member_money;
-                Status = AppData.MemberData.Member.member_status;
-                Phonenumber = AppData.MemberData.Member.member_motherphone;
-                ClassPlan = AppData.MemberData.Member.member_class;
                 Xp = AppData.MemberData.Member.member_xp;
                 Memo = AppData.MemberData.Member.member_text;
                 XpMemo = AppData.MemberData.Member.member_xp_log;

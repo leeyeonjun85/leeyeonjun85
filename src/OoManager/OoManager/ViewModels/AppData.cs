@@ -17,6 +17,17 @@ namespace OoManager.Models
 {
     public partial class AppData : ViewModelBase
     {
+        [ObservableProperty]
+        private OoDbContext? _ooDbContext;
+        [ObservableProperty]
+        private IOoService? _ooService;
+        [ObservableProperty]
+        private bool _canConnectDb;
+
+        //[ObservableProperty]
+        //private Regex? _regexIsNumeric = new Regex("[0-9]+"); //regex that matches Numeric
+
+
         // WindowMain
         [ObservableProperty]
         private ChildQuery? _firebaseDB;
@@ -75,39 +86,30 @@ namespace OoManager.Models
         [ObservableProperty]
         private int _membersNormal;
         [ObservableProperty]
-        private string _membersNormalString = string.Empty;
-        [ObservableProperty]
         private int _membersRest;
-        [ObservableProperty]
-        private string _membersRestString = string.Empty;
         [ObservableProperty]
         private int _membersPutOff;
         [ObservableProperty]
-        private string _membersPutOffString = string.Empty;
+        private int _membersTotalMoney;
 
 
-
+        // Page Members
         [ObservableProperty]
-        private OoDbContext? _ooDbContext;
-        [ObservableProperty]
-        private IOoService? _ooService;
-
-
-        //[ObservableProperty]
-        //private Regex? _regexIsNumeric = new Regex("[0-9]+"); //regex that matches Numeric
-
-        
-
+        private ObservableCollection<MemberData> _members = new();
         [ObservableProperty]
         private MemberData _memberData = new();
         [ObservableProperty]
-        private ObservableCollection<MemberData> _members = new();
-        
-
-        [ObservableProperty]
-        private bool _canConnectDb;
-
-        [ObservableProperty]
         private MemberData? _selectedMember;
+        [ObservableProperty]
+        private string _pageMembersStatus = "재원";
+
+
+        // Page Members
+        [ObservableProperty]
+        private ObservableCollection<LectureData> _lectures = new();
+        [ObservableProperty]
+        private LectureData _lectureData = new();
+
+
     }
 }

@@ -27,51 +27,9 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task RefreshAsync(object obj)
         {
-
-            //Dispatcher dispatchObject = System.Windows.Application.Current.Dispatcher;
-            //if (dispatchObject == null || dispatchObject.CheckAccess())
-            //{
             Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
             await _appData;
             AppData = _appData.Result;
-            //}
-            //else dispatchObject.Invoke(() =>
-            //{
-            //    Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
-            //    await _appData;
-            //    AppData = _appData.Result;
-            //});
-
-
-
-
-            //IReadOnlyCollection<FirebaseObject<object>> Lectures1 = await AppData.FirebaseDB
-            //        .Child("lecture")
-            //        .OnceAsync<object>();
-
-            //IReadOnlyCollection<FirebaseObject<string>> Lectures2 = await AppData.FirebaseDB
-            //        .Child("lecture")
-            //        .OnceAsync<string>();
-
-            //IReadOnlyCollection<FirebaseObject<OoLectures>> Lectures3 = await AppData.FirebaseDB
-            //        .Child("lecture")
-            //        .OnceAsync<OoLectures>();
-
-            //OoLectures lecture1 = new()
-            //{
-            //    mid = 1,
-            //    o2_class_date = DateTime.Now.ToString("yyyy-MM-dd"),
-            //    o2_class_homework = "테스트 숙제",
-            //    o2_class_lecture = "테스트 수업",
-            //    o2_class_memo = "테스트 메모",
-            //    o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("hh:mm"),
-            //    o2_class_time_out = DateTime.Now.ToString("hh:mm"),
-            //};
-
-            //await AppData.FirebaseDB
-            //        .Child("lecture")
-            //        .Child(DateTime.Now.ToString("yyyy-MM-dd"))
-            //        .PostAsync(lecture1);
         }
 
 

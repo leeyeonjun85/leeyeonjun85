@@ -55,12 +55,14 @@ namespace OoManager
             builder.Services.AddTransient<SubView>();
             builder.Services.AddTransient<WindowMemberAdd>();
             builder.Services.AddTransient<WindowMemberUpdate>();
+            builder.Services.AddTransient<WindowXpUpdate>();
 
             // ViewModels
             builder.Services.AddSingleton<WindowMainViewModel>();
             builder.Services.AddTransient<SubViewModel>();
             builder.Services.AddTransient<WindowMemberAddViewModel>();
             builder.Services.AddTransient<WindowMemberUpdateViewModel>();
+            builder.Services.AddTransient<WindowXpUpdateViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>
