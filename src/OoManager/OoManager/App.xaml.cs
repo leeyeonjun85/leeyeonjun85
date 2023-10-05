@@ -56,6 +56,7 @@ namespace OoManager
             builder.Services.AddTransient<WindowMemberAdd>();
             builder.Services.AddTransient<WindowMemberUpdate>();
             builder.Services.AddTransient<WindowXpUpdate>();
+            builder.Services.AddTransient<WindowLecturesUpdate>();
 
             // ViewModels
             builder.Services.AddSingleton<WindowMainViewModel>();
@@ -63,6 +64,8 @@ namespace OoManager
             builder.Services.AddTransient<WindowMemberAddViewModel>();
             builder.Services.AddTransient<WindowMemberUpdateViewModel>();
             builder.Services.AddTransient<WindowXpUpdateViewModel>();
+            builder.Services.AddTransient<WindowLecturesUpdateViewModel>();
+            
 
             // Logging
             builder.Services.AddLogging(x =>

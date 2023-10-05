@@ -20,6 +20,7 @@ namespace OoManager.ViewModels
         #region 바인딩 멤버
         [ObservableProperty]
         private AppData _appData = new();
+        
         #endregion
 
         public PageLectureViewModel()
@@ -34,6 +35,23 @@ namespace OoManager.ViewModels
             {
                 ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberUpdateViewModel))!;
                 Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberUpdate))!;
+                viewModel.SetWindow(view);
+                if (viewModel is IParameterReceiver parameterReceiver)
+                {
+                    parameterReceiver.ReceiveParameter(AppData);
+                }
+                view.DataContext = viewModel;
+                view.Show();
+            };
+        }
+
+        [RelayCommand]
+        private void LectureUpdate(object obj)
+        {
+            if (AppData.SelectedMember is not null)
+            {
+                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowLecturesUpdateViewModel))!;
+                Window view = (Window)Ioc.Default.GetService(typeof(WindowLecturesUpdate))!;
                 viewModel.SetWindow(view);
                 if (viewModel is IParameterReceiver parameterReceiver)
                 {

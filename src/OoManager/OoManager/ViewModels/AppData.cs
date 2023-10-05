@@ -104,11 +104,25 @@ namespace OoManager.Models
         private string _pageMembersStatus = "재원";
 
 
-        // Page Members
+        // Page Lectures
         [ObservableProperty]
         private ObservableCollection<LectureData> _lectures = new();
         [ObservableProperty]
         private LectureData _lectureData = new();
+        [ObservableProperty]
+        private string _lectureHeader1 = string.Empty;
+        [ObservableProperty]
+        private string _lectureHeader2 = string.Empty;
+        [ObservableProperty]
+        private string _lectureHeader3 = string.Empty;
+        [ObservableProperty]
+        private string _lectureHeader4 = string.Empty;
+        [ObservableProperty]
+        private string _lectureHeader5 = string.Empty;
+        [ObservableProperty]
+        private string _lectureHeader6 = string.Empty;
+        [ObservableProperty]
+        private string _lectureHeader7 = string.Empty;
 
 
     }

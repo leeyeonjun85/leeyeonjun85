@@ -103,6 +103,22 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn 
+                    Header="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader1}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Content="{Binding Member.member_name}"
+                                Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                ToolTip="{Binding LectureUpdateToolTip}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LectureDateUpdateCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn}, Path=Header}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
                 <DataGridTextColumn 
                     Binding="{Binding Member.member_class}"
                     Header="수업" 

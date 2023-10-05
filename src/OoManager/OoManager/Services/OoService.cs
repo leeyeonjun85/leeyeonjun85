@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
+using Newtonsoft.Json.Linq;
 using OoManager.Models;
 using Utiles;
 
@@ -97,6 +98,42 @@ namespace OoManager.Services
             AppData.SelectedPageIndex = 2;
             AppData.SelectedPage = AppData.NavigationList[2];
             AppData.SelectedPageTitle = "수업 관리";
+
+
+            // Init Lectures
+            AppData.Lectures = new();
+            IReadOnlyCollection<FirebaseObject<object>> _lecturesDates = await AppData.FirebaseDB
+                    .Child("lecture")
+                    .OnceAsync<object>();
+
+            foreach (FirebaseObject<object> _lecturesDate in _lecturesDates)
+            {
+                if (_lecturesDate.Object is IEnumerable<JToken> _lecturesDateJToken)
+                {
+                    foreach (JToken _lectureJToken in _lecturesDateJToken)
+                    {
+                        Lecture _lecture = new()
+                        {
+                            mid = _lectureJToken.First!.Value<int>("mid"),
+                            o2_class_date = _lectureJToken.First.Value<string>("o2_class_date")!,
+                            o2_class_homework = _lectureJToken.First.Value<string>("o2_class_homework")!,
+                            o2_class_lecture = _lectureJToken.First.Value<string>("o2_class_lecture")!,
+                            o2_class_memo = _lectureJToken.First.Value<string>("o2_class_memo")!,
+                            o2_class_time_in = _lectureJToken.First.Value<string>("o2_class_time_in")!,
+                            o2_class_time_out = _lectureJToken.First.Value<string>("o2_class_time_out")!,
+                        };
+
+                        AppData.LectureData = new()
+                        {
+                            DateString = _lecturesDate.Key,
+                            Key = _lecturesDate.Key,
+                            Lecture = _lecture,
+                        };
+                        AppData.Lectures.Add(AppData.LectureData);
+                    }
+                }
+            }
+
 
             await Task.Delay(10);
 
