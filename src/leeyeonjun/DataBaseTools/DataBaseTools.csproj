@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\EdcoreWorks\SolaceExamples\ConfirmedDelivery\ConfirmedPublish.csproj" />
     <ProjectReference Include="..\Utiles\Utiles.csproj" />
   </ItemGroup>
 
