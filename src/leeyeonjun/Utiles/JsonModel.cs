@@ -70,6 +70,8 @@ namespace Utiles
     public class OoManager
     {
         [JsonInclude]
+        public required string FireBaseUrl { get; set; }
+        [JsonInclude]
         public required string FireBaseAuth { get; set; }
     }
 }

@@ -296,11 +296,6 @@
             
             <Button 
                 Margin="10 0"
-                Content="새로고침"
-                Command="{Binding RefreshPageHomeCommand}"
-                Grid.Row="0" Grid.Column="0"/>
-            <Button 
-                Margin="10 0"
                 Content="버튼1"
                 Command="{Binding BtnTest1Command}"
                 Grid.Row="0" Grid.Column="2"/>      

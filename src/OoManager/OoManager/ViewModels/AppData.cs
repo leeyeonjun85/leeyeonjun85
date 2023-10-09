@@ -17,18 +17,11 @@ namespace OoManager.Models
 {
     public partial class AppData : ViewModelBase
     {
+        // WindowMain
         [ObservableProperty]
-        private OoDbContext? _ooDbContext;
-        [ObservableProperty]
-        private IOoService? _ooService;
+        private IAppUtiles? _ooService;
         [ObservableProperty]
         private bool _canConnectDb;
-
-        //[ObservableProperty]
-        //private Regex? _regexIsNumeric = new Regex("[0-9]+"); //regex that matches Numeric
-
-
-        // WindowMain
         [ObservableProperty]
         private ChildQuery? _firebaseDB;
         [ObservableProperty]
@@ -97,6 +90,8 @@ namespace OoManager.Models
         [ObservableProperty]
         private ObservableCollection<MemberData> _members = new();
         [ObservableProperty]
+        private Dictionary<int, int> _membersDict = new();
+        [ObservableProperty]
         private MemberData _memberData = new();
         [ObservableProperty]
         private MemberData? _selectedMember;
@@ -106,9 +101,15 @@ namespace OoManager.Models
 
         // Page Lectures
         [ObservableProperty]
-        private ObservableCollection<LectureData> _lectures = new();
+        private ObservableCollection<LectureData> _lecturesTotal = new();
+        [ObservableProperty]
+        private Dictionary<string, int> _lecturesTotalDict = new();
         [ObservableProperty]
         private LectureData _lectureData = new();
+
+        [ObservableProperty]
+        private List<string> _lectureHeaderList = new();
+
         [ObservableProperty]
         private string _lectureHeader1 = string.Empty;
         [ObservableProperty]
@@ -124,6 +125,19 @@ namespace OoManager.Models
         [ObservableProperty]
         private string _lectureHeader7 = string.Empty;
 
-
+        [ObservableProperty]
+        private Visibility _lectureHeader1Visibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _lectureHeader2Visibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _lectureHeader3Visibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _lectureHeader4Visibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _lectureHeader5Visibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _lectureHeader6Visibility = Visibility.Hidden;
+        [ObservableProperty]
+        private Visibility _lectureHeader7Visibility = Visibility.Hidden;
     }
 }

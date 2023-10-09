@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using MaterialDesignColors;
-using MaterialDesignThemes.Wpf;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using OoManager.Common;
-using OoManager.Models;
 using OoManager.Services;
 using OoManager.ViewModels;
 using OoManager.Views;
@@ -26,29 +17,18 @@ namespace OoManager
     {
         public static ILogger? LOGGER;
 
+        public App()
+        {
+            IServiceProvider serviceProvider = ConfigureServices();
+            Ioc.Default.ConfigureServices(serviceProvider);
+
+            LOGGER = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
+            LOGGER!.LogInformation("프로그램이 시작되었습니다.");
+        }
+
         private IServiceProvider ConfigureServices()
         {
             HostApplicationBuilder builder = Host.CreateApplicationBuilder();
-
-            // Configuration
-            string pathRoot = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, ConfigurationManager.AppSettings["Root"] ?? "Root");
-            string pathAppName = Path.Combine(pathRoot, ConfigurationManager.AppSettings["AppName"] ?? "AppName");
-            string pathLogs = Path.Combine(pathAppName, ConfigurationManager.AppSettings["Logs"] ?? "Logs");
-            string pathDataBase = Path.Combine(pathRoot, ConfigurationManager.AppSettings["DataBase"] ?? "DataBase");
-
-            // Validate Directory
-            if (!Directory.Exists(pathRoot))
-                Directory.CreateDirectory(pathRoot);
-            if (!Directory.Exists(pathAppName))
-                Directory.CreateDirectory(pathAppName);
-            if (!Directory.Exists(pathLogs))
-                Directory.CreateDirectory(pathLogs);
-            if (!Directory.Exists(pathDataBase))
-                Directory.CreateDirectory(pathDataBase);
-
-            // Oo Database
-            builder.Services.AddDbContext<OoDbContext>(options =>
-                options.UseSqlite($"Data Source={pathDataBase}{Path.DirectorySeparatorChar}OoDb.db"));
 
             // Views
             builder.Services.AddSingleton<WindowMain>();
@@ -65,7 +45,6 @@ namespace OoManager
             builder.Services.AddTransient<WindowMemberUpdateViewModel>();
             builder.Services.AddTransient<WindowXpUpdateViewModel>();
             builder.Services.AddTransient<WindowLecturesUpdateViewModel>();
-            
 
             // Logging
             builder.Services.AddLogging(x =>
@@ -75,34 +54,31 @@ namespace OoManager
             });
 
             // Services
-            builder.Services.AddSingleton<IOoService, OoService>();
+            builder.Services.AddSingleton<IAppUtiles, Services.AppUtiles>();
 
             IHost host = builder.Build();
             return host.Services;
-        }
-
-        public App()
-        {
-            IServiceProvider serviceProvider = ConfigureServices();
-            Ioc.Default.ConfigureServices(serviceProvider);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            LOGGER = (ILogger<App>?)Ioc.Default.GetService(typeof(ILogger<App>));
-
-            Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.DeepPurple];
-            Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Lime];
-            ITheme theme = Theme.Create(new MaterialDesignLightTheme(), primaryColor, accentColor);
-            Resources.SetTheme(theme);
-
-            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMainViewModel))!;
-            Window view = (Window)Ioc.Default.GetService(typeof(WindowMain))!;
-            viewModel.SetWindow(view);
-            view.DataContext = viewModel;
-            view.Show();
+            #region Show Main Window
+            try
+            {
+                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMainViewModel))!;
+                Window view = (Window)Ioc.Default.GetService(typeof(WindowMain))!;
+                viewModel.SetWindow(view);
+                view.DataContext = viewModel;
+                view.Show();
+            }
+            catch (Exception ex)
+            {
+                LOGGER!.LogError($"Error in Show Main Window{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex}");
+                throw;
+            }
+            #endregion
         }
     }
 }

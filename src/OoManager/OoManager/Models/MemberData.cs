@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using OoManager.Common;
+﻿using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace OoManager.Models
 {
@@ -20,5 +19,7 @@ namespace OoManager.Models
         public string BonusToolTip { get; set; } = string.Empty;
         public string MemberUpdateToolTip { get; set; } = string.Empty;
         public string LectureUpdateToolTip { get; set; } = string.Empty;
+
+        public List<LectureData> Lectures { get; set; } = new();
     }
 }

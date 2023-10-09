@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.Logging;
-using OoManager.Common;
 using OoManager.Models;
 using OoManager.Services;
 
@@ -20,15 +20,10 @@ namespace OoManager.ViewModels
         private AppData _appData = new();
         #endregion
 
-
-        public WindowMainViewModel(
-            OoDbContext ooDbContext,
-            IOoService ooService)
+        public WindowMainViewModel()
         {
-            AppData.OoDbContext = ooDbContext;
-            AppData.OoService = ooService;
+            AppData.OoService = (IAppUtiles)Ioc.Default.GetService(typeof(IAppUtiles))!; ;
         }
-
 
         [RelayCommand]
         private async Task SelectionChangedAsync(object obj)
@@ -69,8 +64,6 @@ namespace OoManager.ViewModels
             Task<AppData> _appData = AppData.OoService!.InitAppAsync(AppData);
             await _appData; AppData = _appData.Result;
             WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
-
-            App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)

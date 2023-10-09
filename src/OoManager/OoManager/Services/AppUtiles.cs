@@ -1,25 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Resources;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Firebase.Database;
 using Firebase.Database.Query;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json.Linq;
 using OoManager.Models;
 using Utiles;
 
 namespace OoManager.Services
 {
-    public class OoService : IOoService
+    public class AppUtiles : IAppUtiles
     {
         public async Task<AppData> InitAppAsync(AppData AppData)
         {
+            // Color Theme
+            Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.Indigo];
+            Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Amber];
+            PaletteHelper paletteHelper = new PaletteHelper();
+            var theme = paletteHelper.GetTheme();
+            theme.SetPrimaryColor(primaryColor);
+            theme.SetSecondaryColor(accentColor);
+            paletteHelper.SetTheme(theme);
+
             // Init FireBase
             AppData = GetFireBase(AppData);
 
             // Open PageHome
             Task<AppData> _appData = OpenPageHomeAsync(AppData);
-            await _appData;
-            AppData = _appData.Result;
+            await _appData; AppData = _appData.Result;
+
+            return AppData;
+        }
+
+        public AppData GetFireBase(AppData AppData)
+        {
+            JsonModel jsonModel = MyUtiles.GetJsonModel();
+            string FireBaseUrl = jsonModel.OoManager.FireBaseUrl;
+            string FireBaseAuth = jsonModel.OoManager.FireBaseAuth;
+
+            FirebaseClient client = new(FireBaseUrl, new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FireBaseAuth) });
+
+            AppData.FirebaseDB = client.Child(AppData.FireBaseDbName);
 
             return AppData;
         }
@@ -31,16 +56,108 @@ namespace OoManager.Services
             AppData.SelectedPage = AppData.NavigationList[0];
             AppData.SelectedPageTitle = "프로그램 / 회원 정보";
 
+            Task<AppData> _appData = RefreshDataAsync(AppData);
+            await _appData; AppData = _appData.Result;
+
+            return AppData;
+        }
+
+        public async Task<AppData> OpenPageMembersAsync(AppData AppData)
+        {
+            // Init PageMembers
+            AppData.SelectedPageIndex = 1;
+            AppData.SelectedPage = AppData.NavigationList[1];
+            AppData.SelectedPageTitle = "회원 관리";
+
+            Task<AppData> _appData = RefreshDataAsync(AppData);
+            await _appData; AppData = _appData.Result;
+
+            return AppData;
+        }
+
+        public async Task<AppData> OpenPageLectureAsync(AppData AppData)
+        {
+            // Init PageLecture
+            AppData.SelectedPageIndex = 2;
+            AppData.SelectedPage = AppData.NavigationList[2];
+            AppData.SelectedPageTitle = "출석부";
+
+            Task<AppData> _appData = RefreshDataAsync(AppData);
+            await _appData; AppData = _appData.Result;
+
+            return AppData;
+        }
+
+        
+
+        public async Task<AppData> RefreshDataAsync(AppData AppData)
+        {
             // Init Members
-            Task<AppData> _appData = RefreshMembersAsync(AppData);
-            await _appData;
-            AppData = _appData.Result;
+            Task<AppData> _appData1 = GetMembersAsync(AppData);
+            await _appData1; AppData = _appData1.Result;
+
+            // Init Lectures
+            Task<AppData> _appData2 = GetLecturesAsync(AppData);
+            await _appData2; AppData = _appData2.Result;
 
             // Init Members Information
             AppData.MembersTotal = AppData.Members.Count;
             AppData.MembersNormal = AppData.MembersRest = AppData.MembersPutOff = AppData.MembersTotalMoney = 0;
-            foreach (var member in AppData.Members)
+            foreach (MemberData member in AppData.Members)
             {
+                // Lectures Init
+                foreach (LectureData memberLecture in member.Lectures)
+                {
+                    if (!AppData.LectureHeaderList.Contains(memberLecture.o2_class_date))
+                        AppData.LectureHeaderList.Add(memberLecture.o2_class_date);
+                }
+
+                if (AppData.LectureHeaderList.Count > 7)
+                {
+                    int _removeCount = AppData.LectureHeaderList.Count - 7;
+                    AppData.LectureHeaderList.RemoveRange(0, _removeCount);
+                }
+
+                switch (AppData.LectureHeaderList.Count)
+                {
+                    case 0:
+                        {
+                            break;
+                        }
+                    case 1:
+                        {
+
+                            break;
+                        }
+                    case 2:
+                        {
+                            break;
+                        }
+                    case 3:
+                        {
+                            break;
+                        }
+                    case 4:
+                        {
+                            break;
+                        }
+                    case 5:
+                        {
+                            break;
+                        }
+                    case 6:
+                        {
+                            break;
+                        }
+                    case 7:
+                        {
+                            break;
+                        }
+
+                    default: throw new Exception();
+                }
+
+
                 switch (member.Member.member_status)
                 {
                     case "재원":
@@ -70,38 +187,45 @@ namespace OoManager.Services
             else AppData.FireBaseState = "연결 실패";
 
 
-            await Task.Delay(10);
+            return AppData;
+        }
+
+        public async Task<AppData> GetMembersAsync(AppData AppData)
+        {
+            AppData.Members = new();
+            AppData.MembersDict = new();
+            int _idx = 0;
+
+            // Get members
+            IReadOnlyCollection<FirebaseObject<Member>> members = await AppData.FirebaseDB
+                    .Child("member")
+                    .OnceAsync<Member>();
+
+            foreach (var member in members)
+            {
+                AppData.MemberData = new();
+                AppData.MemberData.Key = member.Key;
+                AppData.MemberData.Member = member.Object;
+                AppData.MemberData.SelectedGrade = member.Object.member_grade_str;
+                AppData.MemberData.SelectedState = member.Object.member_status;
+                AppData.MemberData.XpUpdateToolTip = $"{AppData.MemberData.Member.member_name} XP 수정하기";
+                AppData.MemberData.BonusToolTip = $"{AppData.MemberData.Member.member_name}에게 +5xp";
+                AppData.MemberData.MemberUpdateToolTip = $"{AppData.MemberData.Member.member_name} 회원정보 수정하기";
+                AppData.MemberData.LectureUpdateToolTip = $"{AppData.MemberData.Member.member_name} 수업 수정하기";
+                AppData.Members.Add(AppData.MemberData);
+                AppData.MembersDict[member.Object.mid] = _idx;
+                _idx++;
+            }
 
             return AppData;
         }
 
-        public async Task<AppData> OpenPageMembersAsync(AppData AppData)
+        public async Task<AppData> GetLecturesAsync(AppData AppData)
         {
-            // Init PageMembers
-            AppData.SelectedPageIndex = 1;
-            AppData.SelectedPage = AppData.NavigationList[1];
-            AppData.SelectedPageTitle = "회원 관리";
-
-            // Init Members
-            Task<AppData> _appData = RefreshMembersAsync(AppData);
-            await _appData;
-            AppData = _appData.Result;
-
-            await Task.Delay(10);
-
-            return AppData;
-        }
-
-        public async Task<AppData> OpenPageLectureAsync(AppData AppData)
-        {
-            // Init PageLecture
-            AppData.SelectedPageIndex = 2;
-            AppData.SelectedPage = AppData.NavigationList[2];
-            AppData.SelectedPageTitle = "수업 관리";
-
+            AppData.LecturesTotal = new();
+            int _idx = 0;
 
             // Init Lectures
-            AppData.Lectures = new();
             IReadOnlyCollection<FirebaseObject<object>> _lecturesDates = await AppData.FirebaseDB
                     .Child("lecture")
                     .OnceAsync<object>();
@@ -123,83 +247,32 @@ namespace OoManager.Services
                             o2_class_time_out = _lectureJToken.First.Value<string>("o2_class_time_out")!,
                         };
 
-                        AppData.LectureData = new()
+                        LectureData _lectureData = new()
                         {
-                            DateString = _lecturesDate.Key,
-                            Key = _lecturesDate.Key,
+                            Key = _lectureJToken.Path,
                             Lecture = _lecture,
+                            mid = _lectureJToken.First!.Value<int>("mid"),
+                            o2_class_date = _lectureJToken.First.Value<string>("o2_class_date")!,
+                            o2_class_homework = _lectureJToken.First.Value<string>("o2_class_homework")!,
+                            o2_class_lecture = _lectureJToken.First.Value<string>("o2_class_lecture")!,
+                            o2_class_memo = _lectureJToken.First.Value<string>("o2_class_memo")!,
+                            o2_class_time_in = _lectureJToken.First.Value<string>("o2_class_time_in")!,
+                            o2_class_time_out = _lectureJToken.First.Value<string>("o2_class_time_out")!,
                         };
-                        AppData.Lectures.Add(AppData.LectureData);
+                        AppData.LecturesTotal.Add(_lectureData);
+                        AppData.LecturesTotalDict[_lectureData.Key] = _idx;
+                        AppData.Members[AppData.MembersDict[_lectureJToken.First!.Value<int>("mid")]].Lectures.Add(_lectureData);
+                        _idx++;
                     }
                 }
             }
 
-
-            await Task.Delay(10);
-
             return AppData;
         }
 
 
-        public AppData GetFireBase(AppData AppData)
-        {
-            try
-            {
-                string FirebaseDatabaseUrl = "https://leeyeonjundb-default-rtdb.asia-southeast1.firebasedatabase.app";
-                JsonModel jsonModel = MyUtiles.GetJsonModel();
 
-                FirebaseClient client = new(FirebaseDatabaseUrl,
-                                            new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(jsonModel.OoManager.FireBaseAuth) });
 
-                AppData.FirebaseDB = client.Child(AppData.FireBaseDbName);
-
-                return AppData;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-
-            }
-        }
-
-        public async Task<IReadOnlyCollection<FirebaseObject<Member>>> GetMembersAsync(AppData AppData)
-        {
-            IReadOnlyCollection<FirebaseObject<Member>> Members = await AppData.FirebaseDB
-                    .Child("member")
-                    .OnceAsync<Member>();
-
-            return Members;
-        }
-
-        public async Task<AppData> RefreshMembersAsync(AppData AppData)
-        {
-            AppData.Members = new();
-
-            // Get members
-            Task<IReadOnlyCollection<FirebaseObject<Member>>> _members = GetMembersAsync(AppData);
-            await _members;
-            IReadOnlyCollection<FirebaseObject<Member>> members = _members.Result;
-
-            foreach (var member in members)
-            {
-                AppData.MemberData = new();
-                AppData.MemberData.Key = member.Key;
-                AppData.MemberData.Member = member.Object;
-                AppData.MemberData.SelectedGrade = member.Object.member_grade_str;
-                AppData.MemberData.SelectedState = member.Object.member_status;
-                AppData.MemberData.XpUpdateToolTip = $"{AppData.MemberData.Member.member_name} XP 수정하기";
-                AppData.MemberData.BonusToolTip = $"{AppData.MemberData.Member.member_name}에게 +5xp";
-                AppData.MemberData.MemberUpdateToolTip = $"{AppData.MemberData.Member.member_name} 회원정보 수정하기";
-                AppData.MemberData.LectureUpdateToolTip = $"{AppData.MemberData.Member.member_name} 수업 수정하기";
-                AppData.Members.Add(AppData.MemberData);
-            }
-
-            return AppData;
-        }
 
         public async Task<AppData> InitMembers(AppData AppData)
         {
@@ -305,20 +378,20 @@ namespace OoManager.Services
             int GradeInt;
             switch (GradeString)
             {
-                case "6살" : { GradeInt = 6; break; }
-                case "7살" : { GradeInt = 7; break; }
-                case "초1" : { GradeInt = 8; break; }
-                case "초2" : { GradeInt = 9; break; }
-                case "초3" : { GradeInt = 10; break; }
-                case "초4" : { GradeInt = 11; break; }
-                case "초5" : { GradeInt = 12; break; }
-                case "초6" : { GradeInt = 13; break; }
-                case "중1" : { GradeInt = 14; break; }
-                case "중2" : { GradeInt = 15; break; }
-                case "중3" : { GradeInt = 16; break; }
-                case "고1" : { GradeInt = 17; break; }
-                case "고2" : { GradeInt = 18; break; }
-                case "고3" : { GradeInt = 19; break; }
+                case "6살": { GradeInt = 6; break; }
+                case "7살": { GradeInt = 7; break; }
+                case "초1": { GradeInt = 8; break; }
+                case "초2": { GradeInt = 9; break; }
+                case "초3": { GradeInt = 10; break; }
+                case "초4": { GradeInt = 11; break; }
+                case "초5": { GradeInt = 12; break; }
+                case "초6": { GradeInt = 13; break; }
+                case "중1": { GradeInt = 14; break; }
+                case "중2": { GradeInt = 15; break; }
+                case "중3": { GradeInt = 16; break; }
+                case "고1": { GradeInt = 17; break; }
+                case "고2": { GradeInt = 18; break; }
+                case "고3": { GradeInt = 19; break; }
                 default: throw new Exception("입력된 학년 문자열에 문제가 있습니다.");
             }
 
@@ -358,7 +431,7 @@ namespace OoManager.Services
 
                     AppData.MemberData = new();
 
-                    Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
+                    Task<AppData> _appData = AppData.OoService!.GetMembersAsync(AppData);
                     await _appData;
                     AppData = _appData.Result;
                 }

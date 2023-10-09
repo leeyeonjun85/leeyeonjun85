@@ -79,7 +79,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ToggleButton
+            <!--<ToggleButton
                 Margin="0,32,0,0"
                 Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
             <Button
@@ -96,10 +96,10 @@
                     Width="24"
                     Height="24"
                     Kind="PencilOutline" />
-            </Button>
+            </Button>-->
             <ListBox
                 Grid.Row="2"
-                VerticalAlignment="Top"
+                Margin="0 50"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
                 ItemsSource="{Binding AppData.NavigationList}"
                 SelectedIndex="{Binding AppData.SelectedPageIndex, UpdateSourceTrigger=PropertyChanged}"
@@ -142,35 +142,11 @@
             </ListBox>
         </Grid>
 
-
         <Frame
             Grid.Row="1" Grid.Column="1"
             Grid.RowSpan="12" Grid.ColumnSpan="11"
             NavigationUIVisibility="Hidden"
             Source="{Binding AppData.SelectedPage.Source}"/>
-        
-        <!--<Frame
-            Grid.Row="1" Grid.Column="1"
-            Grid.RowSpan="12" Grid.ColumnSpan="11"
-            Visibility="{Binding AppData.PageHomeVisibility}"
-            NavigationUIVisibility="Hidden"
-            Source="/Views/PageHome.xaml"/>
-
-        <Frame
-            Grid.Row="1" Grid.Column="1"
-            Grid.RowSpan="12" Grid.ColumnSpan="11"
-            Visibility="{Binding AppData.PageMembersVisibility}"
-            NavigationUIVisibility="Hidden"
-            Source="/Views/PageMembers.xaml"/>
-
-        <Frame
-            Grid.Row="1" Grid.Column="1"
-            Grid.RowSpan="12" Grid.ColumnSpan="11"
-            Visibility="{Binding AppData.PageLectureVisibility}"
-            NavigationUIVisibility="Hidden"
-            Source="/Views/PageLecture.xaml"/>-->
-
-
 
     </Grid> 
 </Window>

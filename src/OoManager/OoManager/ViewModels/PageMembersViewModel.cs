@@ -27,7 +27,7 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task RefreshAsync(object obj)
         {
-            Task<AppData> _appData = AppData.OoService!.RefreshMembersAsync(AppData);
+            Task<AppData> _appData = AppData.OoService!.RefreshDataAsync(AppData);
             await _appData;
             AppData = _appData.Result;
         }

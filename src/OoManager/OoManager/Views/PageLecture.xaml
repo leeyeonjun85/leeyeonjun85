@@ -20,7 +20,16 @@
     <Page.DataContext>
         <ViewModels:PageLectureViewModel />
     </Page.DataContext>
-    
+
+    <Page.Resources>
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+            <Setter Property="FontFamily" Value="{DynamicResource MaterialDesignFont}"/>
+            
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -51,6 +60,7 @@
             ItemsSource="{Binding AppData.Members}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn 
+                    HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                     Header="XP">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -64,6 +74,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn 
+                    HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                     Header="보너스">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -77,6 +88,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn 
+                    HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                     Header="학년">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -90,6 +102,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn 
+                    HeaderStyle="{StaticResource CenterGridHeaderStyle}"
                     Header="이름">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -104,6 +117,8 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn 
+                    HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                    Visibility="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader1Visibility}"
                     Header="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader1}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -117,12 +132,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
-
-                <DataGridTextColumn 
-                    Binding="{Binding Member.member_class}"
-                    Header="수업" 
-                    IsReadOnly="True"/>
+                
+                
             </DataGrid.Columns>
         </DataGrid>
 

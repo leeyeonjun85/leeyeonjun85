@@ -20,7 +20,6 @@ namespace OoManager.ViewModels
         #region 바인딩 멤버
         [ObservableProperty]
         private AppData _appData = new();
-        
         #endregion
 
         public PageLectureViewModel()
@@ -104,64 +103,76 @@ namespace OoManager.ViewModels
         [RelayCommand]
         private async Task BtnTest1(object obj)
         {
-            IReadOnlyCollection<FirebaseObject<object>> _lecturesDates = await AppData.FirebaseDB
-                    .Child("lecture")
-                    .OnceAsync<object>();
 
-            foreach (FirebaseObject<object> _lecturesDate in _lecturesDates)
-            {
-                if (_lecturesDate.Object is IEnumerable<JObject> _lecturesDateJToken)
-                {
-                    foreach (JToken _lectureJToken in _lecturesDateJToken)
-                    {
-                        Lecture _lecture = new()
-                        {
-                            mid = 3,
-                            o2_class_date = DateTime.Now.ToString("yyyy-MM-dd"),
-                            o2_class_homework = "테스트 숙제",
-                            o2_class_lecture = "테스트 수업",
-                            o2_class_memo = "테스트 메모",
-                            o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("HH:mm"),
-                            o2_class_time_out = DateTime.Now.ToString("HH:mm"),
-                        };
 
-                        AppData.LectureData = new()
-                        {
-                            DateString = ((Lecture)_lecture).o2_class_date,
-                            Key = _lecturesDate.Key,
-                            Lecture = _lecture,
-                        };
-                        AppData.Lectures.Add(AppData.LectureData);
-                    }
-                }
-            }
+
+            //IReadOnlyCollection<FirebaseObject<object>> _lecturesDates = await AppData.FirebaseDB
+            //        .Child("lecture")
+            //        .OnceAsync<object>();
+
+            //foreach (FirebaseObject<object> _lecturesDate in _lecturesDates)
+            //{
+            //    if (_lecturesDate.Object is IEnumerable<JObject> _lecturesDateJToken)
+            //    {
+            //        foreach (JToken _lectureJToken in _lecturesDateJToken)
+            //        {
+            //            Lecture _lecture = new()
+            //            {
+            //                mid = 3,
+            //                o2_class_date = DateTime.Now.ToString("yyyy-MM-dd"),
+            //                o2_class_homework = "테스트 숙제",
+            //                o2_class_lecture = "테스트 수업",
+            //                o2_class_memo = "테스트 메모",
+            //                o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("HH:mm"),
+            //                o2_class_time_out = DateTime.Now.ToString("HH:mm"),
+            //            };
+
+            //            AppData.LectureData = new()
+            //            {
+            //                DateString = ((Lecture)_lecture).o2_class_date,
+            //                Key = _lecturesDate.Key,
+            //                Lecture = _lecture,
+            //            };
+            //            AppData.LecturesTotal.Add(AppData.LectureData);
+            //        }
+            //    }
+            //}
 
             //AppData.Lectures.Add
 
-            //Lecture _lecture = new()
-            //{
-            //    mid = 3,
-            //    o2_class_date = DateTime.Now.ToString("yyyy-MM-dd"),
-            //    o2_class_homework = "테스트 숙제",
-            //    o2_class_lecture = "테스트 수업",
-            //    o2_class_memo = "테스트 메모",
-            //    o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("HH:mm"),
-            //    o2_class_time_out = DateTime.Now.ToString("HH:mm"),
-            //};
 
-            //AppData.LectureData = new()
-            //{
-            //    DateString = _lecture.o2_class_date,
-            //    Key = string.Empty,
-            //    Lecture = _lecture,
-            //};
 
-            Task<FirebaseObject<Lecture>> resultPost = AppData.FirebaseDB
-                    .Child("lecture")
-                    .Child(AppData.LectureData.DateString)
-                    .PostAsync(AppData.LectureData.Lecture);
-            await resultPost;
-            AppData.LectureData.Key = resultPost.Result.Key;
+            //for (int i = 1; i <= 10; i++)
+            //{
+            //    Lecture _lecture = new()
+            //    {
+            //        mid = 3,
+            //        o2_class_date = DateTime.Now.AddDays(-i).ToString("yyyy-MM-dd"),
+            //        o2_class_homework = "테스트 숙제",
+            //        o2_class_lecture = "테스트 수업",
+            //        o2_class_memo = "테스트 메모",
+            //        o2_class_time_in = DateTime.Now.AddMinutes(-30).ToString("HH:mm"),
+            //        o2_class_time_out = DateTime.Now.ToString("HH:mm"),
+            //    };
+
+            //    AppData.LectureData = new()
+            //    {
+            //        DateString = _lecture.o2_class_date,
+            //        Key = string.Empty,
+            //        Lecture = _lecture,
+            //    };
+
+            //    Task<FirebaseObject<Lecture>> resultPost = AppData.FirebaseDB
+            //            .Child("lecture")
+            //            .Child(AppData.LectureData.DateString)
+            //            .PostAsync(AppData.LectureData.Lecture);
+            //    await resultPost;
+            //    AppData.LectureData.Key = resultPost.Result.Key;
+            //}
+
+
+
+
         }
 
 
