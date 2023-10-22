@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Resources;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Firebase.Database;
@@ -9,7 +11,6 @@ using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json.Linq;
 using OoManager.Models;
-using Utiles;
 
 namespace OoManager.Services
 {
@@ -38,9 +39,13 @@ namespace OoManager.Services
 
         public AppData GetFireBase(AppData AppData)
         {
-            JsonModel jsonModel = MyUtiles.GetJsonModel();
-            string FireBaseUrl = jsonModel.OoManager.FireBaseUrl;
-            string FireBaseAuth = jsonModel.OoManager.FireBaseAuth;
+            string fileName = $"yeonjunsCode{Path.DirectorySeparatorChar}private{Path.DirectorySeparatorChar}src{Path.DirectorySeparatorChar}leeyeonjun85.json";
+            string filePath = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, fileName);
+            string jsonString = File.ReadAllText(filePath);
+            JObject jObject = JObject.Parse(jsonString);
+
+            string FireBaseUrl = jObject["OoManager"]!["FireBaseUrl"]!.ToString();
+            string FireBaseAuth = jObject["OoManager"]!["FireBaseAuth"]!.ToString();
 
             FirebaseClient client = new(FireBaseUrl, new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FireBaseAuth) });
 

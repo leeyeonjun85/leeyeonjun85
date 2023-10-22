@@ -1,5 +1,4 @@
 ﻿using System;
-using OoManager.Common;
 
 namespace OoManager.Models
 {

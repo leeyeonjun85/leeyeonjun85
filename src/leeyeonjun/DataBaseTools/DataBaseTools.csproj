@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\EdcoreWorks\SolaceExamples\ConfirmedDelivery\ConfirmedPublish.csproj" />
-    <ProjectReference Include="..\Utiles\Utiles.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Views\SQLiteView.xaml">
       <SubType>Designer</SubType>
     </Page>

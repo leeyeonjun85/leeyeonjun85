@@ -5,13 +5,12 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{5184ED3E-CAF1-4BA6-84AB-73BFAF55E5D4}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\EdcoreWorks\EDCORE_Work.md = ..\..\..\EdcoreWorks\EDCORE_Work.md
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utiles", "Utiles\Utiles.csproj", "{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfirmedPublish", "..\..\..\EdcoreWorks\0Source\SolaceExamples\ConfirmedDelivery\ConfirmedPublish.csproj", "{36B4F931-66A6-4AC0-9E27-1095F391B7B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseTools", "DataBaseTools\DataBaseTools.csproj", "{86F6378F-D520-4328-B2CF-D9715F432FDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,22 +24,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|arm64.ActiveCfg = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|arm64.Build.0 = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|x64.Build.0 = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Debug|x86.Build.0 = Debug|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|arm64.ActiveCfg = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|arm64.Build.0 = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|x64.ActiveCfg = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|x64.Build.0 = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|x86.ActiveCfg = Release|Any CPU
-		{DDBC3000-C1AF-42B9-AD73-AEEB5449BCF2}.Release|x86.Build.0 = Release|Any CPU
 		{36B4F931-66A6-4AC0-9E27-1095F391B7B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36B4F931-66A6-4AC0-9E27-1095F391B7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36B4F931-66A6-4AC0-9E27-1095F391B7B1}.Debug|arm64.ActiveCfg = Debug|Any CPU
@@ -57,6 +40,22 @@ Global
 		{36B4F931-66A6-4AC0-9E27-1095F391B7B1}.Release|x64.Build.0 = Release|Any CPU
 		{36B4F931-66A6-4AC0-9E27-1095F391B7B1}.Release|x86.ActiveCfg = Release|Any CPU
 		{36B4F931-66A6-4AC0-9E27-1095F391B7B1}.Release|x86.Build.0 = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|arm64.Build.0 = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|x64.Build.0 = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Debug|x86.Build.0 = Debug|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|arm64.ActiveCfg = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|arm64.Build.0 = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|x64.ActiveCfg = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|x64.Build.0 = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|x86.ActiveCfg = Release|Any CPU
+		{86F6378F-D520-4328-B2CF-D9715F432FDB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
