@@ -3,8 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
-using DataBaseTools.Services;
-using Edcore.Models;
+using DataBaseTools.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -20,7 +19,6 @@ namespace DataBaseTools.ViewModels
 {
     public partial class SeojungriOracleViewModel : ViewModelBase
     {
-        private readonly IViewService _viewService;
         private readonly TestOracleContext _context;
 
         [ObservableProperty]
@@ -42,11 +40,9 @@ namespace DataBaseTools.ViewModels
         private string _selectedDataString = "아이디 / 이름 / 나이";
 
         public SeojungriOracleViewModel(
-            IViewService viewService,
             TestOracleContext context
             )
         {
-            _viewService = viewService;
             _context = context;
 
         }
@@ -112,7 +108,7 @@ namespace DataBaseTools.ViewModels
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.LOGGER!.LogInformation("서정리 오라클이 종료되었습니다.");
+            App.logger.LogInformation("서정리 오라클이 종료되었습니다.");
         }
     }
 }

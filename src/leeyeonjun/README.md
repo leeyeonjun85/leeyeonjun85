@@ -14,6 +14,7 @@ Install-Package Microsoft.EntityFrameworkCore.Tools
 Install-Package Oracle.EntityFrameworkCore
 Install-Package Microsoft.EntityFrameworkCore.Sqlite
 Install-Package SSH.NET
+Install-Package Newtonsoft.Json
 ```
 
 

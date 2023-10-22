@@ -1,18 +1,11 @@
 ﻿using System.Windows;
-using DataBaseTools.Models;
 using DataBaseTools.ViewModels;
 
 namespace DataBaseTools.Services
 {
     public interface IViewService
     {
-        void ShowFireBaseView();
-        void ShowMainView();
-        void ShowMongoDbView();
-        void ShowSeojungriOracleView();
-        void ShowSQLiteView();
-        void ShowSftpView();
-        void ShowSubView(SubData subData);
+        bool ActivateView<TView>() where TView : Window;
         void ShowView<TView, TViewModel>(object? parameter = null)
             where TView : Window
             where TViewModel : ViewModelBase;

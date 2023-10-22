@@ -13,10 +13,11 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainView" Height="450" Width="800">
+        Title="{Binding AppData.WindowTitle}" Height="700" Width="900">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -34,82 +35,226 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock
-            Grid.Row="0" Grid.Column="2"
-            Grid.ColumnSpan="2"
-            d:Text="서브뷰에서 전달받은 메시지"
-            Text="{Binding TbMessage}"
-            VerticalAlignment="Center"
-            />  
-
-        <StackPanel
-            Grid.Row="1" Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Orientation="Vertical"
-            VerticalAlignment="Center">
-            <Label Content="Name"/>
-            <TextBox
-                Text="{Binding TbName, UpdateSourceTrigger=PropertyChanged}"
-                d:Text="이름 입력"
-                Margin="7 3"
-                />
-        </StackPanel>
-        <StackPanel
-            Grid.Row="1" Grid.Column="3"
-            Grid.ColumnSpan="1"
-            Orientation="Vertical"
-            VerticalAlignment="Center">
-            <Label Content="Old"/>
-            <TextBox
-                Text="{Binding TbOld, UpdateSourceTrigger=PropertyChanged}"
-                d:Text="나이 입력"
-                Margin="7 3"
-        />
-        </StackPanel>
-        <Button 
-            Grid.Row="1" Grid.Column="4"
-            Grid.ColumnSpan="1"
-            Content="Show SubView" 
-            BorderThickness="10"
-            Command="{Binding ShowSubViewCommand}"/>
-
-        <Button 
-            Grid.Row="0" Grid.Column="1"
+        <!--<Button 
+            Grid.Row="0" Grid.Column="0"
             Grid.ColumnSpan="1"
             Content="Test1" 
             Margin="5 3"
-            Command="{Binding Test1Command}"/>
+            CommandParameter="{Binding}"
+            Command="{Binding Test1Command}"/>-->
 
-        <Button 
-            Grid.Row="2" Grid.Column="1"
-            Grid.ColumnSpan="1"
-            Content="Mongo DB" 
+        <GroupBox
             Margin="5 3"
-            Command="{Binding MongoDbCommand}"/>
-        <Button 
-            Grid.Row="2" Grid.Column="2"
-            Grid.ColumnSpan="1"
-            Content="Fire Base" 
+            Padding="5"
+            Header="Window Data Transfer"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="1" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    materialDesign:HintAssist.Hint="이름"
+                    Text="{Binding TbName, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="0" />
+
+                <TextBox
+                    materialDesign:HintAssist.Hint="나이"
+                    Text="{Binding TbOld, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="1" />
+
+                <Button 
+                    Content="Show SubView" 
+                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                    CommandParameter="{Binding}"
+                    Command="{Binding BtnShowSubViewClickCommand}"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="2" />
+
+                <TextBox
+                     materialDesign:HintAssist.Hint="서브뷰에서 전달받은 메시지"
+                     Text="{Binding TbMessage}"
+                     VerticalAlignment="Center"
+                     FontSize="16"
+                     Margin="10 0"
+                     Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
             Margin="5 3"
-            Command="{Binding FireBaseCommand}"/>
-        <Button 
-            Grid.Row="2" Grid.Column="3"
-            Grid.ColumnSpan="1"
-            Content="SeojungriOracle" 
+            Padding="5"
+            Header="SQLite"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="2" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="15*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Label 
+                    Content="Connection String"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="0" />
+
+                <TextBox
+                    materialDesign:HintAssist.Hint="Input SQLite Connection string..."
+                    Text="{Binding AppData.SQLiteConnectionString}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="1" />
+                
+                <Button 
+                    Content="SQLite" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding SQLiteCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
             Margin="5 3"
-            Command="{Binding SeojungriOracleCommand}"/>
-        <Button 
-            Grid.Row="2" Grid.Column="4"
-            Grid.ColumnSpan="1"
-            Content="SQLite" 
+            Padding="5"
+            Header="Seojungri Oracle"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="3" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="SeojungriOracle" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding SeojungriOracleCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
             Margin="5 3"
-            Command="{Binding SQLiteCommand}"/>
-        <Button 
-            Grid.Row="3" Grid.Column="1"
-            Grid.ColumnSpan="1"
-            Content="Sftp" 
+            Padding="5"
+            Header="Mongo DB"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="4" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="Mongo DB" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding MongoDbCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
             Margin="5 3"
-            Command="{Binding SftpCommand}"/>
+            Padding="5"
+            Header="Fire Base"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="5" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="Fire Base" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding FireBaseCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Sftp"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="6" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="Sftp" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding SftpCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        
+
+
+
+
 
 
 
@@ -135,22 +280,23 @@
             <StatusBarItem>
                 <TextBlock
                     d:Text="Status : 현재상태"
-                    Text="{Binding StatusBar1}"
+                    Text="{Binding AppData.StatusBar1}"
                     x:Name="StatusBar1" />
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
                 <TextBlock
                     d:Text="여러가지 메시지"
-                    Text="{Binding StatusBar2}"
+                    Text="{Binding AppData.StatusBar2}"
                     x:Name="StatusBar2" />
             </StatusBarItem>
             <Separator Grid.Column="3" />
             <StatusBarItem Grid.Column="4">
                 <ProgressBar
-                    Value="{Binding StatusBarProgressBar}" 
+                    IsIndeterminate="{Binding AppData.ProgressBarIsIndeterminate}" 
+                    Value="{Binding AppData.StatusBarProgressBar}" 
                     Width="90" 
-                    Height="16" />
+                    Height="16" />      
             </StatusBarItem>
         </StatusBar>
 

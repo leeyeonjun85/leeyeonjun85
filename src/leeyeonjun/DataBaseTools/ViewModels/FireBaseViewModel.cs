@@ -54,12 +54,12 @@ namespace DataBaseTools.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.LOGGER!.LogInformation("SubView가 시작되었습니다.");
+            App.logger.LogInformation("SubView가 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.LOGGER!.LogInformation("SubView가 종료되었습니다.");
+            App.logger.LogInformation("SubView가 종료되었습니다.");
         }
 
         public void ReceiveParameter(object parameter)

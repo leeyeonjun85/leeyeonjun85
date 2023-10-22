@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Edcore.Models
+namespace DataBaseTools.Models
 {
     public class TestSQLiteContext : DbContext
     {

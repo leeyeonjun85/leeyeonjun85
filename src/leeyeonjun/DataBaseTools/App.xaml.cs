@@ -1,16 +1,18 @@
-﻿using System;
+﻿#pragma warning disable CA2254 // 템플릿은 정적 표현식이어야 합니다.
+using System;
 using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using DataBaseTools.Services;
 using DataBaseTools.ViewModels;
 using DataBaseTools.Views;
-using Edcore.Models;
+using DataBaseTools.Models;
+using DataBaseTools.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Utiles;
+using DataBaseTools.Services;
 
 namespace DataBaseTools
 {
@@ -19,26 +21,26 @@ namespace DataBaseTools
     /// </summary>
     public partial class App : Application
     {
-        public static ILogger? LOGGER;
+        public static ILogger logger;
+        public static IViewService viewService;
+        public static Utiles utiles;
 
         private IServiceProvider ConfigureServices()
         {
 
             HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
-            JsonModel jsonModel = MyUtiles.GetJsonModel();
-
             // Database : EFCore SeojungriOracle
             builder.Services.AddDbContext<TestOracleContext>(p =>
             {
-                p.UseOracle(jsonModel.ConnectionStrings.SeojungriOracle);
+                p.UseOracle(JsonData.GetEdcoreWorksJsonData("SeojungriOracle"));
                 p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
             });
 
             // Database : EFCore SQLite
             builder.Services.AddDbContext<TestSQLiteContext>(p =>
             {
-                p.UseSqlite(jsonModel.ConnectionStrings.SQLite);
+                p.UseSqlite(JsonData.GetEdcoreWorksJsonData("SQLite"));
                 p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
             });
 
@@ -78,15 +80,16 @@ namespace DataBaseTools
         {
             IServiceProvider serviceProvider = ConfigureServices();
             Ioc.Default.ConfigureServices(serviceProvider);
+
+            logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
+            viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
+            utiles = new Utiles();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            LOGGER = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
-            var viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
-            viewService.ShowMainView();
+            App.viewService.ShowView<MainView, MainViewModel>();
         }
     }
 }

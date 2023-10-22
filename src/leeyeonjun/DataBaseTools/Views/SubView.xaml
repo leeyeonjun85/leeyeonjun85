@@ -34,35 +34,62 @@
         </Grid.ColumnDefinitions>
 
 
-        <TextBlock
-            Grid.Row="1" Grid.Column="1"
-            Grid.ColumnSpan="1"
-            d:Text="이름"
-            Text="{Binding SubData.StringData}"
-            VerticalAlignment="Center"
-            />
-        <TextBlock
-            Grid.Row="1" Grid.Column="2"
-            Grid.ColumnSpan="1"
-            d:Text="나이"
-            Text="{Binding SubData.IntData}"
-            VerticalAlignment="Center"
-            />
-        <Button
-            Grid.Row="1" Grid.Column="3"
-            Grid.ColumnSpan="1"
-            Content="종료"
-            Command="{Binding BtnCloseCommand}"/>
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="이름"
+            Grid.RowSpan="2" Grid.ColumnSpan="3"
+            Grid.Row="1" Grid.Column="0">
 
+            <TextBox
+                Margin="10 0"
+                d:Text="이름"
+                FontSize="24"
+                Text="{Binding SubData.StringData}"
+                VerticalAlignment="Center"
+                Grid.ColumnSpan="1"
+                Grid.Row="1" Grid.Column="1" />      
+        </GroupBox>
 
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="나이"
+            Grid.RowSpan="2" Grid.ColumnSpan="3"
+            Grid.Row="1" Grid.Column="3">
+
+            <TextBox
+                Margin="10 0"
+                d:Text="나이"
+                FontSize="24"
+                Text="{Binding SubData.IntData}"
+                VerticalAlignment="Center"
+                Grid.ColumnSpan="1"
+                Grid.Row="1" Grid.Column="1" />
+        </GroupBox>
+
+        <Label 
+            Content="To Main Message : "
+            VerticalAlignment="Center"
+            FontSize="16"
+            Margin="10 0"
+            HorizontalAlignment="Center"
+            Grid.ColumnSpan="2"
+            Grid.Row="4" Grid.Column="0" />
+        
+        <TextBox
+            d:Text="메시지 입력"
+            Text="{Binding TbMessage, UpdateSourceTrigger=PropertyChanged}"
+            Margin="10 0"
+            VerticalAlignment="Center"
+            Grid.ColumnSpan="4"
+            Grid.Row="4" Grid.Column="2" />  
 
         <Grid
-            Grid.Row="3" Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="2"
-            Margin="7 3">
+            Margin="10 0"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="5" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -70,28 +97,20 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox
-                Grid.Row="0" Grid.Column="0"
-                Grid.ColumnSpan="2"
-                d:Text="메시지 입력"
-                Text="{Binding TbMessage, UpdateSourceTrigger=PropertyChanged}"
-                Margin="7 3"
-                VerticalAlignment="Center"
-                />
             <Button 
                 Grid.Row="1" Grid.Column="0"
                 Margin="10 3"
                 Content="OK" 
-                Command="{Binding BtnOkCommand}"/>
+                Command="{Binding BtnOkClickCommand}"/>
             <Button 
                 Grid.Row="1" Grid.Column="1"
                 Margin="10 3"
                 Content="Cancel" 
-                Command="{Binding BtnCancelCommand}"/>
+                Command="{Binding BtnCancelClickCommand}"/>
         </Grid>
 
-        
-        
+
+
         <StatusBar
             Grid.Row="99" Grid.Column="0"
             Grid.RowSpan="1" Grid.ColumnSpan="6">
@@ -112,20 +131,21 @@
             <StatusBarItem>
                 <TextBlock
                     d:Text="Status : 현재상태"
-                    Text="{Binding StatusBar1}"
+                    Text="{Binding AppData.StatusBar1}"
                     x:Name="StatusBar1" />
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
                 <TextBlock
                     d:Text="여러가지 메시지"
-                    Text="{Binding StatusBar2}"
+                    Text="{Binding AppData.StatusBar2}"
                     x:Name="StatusBar2" />
             </StatusBarItem>
             <Separator Grid.Column="3" />
             <StatusBarItem Grid.Column="4">
                 <ProgressBar
-                    Value="{Binding StatusBarProgressBar}" 
+                    IsIndeterminate="{Binding AppData.ProgressBarIsIndeterminate}" 
+                    Value="{Binding AppData.StatusBarProgressBar}" 
                     Width="90" 
                     Height="16" />
             </StatusBarItem>

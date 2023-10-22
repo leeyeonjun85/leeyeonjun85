@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿#pragma warning disable CA2254 // 템플릿은 정적 표현식이어야 합니다.
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DataBaseTools.Models;
 using DataBaseTools.ViewModels;
-using DataBaseTools.Views;
+using Microsoft.Extensions.Logging;
 
 namespace DataBaseTools.Services
 {
@@ -14,21 +15,29 @@ namespace DataBaseTools.Services
             where TView : Window
             where TViewModel : ViewModelBase
         {
-            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(TViewModel))!;
-            Window view = (Window)Ioc.Default.GetService(typeof(TView))!;
-
-            viewModel.SetWindow(view);
-
-            if (parameter != null && viewModel is IParameterReceiver parameterReceiver)
+            try
             {
-                parameterReceiver.ReceiveParameter(parameter);
-            }
+                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(TViewModel))!;
+                Window view = (Window)Ioc.Default.GetService(typeof(TView))!;
 
-            view.DataContext = viewModel;
-            view.Show();
+                viewModel.SetWindow(view);
+
+                if (parameter != null && viewModel is IParameterReceiver parameterReceiver)
+                {
+                    parameterReceiver.ReceiveParameter(parameter);
+                }
+
+                view.DataContext = viewModel;
+                view.Show();
+            }
+            catch (Exception ex)
+            {
+                App.logger.LogError($"Error in Show Window{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex}");
+                throw;
+            }
         }
 
-        private bool ActivateView<TView>() where TView : Window
+        public bool ActivateView<TView>() where TView : Window
         {
             IEnumerable<Window> windows = Application.Current.Windows.OfType<TView>();
             if (windows.Any())
@@ -37,44 +46,6 @@ namespace DataBaseTools.Services
                 return true;
             }
             return false;
-        }
-
-        public void ShowMainView()
-        {
-            ShowView<MainView, MainViewModel>();
-        }
-
-        public void ShowSubView(SubData subData)
-        {
-            if (!ActivateView<SubView>())
-            {
-                ShowView<SubView, SubViewModel>(subData);
-            }
-        }
-
-        public void ShowMongoDbView()
-        {
-            ShowView<MongoDbView, MongoDbViewModel>();
-        }
-
-        public void ShowFireBaseView()
-        {
-            ShowView<FireBaseView, FireBaseViewModel>();
-        }
-
-        public void ShowSeojungriOracleView()
-        {
-            ShowView<SeojungriOracleView, SeojungriOracleViewModel>();
-        }
-
-        public void ShowSQLiteView()
-        {
-            ShowView<SQLiteView, SQLiteViewModel>();
-        }
-
-        public void ShowSftpView()
-        {
-            ShowView<SftpView, SftpViewModel>();
         }
     }
 }

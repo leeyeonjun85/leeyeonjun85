@@ -11,14 +11,6 @@ namespace DataBaseTools.ViewModels
 {
     public partial class SubViewModel : ViewModelBase, IParameterReceiver
     {
-
-        [ObservableProperty]
-        private string _statusBar1 = "Status : Ready";
-        [ObservableProperty]
-        private string _statusBar2 = "Hellow world!";
-        [ObservableProperty]
-        private int _statusBarProgressBar = 0;
-
         [ObservableProperty]
         private SubData _subData = new();
         [ObservableProperty]
@@ -26,17 +18,10 @@ namespace DataBaseTools.ViewModels
 
         public SubViewModel()
         {
-
         }
 
         [RelayCommand]
-        private void BtnClose(object? obj)
-        {
-            Window?.Close();
-        }
-
-        [RelayCommand]
-        private void BtnOk(object? obj)
+        private void BtnOkClick(object? obj)
         {
             ToMainData toMainData = new()
             {
@@ -49,17 +34,17 @@ namespace DataBaseTools.ViewModels
         }
 
         [RelayCommand]
-        private void BtnCancel(object? obj) => Window?.Close();
+        private void BtnCancelClick(object? obj) => Window?.Close();
 
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.LOGGER!.LogInformation("SubView가 시작되었습니다.");
+            App.logger.LogInformation("SubView가 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.LOGGER!.LogInformation("SubView가 종료되었습니다.");
+            App.logger.LogInformation("SubView가 종료되었습니다.");
         }
 
         public void ReceiveParameter(object parameter)
@@ -69,7 +54,5 @@ namespace DataBaseTools.ViewModels
                 SubData = subData;
             }
         }
-
-        //public ICommand CloseCommand => new RelayCommand<object>(_ => Window?.Close());
     }
 }

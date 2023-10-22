@@ -1,34 +1,31 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
 using DataBaseTools.Services;
-using Edcore.Models;
+using DataBaseTools.Models;
+using DataBaseTools.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace DataBaseTools.ViewModels
 {
-    public partial class SQLiteViewModel : ViewModelBase
+    public partial class SQLiteViewModel : ViewModelBase, IParameterReceiver
     {
-        private readonly IViewService _viewService;
-        private readonly TestSQLiteContext _context;
+        [ObservableProperty]
+        private AppData _appData = new();
 
         [ObservableProperty]
-        private string _statusBar1 = "Status : Ready";
-        [ObservableProperty]
-        private string _statusBar2 = "Hellow world!";
-        [ObservableProperty]
-        private int _statusBarProgressBar = 0;
+        private TestSQLiteContext _context;
 
         [ObservableProperty]
         private string _addNameText = "";
@@ -41,14 +38,9 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private string _selectedDataString = "아이디 / 이름 / 나이";
 
-        public SQLiteViewModel(
-            IViewService viewService,
-            TestSQLiteContext context
-            )
+        public SQLiteViewModel()
         {
-            _viewService = viewService;
-            _context = context;
-
+            Context = (TestSQLiteContext)Ioc.Default.GetService(typeof(TestSQLiteContext))!;
         }
 
 
@@ -56,17 +48,17 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnUpdate(object? obj)
         {
-            //TestSQLiteModel foundata = _context.yeonjunTest.Find(SelectedData.Id)!;
+            //TestSQLiteModel foundata = Context.yeonjunTest.Find(SelectedData.Id)!;
 
-            _context.Entry(SelectedData).State = EntityState.Modified;
-            _context.SaveChanges();
+            Context.Entry(SelectedData).State = EntityState.Modified;
+            Context.SaveChanges();
         }
 
         [RelayCommand]
         private void BtnDelete(object? obj)
         {
-            _context.yeonjunTest.Remove(SelectedData);
-            _context.SaveChanges();
+            Context.yeonjunTest.Remove(SelectedData);
+            Context.SaveChanges();
         }
 
         [RelayCommand]
@@ -80,41 +72,51 @@ namespace DataBaseTools.ViewModels
         }
 
         [RelayCommand]
-        private void BtnConnect(object? obj)
+        private async Task ConnectAsync()
         {
-            //_context.Database.EnsureCreated();
+            //Context.Database.EnsureCreated();
 
-            if (!_context.Database.GetService<IRelationalDatabaseCreator>().Exists())
+            if (!Context.Database.GetService<IRelationalDatabaseCreator>().Exists())
             {
-                RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)_context.Database.GetService<IDatabaseCreator>();
-                databaseCreator.CreateTables();
-                StatusBar1 = "Status : Connected";
-                StatusBar2 = "SQLite 데이터베이스를 생성하였습니다.";
+                RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)Context.Database.GetService<IDatabaseCreator>();
+                await databaseCreator.CreateTablesAsync();
+                AppData.StatusBar1 = "Status : Connected";
+                AppData.StatusBar2 = "SQLite 데이터베이스를 생성하였습니다.";
             }
 
-            StatusBar1 = "Status : Connected"; ;
-            StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
+            AppData.StatusBar1 = "Status : Connected"; ;
+            AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
 
-            _context.yeonjunTest.Load();
-            YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
+            await Context.yeonjunTest.LoadAsync();
+            YeonjunTestItemsSource = Context.yeonjunTest.Local.ToObservableCollection();
 
         }
 
         [RelayCommand]
         private void AddData(object? obj)
         {
-            _context.yeonjunTest.Add(new TestSQLiteModel() { Name = AddNameText, Years = AddYearsText });
-            _context.SaveChanges();
+            Context.yeonjunTest.Add(new TestSQLiteModel() { Name = AddNameText, Years = AddYearsText });
+            Context.SaveChanges();
         }
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.LOGGER!.LogInformation("SQLite가 시작되었습니다.");
+            App.logger.LogInformation("SQLite가 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.LOGGER!.LogInformation("SQLite가 종료되었습니다.");
+            App.logger.LogInformation("SQLite가 종료되었습니다.");
+        }
+
+        public async void ReceiveParameter(object parameter)
+        {
+            if (parameter is AppData _appData)
+            {
+                AppData = _appData;
+            }
+
+            await ConnectAsync();
         }
     }
 }

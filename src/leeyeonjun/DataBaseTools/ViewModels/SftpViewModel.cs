@@ -3,8 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
-using DataBaseTools.Services;
-using Edcore.Models;
+using DataBaseTools.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -23,7 +22,6 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml.Linq;
-using Utiles;
 using static System.Net.WebRequestMethods;
 
 namespace DataBaseTools.ViewModels
@@ -196,12 +194,12 @@ namespace DataBaseTools.ViewModels
         {
             try
             {
-                JsonModel jsonModel = MyUtiles.GetJsonModel();
-                var connectInfo = new ConnectionInfo(jsonModel.Edcore.SFTP.host,
-                    Convert.ToInt32(jsonModel.Edcore.SFTP.port),
-                    jsonModel.Edcore.SFTP.username,
-                    new PasswordAuthenticationMethod(jsonModel.Edcore.SFTP.username, jsonModel.Edcore.SFTP.password));
-                client = new SftpClient(connectInfo);
+                //JsonModel jsonModel = MyUtiles.GetJsonModel();
+                //var connectInfo = new ConnectionInfo(jsonModel.DataBaseTools.SFTP.host,
+                //    Convert.ToInt32(jsonModel.DataBaseTools.SFTP.port),
+                //    jsonModel.DataBaseTools.SFTP.username,
+                //    new PasswordAuthenticationMethod(jsonModel.DataBaseTools.SFTP.username, jsonModel.DataBaseTools.SFTP.password));
+                //client = new SftpClient(connectInfo);
 
                 client.KeepAliveInterval = TimeSpan.FromSeconds(60);
                 client.ConnectionInfo.Timeout = TimeSpan.FromMinutes(180);
@@ -246,12 +244,12 @@ namespace DataBaseTools.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.LOGGER!.LogInformation("SQLite가 시작되었습니다.");
+            App.logger.LogInformation("SQLite가 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.LOGGER!.LogInformation("SQLite가 종료되었습니다.");
+            App.logger.LogInformation("SQLite가 종료되었습니다.");
             client?.Disconnect();
         }
     }
