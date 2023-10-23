@@ -109,17 +109,9 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="15*" />
+                    <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
-
-                <Label 
-                    Content="Connection String"
-                    VerticalAlignment="Center"
-                    FontSize="16"
-                    Margin="10 0"
-                    Grid.Row="0" Grid.Column="0" />
 
                 <TextBox
                     materialDesign:HintAssist.Hint="Input SQLite Connection string..."
@@ -127,7 +119,7 @@
                     VerticalAlignment="Center"
                     FontSize="16"
                     Margin="10 0"
-                    Grid.Row="0" Grid.Column="1" />
+                    Grid.Row="0" Grid.Column="0" />
                 
                 <Button 
                     Content="SQLite" 
@@ -151,12 +143,18 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6*" />
-                    <ColumnDefinition Width="8*" />
-                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
 
+                <TextBox
+                    materialDesign:HintAssist.Hint="Input Oracle Connection string..."
+                    Text="{Binding AppData.OracleConnectionString}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="0" />
+                
                 <Button 
                     Content="SeojungriOracle" 
                     Margin="10 0"

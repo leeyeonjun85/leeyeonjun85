@@ -1,4 +1,6 @@
 ﻿#pragma warning disable CA2254 // 템플릿은 정적 표현식이어야 합니다.
+using System;
+using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using DataBaseTools.Models;
 using DataBaseTools.Services;
@@ -9,8 +11,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Windows;
 
 namespace DataBaseTools
 {
@@ -21,7 +21,7 @@ namespace DataBaseTools
     {
         public static ILogger logger;
         public static IViewService viewService;
-        public static Utiles utiles;
+        public static string SQLiteConnectionString = string.Empty;
 
         private IServiceProvider ConfigureServices()
         {
@@ -38,7 +38,7 @@ namespace DataBaseTools
             // Database : EFCore SQLite
             builder.Services.AddDbContext<TestSQLiteContext>(p =>
             {
-                p.UseSqlite(JsonData.GetEdcoreWorksJsonData("SQLite"));
+                p.UseSqlite(SQLiteConnectionString);
                 p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
             });
 
@@ -81,7 +81,6 @@ namespace DataBaseTools
 
             logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
             viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
-            utiles = new Utiles();
         }
 
         protected override void OnStartup(StartupEventArgs e)

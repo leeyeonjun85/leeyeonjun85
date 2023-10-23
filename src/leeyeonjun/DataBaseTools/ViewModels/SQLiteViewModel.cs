@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,12 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using DataBaseTools.Models;
-using DataBaseTools.Services;
-using DataBaseTools.Models;
-using DataBaseTools.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace DataBaseTools.ViewModels
@@ -40,7 +34,7 @@ namespace DataBaseTools.ViewModels
 
         public SQLiteViewModel()
         {
-            Context = (TestSQLiteContext)Ioc.Default.GetService(typeof(TestSQLiteContext))!;
+
         }
 
 
@@ -74,13 +68,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task ConnectAsync()
         {
-            //Context.Database.EnsureCreated();
-
-            if (!Context.Database.GetService<IRelationalDatabaseCreator>().Exists())
-            {
-                RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)Context.Database.GetService<IDatabaseCreator>();
-                await databaseCreator.CreateTablesAsync();
-            }
+            Context.Database.EnsureCreated();
 
             AppData.StatusBar1 = "Status : Connected"; ;
             AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
@@ -113,6 +101,9 @@ namespace DataBaseTools.ViewModels
             {
                 AppData = _appData;
             }
+
+            App.SQLiteConnectionString = AppData.SQLiteConnectionString;
+            Context = (TestSQLiteContext)Ioc.Default.GetService(typeof(TestSQLiteContext))!;
 
             await ConnectAsync();
         }

@@ -1,32 +1,32 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using DataBaseTools.Models;
-using DataBaseTools.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DataBaseTools.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DataBaseTools.ViewModels
 {
-    public partial class SeojungriOracleViewModel : ViewModelBase
+    public partial class SeojungriOracleViewModel : ViewModelBase, IParameterReceiver
     {
         private readonly TestOracleContext _context;
 
         [ObservableProperty]
-        private string _statusBar1 = "Status : Ready";
-        [ObservableProperty]
-        private string _statusBar2 = "Hellow world!";
-        [ObservableProperty]
-        private int _statusBarProgressBar = 0;
+        private AppData _appData = new();
+
+
+        private OracleConnection? conn;
+        private OracleCommand? cmd;
+        private OracleDependency? dep;
+        private OracleDataAdapter? adapter;
+        private OracleDataReader? rdr;
 
         [ObservableProperty]
         private string _addNameText = "";
@@ -38,6 +38,11 @@ namespace DataBaseTools.ViewModels
         private TestOracleModel _selectedData = new();
         [ObservableProperty]
         private string _selectedDataString = "아이디 / 이름 / 나이";
+
+
+        [ObservableProperty]
+        private ObservableCollection<OracleTable> _oracleTableList = new();
+
 
         public SeojungriOracleViewModel(
             TestOracleContext context
@@ -76,25 +81,58 @@ namespace DataBaseTools.ViewModels
         }
 
         [RelayCommand]
-        private void BtnConnect(object? obj)
+        private async Task BtnConnectAsync(object? obj)
         {
-            //_context.Database.EnsureCreated();
-            if (_context.Database.CanConnect())
+            conn = new OracleConnection(AppData.OracleConnectionString);
+            await conn.OpenAsync();
+            cmd = new()
             {
-                if (!_context.Database.GetService<IRelationalDatabaseCreator>().Exists())
+                Connection = conn,
+            };
+
+            cmd.CommandText = "SELECT * FROM all_tables";
+
+            rdr = cmd.ExecuteReader();
+
+            object[] row;
+            while (rdr.Read())
+            {
+                row = new object[rdr.FieldCount];
+                rdr.GetValues(row);
+
+                if ((string)row[0] == "TESTUSER")
                 {
-                    RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)_context.Database.GetService<IDatabaseCreator>();
-                    databaseCreator.CreateTables();
-                    StatusBar1 = "Status : Connected"; ;
-                    StatusBar2 = "서정리 오라클 데이터베이스를 생성하였습니다.";
+                    OracleTableList.Add(new OracleTable()
+                    { 
+                        UserName = row[0].ToString()!,
+                        TableName = row[1].ToString()!,
+                        StatRowCount = Convert.ToInt32(row[19])
+                    });
                 }
-
-                StatusBar1 = "Status : Connected"; ;
-                StatusBar2 = "서정리 오라클 데이터베이스에 연결되었습니다.";
-
-                _context.yeonjunTest.Load();
-                YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
             }
+
+            
+
+            var a1 = "";
+            var a2 = "";
+
+            //_context.Database.EnsureCreated();
+            //if (_context.Database.CanConnect())
+            //{
+            //    if (!_context.Database.GetService<IRelationalDatabaseCreator>().Exists())
+            //    {
+            //        RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)_context.Database.GetService<IDatabaseCreator>();
+            //        databaseCreator.CreateTables();
+            //        StatusBar1 = "Status : Connected"; ;
+            //        StatusBar2 = "서정리 오라클 데이터베이스를 생성하였습니다.";
+            //    }
+
+            //    StatusBar1 = "Status : Connected"; ;
+            //    StatusBar2 = "서정리 오라클 데이터베이스에 연결되었습니다.";
+
+            //    _context.yeonjunTest.Load();
+            //    YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
+            //}
         }
 
         [RelayCommand]
@@ -108,7 +146,21 @@ namespace DataBaseTools.ViewModels
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
+            conn?.Close();
+
             App.logger.LogInformation("서정리 오라클이 종료되었습니다.");
+        }
+
+
+        public async void ReceiveParameter(object parameter)
+        {
+            await Task.Run(() =>
+            {
+                if (parameter is AppData _appData)
+                {
+                    AppData = _appData;
+                }
+            });
         }
     }
 }

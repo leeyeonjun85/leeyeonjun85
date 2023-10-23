@@ -8,11 +8,13 @@ namespace DataBaseTools.Models
         // DbSet
         public DbSet<TestSQLiteModel> yeonjunTest { get; set; }
 
-        public TestSQLiteContext(DbContextOptions<TestSQLiteContext> options) : base(options) { }
+        public TestSQLiteContext(DbContextOptions<TestSQLiteContext> options) : base(options) {  }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //=> optionsBuilder.UseOracle(MyUtiles.GetJsonModel().ConnectionStrings.SeojungriOracle);
+        //{
+        //    optionsBuilder.UseSqlite();
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

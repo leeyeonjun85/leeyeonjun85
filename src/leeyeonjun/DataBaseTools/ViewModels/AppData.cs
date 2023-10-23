@@ -1,13 +1,13 @@
 ﻿using System.Configuration;
+using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DataBaseTools.Services;
 
 namespace DataBaseTools.ViewModels
 {
     public partial class AppData : ViewModelBase
     {
         [ObservableProperty]
-        private string _windowTitle = $"DB Tool - {ConfigurationManager.AppSettings["Version"]}({ConfigurationManager.AppSettings["LastUpdateDate"]})";
+        private string _windowTitle = string.Empty;
 
 
         [ObservableProperty]
@@ -20,8 +20,8 @@ namespace DataBaseTools.ViewModels
         private bool _progressBarIsIndeterminate = false;
 
         [ObservableProperty]
-        private string _sQLiteConnectionString = JsonData.GetEdcoreWorksJsonData("SQLite") ?? "Data Source=SQLite.db";
-
-
+        private string _sQLiteConnectionString = string.Empty;
+        [ObservableProperty]
+        private string _oracleConnectionString = string.Empty;
     }
 }

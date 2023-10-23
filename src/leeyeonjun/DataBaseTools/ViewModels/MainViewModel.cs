@@ -12,6 +12,8 @@ using DataBaseTools.Models;
 using DataBaseTools.Views;
 using DataBaseTools.ViewModels;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using DataBaseTools.Services;
 
 namespace DataBaseTools.ViewModels
 {
@@ -44,7 +46,7 @@ namespace DataBaseTools.ViewModels
 
         public MainViewModel()
         {
-            App.utiles.InitApp(AppData);
+            Utiles.InitApp(AppData);
             TbName = ConfigurationManager.AppSettings["MyName"]?.ToString() ?? "이름을 입력하세요";
             TbOld = ConfigurationManager.AppSettings["MyOld"]?.ToString() ?? "0";
 
@@ -75,7 +77,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void SeojungriOracle(ViewModelBase? obj)
         {
-            App.viewService.ShowView<SeojungriOracleView, SeojungriOracleViewModel>();
+            App.viewService.ShowView<SeojungriOracleView, SeojungriOracleViewModel>(AppData);
         }
 
         [RelayCommand]
