@@ -80,8 +80,6 @@ namespace DataBaseTools.ViewModels
             {
                 RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)Context.Database.GetService<IDatabaseCreator>();
                 await databaseCreator.CreateTablesAsync();
-                AppData.StatusBar1 = "Status : Connected";
-                AppData.StatusBar2 = "SQLite 데이터베이스를 생성하였습니다.";
             }
 
             AppData.StatusBar1 = "Status : Connected"; ;

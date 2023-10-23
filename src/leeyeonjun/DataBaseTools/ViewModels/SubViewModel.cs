@@ -12,6 +12,8 @@ namespace DataBaseTools.ViewModels
     public partial class SubViewModel : ViewModelBase, IParameterReceiver
     {
         [ObservableProperty]
+        private AppData _appData = new();
+        [ObservableProperty]
         private SubData _subData = new();
         [ObservableProperty]
         private string _tbMessage = "테스트 메시지1";
@@ -19,6 +21,13 @@ namespace DataBaseTools.ViewModels
         public SubViewModel()
         {
         }
+
+        [RelayCommand]
+        private void Test1(object? obj)
+        {
+            AppData.StatusBar2 = "서브뷰 테스트1";
+        }
+
 
         [RelayCommand]
         private void BtnOkClick(object? obj)
@@ -52,6 +61,7 @@ namespace DataBaseTools.ViewModels
             if (parameter is SubData subData)
             {
                 SubData = subData;
+                AppData = subData.AppData;
             }
         }
     }

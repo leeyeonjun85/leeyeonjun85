@@ -33,6 +33,14 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!--<Button 
+            Grid.Row="0" Grid.Column="0"
+            Grid.ColumnSpan="1"
+            Content="Test1" 
+            Margin="5 3"
+            CommandParameter="{Binding}"
+            Command="{Binding Test1Command}"/>-->
+        
 
         <GroupBox
             Margin="5 3"

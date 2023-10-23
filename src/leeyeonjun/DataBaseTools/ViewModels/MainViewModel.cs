@@ -56,7 +56,7 @@ namespace DataBaseTools.ViewModels
         private void BtnShowSubViewClick(ViewModelBase? obj)
         {
             App.viewService.ShowView<SubView, SubViewModel>(
-                new SubData() { StringData = TbName, IntData = Convert.ToInt32(TbOld) }
+                new SubData() { StringData = TbName, IntData = Convert.ToInt32(TbOld), AppData = AppData }
             );
         }
 
