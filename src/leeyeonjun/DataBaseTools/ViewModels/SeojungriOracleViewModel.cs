@@ -90,13 +90,16 @@ namespace DataBaseTools.ViewModels
                 Connection = conn,
             };
 
-            cmd.CommandText = "SELECT * FROM all_tables";
+            cmd.CommandText = "SELECT * FROM USER_TAB_COLUMNS";
+
+            //cmd.CommandText = "SELECT * FROM all_tables";
 
             rdr = cmd.ExecuteReader();
 
             object[] row;
             while (rdr.Read())
             {
+                ArrayList rowList = new ();
                 row = new object[rdr.FieldCount];
                 rdr.GetValues(row);
 
@@ -104,10 +107,11 @@ namespace DataBaseTools.ViewModels
                 {
                     OracleTableList.Add(new OracleTable()
                     { 
-                        UserName = row[0].ToString()!,
-                        TableName = row[1].ToString()!,
+                        OWERNER = row[0].ToString()!,
+                        TABLE_NAME = row[1].ToString()!,
                         StatRowCount = Convert.ToInt32(row[19])
                     });
+                    rowList.Add(row);
                 }
             }
 
