@@ -1,13 +1,31 @@
-﻿using System.Configuration;
+﻿using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using DataBaseTools.Models;
+using MaterialDesignThemes.Wpf;
 
 namespace DataBaseTools.ViewModels
 {
     public partial class AppData : ViewModelBase
     {
+        // WindowMain
         [ObservableProperty]
         private string _windowTitle = string.Empty;
+
+        [ObservableProperty]
+        private ObservableCollection<NavigationItem> _navigationList = new();
+        [ObservableProperty]
+        private NavigationItem _selectedPage = new();
+
+        [ObservableProperty]
+        private Visibility _pageTempVisibility = Visibility.Hidden;
+
+        [ObservableProperty]
+        private string _string1 = "test_Main";
+
+        
 
 
         [ObservableProperty]

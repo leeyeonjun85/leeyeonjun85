@@ -43,7 +43,7 @@ namespace DataBaseTools
             });
 
             // Views
-            builder.Services.AddSingleton<MainView>();
+            builder.Services.AddSingleton<WindowMain>();
             builder.Services.AddTransient<SubView>();
             builder.Services.AddTransient<MongoDbView>();
             builder.Services.AddTransient<FireBaseView>();
@@ -52,7 +52,7 @@ namespace DataBaseTools
             builder.Services.AddTransient<SftpView>();
 
             // ViewModels
-            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<WindowMainViewModel>();
             builder.Services.AddTransient<SubViewModel>();
             builder.Services.AddTransient<MongoDbViewModel>();
             builder.Services.AddTransient<FireBaseViewModel>();
@@ -86,7 +86,7 @@ namespace DataBaseTools
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            App.viewService.ShowView<MainView, MainViewModel>();
+            App.viewService.ShowView<WindowMain, WindowMainViewModel>();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace OoManager.Services
             paletteHelper.SetTheme(theme);
 
             // Init FireBase
-            AppData = GetFireBase(AppData);
+            //AppData = GetFireBase(AppData);
 
             // Open PageHome
             Task<AppData> _appData = OpenPageHomeAsync(AppData);
@@ -97,99 +97,99 @@ namespace OoManager.Services
 
         public async Task<AppData> RefreshDataAsync(AppData AppData)
         {
-            // Init Members
-            Task<AppData> _appData1 = GetMembersAsync(AppData);
-            await _appData1; AppData = _appData1.Result;
+            //// Init Members
+            //Task<AppData> _appData1 = GetMembersAsync(AppData);
+            //await _appData1; AppData = _appData1.Result;
 
-            // Init Lectures
-            Task<AppData> _appData2 = GetLecturesAsync(AppData);
-            await _appData2; AppData = _appData2.Result;
+            //// Init Lectures
+            //Task<AppData> _appData2 = GetLecturesAsync(AppData);
+            //await _appData2; AppData = _appData2.Result;
 
-            // Init Members Information
-            AppData.MembersTotal = AppData.Members.Count;
-            AppData.MembersNormal = AppData.MembersRest = AppData.MembersPutOff = AppData.MembersTotalMoney = 0;
-            foreach (MemberData member in AppData.Members)
-            {
-                // Lectures Init
-                foreach (LectureData memberLecture in member.Lectures)
-                {
-                    if (!AppData.LectureHeaderList.Contains(memberLecture.o2_class_date))
-                        AppData.LectureHeaderList.Add(memberLecture.o2_class_date);
-                }
+            //// Init Members Information
+            //AppData.MembersTotal = AppData.Members.Count;
+            //AppData.MembersNormal = AppData.MembersRest = AppData.MembersPutOff = AppData.MembersTotalMoney = 0;
+            //foreach (MemberData member in AppData.Members)
+            //{
+            //    // Lectures Init
+            //    foreach (LectureData memberLecture in member.Lectures)
+            //    {
+            //        if (!AppData.LectureHeaderList.Contains(memberLecture.o2_class_date))
+            //            AppData.LectureHeaderList.Add(memberLecture.o2_class_date);
+            //    }
 
-                if (AppData.LectureHeaderList.Count > 7)
-                {
-                    int _removeCount = AppData.LectureHeaderList.Count - 7;
-                    AppData.LectureHeaderList.RemoveRange(0, _removeCount);
-                }
+            //    if (AppData.LectureHeaderList.Count > 7)
+            //    {
+            //        int _removeCount = AppData.LectureHeaderList.Count - 7;
+            //        AppData.LectureHeaderList.RemoveRange(0, _removeCount);
+            //    }
 
-                switch (AppData.LectureHeaderList.Count)
-                {
-                    case 0:
-                        {
-                            break;
-                        }
-                    case 1:
-                        {
+            //    switch (AppData.LectureHeaderList.Count)
+            //    {
+            //        case 0:
+            //            {
+            //                break;
+            //            }
+            //        case 1:
+            //            {
 
-                            break;
-                        }
-                    case 2:
-                        {
-                            break;
-                        }
-                    case 3:
-                        {
-                            break;
-                        }
-                    case 4:
-                        {
-                            break;
-                        }
-                    case 5:
-                        {
-                            break;
-                        }
-                    case 6:
-                        {
-                            break;
-                        }
-                    case 7:
-                        {
-                            break;
-                        }
+            //                break;
+            //            }
+            //        case 2:
+            //            {
+            //                break;
+            //            }
+            //        case 3:
+            //            {
+            //                break;
+            //            }
+            //        case 4:
+            //            {
+            //                break;
+            //            }
+            //        case 5:
+            //            {
+            //                break;
+            //            }
+            //        case 6:
+            //            {
+            //                break;
+            //            }
+            //        case 7:
+            //            {
+            //                break;
+            //            }
 
-                    default: throw new Exception();
-                }
+            //        default: throw new Exception();
+            //    }
 
 
-                switch (member.Member.member_status)
-                {
-                    case "재원":
-                        {
-                            AppData.MembersNormal += 1;
-                            AppData.MembersTotalMoney += Convert.ToInt32(member.Member.member_money);
-                            break;
-                        }
-                    case "휴원":
-                        {
-                            AppData.MembersRest += 1;
-                            break;
-                        }
-                    case "보류":
-                        {
-                            AppData.MembersPutOff += 1;
-                            break;
-                        }
+            //    switch (member.Member.member_status)
+            //    {
+            //        case "재원":
+            //            {
+            //                AppData.MembersNormal += 1;
+            //                AppData.MembersTotalMoney += Convert.ToInt32(member.Member.member_money);
+            //                break;
+            //            }
+            //        case "휴원":
+            //            {
+            //                AppData.MembersRest += 1;
+            //                break;
+            //            }
+            //        case "보류":
+            //            {
+            //                AppData.MembersPutOff += 1;
+            //                break;
+            //            }
 
-                    default: throw new Exception();
-                }
-            }
+            //        default: throw new Exception();
+            //    }
+            //}
 
-            // Init Program Information
-            if (AppData.MembersTotal > 0)
-                AppData.FireBaseState = "연결 성공";
-            else AppData.FireBaseState = "연결 실패";
+            //// Init Program Information
+            //if (AppData.MembersTotal > 0)
+            //    AppData.FireBaseState = "연결 성공";
+            //else AppData.FireBaseState = "연결 실패";
 
 
             return AppData;

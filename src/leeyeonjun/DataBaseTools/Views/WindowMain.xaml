@@ -1,0 +1,166 @@
+﻿<Window 
+    x:Class="DataBaseTools.Views.WindowMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:DataBaseTools.Views"
+    xmlns:Models="clr-namespace:DataBaseTools.Models"
+    mc:Ignorable="d"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontWeight="Regular"
+    TextElement.FontSize="13"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    Title="{Binding AppData.WindowTitle}"
+    Height="800" Width="1100">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            Grid.Row="0" Grid.Column="1"
+            Grid.ColumnSpan="11"
+            Grid.RowSpan="1"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Margin="10 1"
+                FontSize="34"
+                VerticalAlignment="Center"
+                d:Text="Test Page"
+                Text="{Binding AppData.SelectedPage.Title}"
+                Grid.ColumnSpan="2"
+                Grid.Row="0" Grid.Column="0"/>
+
+            <TextBox
+                Margin="10 1"
+                FontSize="34"
+                VerticalAlignment="Center"
+                d:Text="Test_String"
+                Text="{Binding AppData.String1, UpdateSourceTrigger=PropertyChanged}"
+                Grid.ColumnSpan="2"
+                Grid.Row="0" Grid.Column="2"/>
+        </Grid>
+
+        <Grid
+            Grid.Row="0" Grid.Column="0"
+            Grid.ColumnSpan="1" Grid.RowSpan="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ToggleButton
+                Margin="0,32,0,0"
+                Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+            <Button
+                Grid.Row="1"
+                Width="56"
+                Height="56"
+                Margin="0,10,0,40"
+                materialDesign:ButtonAssist.CornerRadius="16"
+                Background="{DynamicResource SecondaryHueMidBrush}"
+                BorderThickness="0"
+                Foreground="{DynamicResource SecondaryHueMidBrushForeground}"
+                Style="{StaticResource MaterialDesignFlatMidBgButton}">
+                <materialDesign:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="PencilOutline" />
+            </Button>
+            <ListBox
+                Grid.Row="2"
+                Margin="0 50"
+                d:ItemsSource="{d:SampleData ItemCount=4}"
+                ItemsSource="{Binding AppData.NavigationList}"
+                SelectedItem="{Binding AppData.SelectedPage, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemContainerStyle>
+                    <Style 
+                        TargetType="ListBoxItem" 
+                        BasedOn="{StaticResource MaterialDesign3.NavigationRailListBoxItem}">
+                        <Setter
+                            Property="materialDesign:BadgedAssist.Badge"
+                            Value="{Binding Notification}" />
+                        <Setter
+                            Property="materialDesign:NavigationRailAssist.IsTextVisible"
+                            Value="True" />
+                        <Setter
+                            Property="materialDesign:NavigationRailAssist.SelectedIcon"
+                            Value="{Binding SelectedIcon}" />
+                        <Setter
+                            Property="materialDesign:NavigationRailAssist.UnselectedIcon"
+                            Value="{Binding UnselectedIcon}" />
+                        <Setter
+                            Property="IsEnabled"
+                            Value="{Binding IsAbled}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type Models:NavigationItem}">
+                        <TextBlock
+                            TextAlignment="Center"
+                            Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListBox.Resources>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding SelectionChangedCommand}"
+                            CommandParameter="{Binding AppData.SelectedPage}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
+        </Grid>
+
+        <Frame
+            NavigationUIVisibility="Hidden"
+            Source="{Binding AppData.SelectedPage.Source}"
+            Grid.RowSpan="12" Grid.ColumnSpan="11"
+            Grid.Row="1" Grid.Column="1"/>
+
+        <Grid
+            Visibility="{Binding AppData.PageTempVisibility}"
+            Background="AliceBlue"
+            Grid.RowSpan="12" Grid.ColumnSpan="11"
+            Grid.Row="1" Grid.Column="1"/>
+
+    </Grid>
+</Window>
