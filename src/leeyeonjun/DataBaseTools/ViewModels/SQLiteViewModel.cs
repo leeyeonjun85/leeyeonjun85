@@ -19,16 +19,16 @@ namespace DataBaseTools.ViewModels
         private AppData _appData = new();
 
         [ObservableProperty]
-        private TestSQLiteContext _context;
+        private SQLiteContext _context;
 
         [ObservableProperty]
         private string _addNameText = "";
         [ObservableProperty]
         private int _addYearsText = 0;
         [ObservableProperty]
-        private ObservableCollection<TestSQLiteModel> _yeonjunTestItemsSource = new();
+        private ObservableCollection<SQLiteModel> _yeonjunTestItemsSource = new();
         [ObservableProperty]
-        private TestSQLiteModel _selectedData = new();
+        private SQLiteModel _selectedData = new();
         [ObservableProperty]
         private string _selectedDataString = "아이디 / 이름 / 나이";
 
@@ -42,7 +42,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnUpdate(object? obj)
         {
-            //TestSQLiteModel foundata = Context.yeonjunTest.Find(SelectedData.Id)!;
+            //SQLiteModel foundata = Context.sqliteDB.Find(SelectedData.Id)!;
 
             Context.Entry(SelectedData).State = EntityState.Modified;
             Context.SaveChanges();
@@ -51,7 +51,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnDelete(object? obj)
         {
-            Context.yeonjunTest.Remove(SelectedData);
+            Context.sqliteDB.Remove(SelectedData);
             Context.SaveChanges();
         }
 
@@ -60,9 +60,9 @@ namespace DataBaseTools.ViewModels
         {
             if (obj is not MouseButtonEventArgs args) return;
             if (args!.OriginalSource is not TextBlock textBlock) return;
-            if (textBlock.DataContext is not TestSQLiteModel yeonjunTest) return;
+            if (textBlock.DataContext is not SQLiteModel yeonjunTest) return;
             SelectedData = yeonjunTest;
-            SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Years}";
+            SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Old}";
         }
 
         [RelayCommand]
@@ -73,15 +73,15 @@ namespace DataBaseTools.ViewModels
             AppData.StatusBar1 = "Status : Connected"; ;
             AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
 
-            await Context.yeonjunTest.LoadAsync();
-            YeonjunTestItemsSource = Context.yeonjunTest.Local.ToObservableCollection();
+            await Context.sqliteDB.LoadAsync();
+            YeonjunTestItemsSource = Context.sqliteDB.Local.ToObservableCollection();
 
         }
 
         [RelayCommand]
         private void AddData(object? obj)
         {
-            Context.yeonjunTest.Add(new TestSQLiteModel() { Name = AddNameText, Years = AddYearsText });
+            Context.sqliteDB.Add(new SQLiteModel() { Name = AddNameText, Old = AddYearsText });
             Context.SaveChanges();
         }
 
@@ -103,7 +103,7 @@ namespace DataBaseTools.ViewModels
             }
 
             App.SQLiteConnectionString = AppData.SQLiteConnectionString;
-            Context = (TestSQLiteContext)Ioc.Default.GetService(typeof(TestSQLiteContext))!;
+            Context = (SQLiteContext)Ioc.Default.GetService(typeof(SQLiteContext))!;
 
             await ConnectAsync();
         }

@@ -7,6 +7,7 @@ using MaterialDesignThemes.Wpf;
 using System.Configuration;
 using System.IO;
 using System.Windows.Media;
+using System.Windows;
 
 namespace DataBaseTools.Services
 {
@@ -15,13 +16,10 @@ namespace DataBaseTools.Services
         public static AppData InitApp(AppData AppData)
         {
             // Color Theme
-            Color primaryColor = Color.FromArgb(255, 0, 31, 158);
-            Color secondaryColor = Color.FromArgb(255, 34, 158, 0);
-
             PaletteHelper paletteHelper = new();
             var theme = paletteHelper.GetTheme();
-            theme.SetPrimaryColor(primaryColor);
-            theme.SetSecondaryColor(secondaryColor);
+            theme.SetPrimaryColor(AppData.PrimaryColor);
+            theme.SetSecondaryColor(AppData.SecondaryColor);
             paletteHelper.SetTheme(theme);
 
 
@@ -31,6 +29,7 @@ namespace DataBaseTools.Services
                 SelectedIcon = PackIconKind.Home,
                 UnselectedIcon = PackIconKind.HomeOutline,
                 Source = "/Views/PageHome.xaml",
+                IsVisibility = Visibility.Visible,
             });
 
             AppData.NavigationList.Add(new NavigationItem
@@ -39,9 +38,10 @@ namespace DataBaseTools.Services
                 SelectedIcon = PackIconKind.Mushroom,
                 UnselectedIcon = PackIconKind.MushroomOutline,
                 Source = "/Views/PageSQLIte.xaml",
+                IsVisibility = Visibility.Hidden,
             });
 
-            OpenPageHomeAsync(AppData);
+            OpenPageHome(AppData);
 
             // Window Title
             AppData.WindowTitle = $"이연준의 DB Tool - {ConfigurationManager.AppSettings["Version"]}({ConfigurationManager.AppSettings["LastUpdateDate"]})";
@@ -56,15 +56,25 @@ namespace DataBaseTools.Services
         }
 
 
-        public static void OpenPageHomeAsync(AppData AppData)
+        public static void OpenPageHome(AppData AppData)
         {
-            AppData.SelectedPage = AppData.NavigationList[0];
+            AppData.SelectedPage = AppData.NavigationList[Pages.Home];
+            if (AppData.SQLiteIsConnected)
+                AppData.SQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
+            else
+                AppData.SQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
         }
 
-        public static void OpenPageSQLiteAsync(AppData AppData)
+        public static void OpenPageSQLite(AppData AppData)
         {
-            AppData.SelectedPage = AppData.NavigationList[1];
-        }
+            AppData.SelectedPage = AppData.NavigationList[Pages.SQLite];
+            AppData.SQLiteData = new();
+            AppData.String1 = string.Empty;
 
+            AppData.SQLiteAddName = string.Empty;
+            AppData.SQLiteAddOld = 0;
+            AppData.SQLiteUpdateName = string.Empty;
+            AppData.SQLiteUpdateOld = 0;
+        }
     }
 }

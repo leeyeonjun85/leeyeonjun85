@@ -16,7 +16,7 @@
     TextOptions.TextRenderingMode="Auto"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="500" d:DesignWidth="700">
     
     <Page.DataContext>
         <ViewModels:PageHomeViewModel />
@@ -41,58 +41,213 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox
-            Grid.Row="0" Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="5"
-            Margin="5"
-            Padding="10 5"
-            Header="프로그램 정보">   
-            <Grid>
+            Margin="5 3"
+            Padding="5"
+            Header="Window Data Transfer"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="0" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
-                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
 
+                <TextBox
+                    materialDesign:HintAssist.Hint="이름"
+                    Text="{Binding TbName}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="0" />
+
+                <TextBox
+                    materialDesign:HintAssist.Hint="나이"
+                    Text="{Binding TbOld}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="1" />
+
+                <Button 
+                    Content="Show Sub Window" 
+                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                    CommandParameter="{Binding}"
+                    Command="{Binding BtnShowWindowSubClickCommand}"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="2" />
+
+                <TextBox
+                     materialDesign:HintAssist.Hint="서브뷰에서 전달받은 메시지"
+                     Text="{Binding TbMessage}"
+                     VerticalAlignment="Center"
+                     FontSize="16"
+                     Margin="10 0"
+                     Grid.Row="0" Grid.Column="3" />
             </Grid>
         </GroupBox>
 
         <GroupBox
-            Grid.Row="0" Grid.Column="3"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="5"
-            Margin="5"
-            Padding="10 5"
-            Header="현황">
-            <Grid>
+            Margin="5 3"
+            Padding="5"
+            Header="SQLite"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="1" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
-                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
 
-                
+                <TextBox
+                    materialDesign:HintAssist.Hint="Input SQLite Connection string..."
+                    Text="{Binding AppData.SQLiteConnectionString}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="0" />
 
+                <Button 
+                    Content="Connect"
+                    Margin="10 0"
+                    Background="{Binding AppData.SQLiteBackground}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource self}}"
+                    Command="{Binding BtnSQLiteCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Seojungri Oracle"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="2" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    materialDesign:HintAssist.Hint="Input Oracle Connection string..."
+                    Text="{Binding AppData.OracleConnectionString}"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    Grid.Row="0" Grid.Column="0" />
+
+                <Button 
+                    Content="SeojungriOracle" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding SeojungriOracleCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Mongo DB"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="3" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="Mongo DB" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding MongoDbCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Fire Base"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="4" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="Fire Base" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding FireBaseCommand}"
+                    Grid.Row="0" Grid.Column="3" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Sftp"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="5" Grid.Column="0">
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="6"
+                Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Content="Sftp" 
+                    Margin="10 0"
+                    CommandParameter="{Binding}"
+                    Command="{Binding SftpCommand}"
+                    Grid.Row="0" Grid.Column="3" />
             </Grid>
         </GroupBox>
 
 
-        <Grid
+        <!--<Grid
             Grid.RowSpan="1" Grid.ColumnSpan="6"
             Grid.Row="5" Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -101,13 +256,22 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
+            <TextBox
+                Margin="10 1"
+                FontSize="34"
+                VerticalAlignment="Center"
+                d:Text="Test_String"
+                Text="{Binding AppData.String2}"
+                Grid.ColumnSpan="3"
+                Grid.Row="0" Grid.Column="0"/>
+
             <Button 
                 Margin="10 0"
                 Content="버튼1"
                 Command="{Binding BtnTest1Command}"
-                Grid.Row="0" Grid.Column="2"/>      
-        </Grid>
+                Grid.Row="0" Grid.Column="3"/>      
+        </Grid>-->
 
     </Grid>
 </Page>

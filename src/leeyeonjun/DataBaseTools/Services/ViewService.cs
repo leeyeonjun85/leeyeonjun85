@@ -20,15 +20,18 @@ namespace DataBaseTools.Services
                 ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(TViewModel))!;
                 Window view = (Window)Ioc.Default.GetService(typeof(TView))!;
 
-                viewModel.SetWindow(view);
-
-                if (parameter != null && viewModel is IParameterReceiver parameterReceiver)
+                if (ActivateView<TView>())
                 {
-                    parameterReceiver.ReceiveParameter(parameter);
-                }
+                    viewModel.SetWindow(view);
 
-                view.DataContext = viewModel;
-                view.Show();
+                    if (parameter != null && viewModel is IParameterReceiver parameterReceiver)
+                    {
+                        parameterReceiver.ReceiveParameter(parameter);
+                    }
+
+                    view.DataContext = viewModel;
+                    view.Show();
+                }
             }
             catch (Exception ex)
             {

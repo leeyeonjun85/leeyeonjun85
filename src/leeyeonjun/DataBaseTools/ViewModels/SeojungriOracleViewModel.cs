@@ -57,7 +57,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnUpdate(object? obj)
         {
-            //TestOracleModel foundata = _context.yeonjunTest.Find(SelectedData.Id)!;
+            //TestOracleModel foundata = _context.sqliteDB.Find(SelectedData.Id)!;
 
             _context.Entry(SelectedData).State = EntityState.Modified;
             _context.SaveChanges();
@@ -134,8 +134,8 @@ namespace DataBaseTools.ViewModels
             //    StatusBar1 = "Status : Connected"; ;
             //    StatusBar2 = "서정리 오라클 데이터베이스에 연결되었습니다.";
 
-            //    _context.yeonjunTest.Load();
-            //    YeonjunTestItemsSource = _context.yeonjunTest.Local.ToObservableCollection();
+            //    _context.sqliteDB.Load();
+            //    YeonjunTestItemsSource = _context.sqliteDB.Local.ToObservableCollection();
             //}
         }
 

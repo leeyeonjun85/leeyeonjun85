@@ -17,9 +17,10 @@
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     Title="{Binding AppData.WindowTitle}"
-    Height="800" Width="1100">
+    Height="700" Width="900">
 
-    <Grid>
+    <Grid
+        Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -33,21 +34,25 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
+
+        
+
 
         <Grid
             Grid.Row="0" Grid.Column="1"
@@ -70,14 +75,14 @@
                 Grid.ColumnSpan="2"
                 Grid.Row="0" Grid.Column="0"/>
 
-            <TextBox
+            <!--<TextBox
                 Margin="10 1"
                 FontSize="34"
                 VerticalAlignment="Center"
                 d:Text="Test_String"
-                Text="{Binding AppData.String1, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding AppData.String1}"
                 Grid.ColumnSpan="2"
-                Grid.Row="0" Grid.Column="2"/>
+                Grid.Row="0" Grid.Column="2"/>-->
         </Grid>
 
         <Grid
@@ -108,7 +113,7 @@
             </Button>
             <ListBox
                 Grid.Row="2"
-                Margin="0 50"
+                Margin="0 20"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
                 ItemsSource="{Binding AppData.NavigationList}"
                 SelectedItem="{Binding AppData.SelectedPage, UpdateSourceTrigger=PropertyChanged}">
@@ -116,9 +121,6 @@
                     <Style 
                         TargetType="ListBoxItem" 
                         BasedOn="{StaticResource MaterialDesign3.NavigationRailListBoxItem}">
-                        <Setter
-                            Property="materialDesign:BadgedAssist.Badge"
-                            Value="{Binding Notification}" />
                         <Setter
                             Property="materialDesign:NavigationRailAssist.IsTextVisible"
                             Value="True" />
@@ -130,7 +132,7 @@
                             Value="{Binding UnselectedIcon}" />
                         <Setter
                             Property="IsEnabled"
-                            Value="{Binding IsAbled}"/>
+                            Value="{Binding IsEnabled}"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.Resources>
@@ -153,14 +155,69 @@
         <Frame
             NavigationUIVisibility="Hidden"
             Source="{Binding AppData.SelectedPage.Source}"
-            Grid.RowSpan="12" Grid.ColumnSpan="11"
+            Grid.RowSpan="11" Grid.ColumnSpan="11"
             Grid.Row="1" Grid.Column="1"/>
+
+        <!--<Frame
+            NavigationUIVisibility="Hidden"
+            Visibility="{Binding AppData.NaviHome.IsVisibility}"
+            Source="/Views/PageHome.xaml"
+            Grid.RowSpan="11" Grid.ColumnSpan="11"
+            Grid.Row="1" Grid.Column="1"/>
+
+        <Frame
+            NavigationUIVisibility="Hidden"
+            Visibility="{Binding AppData.NaviSQLite.IsVisibility}"
+            Source="/Views/PageSQLIte.xaml"
+            Grid.RowSpan="11" Grid.ColumnSpan="11"
+            Grid.Row="1" Grid.Column="1"/>-->
 
         <Grid
             Visibility="{Binding AppData.PageTempVisibility}"
-            Background="AliceBlue"
-            Grid.RowSpan="12" Grid.ColumnSpan="11"
+            Background="Beige"
+            Grid.RowSpan="11" Grid.ColumnSpan="11"
             Grid.Row="1" Grid.Column="1"/>
 
+
+
+        <StatusBar
+            Grid.RowSpan="1" Grid.ColumnSpan="99"
+            Grid.Row="99" Grid.Column="0">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem>
+                <TextBlock
+                    d:Text="Status : 현재상태"
+                    Text="{Binding AppData.StatusBar1}"
+                    x:Name="StatusBar1" />
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock
+                    d:Text="여러가지 메시지"
+                    Text="{Binding AppData.StatusBar2}"
+                    x:Name="StatusBar2" />
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4">
+                <ProgressBar
+                    IsIndeterminate="{Binding AppData.ProgressBarIsIndeterminate}" 
+                    Value="{Binding AppData.StatusBarProgressBar}" 
+                    Width="90" 
+                    Height="16" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

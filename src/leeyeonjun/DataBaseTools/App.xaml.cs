@@ -22,6 +22,7 @@ namespace DataBaseTools
         public static ILogger logger;
         public static IViewService viewService;
         public static string SQLiteConnectionString = string.Empty;
+        public static AppData Data = new();
 
         private IServiceProvider ConfigureServices()
         {
@@ -35,16 +36,9 @@ namespace DataBaseTools
                 p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
             });
 
-            // Database : EFCore SQLite
-            builder.Services.AddDbContext<TestSQLiteContext>(p =>
-            {
-                p.UseSqlite(SQLiteConnectionString);
-                p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
-            });
-
             // Views
             builder.Services.AddSingleton<WindowMain>();
-            builder.Services.AddTransient<SubView>();
+            builder.Services.AddTransient<WindowSub>();
             builder.Services.AddTransient<MongoDbView>();
             builder.Services.AddTransient<FireBaseView>();
             builder.Services.AddTransient<SeojungriOracleView>();
@@ -53,7 +47,7 @@ namespace DataBaseTools
 
             // ViewModels
             builder.Services.AddSingleton<WindowMainViewModel>();
-            builder.Services.AddTransient<SubViewModel>();
+            builder.Services.AddTransient<WindowSubViewModel>();
             builder.Services.AddTransient<MongoDbViewModel>();
             builder.Services.AddTransient<FireBaseViewModel>();
             builder.Services.AddTransient<SeojungriOracleViewModel>();

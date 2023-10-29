@@ -9,16 +9,14 @@ using DataBaseTools.Models;
 
 namespace DataBaseTools.ViewModels
 {
-    public partial class SubViewModel : ViewModelBase, IParameterReceiver
+    public partial class WindowSubViewModel : ViewModelBase, IParameterReceiver
     {
         [ObservableProperty]
-        private AppData _appData = new();
+        private AppData _appData = App.Data;
         [ObservableProperty]
         private SubData _subData = new();
-        [ObservableProperty]
-        private string _tbMessage = "테스트 메시지1";
 
-        public SubViewModel()
+        public WindowSubViewModel()
         {
         }
 
@@ -32,12 +30,14 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnOkClick(object? obj)
         {
-            ToMainData toMainData = new()
+            SubData _subData = new()
             {
-                Message = TbMessage,
+                Name = SubData.Name,
+                Old = SubData.Old,
+                Message = SubData.Message,
             };
 
-            ValueChangedMessage<ToMainData> message = new ValueChangedMessage<ToMainData>(toMainData);
+            ValueChangedMessage<SubData> message = new(_subData);
             WeakReferenceMessenger.Default.Send(message);
             Window?.Close();
         }
@@ -61,7 +61,6 @@ namespace DataBaseTools.ViewModels
             if (parameter is SubData subData)
             {
                 SubData = subData;
-                AppData = subData.AppData;
             }
         }
     }

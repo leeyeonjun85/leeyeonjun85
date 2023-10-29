@@ -38,13 +38,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnOk(object? obj)
         {
-            ToMainData toMainData = new()
-            {
-                Message = TbMessage,
-            };
 
-            ValueChangedMessage<ToMainData> message = new ValueChangedMessage<ToMainData>(toMainData);
-            WeakReferenceMessenger.Default.Send(message);
             Window?.Close();
         }
 

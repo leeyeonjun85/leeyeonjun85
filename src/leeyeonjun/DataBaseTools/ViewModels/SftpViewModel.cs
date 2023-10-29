@@ -1,28 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using DataBaseTools.Models;
-using DataBaseTools.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic.ApplicationServices;
-using Renci.SshNet;
-using Renci.SshNet.Sftp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Security;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Xml.Linq;
-using static System.Net.WebRequestMethods;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DataBaseTools.Models;
+using Microsoft.Extensions.Logging;
+using Renci.SshNet;
+using Renci.SshNet.Sftp;
 
 namespace DataBaseTools.ViewModels
 {
@@ -60,8 +51,8 @@ namespace DataBaseTools.ViewModels
         private bool IsNotRoot => (StatusBar2 != "Hellow world!" && StatusBar2 != $"{_root[3..]}");
         private bool CanMakeDirectory => (IsConnected == true && AddDirectoryText != "");
 
-        public SftpViewModel( ) 
-        { 
+        public SftpViewModel()
+        {
 
         }
 
@@ -76,7 +67,7 @@ namespace DataBaseTools.ViewModels
                 string selectedDir = folderBrowserDialog.SelectedPath.Split(Path.DirectorySeparatorChar)[^1];
                 client?.CreateDirectory(selectedDir);
                 client?.ChangeDirectory(selectedDir);
-                foreach (string dir in dirs) 
+                foreach (string dir in dirs)
                 {
                     List<string> makeDirList = dir.Split(Path.DirectorySeparatorChar).ToList<string>();
                     string[] makeDirList1 = dir.Split(Path.DirectorySeparatorChar);
@@ -225,16 +216,16 @@ namespace DataBaseTools.ViewModels
 
         private void GetListDirectory()
         {
-            if ( client is not null)
+            if (client is not null)
             {
                 YeonjunTestItemsSource.Clear();
-                
+
                 foreach (SftpFile f in client.ListDirectory("."))
                 {
                     if (f.IsDirectory)
-                        YeonjunTestItemsSource.Add(new SftpModel() { Name = f.Name, IsDirectory = true});
+                        YeonjunTestItemsSource.Add(new SftpModel() { Name = f.Name, IsDirectory = true });
                     else
-                        YeonjunTestItemsSource.Add(new SftpModel() { Name = f.Name, FileSize =  Math.Round((double)f.Length/1000, 1)});
+                        YeonjunTestItemsSource.Add(new SftpModel() { Name = f.Name, FileSize = Math.Round((double)f.Length / 1000, 1) });
                 }
 
                 StatusBar2 = client.WorkingDirectory[3..];
