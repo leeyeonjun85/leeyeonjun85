@@ -8,6 +8,11 @@ using System.Configuration;
 using System.IO;
 using System.Windows.Media;
 using System.Windows;
+using System.Windows.Forms;
+using System;
+using MessageBox = System.Windows.Forms.MessageBox;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseTools.Services
 {
@@ -60,21 +65,38 @@ namespace DataBaseTools.Services
         {
             AppData.SelectedPage = AppData.NavigationList[Pages.Home];
             if (AppData.SQLiteIsConnected)
-                AppData.SQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
+                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
             else
-                AppData.SQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
+                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
         }
 
-        public static void OpenPageSQLite(AppData AppData)
+        public static void OpenPageSQLitePage(AppData AppData)
         {
             AppData.SelectedPage = AppData.NavigationList[Pages.SQLite];
+            InitSQLite(AppData);
+        }
+
+        public static void InitSQLite(AppData AppData)
+        {
+            AppData.SQLiteSelectedItems = new();
             AppData.SQLiteData = new();
             AppData.String1 = string.Empty;
-
             AppData.SQLiteAddName = string.Empty;
             AppData.SQLiteAddOld = 0;
             AppData.SQLiteUpdateName = string.Empty;
             AppData.SQLiteUpdateOld = 0;
+        }
+
+        public static void ExceptionTask(Exception ex)
+        {
+            MessageBox.Show(
+                    text: $"에러가 발생하였습니다."
+                        + $"{Environment.NewLine}Error message: {ex.Message}"
+                        + $"{Environment.NewLine}Details: {ex}",
+                    caption: "Error", MessageBoxButtons.OK,
+                    icon: MessageBoxIcon.Error);
+
+            App.logger!.LogError($"{ex.ToString}{Environment.NewLine}{ex}");
         }
     }
 }

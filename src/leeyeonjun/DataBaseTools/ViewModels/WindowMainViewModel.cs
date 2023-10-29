@@ -35,7 +35,7 @@ namespace DataBaseTools.ViewModels
                         }
                     case "SQLite":
                         {
-                            Utiles.OpenPageSQLite(AppData); break;
+                            Utiles.OpenPageSQLitePage(AppData); break;
                         }
 
                     default: throw new Exception();

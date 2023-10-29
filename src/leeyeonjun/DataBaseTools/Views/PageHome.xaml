@@ -53,9 +53,9 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="6*" />
                     <ColumnDefinition Width="10*" />
                 </Grid.ColumnDefinitions>
 
@@ -121,7 +121,7 @@
                 <Button 
                     Content="Connect"
                     Margin="10 0"
-                    Background="{Binding AppData.SQLiteBackground}"
+                    Background="{Binding AppData.BtnSQLiteBackground}"
                     CommandParameter="{Binding RelativeSource={RelativeSource self}}"
                     Command="{Binding BtnSQLiteCommand}"
                     Grid.Row="0" Grid.Column="3" />

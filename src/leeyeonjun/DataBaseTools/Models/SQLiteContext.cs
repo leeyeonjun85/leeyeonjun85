@@ -25,7 +25,9 @@ namespace DataBaseTools.Models
         {
             modelBuilder.Entity<SQLiteModel>().HasData(
                 new SQLiteModel { Id = 1, Name = "이명박", Old = 12 },
-                new SQLiteModel { Id = 2, Name = "윤석렬", Old = 18 });
+                new SQLiteModel { Id = 2, Name = "박근혜", Old = 15 },
+                new SQLiteModel { Id = 3, Name = "문재인", Old = 13 },
+                new SQLiteModel { Id = 4, Name = "윤석렬", Old = 18 });
         }
     }
 

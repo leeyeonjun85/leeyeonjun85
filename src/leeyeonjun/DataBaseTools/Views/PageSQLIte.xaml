@@ -21,161 +21,182 @@
     <Page.DataContext>
         <ViewModels:PageSQLIteViewModel />
     </Page.DataContext>
-    <Grid>
+    <Grid
+        IsEnabled="{Binding AppData.SQLiteIsEnabled}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Grid
+            Margin="10 5"
+            Grid.RowSpan="4"  Grid.ColumnSpan="3"
+            Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
 
-        <!--<Button 
-            Grid.Row="1" Grid.Column="0"
-            Margin="5"
-            Content="Connect" 
-            Command="{Binding BtnConnectCommand}"/>-->
+            <Border
+                Margin="5" Padding="10 1"
+                BorderBrush="#aaaaaa"
+                BorderThickness="2"
+                CornerRadius="10"
+                Grid.RowSpan="1" Grid.ColumnSpan="3"
+                Grid.Row="0" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Margin="5 0"
+                        materialDesign:HintAssist.Hint="이름"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        MaxLength="16"
+                        Text="{Binding AppData.SQLiteAddName}"
+                        VerticalAlignment="Center"
+                        Grid.Row="0" Grid.Column="0" />
+                    <TextBox
+                        Margin="5 0"
+                        materialDesign:HintAssist.Hint="나이"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding AppData.SQLiteAddOld}"
+                        VerticalAlignment="Center"
+                        Grid.Row="0" Grid.Column="1" />
+                    <Button 
+                        Height="40"
+                        Margin="5 0"
+                        Content="Add Data" 
+                        Command="{Binding AddDataCommand}"
+                        Grid.Row="0" Grid.Column="2"/>
+                </Grid>
+            </Border>
 
+            <Border
+                Margin="5" Padding="10 1"
+                BorderBrush="#aaaaaa"
+                BorderThickness="2"
+                CornerRadius="10"
+                Grid.RowSpan="1" Grid.ColumnSpan="3"
+                Grid.Row="1" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Margin="5 0"
+                        materialDesign:HintAssist.Hint="이름"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        MaxLength="16"
+                        Text="{Binding AppData.SQLiteUpdateName}"
+                        VerticalAlignment="Center"
+                        Grid.Row="0" Grid.Column="0" />
+                    <TextBox
+                        Margin="5 0"
+                        materialDesign:HintAssist.Hint="나이"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding AppData.SQLiteUpdateOld}"
+                        VerticalAlignment="Center"
+                        Grid.Row="0" Grid.Column="1" />
+                    <Button 
+                        Height="40"
+                        Margin="5 0"
+                        Content="Update" 
+                        Command="{Binding BtnUpdateCommand}"
+                        Grid.Row="0" Grid.Column="2"/>
+                </Grid>
+            </Border>
+
+            <Border
+                Margin="5" Padding="10 1"
+                BorderBrush="#aaaaaa"
+                BorderThickness="2"
+                CornerRadius="10"
+                Grid.RowSpan="1" Grid.ColumnSpan="3"
+                Grid.Row="2" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        d:Text="선택된이름 / 나이"
+                        Text="{Binding AppData.String1}"
+                        VerticalAlignment="Center"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="3" Grid.Column="0" />
+                    <Button 
+                        Height="40"
+                        Margin="5 0"
+                        Content="Delete" 
+                        Command="{Binding BtnDeleteCommand}"
+                        Grid.Row="3" Grid.Column="2"/>
+                </Grid>
+            </Border>
+
+        </Grid>
 
         <Border
-            Grid.Row="2" Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="1"
-            Margin="5"
-            Padding="10 1"
+            Margin="10" Padding="10 3"
             BorderBrush="#aaaaaa"
             BorderThickness="2"
-            CornerRadius="10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    Grid.Column="0"
-                    d:Text="이름"
-                    Text="{Binding AppData.SQLiteAddName}"
-                    VerticalAlignment="Center"/>
-                <TextBox
-                    Grid.Column="1"
-                    d:Text="나이"
-                     Text="{Binding AppData.SQLiteAddOld}"
-                    VerticalAlignment="Center"/>
-                <Button 
-                    Grid.Column="2"
-                    Content="Add Data" 
-                    Command="{Binding AddDataCommand}"/>
-            </Grid>
-        </Border>
-
-        <Border
-            Grid.Row="3" Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="1"
-            Margin="5"
-            Padding="10 1"
-            BorderBrush="#aaaaaa"
-            BorderThickness="2"
-            CornerRadius="10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Grid.Row="3" Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    d:Text="선택된이름 / 나이"
-                    Text="{Binding AppData.String1}"
-                    VerticalAlignment="Center"/>
-                <Button 
-                    Grid.Row="3" Grid.Column="2"
-                    Content="Delete" 
-                    Command="{Binding BtnDeleteCommand}"/>
-            </Grid>
-        </Border>
-
-        <Border
-            Grid.Row="4" Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="1"
-            Margin="5"
-            Padding="10 1"
-            BorderBrush="#aaaaaa"
-            BorderThickness="2"
-            CornerRadius="10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    Grid.Row="3" Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    d:Text="이름"
-                    Text="{Binding AppData.SQLiteUpdateName}"
-                    VerticalAlignment="Center"/>
-                <TextBox
-                    Grid.Row="3" Grid.Column="2"
-                    Grid.ColumnSpan="1"
-                    d:Text="나이"
-                    Text="{Binding AppData.SQLiteUpdateOld}"
-                    VerticalAlignment="Center"/>
-                <Button 
-                    Grid.Row="3" Grid.Column="3"
-                    Content="Update" 
-                    Command="{Binding BtnUpdateCommand}"/>
-            </Grid>
-        </Border>
-
-
-
-
-        <DataGrid
-            Margin="10 5 30 5"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            AutoGenerateColumns="False"
-            HeadersVisibility="All"
-            CanUserAddRows="False"
-            d:ItemsSource="{d:SampleData ItemCount=20}"
-            ItemsSource="{Binding AppData.SQLiteItemsSource}"
-            Grid.RowSpan="4" Grid.ColumnSpan="2"
+            CornerRadius="10"
+            Grid.RowSpan="4" Grid.ColumnSpan="3"
             Grid.Row="1" Grid.Column="3">
-            <DataGrid.Columns>
-                <DataGridTextColumn 
-                    Binding="{Binding Name}" 
-                    Header="이름" 
-                    Width="4*"
-                    IsReadOnly="True"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Old}"
-                    Header="나이" 
-                    Width="2*" 
-                    IsReadOnly="True"/>
-            </DataGrid.Columns>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction
-                        Command="{Binding MouseLeftButtonUpCommand}" 
-                        PassEventArgsToCommand="True" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </DataGrid>
-
-
+            <DataGrid
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                AutoGenerateColumns="False"
+                HeadersVisibility="All"
+                CanUserAddRows="False"
+                d:ItemsSource="{d:SampleData ItemCount=20}"
+                ItemsSource="{Binding AppData.SQLiteItemsSource}"
+                Grid.RowSpan="1" Grid.ColumnSpan="1"
+                Grid.Row="0" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Binding="{Binding Id}" 
+                        Header="Id" 
+                        Width="3*"
+                        IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Name}" 
+                        Header="이름" 
+                        Width="5*"
+                        IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Old}"
+                        Header="나이" 
+                        Width="3*" 
+                        IsReadOnly="True"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+                            Command="{Binding SelectionChangedCommand}" 
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                            PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </Border>
 
     </Grid>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,7 +12,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
+using DataBaseTools.Services;
 using DataBaseTools.Views;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseTools.ViewModels
@@ -86,51 +89,47 @@ namespace DataBaseTools.ViewModels
                 {
                     if (!AppData.SQLiteIsConnected)
                     {
-                        AppData.ContextSQLite = new SQLiteContext(AppData.SQLiteConnectionString);
-                        AppData.ConnectionSQLite = AppData.ContextSQLite.Database.GetDbConnection();
-                        AppData.CommandSQLite = AppData.ConnectionSQLite.CreateCommand();
-                        AppData.ContextSQLite.Database.EnsureCreatedAsync();
-                        AppData.ConnectionSQLite.Open();
-                        AppData.CommandSQLite.CommandText = "PRAGMA journal_mode=Off;";
-                        AppData.CommandSQLite.ExecuteNonQuery();
-
+                        AppData.SQLiteContext = new SQLiteContext(AppData.SQLiteConnectionString);
+                        AppData.SQLiteConnection = AppData.SQLiteContext.Database.GetDbConnection();
+                        AppData.SQLiteCommand = AppData.SQLiteConnection.CreateCommand();
+                        AppData.SQLiteContext.Database.EnsureCreatedAsync();
+                        AppData.SQLiteConnection.Open();
+                        AppData.SQLiteCommand.CommandText = "PRAGMA journal_mode=Off;";
+                        AppData.SQLiteDataReader = AppData.SQLiteCommand.ExecuteReader();
+                        //AppData.SQLiteCommand.ExecuteNonQuery();
+                        AppData.SQLiteIsEnabled = true;
+                        AppData.SQLiteIsState = AppData.SQLiteConnection.State;
                         AppData.SQLiteIsConnected = true;
-                        AppData.StatusBar1 = "Status : Connected"; ;
+                        AppData.SQLiteContext!.sqliteDB.LoadAsync();
+                        AppData.SQLiteItemsSource = AppData.SQLiteContext.sqliteDB.Local.ToObservableCollection();
+                        Utiles.InitSQLite(AppData);
+                        AppData.StatusBar1 = "Status : SQLite Connected"; ;
                         AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
 
-                        AppData.ContextSQLite.sqliteDB.LoadAsync();
-                        AppData.SQLiteItemsSource = AppData.ContextSQLite.sqliteDB.Local.ToObservableCollection();
-
-                        Dispatcher dispatchObject = Application.Current.Dispatcher;
-                        if (dispatchObject == null || dispatchObject.CheckAccess())
+                        Application.Current.Dispatcher.Invoke(() =>
                         {
-                            AppData.SQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
-                        }
-                        else dispatchObject.Invoke(() =>
-                        {
-                            AppData.SQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
+                            AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
                         });
                     }
                     else
                     {
-                        AppData.CommandSQLite!.Dispose();
-                        AppData.ConnectionSQLite!.Close();
-                        AppData.ConnectionSQLite.Dispose();
-                        AppData.ContextSQLite!.Dispose();
+                        AppData.SQLiteDataReader?.Close();
+                        AppData.SQLiteDataReader?.Dispose();
+                        AppData.SQLiteCommand?.Dispose();
+                        AppData.SQLiteConnection?.Close();
+                        AppData.SQLiteConnection?.Dispose();
+                        AppData.SQLiteContext?.Dispose();
 
+                        AppData.SQLiteIsEnabled = false;
+                        AppData.SQLiteIsState = ConnectionState.Closed;
                         AppData.SQLiteIsConnected = false;
                         AppData.StatusBar1 = "Status : Ready"; ;
                         AppData.StatusBar2 = "SQLite 데이터베이스 연결이 해제되었습니다.";
                         AppData.SQLiteItemsSource = new();
 
-                        Dispatcher dispatchObject = Application.Current.Dispatcher;
-                        if (dispatchObject == null || dispatchObject.CheckAccess())
+                        Application.Current.Dispatcher.Invoke(() =>
                         {
-                            AppData.SQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
-                        }
-                        else dispatchObject.Invoke(() =>
-                        {
-                            AppData.SQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
+                            AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
                         });
                     }
                 }
