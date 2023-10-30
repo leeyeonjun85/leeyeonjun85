@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Firebase.Database;
 using Firebase.Database.Query;
-using MaterialDesignThemes.Wpf;
-using Microsoft.AspNetCore.SignalR.Client;
 using OoManager.Services;
 using OoManager.ViewModels;
 
@@ -27,32 +22,11 @@ namespace OoManager.Models
         private string _fireBaseDbName = "o2study_test";
         [ObservableProperty]
         private string _windowTitle = $"오투공부방 Manger - {ConfigurationManager.AppSettings["Version"]}";
+        [ObservableProperty]
+        private OoDbContext? _ooDbContext;
 
         [ObservableProperty]
-        private ObservableCollection<NavigationItem> _navigationList = new()
-            {
-                new NavigationItem
-                {
-                    Title = "Home",
-                    SelectedIcon = PackIconKind.Home,
-                    UnselectedIcon = PackIconKind.HomeOutline,
-                    Source = "/Views/PageHome.xaml",
-                },
-                new NavigationItem
-                {
-                    Title = "Members",
-                    SelectedIcon = PackIconKind.Users,
-                    UnselectedIcon = PackIconKind.UsersOutline,
-                    Source = "/Views/PageMembers.xaml",
-                },
-                new NavigationItem
-                {
-                    Title = "Lectures",
-                    SelectedIcon = PackIconKind.CalendarMultipleCheck,
-                    UnselectedIcon = PackIconKind.CalendarCheck,
-                    Source = "/Views/PageLecture.xaml",
-                },
-            };
+        private ObservableCollection<NavigationItem> _navigationList = new();
         [ObservableProperty]
         private NavigationItem? _selectedPage;
         [ObservableProperty]
@@ -69,6 +43,9 @@ namespace OoManager.Models
 
 
         // Page Home
+        [ObservableProperty]
+        private string _serverPath = string.Empty;
+
         [ObservableProperty]
         private string _fireBaseState = string.Empty;
         [ObservableProperty]
@@ -87,16 +64,22 @@ namespace OoManager.Models
 
         // Page Members
         [ObservableProperty]
-        private ObservableCollection<MemberData> _members = new();
+        private ObservableCollection<ModelMembers> _members = new();
         [ObservableProperty]
         private Dictionary<int, int> _membersDict = new();
         [ObservableProperty]
-        private MemberData _memberData = new();
+        private ModelMembers _memberData = new();
         [ObservableProperty]
-        private MemberData? _selectedMember;
+        private ModelMembers? _selectedMember;
         [ObservableProperty]
-        private string _pageMembersStatus = "재원";
+        private string _pageMembersStatus = "전체";
 
+        public List<string> GradeStrings { get; set; } = new()
+            { "6살", "7살", "초1", "초2", "초3", "초4", "초5", "초6", "중1", "중2", "중3", "고1", "고2", "고3" };
+        public List<string> StateStrings4 { get; set; } = new()
+            { "전체", "재원", "휴원", "보류" };
+        public List<string> StateStrings3 { get; set; } = new()
+            { "재원", "휴원", "보류" };
 
         // Page Lectures
         [ObservableProperty]

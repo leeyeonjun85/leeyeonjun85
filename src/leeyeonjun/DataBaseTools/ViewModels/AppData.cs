@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Windows;
@@ -6,6 +7,9 @@ using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using DataBaseTools.Models;
 using Microsoft.Data.Sqlite;
+using WebSocketSharp.Server;
+using WebSocketSharp;
+using DataBaseTools.Services;
 
 namespace DataBaseTools.ViewModels
 {
@@ -57,6 +61,8 @@ namespace DataBaseTools.ViewModels
         private DbDataReader? _sQLiteDataReader;
         [ObservableProperty]
         private ObservableCollection<SQLiteModel> _sQLiteItemsSource = new();
+        //[ObservableProperty]
+        //private DataTable _sQLiteItemsSource = new();
         [ObservableProperty]
         private ObservableCollection<SQLiteModel> _sQLiteSelectedItems = new();
         [ObservableProperty]
@@ -69,6 +75,19 @@ namespace DataBaseTools.ViewModels
         private string _sQLiteUpdateName = string.Empty;
         [ObservableProperty]
         private int _sQLiteUpdateOld;
+
+        // WebSocket
+        [ObservableProperty]
+        private WebSocketServer? _wsServer;
+        [ObservableProperty]
+        private WebSocket? _webSocket;
+        [ObservableProperty]
+        private string _wsChatNickName = "임시닉네임1";
+        [ObservableProperty]
+        private string _wsChatText = $"=== 채팅을 시작합니다. ==={Environment.NewLine}";
+        [ObservableProperty]
+        private string _wsChatSendText = string.Empty;
+        
 
 
         // Oracle

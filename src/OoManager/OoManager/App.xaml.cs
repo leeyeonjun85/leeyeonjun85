@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OoManager.Models;
 using OoManager.Services;
 using OoManager.ViewModels;
 using OoManager.Views;
@@ -16,7 +23,7 @@ namespace OoManager
     public partial class App : Application
     {
         public static ILogger? LOGGER;
-
+        public static AppData Data = new();
         public App()
         {
             IServiceProvider serviceProvider = ConfigureServices();
@@ -28,7 +35,24 @@ namespace OoManager
 
         private IServiceProvider ConfigureServices()
         {
+
             HostApplicationBuilder builder = Host.CreateApplicationBuilder();
+
+            // Configuration Directory
+            IConfigurationSection cofigDir = builder.Configuration.GetSection("Directory");
+            string dirRoot = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, cofigDir["Root"] ?? "OoManager");
+            string dirDataBase = Path.Combine(dirRoot, cofigDir["DataBase"] ?? "DataBase");
+
+            // Validate Directory
+            if (!Directory.Exists(dirRoot))
+                Directory.CreateDirectory(dirRoot);
+            if (!Directory.Exists(dirDataBase))
+                Directory.CreateDirectory(dirDataBase);
+
+            builder.Services.AddDbContext<OoDbContext>(p =>
+            {
+                p.UseSqlite($"Data Source={dirDataBase}{Path.DirectorySeparatorChar}OoDb.db");
+            });
 
             // Views
             builder.Services.AddSingleton<WindowMain>();
@@ -53,8 +77,6 @@ namespace OoManager
                 x.AddDebug();
             });
 
-            // Services
-            builder.Services.AddSingleton<IAppUtiles, Services.AppUtiles>();
 
             IHost host = builder.Build();
             return host.Services;

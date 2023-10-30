@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OoManager.Common
+namespace OoManager.Models
 {
     [Table("LESSONS")]
     public class ModelLessons

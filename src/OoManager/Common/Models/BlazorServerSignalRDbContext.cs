@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace OoManager.Common
+namespace OoManager.Models
 {
     public class BlazorServerSignalRDbContext : IdentityDbContext
     {

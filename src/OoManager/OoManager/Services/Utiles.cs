@@ -4,40 +4,69 @@ using System.IO;
 using System.Resources;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using Firebase.Database;
 using Firebase.Database.Query;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using OoManager.Models;
 
 namespace OoManager.Services
 {
-    public class AppUtiles : IAppUtiles
+    public class Utiles
     {
-        public async Task<AppData> InitAppAsync(AppData AppData)
+        public async static Task InitAppAsync(AppData AppData)
         {
             // Color Theme
             Color primaryColor = SwatchHelper.Lookup[MaterialDesignColor.Indigo];
-            Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Amber];
+            Color accentColor = SwatchHelper.Lookup[MaterialDesignColor.Lime];
             PaletteHelper paletteHelper = new PaletteHelper();
             var theme = paletteHelper.GetTheme();
             theme.SetPrimaryColor(primaryColor);
             theme.SetSecondaryColor(accentColor);
             paletteHelper.SetTheme(theme);
 
-            // Init FireBase
-            //AppData = GetFireBase(AppData);
+            AppData.NavigationList.Add(new NavigationItem
+            {
+                Title = "Home",
+                SelectedIcon = PackIconKind.Home,
+                UnselectedIcon = PackIconKind.HomeOutline,
+                Source = "/Views/PageHome.xaml",
+            });
+
+            AppData.NavigationList.Add(new NavigationItem
+            {
+                Title = "Members",
+                SelectedIcon = PackIconKind.Users,
+                UnselectedIcon = PackIconKind.UsersOutline,
+                Source = "/Views/PageMembers.xaml",
+            });
+
+            AppData.NavigationList.Add(new NavigationItem
+            {
+                Title = "Lectures",
+                SelectedIcon = PackIconKind.CalendarMultipleCheck,
+                UnselectedIcon = PackIconKind.CalendarCheck,
+                Source = "/Views/PageLecture.xaml",
+            });
+
+            // Init OoDb
+            await GetOoDbAsync(AppData);
 
             // Open PageHome
-            Task<AppData> _appData = OpenPageHomeAsync(AppData);
-            await _appData; AppData = _appData.Result;
-
-            return AppData;
+            await OpenPageHomeAsync(AppData);
         }
 
-        public AppData GetFireBase(AppData AppData)
+        public async static Task GetOoDbAsync(AppData AppData)
+        {
+            AppData.OoDbContext!.Database.EnsureCreated();
+            await RefreshOoDbAsync(AppData);
+        }
+
+        public static AppData GetFireBase(AppData AppData)
         {
             string fileName = $"yeonjunsCode{Path.DirectorySeparatorChar}private{Path.DirectorySeparatorChar}src{Path.DirectorySeparatorChar}leeyeonjun85.json";
             string filePath = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, fileName);
@@ -54,33 +83,27 @@ namespace OoManager.Services
             return AppData;
         }
 
-        public async Task<AppData> OpenPageHomeAsync(AppData AppData)
+        public static async Task OpenPageHomeAsync(AppData AppData)
         {
             // Init PageHome
             AppData.SelectedPageIndex = 0;
             AppData.SelectedPage = AppData.NavigationList[0];
             AppData.SelectedPageTitle = "프로그램 / 회원 정보";
 
-            Task<AppData> _appData = RefreshDataAsync(AppData);
-            await _appData; AppData = _appData.Result;
-
-            return AppData;
+            await RefreshOoDbAsync(AppData);
         }
 
-        public async Task<AppData> OpenPageMembersAsync(AppData AppData)
+        public static async Task OpenPageMembersAsync(AppData AppData)
         {
             // Init PageMembers
             AppData.SelectedPageIndex = 1;
             AppData.SelectedPage = AppData.NavigationList[1];
             AppData.SelectedPageTitle = "회원 관리";
 
-            Task<AppData> _appData = RefreshDataAsync(AppData);
-            await _appData; AppData = _appData.Result;
-
-            return AppData;
+            await RefreshOoDbAsync(AppData);
         }
 
-        public async Task<AppData> OpenPageLectureAsync(AppData AppData)
+        public static async Task<AppData> OpenPageLectureAsync(AppData AppData)
         {
             // Init PageLecture
             AppData.SelectedPageIndex = 2;
@@ -93,9 +116,14 @@ namespace OoManager.Services
             return AppData;
         }
 
-        
+        public static async Task RefreshOoDbAsync(AppData AppData)
+        {
+            // Init Members
+            await AppData.OoDbContext!.members.LoadAsync();
+            AppData.Members = AppData.OoDbContext!.members.Local.ToObservableCollection();
+        }
 
-        public async Task<AppData> RefreshDataAsync(AppData AppData)
+        public static async Task<AppData> RefreshDataAsync(AppData AppData)
         {
             //// Init Members
             //Task<AppData> _appData1 = GetMembersAsync(AppData);
@@ -195,7 +223,7 @@ namespace OoManager.Services
             return AppData;
         }
 
-        public async Task<AppData> GetMembersAsync(AppData AppData)
+        public static async Task<AppData> GetMembersAsync(AppData AppData)
         {
             AppData.Members = new();
             AppData.MembersDict = new();
@@ -208,24 +236,24 @@ namespace OoManager.Services
 
             foreach (var member in members)
             {
-                AppData.MemberData = new();
-                AppData.MemberData.Key = member.Key;
-                AppData.MemberData.Member = member.Object;
-                AppData.MemberData.SelectedGrade = member.Object.member_grade_str;
-                AppData.MemberData.SelectedState = member.Object.member_status;
-                AppData.MemberData.XpUpdateToolTip = $"{AppData.MemberData.Member.member_name} XP 수정하기";
-                AppData.MemberData.BonusToolTip = $"{AppData.MemberData.Member.member_name}에게 +5xp";
-                AppData.MemberData.MemberUpdateToolTip = $"{AppData.MemberData.Member.member_name} 회원정보 수정하기";
-                AppData.MemberData.LectureUpdateToolTip = $"{AppData.MemberData.Member.member_name} 수업 수정하기";
-                AppData.Members.Add(AppData.MemberData);
-                AppData.MembersDict[member.Object.mid] = _idx;
-                _idx++;
+                //AppData.MemberData = new();
+                //AppData.MemberData.Key = member.Key;
+                //AppData.MemberData.Member = member.Object;
+                //AppData.MemberData.SelectedGrade = member.Object.member_grade_str;
+                //AppData.MemberData.SelectedState = member.Object.member_status;
+                //AppData.MemberData.XpUpdateToolTip = $"{AppData.MemberData.Member.member_name} XP 수정하기";
+                //AppData.MemberData.BonusToolTip = $"{AppData.MemberData.Member.member_name}에게 +5xp";
+                //AppData.MemberData.MemberUpdateToolTip = $"{AppData.MemberData.Member.member_name} 회원정보 수정하기";
+                //AppData.MemberData.LectureUpdateToolTip = $"{AppData.MemberData.Member.member_name} 수업 수정하기";
+                //AppData.Members.Add(AppData.MemberData);
+                //AppData.MembersDict[member.Object.mid] = _idx;
+                //_idx++;
             }
 
             return AppData;
         }
 
-        public async Task<AppData> GetLecturesAsync(AppData AppData)
+        public static async Task<AppData> GetLecturesAsync(AppData AppData)
         {
             AppData.LecturesTotal = new();
             int _idx = 0;
@@ -266,7 +294,7 @@ namespace OoManager.Services
                         };
                         AppData.LecturesTotal.Add(_lectureData);
                         AppData.LecturesTotalDict[_lectureData.Key] = _idx;
-                        AppData.Members[AppData.MembersDict[_lectureJToken.First!.Value<int>("mid")]].Lectures.Add(_lectureData);
+                        //AppData.Members[AppData.MembersDict[_lectureJToken.First!.Value<int>("mid")]].Lectures.Add(_lectureData);
                         _idx++;
                     }
                 }
@@ -279,7 +307,7 @@ namespace OoManager.Services
 
 
 
-        public async Task<AppData> InitMembers(AppData AppData)
+        public static async Task<AppData> InitMembers(AppData AppData)
         {
             int mid = 0;
 
@@ -321,25 +349,25 @@ namespace OoManager.Services
 
             foreach (var _memeber in memeberList)
             {
-                mid += 1;
-                AppData.MemberData.Member = new();
-                AppData.MemberData.Member.member_grade_str = _memeber.Item1;
-                AppData.MemberData.Member.member_grade = ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
-                AppData.MemberData.Member.member_name = _memeber.Item2;
-                AppData.MemberData.Member.member_xp = _memeber.Item3;
-                AppData.MemberData.Member.mid = mid;
+                //mid += 1;
+                //AppData.MemberData.Member = new();
+                //AppData.MemberData.Member.member_grade_str = _memeber.Item1;
+                //AppData.MemberData.Member.member_grade = ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
+                //AppData.MemberData.Member.member_name = _memeber.Item2;
+                //AppData.MemberData.Member.member_xp = _memeber.Item3;
+                //AppData.MemberData.Member.mid = mid;
 
-                //await AppData.FirebaseDB
+                ////await AppData.FirebaseDB
+                ////        .Child("member")
+                ////        .PostAsync(AppData.MemberData.Member);
+
+                //Task<FirebaseObject<Member>> returnMember = AppData.FirebaseDB
                 //        .Child("member")
                 //        .PostAsync(AppData.MemberData.Member);
-
-                Task<FirebaseObject<Member>> returnMember = AppData.FirebaseDB
-                        .Child("member")
-                        .PostAsync(AppData.MemberData.Member);
-                await returnMember;
-                AppData.MemberData.Key = returnMember.Result.Key;
-                AppData.Members.Add(AppData.MemberData);
-                AppData.MemberData = new();
+                //await returnMember;
+                //AppData.MemberData.Key = returnMember.Result.Key;
+                ////AppData.Members.Add(AppData.MemberData);
+                //AppData.MemberData = new();
             }
             return AppData;
         }
@@ -378,7 +406,7 @@ namespace OoManager.Services
         //    return AppData;
         //}
 
-        public int ConvertGradeOld(string GradeString)
+        public static int ConvertGradeOld(string GradeString)
         {
             int GradeInt;
             switch (GradeString)
@@ -403,43 +431,30 @@ namespace OoManager.Services
             return GradeInt;
         }
 
-        public async Task<AppData> AddMemberAsync(AppData AppData)
-        {
-            Task<FirebaseObject<Member>> returnMember = AppData.FirebaseDB
-                       .Child("member")
-                       .PostAsync(AppData.MemberData.Member);
-            await returnMember;
-            AppData.MemberData.Key = returnMember.Result.Key;
-            AppData.Members.Add(AppData.MemberData);
-            AppData.MemberData = new();
-
-            return AppData;
-        }
-
-        public async Task UpdateMemberAsync(AppData AppData)
+        public static async Task UpdateMemberAsync(AppData AppData)
         {
             // 데이터베이스에 멤버 업데이트
-            await AppData.FirebaseDB
-                .Child("member")
-                .Child(AppData.MemberData.Key)
-                .PutAsync(AppData.MemberData.Member);
+            //await AppData.FirebaseDB
+            //    .Child("member")
+            //    .Child(AppData.MemberData.Key)
+            //    .PutAsync(AppData.MemberData.Member);
 
             // 화면에 멤버 업데이트
             foreach (var member in AppData.Members)
             {
-                if (member.Key == AppData.MemberData.Key)
-                {
-                    member.Member = AppData.MemberData.Member;
-                    member.SelectedGrade = AppData.MemberData.SelectedGrade;
-                    member.SelectedState = AppData.MemberData.SelectedState;
-                    member.BonusToolTip = AppData.MemberData.BonusToolTip;
+                //if (member.Key == AppData.MemberData.Key)
+                //{
+                //    member.Member = AppData.MemberData.Member;
+                //    member.SelectedGrade = AppData.MemberData.SelectedGrade;
+                //    member.SelectedState = AppData.MemberData.SelectedState;
+                //    member.BonusToolTip = AppData.MemberData.BonusToolTip;
 
-                    AppData.MemberData = new();
+                //    AppData.MemberData = new();
 
-                    Task<AppData> _appData = AppData.OoService!.GetMembersAsync(AppData);
-                    await _appData;
-                    AppData = _appData.Result;
-                }
+                //    Task<AppData> _appData = AppData.OoService!.GetMembersAsync(AppData);
+                //    await _appData;
+                //    AppData = _appData.Result;
+                //}
             }
         }
     }

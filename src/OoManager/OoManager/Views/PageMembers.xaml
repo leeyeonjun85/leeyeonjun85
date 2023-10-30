@@ -59,22 +59,22 @@
                 Grid.Column="0"
                 Content="새로고침"
                 Margin="5"
-                Command="{Binding RefreshCommand}"/>
+                Command="{Binding BtnRefreshClickCommand}"/>
             <Button
                 Grid.Column="1"
                 Content="회원 추가"
                 Margin="5"
-                Command="{Binding AddMemberCommand}"/>
+                Command="{Binding BtnAddMemberClickCommand}"/>
             <Button
                 Grid.Column="2"
                 Content="회원 수정"
                 Margin="5"
-                Command="{Binding UpdateMemberCommand}"/>
+                Command="{Binding BtnUpdateMemberClickCommand}"/>
             <Button
                 Grid.Column="3"
                 Content="회원 삭제"
                 Margin="5"
-                Command="{Binding DeleteMemberCommand}"/>
+                Command="{Binding BtnDeleteMemberClickCommand}"/>
             <!--<Button
                 Grid.Column="4"
                 Content="초기화"
@@ -84,7 +84,7 @@
                 Margin="5 0"
                 HorizontalContentAlignment="Center"
                 materialDesign:HintAssist.Hint="재원"
-                ItemsSource="{Binding AppData.MemberData.StateStrings}"
+                ItemsSource="{Binding AppData.StateStrings}"
                 SelectedValue="{Binding AppData.PageMembersStatus}"
                 Grid.RowSpan="1" Grid.ColumnSpan="1"
                 Grid.Row="0" Grid.Column="5"/>
@@ -107,58 +107,58 @@
             ItemsSource="{Binding AppData.Members}">
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                    Binding="{Binding Member.member_class}" 
-                    Header="수업" 
-                    Width="5*"
+                    Binding="{Binding id}"
+                    Header="id" 
+                    Width="2*" 
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding Member.member_grade}"
-                    Header="나이" 
-                    Width="5*" 
-                    IsReadOnly="True"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Member.member_grade_str}"
+                    Binding="{Binding grade}"
                     Header="학년" 
-                    Width="5*" 
+                    Width="3*" 
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding Member.member_money}" 
-                    Header="교육비" 
-                    Width="5"
-                    IsReadOnly="True"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Member.member_motherphone}"
-                    Header="전화" 
-                    Width="5*" 
-                    IsReadOnly="True"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Member.member_name}" 
+                    Binding="{Binding name}" 
                     Header="이름" 
                     Width="5*"
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
-                    Binding="{Binding Member.member_status}"
+                    Binding="{Binding old}"
+                    Header="나이" 
+                    Width="3*" 
+                    IsReadOnly="True"/>
+                <DataGridTextColumn 
+                    Binding="{Binding classPlan}" 
+                    Header="수업" 
+                    Width="5*"
+                    IsReadOnly="True"/>
+                <DataGridTextColumn 
+                    Binding="{Binding money}" 
+                    Header="교육비" 
+                    Width="5"
+                    IsReadOnly="True"/>
+                <DataGridTextColumn 
+                    Binding="{Binding memberState}"
                     Header="상태" 
-                    Width="5*" 
+                    Width="3*" 
                     IsReadOnly="True"/>
-                <!--<DataGridTextColumn 
-                    Binding="{Binding Member.member_text}" 
+                <DataGridTextColumn 
+                    Binding="{Binding phoneNumber}"
+                    Header="전화" 
+                    Width="6*" 
+                    IsReadOnly="True"/>
+                <DataGridTextColumn 
+                    Binding="{Binding memberMemo}" 
                     Header="Memo" 
-                    Width="5*"
-                    IsReadOnly="True"/>-->
-                <DataGridTextColumn 
-                    Binding="{Binding Member.member_xp}" 
-                    Header="Xp" 
-                    Width="5*"
+                    Width="6*"
                     IsReadOnly="True"/>
-                <!--<DataGridTextColumn 
-                    Binding="{Binding Member.member_xp_log}" 
-                    Header="XpLog" 
-                    Width="5*"
-                    IsReadOnly="True"/>-->
                 <DataGridTextColumn 
-                    Binding="{Binding Member.mid}" 
-                    Header="Mid" 
+                    Binding="{Binding xp}" 
+                    Header="Xp" 
+                    Width="3*"
+                    IsReadOnly="True"/>
+                <DataGridTextColumn 
+                    Binding="{Binding xpLog}" 
+                    Header="XpLog" 
                     Width="5*"
                     IsReadOnly="True"/>
             </DataGrid.Columns>

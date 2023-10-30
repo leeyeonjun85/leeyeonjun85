@@ -39,12 +39,12 @@ namespace OoManager.ViewModels
             {
                 if (!string.IsNullOrEmpty(this.Name))
                 {
-                    AppData.MemberData.Member.member_grade_str = GradeString;
-                    AppData.MemberData.Member.member_grade = AppData.OoService!.ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
-                    AppData.MemberData.Member.member_name = Name;
-                    AppData.MemberData.Member.member_text = Memo;
-                    AppData.MemberData.Member.member_xp = Xp;
-                    AppData.MemberData.Member.member_xp_log = XpMemo;
+                    //AppData.MemberData.Member.member_grade_str = GradeString;
+                    //AppData.MemberData.Member.member_grade = AppData.OoService!.ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
+                    //AppData.MemberData.Member.member_name = Name;
+                    //AppData.MemberData.Member.member_text = Memo;
+                    //AppData.MemberData.Member.member_xp = Xp;
+                    //AppData.MemberData.Member.member_xp_log = XpMemo;
 
                     await AppData.OoService!.UpdateMemberAsync(AppData);
 
@@ -81,11 +81,11 @@ namespace OoManager.ViewModels
                 AppData = _appData;
                 AppData.MemberData = AppData.SelectedMember!;
 
-                GradeString = AppData.MemberData.Member.member_grade_str;
-                Name = AppData.MemberData.Member.member_name;
-                Xp = AppData.MemberData.Member.member_xp;
-                Memo = AppData.MemberData.Member.member_text;
-                XpMemo = AppData.MemberData.Member.member_xp_log;
+                //GradeString = AppData.MemberData.Member.member_grade_str;
+                //Name = AppData.MemberData.Member.member_name;
+                //Xp = AppData.MemberData.Member.member_xp;
+                //Memo = AppData.MemberData.Member.member_text;
+                //XpMemo = AppData.MemberData.Member.member_xp_log;
             }
         }
     }

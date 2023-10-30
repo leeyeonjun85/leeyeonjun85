@@ -4,7 +4,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using OoManager.Models;
+using OoManager.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace OoManager.ViewModels
 {
@@ -12,14 +16,14 @@ namespace OoManager.ViewModels
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppData _appData = new();
+        private AppData _appData = App.Data;
 
         [ObservableProperty]
         private string _gradeString = "중1";
         [ObservableProperty]
         private string _name = string.Empty;
         [ObservableProperty]
-        private string _money = "150000";
+        private int _money = 150000;
         [ObservableProperty]
         private string _status = "재원";
         [ObservableProperty]
@@ -34,15 +38,10 @@ namespace OoManager.ViewModels
         private string _xpMemo = string.Empty;
         #endregion
 
-
         public WindowMemberUpdateViewModel()
         {
             IsActive = true;
         }
-
-
-
-
 
         [RelayCommand]
         private async Task BtnOkAsync(object obj)
@@ -51,18 +50,27 @@ namespace OoManager.ViewModels
             {
                 if (!string.IsNullOrEmpty(this.Name))
                 {
-                    AppData.MemberData.Member.member_class = ClassPlan;
-                    AppData.MemberData.Member.member_grade_str = GradeString;
-                    AppData.MemberData.Member.member_grade = AppData.OoService!.ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
-                    AppData.MemberData.Member.member_money = Money;
-                    AppData.MemberData.Member.member_motherphone = Phonenumber;
-                    AppData.MemberData.Member.member_name = Name;
-                    AppData.MemberData.Member.member_status = Status;
-                    AppData.MemberData.Member.member_text = Memo;
-                    AppData.MemberData.Member.member_xp = Xp;
-                    AppData.MemberData.Member.member_xp_log = XpMemo;
+                    var _foundata = AppData.OoDbContext!.members.FindAsync(AppData.SelectedMember.id)!;
+                    await _foundata; AppData.MemberData = _foundata.Result!;
+                    AppData.OoDbContext!.Entry(AppData.MemberData).State = EntityState.Detached;
 
-                    await AppData.OoService!.UpdateMemberAsync(AppData);
+                    AppData.MemberData.classPlan = ClassPlan;
+                    AppData.MemberData.grade = GradeString;
+                    AppData.MemberData.old = Utiles.ConvertGradeOld(GradeString);
+                    AppData.MemberData.money = Convert.ToInt32(Money);
+                    AppData.MemberData.phoneNumber = Phonenumber;
+                    AppData.MemberData.name = Name;
+                    AppData.MemberData.memberState = Status;
+                    AppData.MemberData.memberMemo = Memo;
+                    AppData.MemberData.xp = Xp;
+                    AppData.MemberData.xpLog = XpMemo;
+
+                    AppData.OoDbContext!.members.Entry(AppData.MemberData).State = EntityState.Modified;
+
+                    AppData.OoDbContext!.SaveChanges();
+
+                    await Utiles.RefreshOoDbAsync(AppData);
+                    WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
 
                     Window?.Close();
                 }
@@ -73,7 +81,7 @@ namespace OoManager.ViewModels
 
                 throw;
             }
-            
+
         }
 
         [RelayCommand]
@@ -90,22 +98,22 @@ namespace OoManager.ViewModels
         {
         }
 
-        void IParameterReceiver.ReceiveParameter(object parameter)
+        async void IParameterReceiver.ReceiveParameter(object parameter)
         {
             if (parameter is AppData _appData)
             {
                 AppData = _appData;
-                AppData.MemberData = AppData.SelectedMember!;
+                AppData.MemberData = new();
 
-                GradeString = AppData.MemberData.Member.member_grade_str;
-                Name = AppData.MemberData.Member.member_name;
-                Money = AppData.MemberData.Member.member_money;
-                Status = AppData.MemberData.Member.member_status;
-                Phonenumber = AppData.MemberData.Member.member_motherphone;
-                ClassPlan = AppData.MemberData.Member.member_class;
-                Xp = AppData.MemberData.Member.member_xp;
-                Memo = AppData.MemberData.Member.member_text;
-                XpMemo = AppData.MemberData.Member.member_xp_log;
+                ClassPlan = AppData.SelectedMember!.classPlan;
+                GradeString = AppData.SelectedMember.grade;
+                Money = AppData.SelectedMember.money;
+                Phonenumber = AppData.SelectedMember.phoneNumber;
+                Name = AppData.SelectedMember.name;
+                Status = AppData.SelectedMember.memberState;
+                Memo = AppData.SelectedMember.memberMemo;
+                Xp = AppData.SelectedMember.xp;
+                XpMemo = AppData.SelectedMember.xpLog;
             }
         }
     }

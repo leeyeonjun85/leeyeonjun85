@@ -17,12 +17,13 @@ namespace OoManager.ViewModels
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppData _appData = new();
+        private AppData _appData = App.Data;
         #endregion
 
         public WindowMainViewModel()
         {
             AppData.OoService = (IAppUtiles)Ioc.Default.GetService(typeof(IAppUtiles))!; ;
+            AppData.OoDbContext = (OoDbContext)Ioc.Default.GetService(typeof(OoDbContext))!; ;
         }
 
         [RelayCommand]
@@ -34,20 +35,17 @@ namespace OoManager.ViewModels
                 {
                     case "Home":
                         {
-                            Task<AppData> _appData = AppData.OoService!.OpenPageHomeAsync(AppData);
-                            await _appData; AppData = _appData.Result;
+                            await Utiles.OpenPageHomeAsync(AppData);
                             break;
                         }
                     case "Members":
                         {
-                            Task<AppData> _appData = AppData.OoService!.OpenPageMembersAsync(AppData);
-                            await _appData; AppData = _appData.Result;
+                            await Utiles.OpenPageMembersAsync(AppData);
                             break;
                         }
                     case "Lectures":
                         {
-                            Task<AppData> _appData = AppData.OoService!.OpenPageLectureAsync(AppData);
-                            await _appData; AppData = _appData.Result;
+                            await Utiles.OpenPageLectureAsync(AppData);
                             break;
                         }
 
@@ -61,9 +59,8 @@ namespace OoManager.ViewModels
 
         protected async override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            Task<AppData> _appData = AppData.OoService!.InitAppAsync(AppData);
-            await _appData; AppData = _appData.Result;
-            WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
+            await Utiles.InitAppAsync(AppData);
+            App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)

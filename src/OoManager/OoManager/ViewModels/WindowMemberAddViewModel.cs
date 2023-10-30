@@ -1,12 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Firebase.Database;
-using Firebase.Database.Query;
-using OoManager.Models;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using OoManager.Models;
+using OoManager.Services;
 
 namespace OoManager.ViewModels
 {
@@ -14,14 +13,14 @@ namespace OoManager.ViewModels
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppData _appData = new();
+        private AppData _appData = App.Data;
 
         [ObservableProperty]
         private string _gradeString = "중1";
         [ObservableProperty]
         private string _name = string.Empty;
         [ObservableProperty]
-        private string _money = "150000";
+        private int _money = 150000;
         [ObservableProperty]
         private string _status = "재원";
         [ObservableProperty]
@@ -51,21 +50,20 @@ namespace OoManager.ViewModels
         {
             if (!string.IsNullOrEmpty(this.Name))
             {
-                AppData.MemberData.Member.member_class = ClassPlan;
-                AppData.MemberData.Member.member_grade_str = GradeString;
-                AppData.MemberData.Member.member_grade = AppData.OoService!.ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
-                AppData.MemberData.Member.member_money = Money;
-                AppData.MemberData.Member.member_motherphone = Phonenumber;
-                AppData.MemberData.Member.member_name = Name;
-                AppData.MemberData.Member.member_status = Status;
-                AppData.MemberData.Member.member_text = Memo;
-                AppData.MemberData.Member.member_xp = Xp;
-                AppData.MemberData.Member.member_xp_log = $"회원등록 {Xp}xp";
-                AppData.MemberData.Member.mid = AppData.Members[^1].Member.mid + 1;
 
-                Task<AppData> _appData = AppData.OoService!.AddMemberAsync(AppData);
-                await _appData;
-                AppData = _appData.Result;
+                AppData.MemberData.classPlan = ClassPlan;
+                AppData.MemberData.grade = GradeString;
+                AppData.MemberData.old = Utiles.ConvertGradeOld(GradeString);
+                AppData.MemberData.money = Convert.ToInt32(Money);
+                AppData.MemberData.phoneNumber = Phonenumber;
+                AppData.MemberData.name = Name;
+                AppData.MemberData.memberState = Status;
+                AppData.MemberData.memberMemo = Memo;
+                AppData.MemberData.xp = Xp;
+                AppData.MemberData.xpLog = $"회원등록 {Xp}xp";
+
+                await AppData.OoDbContext!.members.AddAsync(AppData.MemberData);
+                AppData.OoDbContext!.SaveChanges();
 
                 Window?.Close();
             }

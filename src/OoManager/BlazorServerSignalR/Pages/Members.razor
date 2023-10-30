@@ -2,7 +2,7 @@
 @using BlazorServerSignalR.Data;
 @using Microsoft.AspNetCore.SignalR.Client
 @using Microsoft.EntityFrameworkCore;
-@using OoManager.Common;
+@using OoManager.Models
 @inject OoDbContext _ooDbContext
 @* @implements IAsyncDisposable *@
 
@@ -40,6 +40,8 @@
     {
         await Task.Run(async () =>
         {
+            await _ooDbContext.Database.EnsureCreatedAsync();
+
             Task<bool> ooDbContextIsConnected = _ooDbContext.Database.CanConnectAsync();
             _ooDbContextIsConnected = ooDbContextIsConnected.Result;
 
@@ -62,6 +64,7 @@
 
     private void ShowMembers()
     {
+        _ooDbContext.members.Load();
         members = _ooDbContext!.members.Local.ToList();
     }
 }

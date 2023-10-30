@@ -46,6 +46,15 @@ namespace DataBaseTools.Services
                 IsVisibility = Visibility.Hidden,
             });
 
+            AppData.NavigationList.Add(new NavigationItem
+            {
+                Title = "WebSocket",
+                SelectedIcon = PackIconKind.Connection,
+                UnselectedIcon = PackIconKind.Connection,
+                Source = "/Views/PageWebSocket.xaml",
+                IsVisibility = Visibility.Hidden,
+            });
+
             OpenPageHome(AppData);
 
             // Window Title
@@ -70,9 +79,15 @@ namespace DataBaseTools.Services
                 AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
         }
 
-        public static void OpenPageSQLitePage(AppData AppData)
+        public static void OpenPageSQLite(AppData AppData)
         {
             AppData.SelectedPage = AppData.NavigationList[Pages.SQLite];
+            InitSQLite(AppData);
+        }
+
+        public static void OpenPageWebSocket(AppData AppData)
+        {
+            AppData.SelectedPage = AppData.NavigationList[Pages.WebSocket];
             InitSQLite(AppData);
         }
 

@@ -1,7 +1,7 @@
 ﻿@page "/attendance"
 @using BlazorServerSignalR.Data;
 @using Microsoft.AspNetCore.SignalR.Client
-@using OoManager.Common;
+@using OoManager.Models
 @inject NavigationManager Navigation
 @inject BlazorServerSignalRDbContext _dbContext
 @implements IAsyncDisposable
@@ -52,8 +52,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
-
         hubConnection = new HubConnectionBuilder()
             .WithUrl(Navigation.ToAbsoluteUri("/attendanceCheck"), options =>
             {

@@ -6,8 +6,8 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Firebase.Database.Query;
 using OoManager.Models;
+using OoManager.Services;
 using OoManager.Views;
 
 namespace OoManager.ViewModels
@@ -16,7 +16,7 @@ namespace OoManager.ViewModels
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppData _appData = new();
+        private AppData _appData = App.Data;
         #endregion
 
         public PageMembersViewModel()
@@ -25,25 +25,14 @@ namespace OoManager.ViewModels
         }
 
         [RelayCommand]
-        private async Task RefreshAsync(object obj)
+        private async Task BtnRefreshClickAsync(object obj)
         {
-            Task<AppData> _appData = AppData.OoService!.RefreshDataAsync(AppData);
-            await _appData;
-            AppData = _appData.Result;
+            await Utiles.RefreshOoDbAsync(AppData);
         }
 
 
-
-        //[RelayCommand]
-        //private async void Refresh(object obj)
-        //{
-        //    AppData.Members = new();
-        //    GetFireBase(AppData);
-        //}
-
-
         [RelayCommand]
-        private void UpdateMember(object obj)
+        private void BtnUpdateMemberClick(object obj)
         {
             if (AppData.SelectedMember is not null)
             {
@@ -68,28 +57,25 @@ namespace OoManager.ViewModels
         }
 
         [RelayCommand]
-        private async Task DeleteMemberAsync(object obj)
+        private void BtnDeleteMemberClick(object obj)
         {
             if (AppData.SelectedMember is not null)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show(
-                    $"정말로 '{AppData.SelectedMember.Member.member_name}' 회원을 삭제하시겠습니까?{Environment.NewLine}(삭제하면 복구할 수 없습니다.)",
+                    $"정말로 '{AppData.SelectedMember.name}' 회원을 삭제하시겠습니까?{Environment.NewLine}(삭제하면 복구할 수 없습니다.)",
                     "삭제 확인",
                     MessageBoxButton.OKCancel,
                     MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.OK)
                 {
-                    await AppData.FirebaseDB!
-                        .Child("member")
-                        .Child(AppData.SelectedMember.Key)
-                        .DeleteAsync();
-                    AppData.Members.Remove(AppData.SelectedMember);
+                    AppData.OoDbContext!.members.Remove(AppData.SelectedMember);
+                    AppData.OoDbContext!.SaveChanges();
                 }
             };
         }
 
         [RelayCommand]
-        private void AddMember(object obj)
+        private void BtnAddMemberClick(object obj)
         {
             ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberAddViewModel))!;
             Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberAdd))!;

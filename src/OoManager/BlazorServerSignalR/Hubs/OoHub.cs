@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using OoManager.Common;
+using OoManager.Models;
 
 namespace BlazorServerSignalR.Hubs
 {

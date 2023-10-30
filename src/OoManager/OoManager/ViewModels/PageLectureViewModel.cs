@@ -83,19 +83,19 @@ namespace OoManager.ViewModels
         {
             if (AppData.SelectedMember is not null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show(
-                    $"정말로 '{AppData.SelectedMember.Member.member_name}' 에게 보너스 5xp?{Environment.NewLine}{AppData.SelectedMember.Member.member_xp} + 5 = {AppData.SelectedMember.Member.member_xp+5}",
-                    $"{AppData.SelectedMember.Member.member_name}' 보너스",
-                    MessageBoxButton.OKCancel,
-                    MessageBoxImage.Warning);
-                if (messageBoxResult == MessageBoxResult.OK)
-                {
-                    AppData.MemberData = AppData.SelectedMember;
-                    AppData.MemberData.Member.member_xp_log += $"{Environment.NewLine}{DateTime.Now:yyyy-MM-dd HH:mm:ss} / 보너스 +5 / {AppData.MemberData.Member.member_xp}+5={AppData.MemberData.Member.member_xp+5}";
-                    AppData.MemberData.Member.member_xp += 5;
+                //MessageBoxResult messageBoxResult = MessageBox.Show(
+                //    $"정말로 '{AppData.SelectedMember.Member.member_name}' 에게 보너스 5xp?{Environment.NewLine}{AppData.SelectedMember.Member.member_xp} + 5 = {AppData.SelectedMember.Member.member_xp+5}",
+                //    $"{AppData.SelectedMember.Member.member_name}' 보너스",
+                //    MessageBoxButton.OKCancel,
+                //    MessageBoxImage.Warning);
+                //if (messageBoxResult == MessageBoxResult.OK)
+                //{
+                //    AppData.MemberData = AppData.SelectedMember;
+                //    AppData.MemberData.Member.member_xp_log += $"{Environment.NewLine}{DateTime.Now:yyyy-MM-dd HH:mm:ss} / 보너스 +5 / {AppData.MemberData.Member.member_xp}+5={AppData.MemberData.Member.member_xp+5}";
+                //    AppData.MemberData.Member.member_xp += 5;
 
-                    await AppData.OoService!.UpdateMemberAsync(AppData);
-                }
+                //    await AppData.OoService!.UpdateMemberAsync(AppData);
+                //}
             };
         }
 

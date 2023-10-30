@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
 using Microsoft.EntityFrameworkCore;
 using DataBaseTools.Services;
+using Microsoft.Data.Sqlite;
 
 namespace DataBaseTools.ViewModels
 {
@@ -30,18 +31,36 @@ namespace DataBaseTools.ViewModels
         {
             await Task.Run(() =>
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                //Application.Current.Dispatcher.Invoke(() =>
+                //{
+                //    AppData.SQLiteData = new()
+                //    {
+                //        Name = AppData.SQLiteAddName,
+                //        Old = AppData.SQLiteAddOld
+                //    };
+                //    AppData.SQLiteContext!.sqliteDB.Add(AppData.SQLiteData);
+                //    AppData.SQLiteContext!.SaveChangesAsync();
+
+                //    Utiles.InitSQLite(AppData);
+                //});
+
+
+                using (SqliteConnection conn = new(AppData.SQLiteConnectionString))
                 {
-                    AppData.SQLiteData = new()
+                    conn.Open();
+
+                    string sql = string.Empty;
+                    sql += "INSERT INTO 'SqliteTestTable1'('Name', 'Old')";
+                    sql += $"    VALUES ('{AppData.SQLiteAddName}', {AppData.SQLiteAddOld});";
+
+                    using (SqliteCommand cmd = new(sql, conn))
                     {
-                        Name = AppData.SQLiteAddName,
-                        Old = AppData.SQLiteAddOld
-                    };
-                    AppData.SQLiteContext!.sqliteDB.Add(AppData.SQLiteData);
-                    AppData.SQLiteContext!.SaveChangesAsync();
+                        cmd.ExecuteNonQuery();
+                    }
 
                     Utiles.InitSQLite(AppData);
-                });
+                }
+
             });
         }
 

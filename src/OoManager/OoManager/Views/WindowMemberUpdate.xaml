@@ -36,7 +36,7 @@
             Margin="5 0"
             HorizontalContentAlignment="Center"
             materialDesign:HintAssist.Hint="학년"
-            ItemsSource="{Binding AppData.MemberData.GradeStrings}"
+            ItemsSource="{Binding AppData.GradeStrings}"
             SelectedValue="{Binding GradeString}"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="0" Grid.Column="0"/>
@@ -63,7 +63,7 @@
             Margin="5 0"
             HorizontalContentAlignment="Center"
             materialDesign:HintAssist.Hint="재원"
-            ItemsSource="{Binding AppData.MemberData.StateStrings}"
+            ItemsSource="{Binding AppData.StateStrings3}"
             SelectedValue="{Binding Status}"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="0" Grid.Column="5"/>

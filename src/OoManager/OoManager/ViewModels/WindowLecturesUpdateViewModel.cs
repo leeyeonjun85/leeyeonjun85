@@ -251,7 +251,7 @@ namespace OoManager.ViewModels
 
                 if (AppData.SelectedMember is not null)
                 {
-                    SelectedMember = AppData.SelectedMember;
+                    //SelectedMember = AppData.SelectedMember;
                     WindowTitle = $"{SelectedMember.Member.member_name} 수업 관리";
 
                     if (SelectedMember.Lectures.Count > 0)

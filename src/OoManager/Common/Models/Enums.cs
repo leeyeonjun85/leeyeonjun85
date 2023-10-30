@@ -1,4 +1,4 @@
-﻿namespace OoManager.Common
+﻿namespace OoManager.Models
 {
     public enum Grade
     {
@@ -16,4 +16,6 @@
     {
         MemberAdd, MemberUpdate, MemberDelete
     }
+
+
 }

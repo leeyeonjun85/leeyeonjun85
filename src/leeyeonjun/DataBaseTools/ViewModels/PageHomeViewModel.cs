@@ -89,27 +89,59 @@ namespace DataBaseTools.ViewModels
                 {
                     if (!AppData.SQLiteIsConnected)
                     {
-                        AppData.SQLiteContext = new SQLiteContext(AppData.SQLiteConnectionString);
-                        AppData.SQLiteConnection = AppData.SQLiteContext.Database.GetDbConnection();
-                        AppData.SQLiteCommand = AppData.SQLiteConnection.CreateCommand();
-                        AppData.SQLiteContext.Database.EnsureCreatedAsync();
-                        AppData.SQLiteConnection.Open();
-                        AppData.SQLiteCommand.CommandText = "PRAGMA journal_mode=Off;";
-                        AppData.SQLiteDataReader = AppData.SQLiteCommand.ExecuteReader();
-                        //AppData.SQLiteCommand.ExecuteNonQuery();
-                        AppData.SQLiteIsEnabled = true;
-                        AppData.SQLiteIsState = AppData.SQLiteConnection.State;
-                        AppData.SQLiteIsConnected = true;
-                        AppData.SQLiteContext!.sqliteDB.LoadAsync();
-                        AppData.SQLiteItemsSource = AppData.SQLiteContext.sqliteDB.Local.ToObservableCollection();
-                        Utiles.InitSQLite(AppData);
-                        AppData.StatusBar1 = "Status : SQLite Connected"; ;
-                        AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
-
-                        Application.Current.Dispatcher.Invoke(() =>
+                        using (SqliteConnection conn = new(AppData.SQLiteConnectionString))
                         {
-                            AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
-                        });
+                            conn.OpenAsync();
+
+                            string sql = string.Empty;
+                            sql += "CREATE TABLE IF NOT EXISTS 'SqliteTestTable1' (";
+                            sql += "    'Id' INTEGER PRIMARY KEY AUTOINCREMENT,";
+                            sql += "    'Name' VARCHAR(16),";
+                            sql += "    'Old' INTEGER";
+                            sql += ");";
+
+                            using (SqliteCommand cmd = new(sql, conn))
+                            {
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            sql = "INSERT INTO 'SqliteTestTable1'('Name', 'Old') VALUES ('이연준', 38);";
+                            using (SqliteCommand cmd = new(sql, conn))
+                            {
+                                cmd.ExecuteNonQuery();
+                            }
+
+
+                            //AppData.SQLiteItemsSource = new DataTable();
+                            //sql = "SELECT * FROM sqlite_master WHERE type='table';";
+                            //using (SqliteCommand cmd = new(sql, conn))
+                            //{
+                            //    using (SqliteDataReader rdr = cmd.ExecuteReader())
+                            //    {
+                            //        AppData.SQLiteItemsSource.Load(rdr);
+                            //    }
+                            //}
+
+
+                            sql = "SELECT * FROM SqliteTestTable1;";
+                            using (SqliteCommand cmd = new(sql, conn))
+                            {
+                                using (SqliteDataReader rdr = cmd.ExecuteReader())
+                                {
+                                    while (rdr.Read())
+                                    {
+                                        AppData.SQLiteItemsSource.Add(new SQLiteModel() { Id = Convert.ToInt32(rdr["Id"]), Name = rdr["Name"].ToString(), Old = Convert.ToInt32(rdr["Old"]) });
+                                    }
+                                }
+                            }
+
+                            AppData.SQLiteIsEnabled = true;
+                            AppData.SQLiteIsState = conn.State;
+                            AppData.SQLiteIsConnected = true;
+                            Utiles.InitSQLite(AppData);
+                            AppData.StatusBar1 = "Status : SQLite Connected"; ;
+                            AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
+                        }
                     }
                     else
                     {

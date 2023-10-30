@@ -35,7 +35,11 @@ namespace DataBaseTools.ViewModels
                         }
                     case "SQLite":
                         {
-                            Utiles.OpenPageSQLitePage(AppData); break;
+                            Utiles.OpenPageSQLite(AppData); break;
+                        }
+                    case "WebSocket":
+                        {
+                            Utiles.OpenPageWebSocket(AppData); break;
                         }
 
                     default: throw new Exception();
