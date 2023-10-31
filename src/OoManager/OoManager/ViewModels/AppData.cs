@@ -12,6 +12,9 @@ namespace OoManager.Models
     public partial class AppData : ViewModelBase
     {
         // WindowMain
+        public string dirRoot { get; set; } = string.Empty;
+        public string dirDataBase { get; set; } = string.Empty;
+
         [ObservableProperty]
         private IAppUtiles? _ooService;
         [ObservableProperty]

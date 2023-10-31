@@ -1,17 +1,14 @@
-﻿using System;
-using System.Diagnostics;
+﻿#pragma warning disable CA2254 // 템플릿은 정적 표현식이어야 합니다.
+using System;
 using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OoManager.Models;
-using OoManager.Services;
 using OoManager.ViewModels;
 using OoManager.Views;
 
@@ -22,8 +19,8 @@ namespace OoManager
     /// </summary>
     public partial class App : Application
     {
-        public static ILogger? LOGGER;
-        public static AppData Data = new();
+        public static ILogger? LOGGER { get; set; }
+        public static AppData Data { get; set; } = new();
         public App()
         {
             IServiceProvider serviceProvider = ConfigureServices();
@@ -33,25 +30,25 @@ namespace OoManager
             LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 
-        private IServiceProvider ConfigureServices()
+        private static IServiceProvider ConfigureServices()
         {
 
             HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
             // Configuration Directory
             IConfigurationSection cofigDir = builder.Configuration.GetSection("Directory");
-            string dirRoot = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, cofigDir["Root"] ?? "OoManager");
-            string dirDataBase = Path.Combine(dirRoot, cofigDir["DataBase"] ?? "DataBase");
+            Data.dirRoot = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, cofigDir["Root"] ?? "OoManager");
+            Data.dirDataBase = Path.Combine(Data.dirRoot, cofigDir["DataBase"] ?? "DataBase");
 
             // Validate Directory
-            if (!Directory.Exists(dirRoot))
-                Directory.CreateDirectory(dirRoot);
-            if (!Directory.Exists(dirDataBase))
-                Directory.CreateDirectory(dirDataBase);
+            if (!Directory.Exists(Data.dirRoot))
+                Directory.CreateDirectory(Data.dirRoot);
+            if (!Directory.Exists(Data.dirDataBase))
+                Directory.CreateDirectory(Data.dirDataBase);
 
             builder.Services.AddDbContext<OoDbContext>(p =>
             {
-                p.UseSqlite($"Data Source={dirDataBase}{Path.DirectorySeparatorChar}OoDb.db");
+                p.UseSqlite($"Data Source={Data.dirDataBase}{Path.DirectorySeparatorChar}OoDb.db");
             });
 
             // Views
