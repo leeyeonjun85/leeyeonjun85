@@ -29,85 +29,96 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task AddDataAsync(object? obj)
         {
-            await Task.Run(() =>
+
+            AppData.SQLiteData = new()
             {
-                //Application.Current.Dispatcher.Invoke(() =>
-                //{
-                //    AppData.SQLiteData = new()
-                //    {
-                //        Name = AppData.SQLiteAddName,
-                //        Old = AppData.SQLiteAddOld
-                //    };
-                //    AppData.SQLiteContext!.sqliteDB.Add(AppData.SQLiteData);
-                //    AppData.SQLiteContext!.SaveChangesAsync();
+                Name = AppData.SQLiteAddName,
+                Old = AppData.SQLiteAddOld
+            };
+            AppData.SQLiteContext!.sqliteDB.Add(AppData.SQLiteData);
+            await AppData.SQLiteContext!.SaveChangesAsync();
 
-                //    Utiles.InitSQLite(AppData);
-                //});
+            Utiles.InitSQLite(AppData);
 
 
-                using (SqliteConnection conn = new(AppData.SQLiteConnectionString))
-                {
-                    conn.Open();
+            //await Task.Run(() =>
+            //{
+            //    using (SqliteConnection conn = new(AppData.SQLiteConnectionString))
+            //    {
+            //        conn.Open();
 
-                    string sql = string.Empty;
-                    sql += "INSERT INTO 'SqliteTestTable1'('Name', 'Old')";
-                    sql += $"    VALUES ('{AppData.SQLiteAddName}', {AppData.SQLiteAddOld});";
+            //        string sql = string.Empty;
+            //        sql += "INSERT INTO 'SqliteTestTable1'('Name', 'Old')";
+            //        sql += $"    VALUES ('{AppData.SQLiteAddName}', {AppData.SQLiteAddOld});";
 
-                    using (SqliteCommand cmd = new(sql, conn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
+            //        using (SqliteCommand cmd = new(sql, conn))
+            //        {
+            //            cmd.ExecuteNonQuery();
+            //        }
 
-                    Utiles.InitSQLite(AppData);
-                }
-
-            });
+            //        Utiles.InitSQLite(AppData);
+            //    }
+            //});
         }
 
         [RelayCommand]
         private async Task BtnUpdateAsync(object? obj)
         {
-            await Task.Run(() =>
+            var _findData = await AppData.SQLiteContext!.sqliteDB.FindAsync(AppData.SQLiteData.Id);
+
+
+            if (_findData is not null)
             {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    var _foundata = AppData.SQLiteContext!.sqliteDB.FindAsync(AppData.SQLiteData.Id)!;
-                    SQLiteModel? foundata = _foundata.Result;
-                    AppData.SQLiteData.Name = AppData.SQLiteUpdateName;
-                    AppData.SQLiteData.Old = AppData.SQLiteUpdateOld;
+                AppData.SQLiteContext.Entry(_findData).State = EntityState.Detached;
+                _findData.Name = AppData.SQLiteUpdateName;
+                _findData.Old = AppData.SQLiteUpdateOld;
+                AppData.SQLiteContext.sqliteDB.Entry(_findData).State = EntityState.Modified;
+                await AppData.SQLiteContext!.SaveChangesAsync();
 
-                    if (foundata is not null)
-                    {
-                        //AppData.SQLiteContext!.Entry(foundata).CurrentValues.SetValues(AppData.SQLiteData);
-                        AppData.SQLiteContext.Entry(foundata).State = EntityState.Detached;
-                        //AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).State = EntityState.Modified;
-                        //AppData.SQLiteContext!.sqliteDB.Update(AppData.SQLiteData);
-                        AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Name).IsModified = true;
-                        AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Old).IsModified = true;
+                Utiles.InitSQLite(AppData);
+            }
+            else
+            {
+                MessageBox.Show("데이터베이스에 원본데이터가 없습니다.");
+            }
 
-                        AppData.SQLiteContext!.SaveChanges();
 
-                        Utiles.InitSQLite(AppData);
-                    }
-                });
-            });
+            //await Task.Run(() =>
+            //{
+            //    Application.Current.Dispatcher.Invoke(() =>
+            //    {
+            //        var _foundata = AppData.SQLiteContext!.sqliteDB.FindAsync(AppData.SQLiteData.Id)!;
+            //        SQLiteModel? foundata = _foundata.Result;
+            //        AppData.SQLiteData.Name = AppData.SQLiteUpdateName;
+            //        AppData.SQLiteData.Old = AppData.SQLiteUpdateOld;
+
+            //        if (foundata is not null)
+            //        {
+            //            //AppData.SQLiteContext!.Entry(foundata).CurrentValues.SetValues(AppData.SQLiteData);
+            //            AppData.SQLiteContext.Entry(foundata).State = EntityState.Detached;
+            //            AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).State = EntityState.Modified;
+            //            //AppData.SQLiteContext!.sqliteDB.Update(AppData.SQLiteData);
+            //            //AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Name).IsModified = true;
+            //            //AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Old).IsModified = true;
+
+            //            AppData.SQLiteContext!.SaveChanges();
+
+            //            Utiles.InitSQLite(AppData);
+            //        }
+            //    });
+            //});
         }
 
         [RelayCommand]
         private async Task BtnDeleteAsync(object? obj)
         {
-            await Task.Run(() =>
+            foreach (SQLiteModel _sqlitemodel in AppData.SQLiteSelectedItems)
             {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    foreach (SQLiteModel _sqlitemodel in AppData.SQLiteSelectedItems)
-                    {
-                        AppData.SQLiteContext!.sqliteDB.Remove(_sqlitemodel);
-                        AppData.SQLiteContext!.SaveChanges();
-                    }
-                    Utiles.InitSQLite(AppData);
-                });
-            });
+                AppData.SQLiteContext!.sqliteDB.Remove(_sqlitemodel);
+                await AppData.SQLiteContext!.SaveChangesAsync();
+            }
+
+            Utiles.InitSQLite(AppData);
         }
 
         [RelayCommand]
@@ -144,6 +155,20 @@ namespace DataBaseTools.ViewModels
                     }
                 });
             });
+        }
+
+        [RelayCommand]
+        private async Task BtnRefreshSQLiteClick(object? obj)
+        {
+            if (AppData.SQLiteContext is not null)
+            {
+                AppData.SQLiteContext = new(AppData.SQLiteConnectionString);
+                AppData.SQLiteItemsSource = new();
+                await AppData.SQLiteContext.sqliteDB.LoadAsync();
+                AppData.SQLiteItemsSource = AppData.SQLiteContext.sqliteDB.Local.ToObservableCollection();
+            }
+
+            Utiles.InitSQLite(AppData);
         }
 
         public void Receive(ValueChangedMessage<AppData> message)

@@ -33,7 +33,7 @@ namespace DataBaseTools.ViewModels
                     return;
 
                 int port = 4649;
-                AppData.WsServer = new WebSocketServer(port);
+                AppData.WsServer = new(port);
                 AppData.WsServer.AddWebSocketService<WebSocketChatServer>("/Chat");
                 AppData.WsServer.Start();
 
