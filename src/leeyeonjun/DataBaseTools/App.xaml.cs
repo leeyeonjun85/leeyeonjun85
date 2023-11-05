@@ -22,7 +22,6 @@ namespace DataBaseTools
     {
         public static ILogger logger;
         public static IViewService viewService;
-        public static string SQLiteConnectionString = string.Empty;
         public static AppData Data = new();
 
         private IServiceProvider ConfigureServices()

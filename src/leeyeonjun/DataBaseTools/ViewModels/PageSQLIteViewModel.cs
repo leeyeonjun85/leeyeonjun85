@@ -12,6 +12,7 @@ using DataBaseTools.Models;
 using Microsoft.EntityFrameworkCore;
 using DataBaseTools.Services;
 using Microsoft.Data.Sqlite;
+using System.Net.Sockets;
 
 namespace DataBaseTools.ViewModels
 {

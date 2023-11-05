@@ -6,7 +6,12 @@
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
+        <ApplicationIcon>Images\cheetah_favicon.ico</ApplicationIcon>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="Images\cheetah_favicon.ico" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
@@ -22,10 +27,6 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Images\" />
-    </ItemGroup>
 
     <ItemGroup>
         <Reference Include="websocket-sharp">

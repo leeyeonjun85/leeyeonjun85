@@ -68,11 +68,11 @@
 
             <TextBlock
                 Margin="10 1"
-                FontSize="34"
+                FontSize="40"
                 VerticalAlignment="Center"
                 d:Text="Test Page"
                 Text="{Binding AppData.SelectedPage.Title}"
-                Grid.ColumnSpan="2"
+                Grid.RowSpan="1" Grid.ColumnSpan="4"
                 Grid.Row="0" Grid.Column="0"/>
 
             <!--<TextBox
@@ -86,6 +86,7 @@
         </Grid>
 
         <Grid
+            Name="LeftGrid"
             Grid.Row="0" Grid.Column="0"
             Grid.ColumnSpan="1" Grid.RowSpan="12">
             <Grid.RowDefinitions>
@@ -116,6 +117,7 @@
                 Margin="0 20"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
                 ItemsSource="{Binding AppData.NavigationList}"
+                SelectedIndex="{Binding AppData.SelectedPageIndex, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding AppData.SelectedPage, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
                     <Style 
@@ -146,7 +148,7 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
                             Command="{Binding SelectionChangedCommand}"
-                            CommandParameter="{Binding AppData.SelectedPage}"/>
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>
@@ -173,7 +175,7 @@
             Grid.Row="1" Grid.Column="1"/>-->
 
         <Grid
-            Visibility="{Binding AppData.PageTempVisibility}"
+            Name="TemporaryPage"
             Background="Beige"
             Grid.RowSpan="11" Grid.ColumnSpan="11"
             Grid.Row="1" Grid.Column="1"/>
@@ -187,7 +189,7 @@
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />

@@ -22,7 +22,7 @@
         <ViewModels:PageSQLIteViewModel />
     </Page.DataContext>
     <Grid
-        IsEnabled="{Binding AppData.SQLiteIsEnabled}">
+        IsEnabled="{Binding AppData.SQLiteIsConnected}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />

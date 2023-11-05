@@ -151,29 +151,22 @@ namespace DataBaseTools.ViewModels
 
                     //}
 
-                    AppData.SQLiteIsEnabled = true;
-                    AppData.SQLiteIsState = AppData.SQLiteConnection.State;
+
                     AppData.SQLiteIsConnected = true;
                     Utiles.InitSQLite(AppData);
                     AppData.StatusBar1 = "Status : SQLite Connected"; ;
-                    AppData.StatusBar2 = "SQLite 데이터베이스에 연결되었습니다.";
-                    AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
+                    AppData.StatusBar2 = $"{AppData.SQLiteConnectionString}";
+                    AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.ColorSecondary);
                 }
                 else
                 {
-                    AppData.SQLiteDataReader?.Close();
-                    AppData.SQLiteDataReader?.Dispose();
-                    AppData.SQLiteCommand?.Dispose();
-                    AppData.SQLiteConnection?.Close();
-                    AppData.SQLiteConnection?.Dispose();
-                    AppData.SQLiteContext?.Dispose();
+                    await Utiles.DisposeSQLiteAsync(AppData);
 
-                    AppData.SQLiteIsEnabled = false;
-                    AppData.SQLiteIsState = ConnectionState.Closed;
+
                     AppData.SQLiteIsConnected = false;
                     AppData.StatusBar1 = "Status : Ready"; ;
                     AppData.StatusBar2 = "SQLite 데이터베이스 연결이 해제되었습니다.";
-                    AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
+                    AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.ColorPrimary);
                     AppData.SQLiteItemsSource = new();
                 }
             }

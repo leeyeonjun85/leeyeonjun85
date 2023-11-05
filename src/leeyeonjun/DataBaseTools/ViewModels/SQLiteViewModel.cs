@@ -102,7 +102,7 @@ namespace DataBaseTools.ViewModels
                 AppData = _appData;
             }
 
-            App.SQLiteConnectionString = AppData.SQLiteConnectionString;
+            //App.SQLiteConnectionString = AppData.SQLiteConnectionString;
             Context = (SQLiteContext)Ioc.Default.GetService(typeof(SQLiteContext))!;
 
             await ConnectAsync();

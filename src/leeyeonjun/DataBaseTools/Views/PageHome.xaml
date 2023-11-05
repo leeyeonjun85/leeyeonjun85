@@ -77,7 +77,7 @@
 
                 <Button 
                     Content="Show Sub Window" 
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                    Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                     CommandParameter="{Binding}"
                     Command="{Binding BtnShowWindowSubClickCommand}"
                     Margin="10 0"

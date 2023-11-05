@@ -13,6 +13,9 @@ using System;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Sockets;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace DataBaseTools.Services
 {
@@ -20,75 +23,46 @@ namespace DataBaseTools.Services
     {
         public static AppData InitApp(AppData AppData)
         {
-            // Color Theme
-            PaletteHelper paletteHelper = new();
-            var theme = paletteHelper.GetTheme();
-            theme.SetPrimaryColor(AppData.PrimaryColor);
-            theme.SetSecondaryColor(AppData.SecondaryColor);
-            paletteHelper.SetTheme(theme);
-
-
-            AppData.NavigationList.Add(new NavigationItem
-            {
-                Title = "Home",
-                SelectedIcon = PackIconKind.Home,
-                UnselectedIcon = PackIconKind.HomeOutline,
-                Source = "/Views/PageHome.xaml",
-                IsVisibility = Visibility.Visible,
-            });
-
-            AppData.NavigationList.Add(new NavigationItem
-            {
-                Title = "SQLite",
-                SelectedIcon = PackIconKind.Mushroom,
-                UnselectedIcon = PackIconKind.MushroomOutline,
-                Source = "/Views/PageSQLIte.xaml",
-                IsVisibility = Visibility.Hidden,
-            });
-
-            AppData.NavigationList.Add(new NavigationItem
-            {
-                Title = "WebSocket",
-                SelectedIcon = PackIconKind.Connection,
-                UnselectedIcon = PackIconKind.Connection,
-                Source = "/Views/PageWebSocket.xaml",
-                IsVisibility = Visibility.Hidden,
-            });
-
-            OpenPageHome(AppData);
-
-            // Window Title
-            AppData.WindowTitle = $"이연준의 DB Tool - {ConfigurationManager.AppSettings["Version"]}({ConfigurationManager.AppSettings["LastUpdateDate"]})";
-
-            // SQLite Connection String
-            AppData.SQLiteConnectionString = $"Data Source={Path.Combine(Directory.GetCurrentDirectory()[..Directory.GetCurrentDirectory().IndexOf("DataBaseTools")], "DataBaseTools", "SQLiteTest.db")}";
-
-            // Oracle Connection String
-            AppData.OracleConnectionString = JsonData.GetEdcoreWorksJsonData("SeojungriOracle");
-
             return AppData;
+        }
+
+
+        public static string getLocalIPAddress(AddressFamily addressFamily = AddressFamily.InterNetwork)
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress iPAddress in host.AddressList)
+            {
+                if (iPAddress.AddressFamily == addressFamily)
+                {
+                    return iPAddress.ToString();
+                }
+            }
+
+            return string.Empty;
         }
 
 
         public static void OpenPageHome(AppData AppData)
         {
+            AppData.SelectedPageIndex = Pages.Home;
             AppData.SelectedPage = AppData.NavigationList[Pages.Home];
             if (AppData.SQLiteIsConnected)
-                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.SecondaryColor);
+                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.ColorSecondary);
             else
-                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.PrimaryColor);
+                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.ColorPrimary);
         }
 
         public static void OpenPageSQLite(AppData AppData)
         {
+            AppData.SelectedPageIndex = Pages.SQLite;
             AppData.SelectedPage = AppData.NavigationList[Pages.SQLite];
             InitSQLite(AppData);
         }
 
         public static void OpenPageWebSocket(AppData AppData)
         {
+            AppData.SelectedPageIndex = Pages.WebSocket;
             AppData.SelectedPage = AppData.NavigationList[Pages.WebSocket];
-            InitSQLite(AppData);
         }
 
         public static void InitSQLite(AppData AppData)
@@ -112,6 +86,41 @@ namespace DataBaseTools.Services
                     icon: MessageBoxIcon.Error);
 
             App.logger!.LogError($"{ex.ToString}{Environment.NewLine}{ex}");
+        }
+
+
+        public static async Task DisposeSQLiteAsync(AppData AppData)
+        {
+            await Task.Run(() =>
+            {
+                AppData.SQLiteDataReader?.Close();
+                AppData.SQLiteDataReader?.Dispose();
+                AppData.SQLiteDataReader = null;
+                AppData.SQLiteCommand?.Dispose();
+                AppData.SQLiteCommand = null;
+                AppData.SQLiteConnection?.Close();
+                AppData.SQLiteConnection?.Dispose();
+                AppData.SQLiteCommand = null;
+                AppData.SQLiteContext?.Dispose();
+                AppData.SQLiteContext = null;
+            });
+        }
+
+        public static async Task DisposeWebSocketAsync(AppData AppData)
+        {
+            await Task.Run(() =>
+            {
+                AppData.WebSocket?.Close();
+                AppData.WebSocket = null;
+                AppData.WsServer?.Stop();
+                AppData.WsServer = null;
+            });
+        }
+
+        public static async Task DisposeAllAsync(AppData AppData)
+        {
+            await DisposeSQLiteAsync(AppData);
+            await DisposeWebSocketAsync(AppData);
         }
     }
 }

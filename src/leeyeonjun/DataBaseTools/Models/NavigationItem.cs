@@ -5,6 +5,7 @@ namespace DataBaseTools.Models
 {
     public class NavigationItem
     {
+        public string Name { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public PackIconKind SelectedIcon { get; set; }
         public PackIconKind UnselectedIcon { get; set; }
