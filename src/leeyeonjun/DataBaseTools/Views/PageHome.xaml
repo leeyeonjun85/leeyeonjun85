@@ -119,10 +119,12 @@
                     Grid.Row="0" Grid.Column="0" />
 
                 <Button 
-                    Content="Connect"
                     Margin="10 0"
-                    Background="{Binding AppData.BtnSQLiteBackground}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource self}}"
+                    d:Content="Connect"
+                    Content="{Binding AppData.BtnSQLite.Content}"
+                    Background="{Binding AppData.BtnSQLite.Background}"
+                    Foreground="{Binding AppData.BtnSQLite.Foreground}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
                     Command="{Binding BtnSQLiteCommand}"
                     Grid.Row="0" Grid.Column="3" />
             </Grid>
@@ -154,11 +156,14 @@
                     Grid.Row="0" Grid.Column="0" />
 
                 <Button 
-                    Content="SeojungriOracle" 
                     Margin="10 0"
-                    CommandParameter="{Binding}"
-                    Command="{Binding SeojungriOracleCommand}"
-                    Grid.Row="0" Grid.Column="3" />
+                    d:Content="Connect"
+                    Content="{Binding AppData.BtnOracleConnect.Content}"
+                    Background="{Binding AppData.BtnOracleConnect.Background}"
+                    Foreground="{Binding AppData.BtnOracleConnect.Foreground}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
+                    Command="{Binding BtnOracleConnectClickCommand}"
+                    Grid.Row="0" Grid.Column="1" />
             </Grid>
         </GroupBox>
 

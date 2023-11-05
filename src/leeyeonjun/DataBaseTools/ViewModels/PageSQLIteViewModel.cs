@@ -88,21 +88,21 @@ namespace DataBaseTools.ViewModels
             //{
             //    Application.Current.Dispatcher.Invoke(() =>
             //    {
-            //        var _foundata = AppData.SQLiteContext!.sqliteDB.FindAsync(AppData.SQLiteData.Id)!;
-            //        SQLiteModel? foundata = _foundata.Result;
+            //        var _foundata = AppData.ContextSQLite!.sqliteDB.FindAsync(AppData.SQLiteData.Id)!;
+            //        ModelSQLite? foundata = _foundata.Result;
             //        AppData.SQLiteData.Name = AppData.SQLiteUpdateName;
             //        AppData.SQLiteData.Old = AppData.SQLiteUpdateOld;
 
             //        if (foundata is not null)
             //        {
-            //            //AppData.SQLiteContext!.Entry(foundata).CurrentValues.SetValues(AppData.SQLiteData);
-            //            AppData.SQLiteContext.Entry(foundata).State = EntityState.Detached;
-            //            AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).State = EntityState.Modified;
-            //            //AppData.SQLiteContext!.sqliteDB.Update(AppData.SQLiteData);
-            //            //AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Name).IsModified = true;
-            //            //AppData.SQLiteContext!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Old).IsModified = true;
+            //            //AppData.ContextSQLite!.Entry(foundata).CurrentValues.SetValues(AppData.SQLiteData);
+            //            AppData.ContextSQLite.Entry(foundata).State = EntityState.Detached;
+            //            AppData.ContextSQLite!.sqliteDB.Entry(AppData.SQLiteData).State = EntityState.Modified;
+            //            //AppData.ContextSQLite!.sqliteDB.Update(AppData.SQLiteData);
+            //            //AppData.ContextSQLite!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Name).IsModified = true;
+            //            //AppData.ContextSQLite!.sqliteDB.Entry(AppData.SQLiteData).Property(s => s.Old).IsModified = true;
 
-            //            AppData.SQLiteContext!.SaveChanges();
+            //            AppData.ContextSQLite!.SaveChanges();
 
             //            Utiles.InitSQLite(AppData);
             //        }
@@ -113,7 +113,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnDeleteAsync(object? obj)
         {
-            foreach (SQLiteModel _sqlitemodel in AppData.SQLiteSelectedItems)
+            foreach (ModelSQLite _sqlitemodel in AppData.SQLiteSelectedItems)
             {
                 AppData.SQLiteContext!.sqliteDB.Remove(_sqlitemodel);
                 await AppData.SQLiteContext!.SaveChangesAsync();
@@ -136,7 +136,7 @@ namespace DataBaseTools.ViewModels
                             System.Collections.IList selectedItems = dataGrid.SelectedItems;
                             AppData.String1 = string.Empty;
                             AppData.SQLiteSelectedItems = new();
-                            foreach (SQLiteModel _sqlitemodel in selectedItems)
+                            foreach (ModelSQLite _sqlitemodel in selectedItems)
                             {
                                 AppData.String1 += $"{_sqlitemodel.Id} / {_sqlitemodel.Name} / {_sqlitemodel.Old}{Environment.NewLine}";
                                 AppData.SQLiteUpdateName = _sqlitemodel.Name!;

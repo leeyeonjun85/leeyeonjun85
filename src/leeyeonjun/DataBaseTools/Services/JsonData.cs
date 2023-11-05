@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 using Newtonsoft.Json.Linq;
 
 namespace DataBaseTools.Services
@@ -8,21 +9,17 @@ namespace DataBaseTools.Services
     {
         private static JObject GetEdcoreWorksJsonObject()
         {
-
             string fileName = $"yeonjunsCode{Path.DirectorySeparatorChar}EdcoreWorks{Path.DirectorySeparatorChar}EDCORE_Data.json";
             string filePath = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, fileName);
-            string jsonString = File.ReadAllText(filePath);
-            JObject jObject = JObject.Parse(jsonString);
+            JObject jObject = new();
 
-            return jObject;
-        }
-
-        private static JObject GetprivateJsonObject()
-        {
-            string fileName = $"yeonjunsCode{Path.DirectorySeparatorChar}private{Path.DirectorySeparatorChar}src{Path.DirectorySeparatorChar}leeyeonjun85.json";
-            string filePath = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, fileName);
-            string jsonString = File.ReadAllText(filePath);
-            JObject jObject = JObject.Parse(jsonString);
+            if (File.Exists(filePath))
+            {
+                string jsonString = File.ReadAllText(filePath);
+                jObject = JObject.Parse(jsonString);
+            }
+            else
+                MessageBox.Show("정보를 불러올 수 없습니다.");
 
             return jObject;
         }

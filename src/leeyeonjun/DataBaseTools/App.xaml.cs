@@ -30,9 +30,9 @@ namespace DataBaseTools
             HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
             // Database : EFCore SeojungriOracle
-            builder.Services.AddDbContext<TestOracleContext>(p =>
+            builder.Services.AddDbContext<ContextOracle>(p =>
             {
-                p.UseOracle(JsonData.GetEdcoreWorksJsonData("SeojungriOracle"));
+                p.UseOracle(Data.OracleConnectionString);
                 p.ConfigureWarnings(b => b.Ignore(RelationalEventId.CommandExecuted)); // 데이터를 저장할 때 발생하는 알람은 로그에서 무시합니다.
             });
 

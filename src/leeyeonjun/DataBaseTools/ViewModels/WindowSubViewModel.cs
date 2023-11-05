@@ -23,7 +23,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void Test1(object? obj)
         {
-            AppData.StatusBar2 = "서브뷰 테스트1";
+            //AppData.StatusBar2 = "서브뷰 테스트1";
         }
 
 

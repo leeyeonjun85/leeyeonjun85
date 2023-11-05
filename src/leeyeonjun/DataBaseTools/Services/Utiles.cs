@@ -1,21 +1,16 @@
 ﻿#pragma warning disable CA2254 // 템플릿은 정적 표현식이어야 합니다.
-using CommunityToolkit.Mvvm.Messaging.Messages;
+using System;
+using System.Collections.ObjectModel;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
 using DataBaseTools.ViewModels;
-using MaterialDesignThemes.Wpf;
-using System.Configuration;
-using System.IO;
-using System.Windows.Media;
-using System.Windows;
-using System.Windows.Forms;
-using System;
-using MessageBox = System.Windows.Forms.MessageBox;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Sockets;
-using System.Net;
-using System.Threading.Tasks;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace DataBaseTools.Services
 {
@@ -24,6 +19,70 @@ namespace DataBaseTools.Services
         public static AppData InitApp(AppData AppData)
         {
             return AppData;
+        }
+
+        public static void RefreshPageNavigationItems(AppData AppData)
+        {
+            ObservableCollection<NavigationItem> tempList = new();
+            NavigationItem tempSelectedPage = new()
+            {
+                Name = AppData.SelectedPage.Name,
+                Title = AppData.SelectedPage.Title,
+                SelectedIcon = AppData.SelectedPage.SelectedIcon,
+                UnselectedIcon = AppData.SelectedPage.UnselectedIcon,
+                Source = AppData.SelectedPage.Source,
+                IsEnabled = AppData.SelectedPage.IsEnabled,
+                IsVisibility = AppData.SelectedPage.IsVisibility,
+            };
+
+            foreach (NavigationItem item in AppData.NavigationList)
+            {
+                tempList.Add(item);
+            }
+
+            AppData.NavigationList.Clear();
+
+            foreach (NavigationItem item in tempList)
+            {
+                AppData.NavigationList.Add(item);
+            }
+
+            AppData.SelectedPage = tempSelectedPage;
+            PageNavigationSelectionChanged(AppData);
+        }
+
+        public static void PageNavigationSelectionChanged(AppData AppData)
+        {
+            switch (AppData.SelectedPage.Name)
+            {
+                case "Home":
+                    {
+                        OpenPageHome(AppData); break;
+                    }
+                case "SQLite":
+                    {
+                        OpenPageSQLite(AppData); break;
+                    }
+                case "WebSocket":
+                    {
+                        if (string.IsNullOrEmpty(AppData.WsAddress))
+                        {
+                            AppData.Wsipv4 = getLocalIPAddress(AddressFamily.InterNetwork);
+                            AppData.WsPort = 6714;
+                            AppData.WsAddress = $"ws://{AppData.Wsipv4}:{AppData.WsPort}/Chat";
+                        }
+                        if (string.IsNullOrEmpty(AppData.WsChatNickName))
+                        {
+                            AppData.WsChatNickName = "닉네임" + DateTime.Now.Second.ToString()[^1];
+                        }
+
+                        OpenPageWebSocket(AppData); break;
+                    }
+
+                default: throw new Exception();
+            }
+
+            WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
         }
 
 
@@ -46,10 +105,6 @@ namespace DataBaseTools.Services
         {
             AppData.SelectedPageIndex = Pages.Home;
             AppData.SelectedPage = AppData.NavigationList[Pages.Home];
-            if (AppData.SQLiteIsConnected)
-                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.ColorSecondary);
-            else
-                AppData.BtnSQLiteBackground = new SolidColorBrush(AppData.ColorPrimary);
         }
 
         public static void OpenPageSQLite(AppData AppData)

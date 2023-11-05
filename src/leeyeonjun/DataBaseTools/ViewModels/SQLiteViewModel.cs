@@ -19,16 +19,16 @@ namespace DataBaseTools.ViewModels
         private AppData _appData = new();
 
         [ObservableProperty]
-        private SQLiteContext _context;
+        private ContextSQLite _context;
 
         [ObservableProperty]
         private string _addNameText = "";
         [ObservableProperty]
         private int _addYearsText = 0;
         [ObservableProperty]
-        private ObservableCollection<SQLiteModel> _yeonjunTestItemsSource = new();
+        private ObservableCollection<ModelSQLite> _yeonjunTestItemsSource = new();
         [ObservableProperty]
-        private SQLiteModel _selectedData = new();
+        private ModelSQLite _selectedData = new();
         [ObservableProperty]
         private string _selectedDataString = "아이디 / 이름 / 나이";
 
@@ -42,7 +42,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnUpdate(object? obj)
         {
-            //SQLiteModel foundata = Context.sqliteDB.Find(SelectedData.Id)!;
+            //ModelSQLite foundata = Context.sqliteDB.Find(SelectedData.Id)!;
 
             Context.Entry(SelectedData).State = EntityState.Modified;
             Context.SaveChanges();
@@ -60,7 +60,7 @@ namespace DataBaseTools.ViewModels
         {
             if (obj is not MouseButtonEventArgs args) return;
             if (args!.OriginalSource is not TextBlock textBlock) return;
-            if (textBlock.DataContext is not SQLiteModel yeonjunTest) return;
+            if (textBlock.DataContext is not ModelSQLite yeonjunTest) return;
             SelectedData = yeonjunTest;
             SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Old}";
         }
@@ -81,7 +81,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void AddData(object? obj)
         {
-            Context.sqliteDB.Add(new SQLiteModel() { Name = AddNameText, Old = AddYearsText });
+            Context.sqliteDB.Add(new ModelSQLite() { Name = AddNameText, Old = AddYearsText });
             Context.SaveChanges();
         }
 
@@ -103,7 +103,7 @@ namespace DataBaseTools.ViewModels
             }
 
             //App.SQLiteConnectionString = AppData.SQLiteConnectionString;
-            Context = (SQLiteContext)Ioc.Default.GetService(typeof(SQLiteContext))!;
+            Context = (ContextSQLite)Ioc.Default.GetService(typeof(ContextSQLite))!;
 
             await ConnectAsync();
         }

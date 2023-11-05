@@ -54,9 +54,11 @@ namespace DataBaseTools.ViewModels
                     await SendMessageAsync($"'{AppData.WsChatNickName}' 님께서 퇴장하셨습니다.");
                 }
                 await Utiles.DisposeWebSocketAsync(AppData);
-                
-                sender.Content = "Connect";
-                sender.Background = new SolidColorBrush(AppData.ColorPrimary);
+
+                AppData.BtnWebSocket.Content = "Connect";
+                AppData.BtnWebSocket.Background = new SolidColorBrush(AppData.ColorPrimary);
+                AppData.BtnWebSocket.Foreground = new SolidColorBrush(Colors.White);
+
                 AppData.WsConnected = false;
                 AppData.StatusBar1 = "Status : Ready"; ;
                 AppData.StatusBar2 = "WebSocket 서버 종료";
@@ -107,8 +109,10 @@ namespace DataBaseTools.ViewModels
 
                 if (_resultBool)
                 {
-                    sender.Content = "Connected";
-                    sender.Background = new SolidColorBrush(AppData.ColorSecondary);
+                    AppData.BtnWebSocket.Content = "Connected";
+                    AppData.BtnWebSocket.Background = new SolidColorBrush(AppData.ColorSecondary);
+                    AppData.BtnWebSocket.Foreground = new SolidColorBrush(Colors.Black);
+
                     AppData.WsConnected = true;
                     AppData.StatusBar1 = "Status : Server Running";
                     AppData.StatusBar2 = AppData.WsAddress;
@@ -143,12 +147,6 @@ namespace DataBaseTools.ViewModels
             {
                 MessageBox.Show("The current state of the connection is not Open.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        [RelayCommand]
-        private async Task TextBoxTextChangedEventAsync(TextBox _textBox)
-        {
-            _textBox.PointToScreen(new Point(50, 50));
         }
 
         public void Receive(ValueChangedMessage<AppData> message)

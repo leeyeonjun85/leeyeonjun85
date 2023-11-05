@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DataBaseTools.Views"
     xmlns:Models="clr-namespace:DataBaseTools.Models"
+    xmlns:ViewModels="clr-namespace:DataBaseTools.ViewModels"
     mc:Ignorable="d"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -116,7 +117,7 @@
                 Grid.Row="2"
                 Margin="0 20"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
-                ItemsSource="{Binding AppData.NavigationList}"
+                ItemsSource="{Binding AppData.NavigationList, UpdateSourceTrigger=PropertyChanged}"
                 SelectedIndex="{Binding AppData.SelectedPageIndex, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding AppData.SelectedPage, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
@@ -134,14 +135,14 @@
                             Value="{Binding UnselectedIcon}" />
                         <Setter
                             Property="IsEnabled"
-                            Value="{Binding IsEnabled}"/>
+                            Value="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type Models:NavigationItem}">
                         <TextBlock
                             TextAlignment="Center"
-                            Text="{Binding Title}" />
+                            Text="{Binding Name}" />
                     </DataTemplate>
                 </ListBox.Resources>
                 <i:Interaction.Triggers>
@@ -176,7 +177,7 @@
 
         <Grid
             Name="TemporaryPage"
-            Background="Beige"
+            Background="Gold"
             Grid.RowSpan="11" Grid.ColumnSpan="11"
             Grid.Row="1" Grid.Column="1"/>
 

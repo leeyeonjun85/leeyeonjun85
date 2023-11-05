@@ -16,7 +16,7 @@ namespace DataBaseTools.ViewModels
 {
     public partial class SeojungriOracleViewModel : ViewModelBase, IParameterReceiver
     {
-        private readonly TestOracleContext _context;
+        private readonly ContextOracle _context;
 
         [ObservableProperty]
         private AppData _appData = new();
@@ -33,9 +33,9 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private int _addYearsText = 0;
         [ObservableProperty]
-        private ObservableCollection<TestOracleModel> _yeonjunTestItemsSource = new();
+        private ObservableCollection<ModelOracle> _yeonjunTestItemsSource = new();
         [ObservableProperty]
-        private TestOracleModel _selectedData = new();
+        private ModelOracle _selectedData = new();
         [ObservableProperty]
         private string _selectedDataString = "아이디 / 이름 / 나이";
 
@@ -45,7 +45,7 @@ namespace DataBaseTools.ViewModels
 
 
         public SeojungriOracleViewModel(
-            TestOracleContext context
+            ContextOracle context
             )
         {
             _context = context;
@@ -57,7 +57,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnUpdate(object? obj)
         {
-            //TestOracleModel foundata = _context.sqliteDB.Find(SelectedData.Id)!;
+            //ModelOracle foundata = _context.sqliteDB.Find(SelectedData.Id)!;
 
             _context.Entry(SelectedData).State = EntityState.Modified;
             _context.SaveChanges();
@@ -66,7 +66,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnDelete(object? obj)
         {
-            _context.yeonjunTest.Remove(SelectedData);
+            _context.lyj_DataBaseTools.Remove(SelectedData);
             _context.SaveChanges();
         }
 
@@ -75,9 +75,9 @@ namespace DataBaseTools.ViewModels
         {
             if (obj is not MouseButtonEventArgs args) return;
             if (args!.OriginalSource is not TextBlock textBlock) return;
-            if (textBlock.DataContext is not TestOracleModel yeonjunTest) return;
+            if (textBlock.DataContext is not ModelOracle yeonjunTest) return;
             SelectedData = yeonjunTest;
-            SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Years}";
+            SelectedDataString = $"{yeonjunTest.Name} / {yeonjunTest.Old}";
         }
 
         [RelayCommand]
@@ -142,7 +142,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void AddData(object? obj)
         {
-            _context.yeonjunTest.Add(new TestOracleModel() { Name = AddNameText, Years = AddYearsText });
+            _context.lyj_DataBaseTools.Add(new ModelOracle() { Name = AddNameText, Old = AddYearsText });
             _context.SaveChanges();
         }
 

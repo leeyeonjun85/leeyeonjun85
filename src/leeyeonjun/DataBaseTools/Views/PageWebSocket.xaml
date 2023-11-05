@@ -24,7 +24,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="20*" />
             <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -89,7 +89,10 @@
             <Button 
                 Height="40"
                 Margin="5 0"
-                Content="Connect" 
+                d:Content="Connect"
+                Content="{Binding AppData.BtnWebSocket.Content}"
+                Background="{Binding AppData.BtnWebSocket.Background}"
+                Foreground="{Binding AppData.BtnWebSocket.Foreground}"
                 Command="{Binding BtnWebSocketConnectClickCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource self}}"
                 Grid.Row="1" Grid.Column="2"/>
@@ -104,18 +107,10 @@
             d:Text="=== 채팅을 시작합니다. ==="
             Text="{Binding AppData.WsChatText}"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
-            ScrollViewer.CanContentScroll="True"
             AcceptsReturn="True"
             IsReadOnly="True"
             Grid.RowSpan="1" Grid.ColumnSpan="6"
             Grid.Row="1" Grid.Column="0">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding TextBoxTextChangedEventCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TextBox}}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TextBox>
 
         <TextBox
@@ -137,8 +132,8 @@
         <Button 
             Height="40"
             Margin="5 0"
-            Content="Send" 
             IsEnabled="{Binding AppData.WsConnected}"
+            Content="Send" 
             Command="{Binding TextBoxSendMessageCommand}"
             CommandParameter="{Binding ElementName=TextBoxSendMessage}"
             Grid.RowSpan="1" Grid.ColumnSpan="2"
