@@ -19,6 +19,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Oracle.ManagedDataAccess.Client;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DataBaseTools.ViewModels
@@ -95,6 +96,10 @@ namespace DataBaseTools.ViewModels
             Task<bool> _resultDataBaseConnect = AppData.OracleContext.Database.EnsureCreatedAsync();
             await _resultDataBaseConnect;
             bool resultDataBaseConnect = _resultDataBaseConnect.Result;
+
+            AppData.OracleConnection = (OracleConnection)AppData.OracleContext.Database.GetDbConnection();
+
+
 
             if (AppData.OracleContext.Database.CanConnect())
             {

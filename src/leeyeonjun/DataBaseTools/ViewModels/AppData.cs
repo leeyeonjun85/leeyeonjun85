@@ -6,6 +6,7 @@ using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using DataBaseTools.Models;
 using DataBaseTools.Services;
+using Oracle.ManagedDataAccess.Client;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
@@ -91,6 +92,11 @@ namespace DataBaseTools.ViewModels
         // Oracle
         
         public ContextOracle? OracleContext { get; set; }
+        public OracleConnection? OracleConnection { get; set; }
+        public OracleCommand? OracleCommand { get; set; }
+        public OracleDependency? OracleDependency { get; set; }
+        public OracleDataAdapter? OracleDataAdapter { get; set; }
+        public OracleDataReader? OracleDataReader { get; set; }
 
         [ObservableProperty]
         private string _oracleConnectionString = JsonData.GetEdcoreWorksJsonData("SeojungriOracle");
