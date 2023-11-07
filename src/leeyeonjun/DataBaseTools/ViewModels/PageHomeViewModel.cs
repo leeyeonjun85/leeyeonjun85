@@ -97,8 +97,6 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnOracleConnectClickAsync(object? obj)
         {
-
-
             if (AppData.OracleContext is null
              || AppData.OracleCommand is null) return;
 
@@ -107,9 +105,28 @@ namespace DataBaseTools.ViewModels
             await _resultDataBaseConnect;
             bool resultDataBaseConnect = _resultDataBaseConnect.Result;
 
-            AppData.OracleConnection = (OracleConnection)AppData.OracleContext.Database.GetDbConnection();
+            if (resultDataBaseConnect)
+            {
+                AppData.StatusBar1 = "Status : Oracle Connected";
+                AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 테이블을 생성하였습니다.";
+            }
+            else
+            {
+                AppData.StatusBar1 = "Status : Oracle Connected";
+                AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 데이터를 불러왔습니다.";
+            }
 
 
+            AppData.OracleContext.LeeyeonjunTestTable1.Load();
+            AppData.OracleItemsSource = AppData.OracleContext.LeeyeonjunTestTable1.Local.ToObservableCollection();
+
+
+            //if (AppData.OracleContext.Database.CanConnect())
+            //{
+            //    AppData.OracleConnection = (OracleConnection)AppData.OracleContext.Database.GetDbConnection();
+
+            //    await AppData.OracleConnection.OpenAsync();
+            //    AppData.OracleCommand.Connection = AppData.OracleConnection;
 
             //    // Get Table List
             //    Utiles.GetAllTables(AppData);
