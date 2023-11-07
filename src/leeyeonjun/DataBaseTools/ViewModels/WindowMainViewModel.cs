@@ -96,9 +96,6 @@ namespace DataBaseTools.ViewModels
             // SQLite
             AppData.SQLiteConnectionString = $"Data Source={Path.Combine(Directory.GetCurrentDirectory()[..Directory.GetCurrentDirectory().IndexOf("DataBaseTools")], "DataBaseTools", "SQLiteTest.db")}";
 
-            // Oracle Connection String
-            AppData.OracleConnectionString = JsonData.GetEdcoreWorksJsonData("SeojungriOracle");
-
             if (sender is WindowMain _windowMain)
             {
                 if (_windowMain.Content is Grid _grid)

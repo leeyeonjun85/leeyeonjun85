@@ -1,13 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -15,12 +6,27 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
 using DataBaseTools.Services;
 using DataBaseTools.Views;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Oracle.ManagedDataAccess.Client;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Renci.SshNet.Security.Cryptography.Ciphers;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Media;
+using Brushes = System.Windows.Media.Brushes;
+using Color = System.Windows.Media.Color;
+using MessageBox = System.Windows.Forms.MessageBox;
+using MessageBoxButtons = System.Windows.Forms.MessageBoxButtons;
+using MessageBoxIcon = System.Windows.Forms.MessageBoxIcon;
 
 namespace DataBaseTools.ViewModels
 {
@@ -90,28 +96,70 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnOracleConnectClickAsync(object? obj)
         {
-            if (AppData.OracleContext is null) return;
+
+
+            if (AppData.OracleContext is null
+             || AppData.OracleCommand is null) return;
 
             //"true" if the database is created, "false" if it already existed
             Task<bool> _resultDataBaseConnect = AppData.OracleContext.Database.EnsureCreatedAsync();
             await _resultDataBaseConnect;
             bool resultDataBaseConnect = _resultDataBaseConnect.Result;
 
-            AppData.OracleConnection = (OracleConnection)AppData.OracleContext.Database.GetDbConnection();
-
-
-
-            if (AppData.OracleContext.Database.CanConnect())
+            if (resultDataBaseConnect)
             {
-                if (!AppData.OracleContext.Database.GetService<IRelationalDatabaseCreator>().Exists())
-                {
-                    RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)AppData.OracleContext.Database.GetService<IDatabaseCreator>();
-                    databaseCreator.CreateTables();
-                }
-
-                AppData.OracleContext.lyj_DataBaseTools.Load();
-                AppData.OracleItemsSource = AppData.OracleContext.lyj_DataBaseTools.Local.ToObservableCollection();
+                AppData.StatusBar1 = "Status : Oracle Connected";
+                AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 테이블을 생성하였습니다.";
             }
+            else
+            {
+                AppData.StatusBar1 = "Status : Oracle Connected";
+                AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 데이터를 불러왔습니다.";
+            }
+                
+
+            AppData.OracleContext.LeeyeonjunTestTable1.Load();
+            AppData.OracleItemsSource = AppData.OracleContext.LeeyeonjunTestTable1.Local.ToObservableCollection();
+
+
+            //if (AppData.OracleContext.Database.CanConnect())
+            //{
+            //    AppData.OracleConnection = (OracleConnection)AppData.OracleContext.Database.GetDbConnection();
+
+            //    await AppData.OracleConnection.OpenAsync();
+            //    AppData.OracleCommand.Connection = AppData.OracleConnection;
+
+            //    // Get Table List
+            //    Utiles.GetAllTables(AppData);
+            //    //List<OracleTable>? table_TESTUSER = AppData.OracleTableList
+            //    //                                        .Where(x => x.OWNER == "TESTUSER") as List<OracleTable>;
+
+            //    var tableNames = AppData.OracleTableList
+            //                                .Select(x => x.TABLE_NAME);
+
+            //    if (!tableNames.Contains("LeeyeonjunTestTable1"))
+            //    {
+            //        try
+            //        {
+            //            RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)AppData.OracleContext.Database.GetService<IDatabaseCreator>();
+            //            databaseCreator.CreateTables();
+
+            //            //AppData.OracleCommand.CommandText = "CREATE TABLE LeeyeonjunTestTable1 ("
+            //            //                              + "Id NUMBER(8),"
+            //            //                              + "Name VARCHAR2(16),"
+            //            //                              + "Old NUMBER(7,2),"
+            //            //                              + "CONSTRAINT LeeyeonjunTestTable1_pk PRIMARY KEY (Id)"
+            //            //                              + ")";
+            //            //AppData.OracleCommand.ExecuteNonQuery();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show($"{ex}");
+            //        }
+            //    }
+
+            //    await AppData.OracleConnection.CloseAsync();
+            //}
         }
 
         [RelayCommand]
@@ -124,7 +172,7 @@ namespace DataBaseTools.ViewModels
                 {
                     AppData.SQLiteContext = new(AppData.SQLiteConnectionString);
 
-                    await Task.Run(() => 
+                    await Task.Run(() =>
                     {
                         AppData.SQLiteContext.Database.EnsureCreated();
                         AppData.SQLiteConnection = AppData.SQLiteContext.Database.GetDbConnection();

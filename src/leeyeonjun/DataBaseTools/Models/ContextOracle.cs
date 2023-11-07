@@ -6,7 +6,7 @@ namespace DataBaseTools.Models
     public class ContextOracle : DbContext
     {
         // DbSet
-        public DbSet<ModelOracle> lyj_DataBaseTools { get; set; }
+        public DbSet<ModelOracle> LeeyeonjunTestTable1 { get; set; }
 
         public ContextOracle(DbContextOptions<ContextOracle> options) : base(options) { }
 
