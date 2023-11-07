@@ -19,7 +19,9 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using Oracle.ManagedDataAccess.Client;
+using WebSocketSharp;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DataBaseTools.ViewModels
@@ -97,9 +99,16 @@ namespace DataBaseTools.ViewModels
             await _resultDataBaseConnect;
             bool resultDataBaseConnect = _resultDataBaseConnect.Result;
 
+            if (resultDataBaseConnect)
+                App.logger.LogInformation("Database is created");
+            else
+                App.logger.LogInformation("Database is already existed");
+
             AppData.OracleConnection = (OracleConnection)AppData.OracleContext.Database.GetDbConnection();
-
-
+            AppData.OracleCommand = "";
+            AppData.OracleDependency = "";
+            AppData.OracleDataAdapter = "";
+            AppData.OracleDataReader = "";
 
             if (AppData.OracleContext.Database.CanConnect())
             {
