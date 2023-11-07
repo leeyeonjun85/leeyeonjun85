@@ -66,7 +66,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void BtnDelete(object? obj)
         {
-            _context.lyj_DataBaseTools.Remove(SelectedData);
+            _context.LeeyeonjunTestTable1.Remove(SelectedData);
             _context.SaveChanges();
         }
 
@@ -107,9 +107,9 @@ namespace DataBaseTools.ViewModels
                 {
                     OracleTableList.Add(new OracleTable()
                     { 
-                        OWERNER = row[0].ToString()!,
-                        TABLE_NAME = row[1].ToString()!,
-                        StatRowCount = Convert.ToInt32(row[19])
+                        //OWERNER = row[0].ToString()!,
+                        //TABLE_NAME = row[1].ToString()!,
+                        //StatRowCount = Convert.ToInt32(row[19])
                     });
                     rowList.Add(row);
                 }
@@ -142,7 +142,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void AddData(object? obj)
         {
-            _context.lyj_DataBaseTools.Add(new ModelOracle() { Name = AddNameText, Old = AddYearsText });
+            _context.LeeyeonjunTestTable1.Add(new ModelOracle() { Name = AddNameText, Old = AddYearsText });
             _context.SaveChanges();
         }
 

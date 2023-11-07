@@ -93,13 +93,16 @@ namespace DataBaseTools.ViewModels
         
         public ContextOracle? OracleContext { get; set; }
         public OracleConnection? OracleConnection { get; set; }
-        public OracleCommand? OracleCommand { get; set; }
+        public OracleCommand? OracleCommand { get; set; } = new();
         public OracleDependency? OracleDependency { get; set; }
         public OracleDataAdapter? OracleDataAdapter { get; set; }
         public OracleDataReader? OracleDataReader { get; set; }
 
         [ObservableProperty]
         private string _oracleConnectionString = JsonData.GetEdcoreWorksJsonData("SeojungriOracle");
+
+
+        public ObservableCollection<OracleTable> OracleTableList = new();
 
         [ObservableProperty]
         private ObservableCollection<ModelOracle> _oracleItemsSource = new();
