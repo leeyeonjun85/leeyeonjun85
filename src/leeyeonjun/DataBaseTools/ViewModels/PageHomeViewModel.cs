@@ -103,10 +103,16 @@ namespace DataBaseTools.ViewModels
 
             if (!AppData.IsOracleConnected)
             {
-                //"true" if the database is created, "false" if it already existed
-                Task<bool> _resultDataBaseConnect = AppData.OracleContext.Database.EnsureCreatedAsync();
-                await _resultDataBaseConnect;
-                bool resultDataBaseConnect = _resultDataBaseConnect.Result;
+                bool resultDataBaseConnect = false;
+                await Task.Run(() =>
+                {
+                    //"true" if the database is created, "false" if it already existed
+                    Task<bool> _resultDataBaseConnect = AppData.OracleContext.Database.EnsureCreatedAsync();
+                    //await _resultDataBaseConnect;
+                    bool resultDataBaseConnect = _resultDataBaseConnect.Result;
+                });
+
+                
 
                 if (resultDataBaseConnect)
                 {
