@@ -174,7 +174,7 @@
                 HeadersVisibility="All"
                 CanUserAddRows="False"
                 d:ItemsSource="{d:SampleData ItemCount=20}"
-                ItemsSource="{Binding AppData.SQLiteItemsSource}"
+                ItemsSource="{Binding AppData.OracleItemsSource}"
                 Grid.RowSpan="1" Grid.ColumnSpan="1"
                 Grid.Row="0" Grid.Column="0">
                 <DataGrid.Columns>

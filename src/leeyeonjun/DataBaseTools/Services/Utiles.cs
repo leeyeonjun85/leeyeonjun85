@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -27,13 +28,13 @@ namespace DataBaseTools.Services
             ObservableCollection<NavigationItem> tempList = new();
             NavigationItem tempSelectedPage = new()
             {
+                Index = AppData.SelectedPage.Index,
                 Name = AppData.SelectedPage.Name,
                 Title = AppData.SelectedPage.Title,
                 SelectedIcon = AppData.SelectedPage.SelectedIcon,
                 UnselectedIcon = AppData.SelectedPage.UnselectedIcon,
                 Source = AppData.SelectedPage.Source,
                 IsEnabled = AppData.SelectedPage.IsEnabled,
-                IsVisibility = AppData.SelectedPage.IsVisibility,
             };
 
             foreach (NavigationItem item in AppData.NavigationList)
@@ -54,17 +55,13 @@ namespace DataBaseTools.Services
 
         public static void PageNavigationSelectionChanged(AppData AppData)
         {
-            switch (AppData.SelectedPage.Name)
+            switch (AppData.SelectedPage.Index)
             {
-                case "Home":
+                case Pages.Home:
                     {
                         OpenPageHome(AppData); break;
                     }
-                case "SQLite":
-                    {
-                        OpenPageSQLite(AppData); break;
-                    }
-                case "WebSocket":
+                case Pages.WebSocket:
                     {
                         if (string.IsNullOrEmpty(AppData.WsAddress))
                         {
@@ -78,6 +75,14 @@ namespace DataBaseTools.Services
                         }
 
                         OpenPageWebSocket(AppData); break;
+                    }
+                case Pages.SQLite:
+                    {
+                        OpenPageSQLite(AppData); break;
+                    }
+                case Pages.Oracle:
+                    {
+                        OpenPageOracle(AppData); break;
                     }
 
                 default: throw new Exception();
@@ -226,18 +231,24 @@ namespace DataBaseTools.Services
             AppData.SelectedPage = AppData.NavigationList[Pages.Home];
         }
 
+        public static void OpenPageWebSocket(AppData AppData)
+        {
+            AppData.SelectedPageIndex = Pages.WebSocket;
+            AppData.SelectedPage = AppData.NavigationList[Pages.WebSocket];
+        }
+
         public static void OpenPageSQLite(AppData AppData)
         {
             AppData.SelectedPageIndex = Pages.SQLite;
             AppData.SelectedPage = AppData.NavigationList[Pages.SQLite];
             InitSQLite(AppData);
         }
-
-        public static void OpenPageWebSocket(AppData AppData)
+        public static void OpenPageOracle(AppData AppData)
         {
-            AppData.SelectedPageIndex = Pages.WebSocket;
-            AppData.SelectedPage = AppData.NavigationList[Pages.WebSocket];
+            AppData.SelectedPageIndex = Pages.Oracle;
+            AppData.SelectedPage = AppData.NavigationList[Pages.Oracle];
         }
+
 
         public static void InitSQLite(AppData AppData)
         {
@@ -277,6 +288,26 @@ namespace DataBaseTools.Services
                 AppData.SQLiteCommand = null;
                 AppData.SQLiteContext?.Dispose();
                 AppData.SQLiteContext = null;
+            });
+        }
+
+        public static async Task DisposeOracleAsync(AppData AppData)
+        {
+            await Task.Run(() =>
+            {
+                AppData.OracleContext?.Dispose();
+                AppData.OracleContext = null;
+                AppData.OracleConnection?.Close();
+                AppData.OracleConnection?.Dispose();
+                AppData.OracleConnection = null;
+                AppData.OracleCommand?.Dispose();
+                AppData.OracleConnection = null;
+                AppData.OracleDependency = null;
+                AppData.OracleDataAdapter?.Dispose();
+                AppData.OracleDataAdapter = null;
+                AppData.OracleDataReader?.Close();
+                AppData.OracleDataReader?.Dispose();
+                AppData.OracleDataReader = null;
             });
         }
 

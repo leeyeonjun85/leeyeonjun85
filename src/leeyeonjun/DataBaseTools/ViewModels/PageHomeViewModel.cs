@@ -100,26 +100,59 @@ namespace DataBaseTools.ViewModels
             if (AppData.OracleContext is null
              || AppData.OracleCommand is null) return;
 
-            //"true" if the database is created, "false" if it already existed
-            Task<bool> _resultDataBaseConnect = AppData.OracleContext.Database.EnsureCreatedAsync();
-            await _resultDataBaseConnect;
-            bool resultDataBaseConnect = _resultDataBaseConnect.Result;
 
-            if (resultDataBaseConnect)
+            if (!AppData.IsOracleConnected)
             {
-                AppData.StatusBar1 = "Status : Oracle Connected";
-                AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 테이블을 생성하였습니다.";
+                //"true" if the database is created, "false" if it already existed
+                Task<bool> _resultDataBaseConnect = AppData.OracleContext.Database.EnsureCreatedAsync();
+                await _resultDataBaseConnect;
+                bool resultDataBaseConnect = _resultDataBaseConnect.Result;
+
+                if (resultDataBaseConnect)
+                {
+                    AppData.StatusBar1 = "Status : Oracle Connected";
+                    AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 테이블을 생성하였습니다.";
+                }
+                else
+                {
+                    AppData.StatusBar1 = "Status : Oracle Connected";
+                    AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 데이터를 불러왔습니다.";
+                }
+
+
+                AppData.OracleContext.LeeyeonjunTestTable1.Load();
+                AppData.OracleItemsSource = AppData.OracleContext.LeeyeonjunTestTable1.Local.ToObservableCollection();
+
+                if (AppData.OracleItemsSource.Count > 0)
+                {
+                    AppData.IsOracleConnected = true;
+                    AppData.StatusBar1 = "Status : Oracle Connected";
+                    AppData.StatusBar2 = $"{AppData.OracleConnectionString}";
+                    AppData.NavigationList[Pages.Oracle].IsEnabled = true;
+                    Utiles.RefreshPageNavigationItems(AppData);
+                    AppData.BtnOracleConnect.Content = "Connected";
+                    AppData.BtnOracleConnect.Background = new SolidColorBrush(AppData.ColorSecondary);
+                    AppData.BtnOracleConnect.Foreground = new SolidColorBrush(Colors.Black);
+                }
             }
             else
             {
-                AppData.StatusBar1 = "Status : Oracle Connected";
-                AppData.StatusBar2 = $"'LeeyeonjunTestTable1' 데이터를 불러왔습니다.";
+                await Utiles.DisposeOracleAsync(AppData);
+
+                AppData.IsOracleConnected = false;
+                AppData.StatusBar1 = "Status : Ready"; ;
+                AppData.StatusBar2 = "오라클 데이터베이스 연결이 해제되었습니다.";
+                AppData.NavigationList[Pages.Oracle].IsEnabled = false;
+                Utiles.RefreshPageNavigationItems(AppData);
+                AppData.BtnOracleConnect.Content = "Connect";
+                AppData.BtnOracleConnect.Background = new SolidColorBrush(AppData.ColorPrimary);
+                AppData.BtnOracleConnect.Foreground = new SolidColorBrush(Colors.White);
+                AppData.OracleItemsSource = new();
             }
 
 
-            AppData.OracleContext.LeeyeonjunTestTable1.Load();
-            AppData.OracleItemsSource = AppData.OracleContext.LeeyeonjunTestTable1.Local.ToObservableCollection();
-
+            
+            
 
             //if (AppData.OracleContext.Database.CanConnect())
             //{

@@ -45,38 +45,54 @@ namespace DataBaseTools.ViewModels
             theme.SetSecondaryColor(AppData.ColorSecondary);
             paletteHelper.SetTheme(theme);
 
+            // Set Page Navigation Items
+            int tempIndex = 0;
             AppData.NavigationList.Add(new NavigationItem
             {
+                Index = tempIndex++,
                 Name = "Home",
                 Title = "Data Base Tools by Lee Yeon-jun",
                 SelectedIcon = PackIconKind.Home,
                 UnselectedIcon = PackIconKind.HomeOutline,
                 Source = "/Views/PageHome.xaml",
                 IsEnabled = true,
-                IsVisibility = Visibility.Visible,
             });
 
             AppData.NavigationList.Add(new NavigationItem
             {
-                Name = "SQLite",
-                Title = "SQLite Data Base",
-                SelectedIcon = PackIconKind.Mushroom,
-                UnselectedIcon = PackIconKind.MushroomOutline,
-                Source = "/Views/PageSQLIte.xaml",
-                IsEnabled = false,
-                IsVisibility = Visibility.Hidden,
-            });
-
-            AppData.NavigationList.Add(new NavigationItem
-            {
+                Index = tempIndex++,
                 Name = "WebSocket",
                 Title = "Chatting in WebSocket",
                 SelectedIcon = PackIconKind.Connection,
                 UnselectedIcon = PackIconKind.Connection,
                 Source = "/Views/PageWebSocket.xaml",
                 IsEnabled = true,
-                IsVisibility = Visibility.Hidden,
             });
+
+            AppData.NavigationList.Add(new NavigationItem
+            {
+                Index = tempIndex++,
+                Name = "SQLite",
+                Title = "SQLite Data Base",
+                SelectedIcon = PackIconKind.Mushroom,
+                UnselectedIcon = PackIconKind.MushroomOutline,
+                Source = "/Views/PageSQLIte.xaml",
+                IsEnabled = false,
+            });
+
+            AppData.NavigationList.Add(new NavigationItem
+            {
+                Index = tempIndex++,
+                Name = "Oracle",
+                Title = "서정리 오라클",
+                SelectedIcon = PackIconKind.EmoticonWink,
+                UnselectedIcon = PackIconKind.EmoticonWinkOutline,
+                Source = "/Views/PageOracle.xaml",
+                IsEnabled = false,
+            });
+
+            AppData.SelectedPage = AppData.NavigationList[Pages.Home];
+            Utiles.PageNavigationSelectionChanged(AppData);
 
             AppData.BtnSQLite.Content = "Connect";
             AppData.BtnSQLite.Background = new SolidColorBrush(AppData.ColorPrimary);

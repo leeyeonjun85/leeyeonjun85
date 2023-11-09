@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Windows.Controls;
@@ -90,7 +91,7 @@ namespace DataBaseTools.ViewModels
 
 
         // Oracle
-        
+        public bool IsOracleConnected { get; set; } = false;
         public ContextOracle? OracleContext { get; set; }
         public OracleConnection? OracleConnection { get; set; }
         public OracleCommand? OracleCommand { get; set; } = new();
