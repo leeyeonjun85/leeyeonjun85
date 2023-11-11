@@ -7,12 +7,21 @@ namespace DataBaseTools.Models
 {
     public class NavigationItem
     {
-        public int Index { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Title { get; set; } = string.Empty;
-        public PackIconKind SelectedIcon { get; set; }
-        public PackIconKind UnselectedIcon { get; set; }
-        public string Source { get; set; } = string.Empty;
-        public bool IsEnabled { get; set; } = true;
+        public string Name { get; }
+        public string Title { get; }
+        public PackIconKind SelectedIcon { get; }
+        public PackIconKind UnselectedIcon { get; }
+        public string Source { get; }
+        public bool IsEnabled { get; set; }
+
+        public NavigationItem(string name, string title, PackIconKind selectedIcon, PackIconKind unselectedIcon, string source, bool isEnabled = true)
+        {
+            Name = name;
+            Title = title;
+            SelectedIcon = selectedIcon;
+            UnselectedIcon = unselectedIcon;
+            Source = source;
+            IsEnabled = isEnabled;
+        }
     }
 }

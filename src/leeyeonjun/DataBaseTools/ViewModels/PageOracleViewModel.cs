@@ -26,16 +26,18 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task AddDataAsync(object? obj)
         {
+            if (AppData.OracleContext is null) return;
 
-            AppData.SQLiteData = new()
+            AppData.OracleData = new()
             {
-                Name = AppData.SQLiteAddName,
-                Old = AppData.SQLiteAddOld
+                Id = AppData.OracleItemsSource[^1].Id + 1,
+                Name = AppData.AddName,
+                Old = AppData.AddOld
             };
-            AppData.SQLiteContext!.sqliteDB.Add(AppData.SQLiteData);
-            await AppData.SQLiteContext!.SaveChangesAsync();
+            AppData.OracleContext.LeeyeonjunTestTable1.Add(AppData.OracleData);
+            await AppData.OracleContext.SaveChangesAsync();
 
-            Utiles.InitSQLite(AppData);
+            Utiles.InitOracle();
 
 
             //await Task.Run(() =>
@@ -61,18 +63,20 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnUpdateAsync(object? obj)
         {
-            var _findData = await AppData.SQLiteContext!.sqliteDB.FindAsync(AppData.SQLiteData.Id);
+            if (AppData.OracleContext is null) return;
+
+            var findData = await AppData.OracleContext.LeeyeonjunTestTable1.FindAsync(AppData.OracleData.Id);
 
 
-            if (_findData is not null)
+            if (findData is not null)
             {
-                AppData.SQLiteContext.Entry(_findData).State = EntityState.Detached;
-                _findData.Name = AppData.SQLiteUpdateName;
-                _findData.Old = AppData.SQLiteUpdateOld;
-                AppData.SQLiteContext.sqliteDB.Entry(_findData).State = EntityState.Modified;
-                await AppData.SQLiteContext!.SaveChangesAsync();
+                AppData.OracleContext.Entry(findData).State = EntityState.Detached;
+                findData.Name = AppData.UpdateName;
+                findData.Old = AppData.UpdateOld;
+                AppData.OracleContext.LeeyeonjunTestTable1.Entry(findData).State = EntityState.Modified;
+                await AppData.OracleContext.SaveChangesAsync();
 
-                Utiles.InitSQLite(AppData);
+                Utiles.InitOracle();
             }
             else
             {
@@ -109,13 +113,15 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnDeleteAsync(object? obj)
         {
-            foreach (ModelSQLite _sqlitemodel in AppData.SQLiteSelectedItems)
+            if (AppData.OracleContext is null) return;
+
+            foreach (ModelOracle oracleemodel in AppData.OracleSelectedItems)
             {
-                AppData.SQLiteContext!.sqliteDB.Remove(_sqlitemodel);
-                await AppData.SQLiteContext!.SaveChangesAsync();
+                AppData.OracleContext.LeeyeonjunTestTable1.Remove(oracleemodel);
+                await AppData.OracleContext.SaveChangesAsync();
             }
 
-            Utiles.InitSQLite(AppData);
+            Utiles.InitOracle();
         }
 
         [RelayCommand]
@@ -131,14 +137,14 @@ namespace DataBaseTools.ViewModels
                         {
                             System.Collections.IList selectedItems = dataGrid.SelectedItems;
                             AppData.String1 = string.Empty;
-                            AppData.SQLiteSelectedItems = new();
-                            foreach (ModelSQLite _sqlitemodel in selectedItems)
+                            AppData.OracleSelectedItems = new();
+                            foreach (ModelOracle model in selectedItems)
                             {
-                                AppData.String1 += $"{_sqlitemodel.Id} / {_sqlitemodel.Name} / {_sqlitemodel.Old}{Environment.NewLine}";
-                                AppData.SQLiteUpdateName = _sqlitemodel.Name!;
-                                AppData.SQLiteUpdateOld = _sqlitemodel.Old!;
-                                AppData.SQLiteData = _sqlitemodel;
-                                AppData.SQLiteSelectedItems.Add(_sqlitemodel);
+                                AppData.String1 += $"{model.Id} / {model.Name} / {model.Old}{Environment.NewLine}";
+                                AppData.UpdateName = model.Name!;
+                                AppData.UpdateOld = model.Old!;
+                                AppData.OracleData = model;
+                                AppData.OracleSelectedItems.Add(model);
                             }
                         }
                     }
@@ -155,17 +161,14 @@ namespace DataBaseTools.ViewModels
         }
 
         [RelayCommand]
-        private async Task BtnRefreshSQLiteClick(object? obj)
+        private async Task BtnRefreshClickAsync(object? obj)
         {
-            if (AppData.SQLiteContext is not null)
+            if (AppData.OracleContext is not null)
             {
-                AppData.SQLiteContext = new(AppData.SQLiteConnectionString);
-                AppData.SQLiteItemsSource = new();
-                await AppData.SQLiteContext.sqliteDB.LoadAsync();
-                AppData.SQLiteItemsSource = AppData.SQLiteContext.sqliteDB.Local.ToObservableCollection();
+                AppData.OracleItemsSource = new();
+                await AppData.OracleContext.LeeyeonjunTestTable1.LoadAsync();
+                AppData.OracleItemsSource = AppData.OracleContext.LeeyeonjunTestTable1.Local.ToObservableCollection();
             }
-
-            Utiles.InitSQLite(AppData);
         }
 
         public void Receive(ValueChangedMessage<AppData> message)

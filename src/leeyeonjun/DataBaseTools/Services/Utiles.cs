@@ -23,72 +23,72 @@ namespace DataBaseTools.Services
             return AppData;
         }
 
-        public static void RefreshPageNavigationItems(AppData AppData)
+        public static void RefreshPageNavigationItems(NavigationItem selectedPage)
         {
             ObservableCollection<NavigationItem> tempList = new();
-            NavigationItem tempSelectedPage = new()
-            {
-                Index = AppData.SelectedPage.Index,
-                Name = AppData.SelectedPage.Name,
-                Title = AppData.SelectedPage.Title,
-                SelectedIcon = AppData.SelectedPage.SelectedIcon,
-                UnselectedIcon = AppData.SelectedPage.UnselectedIcon,
-                Source = AppData.SelectedPage.Source,
-                IsEnabled = AppData.SelectedPage.IsEnabled,
-            };
+            NavigationItem tempSelectedPage = new(
+                name : selectedPage.Name,
+                title : selectedPage.Title,
+                selectedIcon : selectedPage.SelectedIcon,
+                unselectedIcon : selectedPage.UnselectedIcon,
+                source : selectedPage.Source,
+                isEnabled : selectedPage.IsEnabled
+            );
 
-            foreach (NavigationItem item in AppData.NavigationList)
+            foreach (NavigationItem item in App.Data.NavigationList)
             {
                 tempList.Add(item);
             }
 
-            AppData.NavigationList.Clear();
+            App.Data.NavigationList.Clear();
 
             foreach (NavigationItem item in tempList)
             {
-                AppData.NavigationList.Add(item);
+                App.Data.NavigationList.Add(item);
             }
 
-            AppData.SelectedPage = tempSelectedPage;
-            PageNavigationSelectionChanged(AppData);
+            App.Data.SelectedPage = tempSelectedPage;
+            //PageNavigationSelectionChanged(App.Data.SelectedPage);
         }
 
-        public static void PageNavigationSelectionChanged(AppData AppData)
+        public static void PageNavigationSelectionChanged(int selectedIndex)
         {
-            switch (AppData.SelectedPage.Index)
+            switch (selectedIndex)
             {
                 case Pages.Home:
                     {
-                        OpenPageHome(AppData); break;
+                        OpenPageHome(); break;
                     }
                 case Pages.WebSocket:
                     {
-                        if (string.IsNullOrEmpty(AppData.WsAddress))
+                        if (string.IsNullOrEmpty(App.Data.WsAddress))
                         {
-                            AppData.Wsipv4 = getLocalIPAddress(AddressFamily.InterNetwork);
-                            AppData.WsPort = 6714;
-                            AppData.WsAddress = $"ws://{AppData.Wsipv4}:{AppData.WsPort}/Chat";
+                            App.Data.Wsipv4 = getLocalIPAddress(AddressFamily.InterNetwork);
+                            App.Data.WsPort = 6714;
+                            App.Data.WsAddress = $"ws://{App.Data.Wsipv4}:{App.Data.WsPort}/Chat";
                         }
-                        if (string.IsNullOrEmpty(AppData.WsChatNickName))
+                        if (string.IsNullOrEmpty(App.Data.WsChatNickName))
                         {
-                            AppData.WsChatNickName = "닉네임" + DateTime.Now.Second.ToString()[^1];
+                            App.Data.WsChatNickName = "닉네임" + DateTime.Now.Second.ToString()[^1];
                         }
 
-                        OpenPageWebSocket(AppData); break;
+                        OpenPageWebSocket(); break;
                     }
                 case Pages.SQLite:
                     {
-                        OpenPageSQLite(AppData); break;
+                        OpenPageSQLite();
+                        InitSQLite(); break;
                     }
                 case Pages.Oracle:
                     {
-                        OpenPageOracle(AppData); break;
+                        OpenPageOracle();
+                        InitOracle(); break;
                     }
 
-                default: throw new Exception();
+                default: break;
             }
 
-            WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
+            WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(App.Data));
         }
 
 
@@ -225,40 +225,51 @@ namespace DataBaseTools.Services
         }
 
 
-        public static void OpenPageHome(AppData AppData)
+        public static void OpenPageHome()
         {
-            AppData.SelectedPageIndex = Pages.Home;
-            AppData.SelectedPage = AppData.NavigationList[Pages.Home];
+            App.Data.SelectedIndex = Pages.Home;
+            App.Data.SelectedPage = App.Data.NavigationList[Pages.Home];
         }
 
-        public static void OpenPageWebSocket(AppData AppData)
+        public static void OpenPageWebSocket()
         {
-            AppData.SelectedPageIndex = Pages.WebSocket;
-            AppData.SelectedPage = AppData.NavigationList[Pages.WebSocket];
+            App.Data.SelectedIndex = Pages.WebSocket;
+            App.Data.SelectedPage = App.Data.NavigationList[Pages.WebSocket];
         }
 
-        public static void OpenPageSQLite(AppData AppData)
+        public static void OpenPageSQLite()
         {
-            AppData.SelectedPageIndex = Pages.SQLite;
-            AppData.SelectedPage = AppData.NavigationList[Pages.SQLite];
-            InitSQLite(AppData);
+            App.Data.SelectedIndex = Pages.SQLite;
+            App.Data.SelectedPage = App.Data.NavigationList[Pages.SQLite];
+            InitSQLite();
         }
-        public static void OpenPageOracle(AppData AppData)
+        public static void OpenPageOracle()
         {
-            AppData.SelectedPageIndex = Pages.Oracle;
-            AppData.SelectedPage = AppData.NavigationList[Pages.Oracle];
+            App.Data.SelectedIndex = Pages.Oracle;
+            App.Data.SelectedPage = App.Data.NavigationList[Pages.Oracle];
         }
 
 
-        public static void InitSQLite(AppData AppData)
+        public static void InitSQLite()
         {
-            AppData.SQLiteSelectedItems = new();
-            AppData.SQLiteData = new();
-            AppData.String1 = string.Empty;
-            AppData.SQLiteAddName = string.Empty;
-            AppData.SQLiteAddOld = 0;
-            AppData.SQLiteUpdateName = string.Empty;
-            AppData.SQLiteUpdateOld = 0;
+            App.Data.SQLiteSelectedItems = new();
+            App.Data.SQLiteData = new();
+            App.Data.String1 = string.Empty;
+            App.Data.AddName = string.Empty;
+            App.Data.AddOld = 0;
+            App.Data.UpdateName = string.Empty;
+            App.Data.UpdateOld = 0;
+        }
+
+        public static void InitOracle()
+        {
+            App.Data.OracleSelectedItems = new();
+            App.Data.OracleData = new();
+            App.Data.String1 = string.Empty;
+            App.Data.AddName = string.Empty;
+            App.Data.AddOld = 0;
+            App.Data.UpdateName = string.Empty;
+            App.Data.UpdateOld = 0;
         }
 
         public static void ExceptionTask(Exception ex)
@@ -274,58 +285,62 @@ namespace DataBaseTools.Services
         }
 
 
-        public static async Task DisposeSQLiteAsync(AppData AppData)
+        public static async Task DisposeSQLiteAsync()
         {
             await Task.Run(() =>
             {
-                AppData.SQLiteDataReader?.Close();
-                AppData.SQLiteDataReader?.Dispose();
-                AppData.SQLiteDataReader = null;
-                AppData.SQLiteCommand?.Dispose();
-                AppData.SQLiteCommand = null;
-                AppData.SQLiteConnection?.Close();
-                AppData.SQLiteConnection?.Dispose();
-                AppData.SQLiteCommand = null;
-                AppData.SQLiteContext?.Dispose();
-                AppData.SQLiteContext = null;
+                App.Data.SQLiteDataReader?.Close();
+                App.Data.SQLiteDataReader?.Dispose();
+                App.Data.SQLiteDataReader = null;
+                App.Data.SQLiteCommand?.Dispose();
+                App.Data.SQLiteCommand = null;
+                App.Data.SQLiteConnection?.Close();
+                App.Data.SQLiteConnection?.Dispose();
+                App.Data.SQLiteCommand = null;
+                App.Data.SQLiteContext?.Dispose();
+                App.Data.SQLiteContext = null;
             });
         }
 
-        public static async Task DisposeOracleAsync(AppData AppData)
+        public static async Task DisposeOracleAsync()
         {
             await Task.Run(() =>
             {
-                AppData.OracleContext?.Dispose();
-                AppData.OracleContext = null;
-                AppData.OracleConnection?.Close();
-                AppData.OracleConnection?.Dispose();
-                AppData.OracleConnection = null;
-                AppData.OracleCommand?.Dispose();
-                AppData.OracleConnection = null;
-                AppData.OracleDependency = null;
-                AppData.OracleDataAdapter?.Dispose();
-                AppData.OracleDataAdapter = null;
-                AppData.OracleDataReader?.Close();
-                AppData.OracleDataReader?.Dispose();
-                AppData.OracleDataReader = null;
+                App.Data.OracleDataReader?.Dispose();
+                App.Data.OracleDataReader = null;
+                App.Data.OracleDataAdapter?.Dispose();
+                App.Data.OracleDataAdapter = null;
+                App.Data.OracleDataReader?.Close();
+                App.Data.OracleDependency = null;
+                App.Data.OracleCommand?.Dispose();
+                App.Data.OracleConnection?.Close();
+                App.Data.OracleConnection?.Dispose();
+                App.Data.OracleConnection = null;
+                App.Data.OracleContext?.Dispose();
+                App.Data.OracleContext = null;
+                
+                
+                
+                
+                
             });
         }
 
-        public static async Task DisposeWebSocketAsync(AppData AppData)
+        public static async Task DisposeWebSocketAsync()
         {
             await Task.Run(() =>
             {
-                AppData.WebSocket?.Close();
-                AppData.WebSocket = null;
-                AppData.WsServer?.Stop();
-                AppData.WsServer = null;
+                App.Data.WebSocket?.Close();
+                App.Data.WebSocket = null;
+                App.Data.WsServer?.Stop();
+                App.Data.WsServer = null;
             });
         }
 
-        public static async Task DisposeAllAsync(AppData AppData)
+        public static async Task DisposeAllAsync()
         {
-            await DisposeSQLiteAsync(AppData);
-            await DisposeWebSocketAsync(AppData);
+            await DisposeSQLiteAsync();
+            await DisposeWebSocketAsync();
         }
     }
 }

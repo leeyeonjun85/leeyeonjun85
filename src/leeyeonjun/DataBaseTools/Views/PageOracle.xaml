@@ -42,7 +42,7 @@
             Content="Refresh"
             Margin="50 0"
             CommandParameter="{Binding RelativeSource={RelativeSource self}}"
-            Command="{Binding BtnRefreshSQLiteClickCommand}"
+            Command="{Binding BtnRefreshClickCommand}"
             Grid.RowSpan="1"  Grid.ColumnSpan="3"
             Grid.Row="0" Grid.Column="0" />
         
@@ -75,14 +75,14 @@
                         materialDesign:HintAssist.Hint="이름"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         MaxLength="16"
-                        Text="{Binding AppData.SQLiteAddName}"
+                        Text="{Binding AppData.AddName}"
                         VerticalAlignment="Center"
                         Grid.Row="0" Grid.Column="0" />
                     <TextBox
                         Margin="5 0"
                         materialDesign:HintAssist.Hint="나이"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding AppData.SQLiteAddOld}"
+                        Text="{Binding AppData.AddOld}"
                         VerticalAlignment="Center"
                         Grid.Row="0" Grid.Column="1" />
                     <Button 
@@ -112,14 +112,14 @@
                         materialDesign:HintAssist.Hint="이름"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         MaxLength="16"
-                        Text="{Binding AppData.SQLiteUpdateName}"
+                        Text="{Binding AppData.UpdateName}"
                         VerticalAlignment="Center"
                         Grid.Row="0" Grid.Column="0" />
                     <TextBox
                         Margin="5 0"
                         materialDesign:HintAssist.Hint="나이"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding AppData.SQLiteUpdateOld}"
+                        Text="{Binding AppData.UpdateOld}"
                         VerticalAlignment="Center"
                         Grid.Row="0" Grid.Column="1" />
                     <Button 

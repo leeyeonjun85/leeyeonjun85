@@ -1,4 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Configuration;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -8,21 +14,7 @@ using DataBaseTools.Services;
 using DataBaseTools.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Logging;
-using Oracle.ManagedDataAccess.Client;
-using Renci.SshNet.Security.Cryptography.Ciphers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -33,7 +25,6 @@ namespace DataBaseTools.ViewModels
 {
     public partial class PageHomeViewModel : ViewModelBase, IRecipient<ValueChangedMessage<SubData>>
     {
-
         [ObservableProperty]
         private AppData _appData = App.Data;
 
@@ -97,12 +88,13 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnOracleConnectClickAsync(object? obj)
         {
-            if (AppData.OracleContext is null
-             || AppData.OracleCommand is null) return;
+            if (AppData.SelectedPage is null) return;
 
 
             if (!AppData.IsOracleConnected)
             {
+                AppData.OracleContext = new(AppData.OracleConnectionString);
+
                 bool resultDataBaseConnect = false;
                 await Task.Run(() =>
                 {
@@ -112,7 +104,7 @@ namespace DataBaseTools.ViewModels
                     bool resultDataBaseConnect = _resultDataBaseConnect.Result;
                 });
 
-                
+
 
                 if (resultDataBaseConnect)
                 {
@@ -135,7 +127,7 @@ namespace DataBaseTools.ViewModels
                     AppData.StatusBar1 = "Status : Oracle Connected";
                     AppData.StatusBar2 = $"{AppData.OracleConnectionString}";
                     AppData.NavigationList[Pages.Oracle].IsEnabled = true;
-                    Utiles.RefreshPageNavigationItems(AppData);
+                    Utiles.RefreshPageNavigationItems(AppData.SelectedPage);
                     AppData.BtnOracleConnect.Content = "Connected";
                     AppData.BtnOracleConnect.Background = new SolidColorBrush(AppData.ColorSecondary);
                     AppData.BtnOracleConnect.Foreground = new SolidColorBrush(Colors.Black);
@@ -143,13 +135,13 @@ namespace DataBaseTools.ViewModels
             }
             else
             {
-                await Utiles.DisposeOracleAsync(AppData);
+                await Utiles.DisposeOracleAsync();
 
                 AppData.IsOracleConnected = false;
                 AppData.StatusBar1 = "Status : Ready"; ;
                 AppData.StatusBar2 = "오라클 데이터베이스 연결이 해제되었습니다.";
                 AppData.NavigationList[Pages.Oracle].IsEnabled = false;
-                Utiles.RefreshPageNavigationItems(AppData);
+                Utiles.RefreshPageNavigationItems(AppData.SelectedPage);
                 AppData.BtnOracleConnect.Content = "Connect";
                 AppData.BtnOracleConnect.Background = new SolidColorBrush(AppData.ColorPrimary);
                 AppData.BtnOracleConnect.Foreground = new SolidColorBrush(Colors.White);
@@ -157,8 +149,8 @@ namespace DataBaseTools.ViewModels
             }
 
 
-            
-            
+
+
 
             //if (AppData.OracleContext.Database.CanConnect())
             //{
@@ -203,6 +195,8 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private async Task BtnSQLiteAsync(object? obj)
         {
+            if (AppData.SelectedPage is null) return;
+
             try
             {
                 // Cennect if Not Connected
@@ -276,22 +270,22 @@ namespace DataBaseTools.ViewModels
                     AppData.StatusBar1 = "Status : SQLite Connected";
                     AppData.StatusBar2 = $"{AppData.SQLiteConnectionString}";
                     AppData.NavigationList[Pages.SQLite].IsEnabled = true;
-                    Utiles.RefreshPageNavigationItems(AppData);
+                    Utiles.RefreshPageNavigationItems(AppData.SelectedPage);
                     AppData.BtnSQLite.Content = "Connected";
                     AppData.BtnSQLite.Background = new SolidColorBrush(AppData.ColorSecondary);
                     AppData.BtnSQLite.Foreground = new SolidColorBrush(Colors.Black);
-                    Utiles.InitSQLite(AppData);
+                    Utiles.InitSQLite();
                 }
                 // Discennect if Connected
                 else
                 {
-                    await Utiles.DisposeSQLiteAsync(AppData);
+                    await Utiles.DisposeSQLiteAsync();
 
                     AppData.SQLiteIsConnected = false;
                     AppData.StatusBar1 = "Status : Ready"; ;
                     AppData.StatusBar2 = "SQLite 데이터베이스 연결이 해제되었습니다.";
                     AppData.NavigationList[Pages.SQLite].IsEnabled = false;
-                    Utiles.RefreshPageNavigationItems(AppData);
+                    Utiles.RefreshPageNavigationItems(AppData.SelectedPage);
                     AppData.BtnSQLite.Content = "Connect";
                     AppData.BtnSQLite.Background = new SolidColorBrush(AppData.ColorPrimary);
                     AppData.BtnSQLite.Foreground = new SolidColorBrush(Colors.White);

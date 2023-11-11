@@ -21,8 +21,7 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private AppData _appData = App.Data;
 
-        private IHost? webHost;
-
+        
 
         public PageWebSocketViewModel()
         {
@@ -53,10 +52,10 @@ namespace DataBaseTools.ViewModels
                 {
                     await SendMessageAsync($"'{AppData.WsChatNickName}' 님께서 퇴장하셨습니다.");
                 }
-                await Utiles.DisposeWebSocketAsync(AppData);
+                await Utiles.DisposeWebSocketAsync();
 
                 AppData.BtnWebSocket.Content = "Connect";
-                AppData.BtnWebSocket.Background = new SolidColorBrush(AppData.ColorPrimary);
+                AppData.BtnWebSocket.Background = new SolidColorBrush(Colors.MidnightBlue);
                 AppData.BtnWebSocket.Foreground = new SolidColorBrush(Colors.White);
 
                 AppData.WsConnected = false;

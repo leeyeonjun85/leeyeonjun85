@@ -133,7 +133,7 @@
         <GroupBox
             Margin="5 3"
             Padding="5"
-            Header="Seojungri Oracle"
+            Header="Oracle"
             Grid.RowSpan="1" Grid.ColumnSpan="6"
             Grid.Row="2" Grid.Column="0">
             <Grid

@@ -7,12 +7,18 @@ namespace DataBaseTools.Models
     {
         // DbSet
         public DbSet<ModelOracle> LeeyeonjunTestTable1 { get; set; }
+        private readonly string _connectionString;
 
-        public ContextOracle(DbContextOptions<ContextOracle> options) : base(options) { }
+        public ContextOracle(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        //public ContextOracle(DbContextOptions<ContextOracle> options) : base(options) { }
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //=> optionsBuilder.UseOracle(MyUtiles.GetJsonModel().ConnectionStrings.SeojungriOracle);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseOracle(_connectionString);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

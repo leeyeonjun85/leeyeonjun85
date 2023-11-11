@@ -33,13 +33,13 @@ namespace DataBaseTools.ViewModels
 
             AppData.SQLiteData = new()
             {
-                Name = AppData.SQLiteAddName,
-                Old = AppData.SQLiteAddOld
+                Name = AppData.AddName,
+                Old = AppData.AddOld
             };
             AppData.SQLiteContext!.sqliteDB.Add(AppData.SQLiteData);
             await AppData.SQLiteContext!.SaveChangesAsync();
 
-            Utiles.InitSQLite(AppData);
+            Utiles.InitSQLite();
 
 
             //await Task.Run(() =>
@@ -71,12 +71,12 @@ namespace DataBaseTools.ViewModels
             if (_findData is not null)
             {
                 AppData.SQLiteContext.Entry(_findData).State = EntityState.Detached;
-                _findData.Name = AppData.SQLiteUpdateName;
-                _findData.Old = AppData.SQLiteUpdateOld;
+                _findData.Name = AppData.UpdateName;
+                _findData.Old = AppData.UpdateOld;
                 AppData.SQLiteContext.sqliteDB.Entry(_findData).State = EntityState.Modified;
                 await AppData.SQLiteContext!.SaveChangesAsync();
 
-                Utiles.InitSQLite(AppData);
+                Utiles.InitSQLite();
             }
             else
             {
@@ -119,7 +119,7 @@ namespace DataBaseTools.ViewModels
                 await AppData.SQLiteContext!.SaveChangesAsync();
             }
 
-            Utiles.InitSQLite(AppData);
+            Utiles.InitSQLite();
         }
 
         [RelayCommand]
@@ -139,8 +139,8 @@ namespace DataBaseTools.ViewModels
                             foreach (ModelSQLite _sqlitemodel in selectedItems)
                             {
                                 AppData.String1 += $"{_sqlitemodel.Id} / {_sqlitemodel.Name} / {_sqlitemodel.Old}{Environment.NewLine}";
-                                AppData.SQLiteUpdateName = _sqlitemodel.Name!;
-                                AppData.SQLiteUpdateOld = _sqlitemodel.Old!;
+                                AppData.UpdateName = _sqlitemodel.Name!;
+                                AppData.UpdateOld = _sqlitemodel.Old!;
                                 AppData.SQLiteData = _sqlitemodel;
                                 AppData.SQLiteSelectedItems.Add(_sqlitemodel);
                             }
@@ -169,7 +169,7 @@ namespace DataBaseTools.ViewModels
                 AppData.SQLiteItemsSource = AppData.SQLiteContext.sqliteDB.Local.ToObservableCollection();
             }
 
-            Utiles.InitSQLite(AppData);
+            Utiles.InitSQLite();
         }
 
         public void Receive(ValueChangedMessage<AppData> message)
