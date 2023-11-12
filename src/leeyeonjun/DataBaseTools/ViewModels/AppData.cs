@@ -29,7 +29,7 @@ namespace DataBaseTools.ViewModels
         {
             new(
                 name : "Home",
-                title : "Data Base Tools by Lee Yeon-jun",
+                title : "Data Base Tools",
                 selectedIcon : PackIconKind.Home,
                 unselectedIcon : PackIconKind.HomeOutline,
                 source : "/Views/PageHome.xaml",
@@ -103,7 +103,9 @@ namespace DataBaseTools.ViewModels
 
         // SignalR
         [ObservableProperty]
-        private bool _signalRConnected = false;
+        private bool _isSignalRConnected = false;
+        [ObservableProperty]
+        private bool _noSignalRConnected = true;
         public IHost? SignalRServer { get; set; }
         public HubConnection? SignalRClient { get; set; }
         public string SignalRIPv4 { get; set; } = string.Empty;
@@ -117,19 +119,18 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private string _signalRChatMessage = string.Empty;
         [ObservableProperty]
-        private string _signalRChatText = $"=== SignalR 채팅을 시작합니다. ==={Environment.NewLine}";
+        private string _signalRChatText = string.Empty;
         public Process? SignalRServerProcess { get; set; }
 
 
-
         // WebSocket
+        [ObservableProperty]
+        private bool _wsConnected = false;
         public WebSocketServer? WsServer { get; set; }
         public WebSocket? WebSocket { get; set; }
         public string Wsipv4 { get; set; } = string.Empty;
         public int WsMode { get; set; } = WebSocketMode.Server;
         public int WsPort { get; set; }
-        [ObservableProperty]
-        private bool _wsConnected = false;
         [ObservableProperty]
         private string _wsAddress = string.Empty;
         [ObservableProperty]
@@ -141,7 +142,8 @@ namespace DataBaseTools.ViewModels
 
 
         // SQLite
-        public bool SQLiteIsConnected { get; set; } = false;
+        [ObservableProperty]
+        private bool _sQLiteIsConnected = false;
         public ContextSQLite? SQLiteContext { get; set; }
         public DbConnection? SQLiteConnection { get; set; }
         public DbCommand? SQLiteCommand { get; set; }
@@ -154,7 +156,8 @@ namespace DataBaseTools.ViewModels
 
 
         // Oracle
-        public bool IsOracleConnected { get; set; } = false;
+        [ObservableProperty]
+        private bool _isOracleConnected = false;
         public ContextOracle? OracleContext { get; set; }
         public OracleConnection? OracleConnection { get; set; }
         public OracleCommand? OracleCommand { get; set; } = new();

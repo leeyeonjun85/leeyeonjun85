@@ -88,7 +88,11 @@ namespace DataBaseTools.ViewModels
 
         protected override async void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.Data.SignalRServerProcess?.Kill();
+            if (App.Data.SignalRMode is SignalRMode.Server)
+            {
+                App.Data.SignalRServerProcess?.Kill();
+            }
+
             App.logger.LogInformation("프로그램이 종료되었습니다.");
             await Utiles.DisposeAllAsync();
         }
