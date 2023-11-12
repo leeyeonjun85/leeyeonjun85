@@ -59,6 +59,22 @@ namespace DataBaseTools.Services
                     {
                         OpenPageHome(); break;
                     }
+                case Pages.SignalR:
+                    {
+                        if (string.IsNullOrEmpty(App.Data.SignalRAddress))
+                        {
+                            App.Data.SignalRIPv4 = getLocalIPAddress(AddressFamily.InterNetwork);
+                            App.Data.SignalRPort = 6714;
+                            App.Data.SignalRHub = "chathub";
+                            App.Data.SignalRAddress = $"https://{App.Data.SignalRIPv4}:{App.Data.SignalRPort}/{App.Data.SignalRHub}";
+                        }
+                        if (string.IsNullOrEmpty(App.Data.SignalRChatName))
+                        {
+                            App.Data.SignalRChatName = "닉네임" + DateTime.Now.Second.ToString()[^1];
+                        }
+
+                        OpenPageSignalR(); break;
+                    }
                 case Pages.WebSocket:
                     {
                         if (string.IsNullOrEmpty(App.Data.WsAddress))
@@ -230,7 +246,11 @@ namespace DataBaseTools.Services
             App.Data.SelectedIndex = Pages.Home;
             App.Data.SelectedPage = App.Data.NavigationList[Pages.Home];
         }
-
+        public static void OpenPageSignalR()
+        {
+            App.Data.SelectedIndex = Pages.SignalR;
+            App.Data.SelectedPage = App.Data.NavigationList[Pages.SignalR];
+        }
         public static void OpenPageWebSocket()
         {
             App.Data.SelectedIndex = Pages.WebSocket;
@@ -318,11 +338,19 @@ namespace DataBaseTools.Services
                 App.Data.OracleConnection = null;
                 App.Data.OracleContext?.Dispose();
                 App.Data.OracleContext = null;
-                
-                
-                
-                
-                
+            });
+        }
+
+        public static async Task DisposeSignalRAsync()
+        {
+            await Task.Run(() =>
+            {
+                App.Data.SignalRClient?.StopAsync();
+                App.Data.SignalRClient?.DisposeAsync();
+                App.Data.SignalRClient = null;
+                App.Data.SignalRServer?.StopAsync();
+                App.Data.SignalRServer?.Dispose();
+                App.Data.SignalRServer = null;
             });
         }
 
@@ -341,6 +369,8 @@ namespace DataBaseTools.Services
         {
             await DisposeSQLiteAsync();
             await DisposeWebSocketAsync();
+            await DisposeSignalRAsync();
+            await DisposeOracleAsync();
         }
     }
 }

@@ -13,6 +13,7 @@ using DataBaseTools.Models;
 using DataBaseTools.Services;
 using DataBaseTools.Views;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace DataBaseTools.ViewModels
@@ -21,7 +22,6 @@ namespace DataBaseTools.ViewModels
     {
         [ObservableProperty]
         private AppData _appData = App.Data;
-
 
         public string WindowTitle { get; } = $"이연준의 DB Tool - {ConfigurationManager.AppSettings["Version"]}({ConfigurationManager.AppSettings["LastUpdateDate"]})";
 
@@ -58,9 +58,12 @@ namespace DataBaseTools.ViewModels
             // SQLite
             AppData.SQLiteConnectionString = $"Data Source={Path.Combine(Directory.GetCurrentDirectory()[..Directory.GetCurrentDirectory().IndexOf("DataBaseTools")], "DataBaseTools", "SQLiteTest.db")}";
 
-            AppData.BtnSQLite.Content = AppData.BtnOracleConnect.Content = AppData.BtnWebSocket.Content = "Connect";
-            AppData.BtnSQLite.Background = AppData.BtnOracleConnect.Background = AppData.BtnWebSocket.Background = new SolidColorBrush(App.Data.ColorPrimary);
-            AppData.BtnSQLite.Foreground = AppData.BtnOracleConnect.Foreground = AppData.BtnWebSocket.Foreground = new SolidColorBrush(Colors.White);
+            AppData.BtnSQLite.Content = AppData.BtnOracleConnect.Content = AppData.BtnWebSocket.Content
+                = AppData.BtnSignalRConnect.Content = "Connect";
+            AppData.BtnSQLite.Background = AppData.BtnOracleConnect.Background = AppData.BtnWebSocket.Background
+                = AppData.BtnSignalRConnect.Background = new SolidColorBrush(App.Data.ColorPrimary);
+            AppData.BtnSQLite.Foreground = AppData.BtnOracleConnect.Foreground = AppData.BtnWebSocket.Foreground
+                = AppData.BtnSignalRConnect.Foreground = new SolidColorBrush(Colors.White);
 
             if (sender is WindowMain _windowMain)
             {
@@ -85,8 +88,9 @@ namespace DataBaseTools.ViewModels
 
         protected override async void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            await Utiles.DisposeAllAsync();
+            App.Data.SignalRServerProcess?.Kill();
             App.logger.LogInformation("프로그램이 종료되었습니다.");
+            await Utiles.DisposeAllAsync();
         }
     }
 }

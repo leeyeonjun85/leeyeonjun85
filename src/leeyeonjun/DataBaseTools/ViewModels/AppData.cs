@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Reflection.Metadata.Ecma335;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,6 +10,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using DataBaseTools.Models;
 using DataBaseTools.Services;
 using MaterialDesignThemes.Wpf;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Hosting;
 using Oracle.ManagedDataAccess.Client;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -30,6 +33,14 @@ namespace DataBaseTools.ViewModels
                 selectedIcon : PackIconKind.Home,
                 unselectedIcon : PackIconKind.HomeOutline,
                 source : "/Views/PageHome.xaml",
+                isEnabled : true
+            ),
+            new(
+                name : "SignalR",
+                title : "Chatting in SignalR",
+                selectedIcon : PackIconKind.ChatProcessing,
+                unselectedIcon : PackIconKind.ChatProcessingOutline,
+                source : "/Views/PageSignalR.xaml",
                 isEnabled : true
             ),
             new(
@@ -85,24 +96,29 @@ namespace DataBaseTools.ViewModels
         private int _updateOld;
 
         public Button BtnSQLite { get; set; } = new();
-        //{
-        //    Content = "Connect",
-        //    Background = new SolidColorBrush(App.Data.ColorPrimary),
-        //    Foreground = new SolidColorBrush(Colors.White)
-        //};
         public Button BtnOracleConnect { get; set; } = new();
-        //{
-        //    Content = "Connect",
-        //    Background = new SolidColorBrush(App.Data.ColorPrimary),
-        //    Foreground = new SolidColorBrush(Colors.White)
-        //};
         public Button BtnWebSocket { get; set; } = new();
-        //{
-        //    Content = "Connect",
-        //    Background = new SolidColorBrush(App.Data.ColorPrimary),
-        //    Foreground = new SolidColorBrush(Colors.White)
-        //};
+        public Button BtnSignalRConnect { get; set; } = new();
 
+
+        // SignalR
+        [ObservableProperty]
+        private bool _signalRConnected = false;
+        public IHost? SignalRServer { get; set; }
+        public HubConnection? SignalRClient { get; set; }
+        public string SignalRIPv4 { get; set; } = string.Empty;
+        public int SignalRPort { get; set; }
+        public string SignalRHub { get; set; } = string.Empty;
+        public int SignalRMode { get; set; } = Models.SignalRMode.Server;
+        [ObservableProperty]
+        private string _signalRAddress = string.Empty;
+        [ObservableProperty]
+        private string _signalRChatName = string.Empty;
+        [ObservableProperty]
+        private string _signalRChatMessage = string.Empty;
+        [ObservableProperty]
+        private string _signalRChatText = $"=== SignalR 채팅을 시작합니다. ==={Environment.NewLine}";
+        public Process? SignalRServerProcess { get; set; }
 
 
 
@@ -119,7 +135,7 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private string _wsChatNickName = string.Empty;
         [ObservableProperty]
-        private string _wsChatText = $"=== 채팅을 시작합니다. ==={Environment.NewLine}";
+        private string _wsChatText = $"=== WebSocket 채팅을 시작합니다. ==={Environment.NewLine}";
         [ObservableProperty]
         private string _wsChatSendText = string.Empty;
 
