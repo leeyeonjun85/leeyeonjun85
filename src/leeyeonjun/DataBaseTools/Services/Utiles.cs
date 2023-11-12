@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -16,12 +17,26 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace DataBaseTools.Services
 {
-    public class Utiles
+    public partial class Utiles
     {
         public static AppData InitApp(AppData AppData)
         {
             return AppData;
         }
+
+        [DllImport("User32", EntryPoint = "FindWindow")]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        public static extern void SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetActiveWindow();
+
+
 
         public static void RefreshPageNavigationItems(NavigationItem selectedPage)
         {

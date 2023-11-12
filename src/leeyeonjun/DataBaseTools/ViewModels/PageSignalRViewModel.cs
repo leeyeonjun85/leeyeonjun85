@@ -12,15 +12,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using DataBaseTools.Models;
 using DataBaseTools.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using WebSocketSharp;
-using WebSocketSharp.Server;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DataBaseTools.ViewModels
 {
@@ -78,7 +70,7 @@ namespace DataBaseTools.ViewModels
                     AppData.SignalRHub = AppData.SignalRAddress[AppData.SignalRAddress.LastIndexOf($":{AppData.SignalRPort}/")..][$":{AppData.SignalRPort}/".Length..];
                     AppData.SignalRAddress = $"https://{App.Data.SignalRIPv4}:{App.Data.SignalRPort}/{App.Data.SignalRHub}";
 
-                    
+
 
                     if (AppData.WsMode is WebSocketMode.Server)
                     {
@@ -98,9 +90,13 @@ namespace DataBaseTools.ViewModels
 
                             //AppData.SignalRServer.StartAsync();
 
+
                             Process.Start("BlazorServerSignalRApp.exe", new string[3] { AppData.SignalRIPv4, AppData.SignalRPort.ToString(), AppData.SignalRHub });
 
+
                             AppData.SignalRServerProcess = Process.GetProcessesByName("BlazorServerSignalRApp")[0];
+
+
 
                             if (AppData.SignalRServerProcess is not null && AppData.SignalRServerProcess.ProcessName is "BlazorServerSignalRApp")
                             {
@@ -162,15 +158,14 @@ namespace DataBaseTools.ViewModels
                     AppData.SignalRConnected = true;
                     AppData.StatusBar1 = "Status : Server Running";
                     AppData.StatusBar2 = AppData.SignalRAddress;
+
+
+                    Utiles.ShowWindow(AppData.SignalRServerProcess!.MainWindowHandle, 2); // 2=mini , 3=maxi
+
                 }
                 else
                     MessageBox.Show("서버 연결에 실패하였습니다.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void OnMessageEvent(object? sender, MessageEventArgs e)
-        {
-            AppData.WsChatText += $"{e.Data}{Environment.NewLine}";
         }
 
         [RelayCommand]
@@ -191,6 +186,9 @@ namespace DataBaseTools.ViewModels
                 MessageBox.Show("The current state of the connection is not Open.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
+
 
         public void Receive(ValueChangedMessage<AppData> message)
         {
