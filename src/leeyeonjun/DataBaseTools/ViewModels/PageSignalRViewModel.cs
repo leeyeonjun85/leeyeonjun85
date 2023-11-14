@@ -95,9 +95,30 @@ namespace DataBaseTools.ViewModels
 
                         await Task.Run(() => 
                         {
-                            Process.Start("BlazorServerSignalRApp.exe", new string[3] { AppData.SignalRIPv4, AppData.SignalRPort.ToString(), AppData.SignalRHub });
+                            ProcessStartInfo psi = new()
+                            {
+                                FileName = "BlazorServerSignalRApp.exe",
+                                Arguments = $"\"{AppData.SignalRIPv4}\" \"{AppData.SignalRPort}\" \"{AppData.SignalRHub}\"",
+                                CreateNoWindow = true
+                            };
+                            AppData.SignalRServerProcess = Process.Start(psi);
+
+                            //AppData.SignalRServerProcess = Process.Start("BlazorServerSignalRApp.exe", new string[3] { AppData.SignalRIPv4, AppData.SignalRPort.ToString(), AppData.SignalRHub });
                         });
-                        AppData.SignalRServerProcess = Process.GetProcessesByName("BlazorServerSignalRApp")[0];
+
+                        //await Task.Delay(100);
+
+                        //IntPtr procHandler = Utiles.FindWindow(null, AppData.WindowTitle);
+                        //Utiles.SetForegroundWindow(procHandler);
+
+                        //if (AppData.SignalRServerProcess is not null)
+                        //    Utiles.ShowWindow(Utiles.GetActiveWindow(), 2); // 2=mini , 3=maxi
+
+                        //await Task.Run(() =>
+                        //{
+                        //    Utiles.ShowWindow(Utiles.GetActiveWindow(), 2); // 2=mini , 3=maxi
+                        //});
+
 
                         if (AppData.SignalRServerProcess is not null && AppData.SignalRServerProcess.ProcessName is "BlazorServerSignalRApp")
                         {
@@ -165,8 +186,19 @@ namespace DataBaseTools.ViewModels
                     if (string.IsNullOrEmpty(AppData.SignalRChatText))
                         AppData.SignalRChatText = $"=== SignalR 채팅을 시작합니다. ==={Environment.NewLine}";
 
-                    if (App.Data.SignalRMode is SignalRMode.Server)
-                        Utiles.ShowWindow(AppData.SignalRServerProcess!.MainWindowHandle, 2); // 2=mini , 3=maxi
+
+                    //await Task.Delay(100);
+
+                    //IntPtr procHandler = Utiles.FindWindow(null, AppData.WindowTitle);
+                    //Utiles.SetForegroundWindow(procHandler);
+
+                    //if (AppData.SignalRServerProcess is not null)
+                    //    Utiles.ShowWindow(Utiles.GetActiveWindow(), 2); // 2=mini , 3=maxi
+
+                    //await Task.Run(() =>
+                    //{
+                    //    Utiles.ShowWindow(Utiles.GetActiveWindow(), 2); // 2=mini , 3=maxi
+                    //});
                 }
                 else
                     MessageBox.Show("서버 연결에 실패하였습니다.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

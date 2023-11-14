@@ -25,7 +25,7 @@ namespace DataBaseTools.Services
         }
 
         [DllImport("User32", EntryPoint = "FindWindow")]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
         public static extern void SetForegroundWindow(IntPtr hWnd);

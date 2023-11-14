@@ -17,7 +17,7 @@
     TextOptions.TextRenderingMode="Auto"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    Title="{Binding WindowTitle}"
+    Title="{Binding AppData.WindowTitle}"
     Height="700" Width="900">
 
     <Grid

@@ -23,9 +23,6 @@ namespace DataBaseTools.ViewModels
         [ObservableProperty]
         private AppData _appData = App.Data;
 
-        public string WindowTitle { get; } = $"이연준의 DB Tool - {ConfigurationManager.AppSettings["Version"]}({ConfigurationManager.AppSettings["LastUpdateDate"]})";
-
-
         public WindowMainViewModel()
         { }
 
