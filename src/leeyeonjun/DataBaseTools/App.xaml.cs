@@ -39,20 +39,10 @@ namespace DataBaseTools
             // Views
             builder.Services.AddSingleton<WindowMain>();
             builder.Services.AddTransient<WindowSub>();
-            builder.Services.AddTransient<MongoDbView>();
-            builder.Services.AddTransient<FireBaseView>();
-            builder.Services.AddTransient<SeojungriOracleView>();
-            builder.Services.AddTransient<SQLiteView>();
-            builder.Services.AddTransient<SftpView>();
 
             // ViewModels
             builder.Services.AddSingleton<WindowMainViewModel>();
             builder.Services.AddTransient<WindowSubViewModel>();
-            builder.Services.AddTransient<MongoDbViewModel>();
-            builder.Services.AddTransient<FireBaseViewModel>();
-            builder.Services.AddTransient<SeojungriOracleViewModel>();
-            builder.Services.AddTransient<SQLiteViewModel>();
-            builder.Services.AddTransient<SftpViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>
@@ -70,9 +60,7 @@ namespace DataBaseTools
 
         public App()
         {
-
-            IServiceProvider serviceProvider = ConfigureServices();
-            Ioc.Default.ConfigureServices(serviceProvider);
+            Ioc.Default.ConfigureServices(ConfigureServices());
 
             logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
             viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;

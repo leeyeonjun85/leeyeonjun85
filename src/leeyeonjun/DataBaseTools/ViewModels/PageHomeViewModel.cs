@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
@@ -65,24 +64,6 @@ namespace DataBaseTools.ViewModels
         private void BtnTest1(ViewModelBase? obj)
         {
             AppData.String1 = AppData.String2;
-        }
-
-        [RelayCommand]
-        private void MongoDb(ViewModelBase? obj)
-        {
-            App.viewService.ShowView<MongoDbView, MongoDbViewModel>();
-        }
-
-        [RelayCommand]
-        private void FireBase(ViewModelBase? obj)
-        {
-            App.viewService.ShowView<FireBaseView, FireBaseViewModel>();
-        }
-
-        [RelayCommand]
-        private void SeojungriOracle(ViewModelBase? obj)
-        {
-            App.viewService.ShowView<SeojungriOracleView, SeojungriOracleViewModel>(AppData);
         }
 
         [RelayCommand]
