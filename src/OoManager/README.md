@@ -20,5 +20,7 @@ Install-Package Newtonsoft.Json
 
 
 
+https://learn.microsoft.com/ko-kr/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-7.0&tabs=visual-studio
+
 
 

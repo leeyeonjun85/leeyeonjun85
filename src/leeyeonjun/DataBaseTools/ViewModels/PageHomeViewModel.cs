@@ -85,8 +85,6 @@ namespace DataBaseTools.ViewModels
                     bool resultDataBaseConnect = _resultDataBaseConnect.Result;
                 });
 
-
-
                 if (resultDataBaseConnect)
                 {
                     AppData.StatusBar1 = "Status : Oracle Connected";

@@ -1,12 +1,10 @@
-using BlazorServerSignalRApp.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.ResponseCompression;
-using BlazorServerSignalRApp.Server.Hubs;
 using System.Net.Sockets;
 using System.Net;
+using Microsoft.AspNetCore.ResponseCompression;
+using OoManager.Server.Data;
+using OoManager.Server.Hubs;
 
-namespace BlazorServerSignalRApp
+namespace OoManager.Server
 {
     public class Program
     {
