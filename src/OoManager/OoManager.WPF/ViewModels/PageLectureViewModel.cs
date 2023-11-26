@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
@@ -10,7 +11,9 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using Firebase.Database;
 using Firebase.Database.Query;
 using Newtonsoft.Json.Linq;
+using OoManager.Common.Models;
 using OoManager.WPF.Models;
+using OoManager.WPF.Services;
 using OoManager.WPF.Views;
 
 namespace OoManager.WPF.ViewModels
@@ -22,6 +25,7 @@ namespace OoManager.WPF.ViewModels
 
         [ObservableProperty]
         private string _a11 = "aaaa";
+
 
         public PageLectureViewModel()
         {
@@ -63,40 +67,38 @@ namespace OoManager.WPF.ViewModels
         }
 
         [RelayCommand]
-        private void XpUpdate(object obj)
+        private void XpUpdate(DataGrid dataGrid)
         {
-            if (AppData.SelectedMember is not null)
+            if (dataGrid is not null)
             {
+                AppData.MemberData = ((LessonData)dataGrid.SelectedItem).Member;
+
                 ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowXpUpdateViewModel))!;
                 Window view = (Window)Ioc.Default.GetService(typeof(WindowXpUpdate))!;
                 viewModel.SetWindow(view);
-                if (viewModel is IParameterReceiver parameterReceiver)
-                {
-                    parameterReceiver.ReceiveParameter(AppData);
-                }
                 view.DataContext = viewModel;
                 view.Show();
-            };
+            }
         }
 
         [RelayCommand]
-        private async Task BonusAsync(object obj)
+        private async Task BonusAsync(DataGrid dataGrid)
         {
-            if (AppData.SelectedMember is not null)
+            if (dataGrid is not null)
             {
-                //MessageBoxResult messageBoxResult = MessageBox.Show(
-                //    $"정말로 '{AppData.SelectedMember.Member.member_name}' 에게 보너스 5xp?{Environment.NewLine}{AppData.SelectedMember.Member.member_xp} + 5 = {AppData.SelectedMember.Member.member_xp+5}",
-                //    $"{AppData.SelectedMember.Member.member_name}' 보너스",
-                //    MessageBoxButton.OKCancel,
-                //    MessageBoxImage.Warning);
-                //if (messageBoxResult == MessageBoxResult.OK)
-                //{
-                //    AppData.MemberData = AppData.SelectedMember;
-                //    AppData.MemberData.Member.member_xp_log += $"{Environment.NewLine}{DateTime.Now:yyyy-MM-dd HH:mm:ss} / 보너스 +5 / {AppData.MemberData.Member.member_xp}+5={AppData.MemberData.Member.member_xp+5}";
-                //    AppData.MemberData.Member.member_xp += 5;
+                MessageBoxResult messageBoxResult = MessageBox.Show(
+                    $"정말로 '{((LessonData)dataGrid.SelectedItem).Member.name}' 에게 보너스 5xp?{Environment.NewLine}{((LessonData)dataGrid.SelectedItem).Member.xp} + 5 = {((LessonData)dataGrid.SelectedItem).Member.xp + 5}",
+                    $"{((LessonData)dataGrid.SelectedItem).Member.name}' 보너스",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Warning);
+                if (messageBoxResult == MessageBoxResult.OK)
+                {
+                    AppData.MemberData = ((LessonData)dataGrid.SelectedItem).Member;
+                    AppData.MemberData.xpLog += $"{Environment.NewLine}{DateTime.Now:yyyy-MM-dd HH:mm:ss} / 보너스 +5 / {((LessonData)dataGrid.SelectedItem).Member.xp} + 5 = {((LessonData)dataGrid.SelectedItem).Member.xp + 5}";
+                    AppData.MemberData.xp += 5;
 
-                //    await AppData.OoService!.UpdateMemberAsync(AppData);
-                //}
+                    await Utiles.UpdateMemberAsync(AppData);
+                }
             };
         }
 

@@ -24,7 +24,7 @@ namespace OoManager.WPF.ViewModels
         [RelayCommand]
         private async Task BtnRefreshClickAsync(object obj)
         {
-            await Utiles.RefreshOoDbAsync(AppData);
+            await Utiles.RefreshOoDbAsync();
         }
 
 
@@ -42,7 +42,7 @@ namespace OoManager.WPF.ViewModels
         }
 
         [RelayCommand]
-        private void BtnDeleteMemberClick(object obj)
+        private async Task BtnDeleteMemberClickAsync(object obj)
         {
             if (AppData.SelectedMember is not null)
             {
@@ -53,8 +53,8 @@ namespace OoManager.WPF.ViewModels
                     MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.OK)
                 {
-                    AppData.OoDbContext!.members.Remove(AppData.SelectedMember);
-                    AppData.OoDbContext!.SaveChanges();
+                    await Utiles.DeleteMemberAsync(AppData.SelectedMember);
+                    await Utiles.RefreshOoDbAsync();
                 }
             };
         }

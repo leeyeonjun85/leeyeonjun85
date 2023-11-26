@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.Common;
@@ -20,58 +21,28 @@ namespace OoManager.WPF.ViewModels
         public string dirDataBase { get; set; } = string.Empty;
         public string WindowTitle { get; set; } = string.Empty;
         [ObservableProperty]
-        private ObservableCollection<NavigationItem> _navigationList = new() {
-            new(
-                name: "Home",
-                title: "오투공부방 관리 시스템",
-                selectedIcon: PackIconKind.Home,
-                unselectedIcon: PackIconKind.HomeOutline,
-                source: "/Views/PageHome.xaml",
-                isEnabled: true
-            ),
-            new(
-                name: "Members",
-                title: "회원 관리",
-                selectedIcon: PackIconKind.Users,
-                unselectedIcon: PackIconKind.UsersOutline,
-                source: "/Views/PageMembers.xaml",
-                isEnabled: true
-            ),
-            new(
-                name: "Lectures",
-                title: "수업 관리",
-                selectedIcon: PackIconKind.CalendarMultipleCheck,
-                unselectedIcon: PackIconKind.CalendarCheck,
-                source: "/Views/PageLecture.xaml",
-                isEnabled: true
-            )
-        };
+        private ObservableCollection<NavigationItem> _navigationList = new();
 
         [ObservableProperty]
         private NavigationItem? _selectedPage;
         [ObservableProperty]
-        private int _selectedPageIndex;
+        private int _selectedIndex;
 
-        [ObservableProperty]
-        private Visibility _pageHomeVisibility = Visibility.Visible;
-        [ObservableProperty]
-        private Visibility _pageMembersVisibility = Visibility.Hidden;
-        [ObservableProperty]
-        private Visibility _pageLectureVisibility = Visibility.Hidden;
 
         // SQLite
         [ObservableProperty]
-        private bool _ooDbIsConnected = false;
+        private bool _isOoDbConnected = false;
+        [ObservableProperty]
+        private string _ooDbConnectionString = string.Empty;
         public OoDbContext? OoDbContext { get; set; }
         public DbConnection? OoDbConnection { get; set; }
         public DbCommand? OoDbCommand { get; set; }
         public DbDataReader? OoDbDataReader { get; set; }
 
+
         // SignalR
         [ObservableProperty]
         private bool _isSignalRConnected = false;
-        [ObservableProperty]
-        private bool _noSignalRConnected = true;
         public HubConnection? HubConn { get; set; }
         public string SignalRIPv4 { get; set; } = string.Empty;
         public int SignalRPort { get; set; }
@@ -80,6 +51,7 @@ namespace OoManager.WPF.ViewModels
         [ObservableProperty]
         private string _signalRAddress = string.Empty;
         public Process? SignalRServerProcess { get; set; }
+
 
         // Page Home
         [ObservableProperty]
@@ -123,17 +95,8 @@ namespace OoManager.WPF.ViewModels
 
         // Page Lessons
         [ObservableProperty]
-        private ObservableCollection<ModelLessons> _lessonList = new();
-        [ObservableProperty]
         private ObservableCollection<LessonData> _lessonDataList = new();
-
-        [ObservableProperty]
-        private ObservableCollection<LectureData> _lecturesTotal = new();
-        [ObservableProperty]
-        private Dictionary<string, int> _lecturesTotalDict = new();
-        [ObservableProperty]
-        private LectureData _lectureData = new();
-
+        public LessonData? LessonData { get; set; }
         [ObservableProperty]
         private List<string> _lectureHeaderList = new();
 
@@ -151,7 +114,5 @@ namespace OoManager.WPF.ViewModels
         private string _lectureHeader6 = string.Empty;
         [ObservableProperty]
         private string _lectureHeader7 = string.Empty;
-
-
     }
 }

@@ -20,7 +20,7 @@
         Title="{Binding AppModel.WindowTitle}"
         Height="800" Width="1200">
 
-    <Grid>
+    <Grid x:Name="gridMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -51,6 +51,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid
+            x:Name="gridTitle"
             Grid.Row="0" Grid.Column="1"
             Grid.ColumnSpan="11"
             Grid.RowSpan="1"
@@ -58,11 +59,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock
+                Margin="30 5 5 5"
                 FontSize="34"
                 VerticalAlignment="Center"
                 d:Text="Test Page"
@@ -72,6 +72,7 @@
         </Grid>
 
         <Grid
+            x:Name="gridLeftMenu"
             Grid.Row="0" Grid.Column="0"
             Grid.ColumnSpan="1" Grid.RowSpan="12">
             <Grid.RowDefinitions>
@@ -82,9 +83,22 @@
             <!--<ToggleButton
                 Margin="0,32,0,0"
                 Style="{StaticResource MaterialDesignHamburgerToggleButton}" />-->
+
             <Button
                 Height="56"
                 Margin="10 50 10 10"
+                materialDesign:ButtonAssist.CornerRadius="16"
+                BorderThickness="0"
+                materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding AppData.IsOoDbConnected}"
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding AppData.IsOoDbConnected}"
+                Content="D.B."
+                Command="{Binding BtnConnectDataBaseCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Content}"
+                Grid.Row="0" Grid.Column="0"/>
+
+            <Button
+                Height="56"
+                Margin="10"
                 materialDesign:ButtonAssist.CornerRadius="16"
                 BorderThickness="0"
                 materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding AppData.IsSignalRConnected}"
@@ -93,8 +107,9 @@
                 Command="{Binding BtnConnectServerCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource self}}"
                 Grid.Row="1" Grid.Column="0"/>
+
             <ListBox
-                Grid.Row="2"
+                Grid.Row="3"
                 Margin="0 50"
                 d:ItemsSource="{d:SampleData ItemCount=4}"
                 ItemsSource="{Binding AppData.NavigationList}"
@@ -118,21 +133,21 @@
                             Value="{Binding UnselectedIcon}" />
                         <Setter
                             Property="IsEnabled"
-                            Value="{Binding IsAbled}"/>
+                            Value="{Binding IsEnabled}"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type Models:NavigationItem}">
                         <TextBlock
                             TextAlignment="Center"
-                            Text="{Binding Title}" />
+                            Text="{Binding Name}" />
                     </DataTemplate>
                 </ListBox.Resources>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
                             Command="{Binding SelectionChangedCommand}"
-                            CommandParameter="{Binding AppData.SelectedPage}"/>
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListBox>

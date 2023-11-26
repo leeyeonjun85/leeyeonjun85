@@ -26,4 +26,18 @@
         public const string Attention = "보류";
         public const string Cancel = "퇴회";
     }
+
+    public static class PagesIndex
+    {
+        public const int Home = 0;
+        public const int Members = 1;
+        public const int Lectures = 2;
+    }
+
+    public static class PagesName
+    {
+        public const string Home = "Home";
+        public const string Members = "Members";
+        public const string Lectures = "Lectures";
+    }
 }

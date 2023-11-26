@@ -36,9 +36,10 @@ namespace OoManager.Common.Models
 
     public class ModelLessons
     {
-        public int id { get; set; }
+        public string id { get; set; } = string.Empty;
         public DateTime dateTimeStart { get; set; }
         public DateTime dateTimeEnd { get; set; }
+
         public string lessonTopic { get; set; } = string.Empty;
         public string assignment { get; set; } = string.Empty;
         public string lessonMemo { get; set; } = string.Empty;

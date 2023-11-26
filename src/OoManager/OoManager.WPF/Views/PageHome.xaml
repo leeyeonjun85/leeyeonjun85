@@ -71,8 +71,8 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.FireBaseState}"/>
+                            materialDesign:HintAssist.Hint="데이터베이스를 연결해 주세요."
+                            Text="{Binding AppData.OoDbConnectionString}" />
                     </DockPanel>
                 </Border>
 
@@ -85,70 +85,13 @@
                         <Label 
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Content="Selected Page :"/>
+                            Content="서버 상태 :"/>
                         <TextBox
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.SelectedPage.Title}"/>
-                    </DockPanel>
-                </Border>
-
-                <Border
-                    Grid.Row="2"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="Source :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.SelectedPage.Title}"/>
-                    </DockPanel>
-                </Border>
-
-                <Border
-                    Grid.Row="3"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="임시3 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.MembersTotalString}"/>
-                    </DockPanel>
-                </Border>
-
-                <Border
-                    Grid.Row="4"
-                    BorderBrush="#aaaaaa"
-                    BorderThickness="0 0 0 0">
-                    <DockPanel
-                        HorizontalAlignment="Stretch">
-                        <Label 
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Content="임시4 :"/>
-                        <TextBox
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            TextAlignment="Center"
-                            d:Text="5"
-                            Text="{Binding AppData.MembersTotalString}"/>
+                            materialDesign:HintAssist.Hint="서버를 실행해 주세요."
+                            Text="{Binding AppData.SignalRAddress}"/>
                     </DockPanel>
                 </Border>
 
@@ -173,7 +116,7 @@
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>

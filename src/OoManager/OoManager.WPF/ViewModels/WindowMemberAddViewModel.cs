@@ -31,9 +31,8 @@ namespace OoManager.WPF.ViewModels
         {
             if (!string.IsNullOrEmpty(AddMember.name))
             {
-                await AppData.OoDbContext!.members.AddAsync(AddMember);
-                AppData.OoDbContext!.SaveChanges();
-
+                await Utiles.AddMemberAsync(AddMember);
+                await Utiles.RefreshOoDbAsync();
                 Window?.Close();
             }
             else MessageBox.Show("회원등록하려면 이름은 꼭 써야해!!");

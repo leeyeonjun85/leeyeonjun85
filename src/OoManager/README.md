@@ -18,7 +18,8 @@ Install-Package Newtonsoft.Json
 
 ## 프로그램 설명
 
-
+lecture 에서 해당 수업 삭제
+NgNG_YAMVBRbFo91Z4H
 
 https://learn.microsoft.com/ko-kr/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-7.0&tabs=visual-studio
 

@@ -19,17 +19,11 @@ namespace OoManager.WPF.ViewModels
         #region 바인딩 멤버
         [ObservableProperty]
         private AppData _appData = new();
-        [ObservableProperty]
-        private MemberData _selectedMember = new();
+
         [ObservableProperty]
         private string _windowTitle = string.Empty;
 
-        [ObservableProperty]
-        private ObservableCollection<LectureData> _lectures = new();
-        [ObservableProperty]
-        private Dictionary<string, int> _lecturesDict = new();
-        [ObservableProperty]
-        private LectureData _lectureData = new();
+
 
         [ObservableProperty]
         private string _lectureGridTitle = "수업 정보";
@@ -68,18 +62,18 @@ namespace OoManager.WPF.ViewModels
         {
             await Task.Run(() =>
             {
-                LectureGridZIndex = 10;
-                LectureGridVisibility = Visibility.Visible;
-                BtnLectureOkAddVisibility = Visibility.Visible;
-                BtnLectureOkUpdateVisibility = Visibility.Hidden;
-                LectureGridTitle = $"{SelectedMember.Member.member_name} 수업 추가하기";
+                //LectureGridZIndex = 10;
+                //LectureGridVisibility = Visibility.Visible;
+                //BtnLectureOkAddVisibility = Visibility.Visible;
+                //BtnLectureOkUpdateVisibility = Visibility.Hidden;
+                //LectureGridTitle = $"{SelectedMember.Member.member_name} 수업 추가하기";
 
-                LectureDate = DateTime.Now.ToString("yyyy-MM-dd");
-                LectureTimeIn = DateTime.Now.AddMinutes(-90).ToString("HH:mm");
-                LectureTimeOut = DateTime.Now.ToString("HH:mm");
-                LectureLecture = $"{SelectedMember.Member.member_name}의 수업내용";
-                LectureHomework = $"{SelectedMember.Member.member_name}의 숙제";
-                LectureMemo = $"온 시간 {LectureTimeIn}, 간 시간 {LectureTimeOut}";
+                //LectureDate = DateTime.Now.ToString("yyyy-MM-dd");
+                //LectureTimeIn = DateTime.Now.AddMinutes(-90).ToString("HH:mm");
+                //LectureTimeOut = DateTime.Now.ToString("HH:mm");
+                //LectureLecture = $"{SelectedMember.Member.member_name}의 수업내용";
+                //LectureHomework = $"{SelectedMember.Member.member_name}의 숙제";
+                //LectureMemo = $"온 시간 {LectureTimeIn}, 간 시간 {LectureTimeOut}";
             });
         }
 
@@ -90,29 +84,29 @@ namespace OoManager.WPF.ViewModels
             LectureGridVisibility = Visibility.Hidden;
 
             // Lecture 객체 생성
-            Lecture _lecture = new()
-            {
-                mid = SelectedMember.Member.mid,
-                o2_class_date = LectureDate,
-                o2_class_homework = LectureHomework,
-                o2_class_lecture = LectureLecture,
-                o2_class_memo = LectureMemo,
-                o2_class_time_in = LectureTimeIn,
-                o2_class_time_out = LectureTimeOut,
-            };
+            //Lecture _lecture = new()
+            //{
+            //    mid = SelectedMember.Member.mid,
+            //    o2_class_date = LectureDate,
+            //    o2_class_homework = LectureHomework,
+            //    o2_class_lecture = LectureLecture,
+            //    o2_class_memo = LectureMemo,
+            //    o2_class_time_in = LectureTimeIn,
+            //    o2_class_time_out = LectureTimeOut,
+            //};
 
             // LectureData 객체 생성
-            LectureData _lectureData = new()
-            {
-                Key = string.Empty,
-                Lecture = _lecture,
-                o2_class_date = _lecture.o2_class_date,
-                o2_class_homework = _lecture.o2_class_homework,
-                o2_class_lecture = _lecture.o2_class_lecture,
-                o2_class_memo = _lecture.o2_class_memo,
-                o2_class_time_in = _lecture.o2_class_time_in,
-                o2_class_time_out = _lecture.o2_class_time_out,
-            };
+            //LectureData _lectureData = new()
+            //{
+            //    Key = string.Empty,
+            //    Lecture = _lecture,
+            //    o2_class_date = _lecture.o2_class_date,
+            //    o2_class_homework = _lecture.o2_class_homework,
+            //    o2_class_lecture = _lecture.o2_class_lecture,
+            //    o2_class_memo = _lecture.o2_class_memo,
+            //    o2_class_time_in = _lecture.o2_class_time_in,
+            //    o2_class_time_out = _lecture.o2_class_time_out,
+            //};
 
             // 데이터베이스에 추가
             //Task<FirebaseObject<Lecture>> returnLecture = AppData.FirebaseDB
@@ -123,7 +117,7 @@ namespace OoManager.WPF.ViewModels
             //_lectureData.Key = returnLecture.Result.Key;
 
             // 화면에 추가
-            Lectures.Add(_lectureData);
+            //Lectures.Add(_lectureData);
         }
 
         [RelayCommand]
@@ -136,27 +130,27 @@ namespace OoManager.WPF.ViewModels
             });
         }
 
-        [RelayCommand]
-        private async Task BtnUpdateAsync(LectureData _lectureData)
-        {
-            LectureData = _lectureData;
+        //[RelayCommand]
+        //private async Task BtnUpdateAsync(LectureData _lectureData)
+        //{
+        //    LectureData = _lectureData;
 
-            await Task.Run(() =>
-            {
-                LectureGridZIndex = 10;
-                LectureGridVisibility = Visibility.Visible;
-                BtnLectureOkAddVisibility = Visibility.Hidden;
-                BtnLectureOkUpdateVisibility = Visibility.Visible;
-                LectureGridTitle = $"{SelectedMember.Member.member_name} 수업 수정하기";
+        //    await Task.Run(() =>
+        //    {
+        //        LectureGridZIndex = 10;
+        //        LectureGridVisibility = Visibility.Visible;
+        //        BtnLectureOkAddVisibility = Visibility.Hidden;
+        //        BtnLectureOkUpdateVisibility = Visibility.Visible;
+        //        LectureGridTitle = $"{SelectedMember.Member.member_name} 수업 수정하기";
 
-                LectureDate = LectureData.o2_class_date;
-                LectureTimeIn = LectureData.Lecture.o2_class_time_in;
-                LectureTimeOut = LectureData.Lecture.o2_class_time_out;
-                LectureLecture = LectureData.Lecture.o2_class_lecture;
-                LectureHomework = LectureData.Lecture.o2_class_homework;
-                LectureMemo = LectureData.Lecture.o2_class_memo;
-            });
-        }
+        //        LectureDate = LectureData.o2_class_date;
+        //        LectureTimeIn = LectureData.Lecture.o2_class_time_in;
+        //        LectureTimeOut = LectureData.Lecture.o2_class_time_out;
+        //        LectureLecture = LectureData.Lecture.o2_class_lecture;
+        //        LectureHomework = LectureData.Lecture.o2_class_homework;
+        //        LectureMemo = LectureData.Lecture.o2_class_memo;
+        //    });
+        //}
 
         [RelayCommand]
         private async Task BtnLectureOkUpdateAsync(object obj)
@@ -165,25 +159,25 @@ namespace OoManager.WPF.ViewModels
             LectureGridVisibility = Visibility.Hidden;
 
             // Lecture 객체 생성
-            Lecture _lecture = new()
-            {
-                mid = SelectedMember.Member.mid,
-                o2_class_date = LectureDate,
-                o2_class_homework = LectureHomework,
-                o2_class_lecture = LectureLecture,
-                o2_class_memo = LectureMemo,
-                o2_class_time_in = LectureTimeIn,
-                o2_class_time_out = LectureTimeOut,
-            };
+            //Lecture _lecture = new()
+            //{
+            //    mid = SelectedMember.Member.mid,
+            //    o2_class_date = LectureDate,
+            //    o2_class_homework = LectureHomework,
+            //    o2_class_lecture = LectureLecture,
+            //    o2_class_memo = LectureMemo,
+            //    o2_class_time_in = LectureTimeIn,
+            //    o2_class_time_out = LectureTimeOut,
+            //};
 
             // LectureData 객체 생성
-            LectureData.Lecture = _lecture;
-            LectureData.o2_class_date = LectureDate;
-            LectureData.o2_class_homework = LectureHomework;
-            LectureData.o2_class_lecture = LectureLecture;
-            LectureData.o2_class_memo = LectureMemo;
-            LectureData.o2_class_time_in = LectureTimeIn;
-            LectureData.o2_class_time_out = LectureTimeOut;
+            //LectureData.Lecture = _lecture;
+            //LectureData.o2_class_date = LectureDate;
+            //LectureData.o2_class_homework = LectureHomework;
+            //LectureData.o2_class_lecture = LectureLecture;
+            //LectureData.o2_class_memo = LectureMemo;
+            //LectureData.o2_class_time_in = LectureTimeIn;
+            //LectureData.o2_class_time_out = LectureTimeOut;
 
             // 데이터베이스에서 수정
             //await AppData.FirebaseDB
@@ -193,36 +187,36 @@ namespace OoManager.WPF.ViewModels
             //    .PutAsync(LectureData.Lecture);
 
             // 화면에서 수정
-            ObservableCollection<LectureData> _tempLectures = new();
-            foreach (LectureData _lectureData in Lectures)
-                _tempLectures.Add(_lectureData);
-            Lectures.Clear();
-            foreach (LectureData _lectureData in _tempLectures)
-                Lectures.Add(_lectureData);
+            //ObservableCollection<LectureData> _tempLectures = new();
+            //foreach (LectureData _lectureData in Lectures)
+            //    _tempLectures.Add(_lectureData);
+            //Lectures.Clear();
+            //foreach (LectureData _lectureData in _tempLectures)
+            //    Lectures.Add(_lectureData);
 
-            LectureData = new();
+            //LectureData = new();
         }
 
-        [RelayCommand]
-        private async Task BtnDeleteAsync(LectureData _lectureData)
-        {
-            // 데이터베이스에 수업 삭제
-            MessageBoxResult messageBoxResult = MessageBox.Show(
-                $"정말로 '{SelectedMember.Member.member_name}'의 '{_lectureData.o2_class_date}' 수업을 삭제하시겠습니까?{Environment.NewLine}(삭제하면 복구할 수 없습니다.)",
-                "삭제 확인",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Warning);
-            if (messageBoxResult == MessageBoxResult.OK)
-            {
-                //await AppData.FirebaseDB!
-                //    .Child("lecture")
-                //    .Child(_lectureData.o2_class_date)
-                //    .Child(_lectureData.Key)
-                //    .DeleteAsync();
-                // 화면에서 삭제
-                Lectures.Remove(_lectureData);
-            }
-        }
+        //[RelayCommand]
+        //private async Task BtnDeleteAsync(LectureData _lectureData)
+        //{
+        //    // 데이터베이스에 수업 삭제
+        //    MessageBoxResult messageBoxResult = MessageBox.Show(
+        //        $"정말로 '{SelectedMember.Member.member_name}'의 '{_lectureData.o2_class_date}' 수업을 삭제하시겠습니까?{Environment.NewLine}(삭제하면 복구할 수 없습니다.)",
+        //        "삭제 확인",
+        //        MessageBoxButton.OKCancel,
+        //        MessageBoxImage.Warning);
+        //    if (messageBoxResult == MessageBoxResult.OK)
+        //    {
+        //        //await AppData.FirebaseDB!
+        //        //    .Child("lecture")
+        //        //    .Child(_lectureData.o2_class_date)
+        //        //    .Child(_lectureData.Key)
+        //        //    .DeleteAsync();
+        //        // 화면에서 삭제
+        //        Lectures.Remove(_lectureData);
+        //    }
+        //}
 
 
 
@@ -253,19 +247,19 @@ namespace OoManager.WPF.ViewModels
                 if (AppData.SelectedMember is not null)
                 {
                     //SelectedMember = AppData.SelectedMember;
-                    WindowTitle = $"{SelectedMember.Member.member_name} 수업 관리";
+                    //WindowTitle = $"{SelectedMember.Member.member_name} 수업 관리";
 
-                    if (SelectedMember.Lectures.Count > 0)
-                    {
-                        int _idx = 0;
-                        foreach (LectureData _lectureData in SelectedMember.Lectures)
-                        {
-                            Lectures.Add(_lectureData);
-                            LecturesDict[_lectureData.Key] = _idx;
-                            _idx++;
-                        }
+                    //if (SelectedMember.Lectures.Count > 0)
+                    //{
+                    //    int _idx = 0;
+                    //    foreach (LectureData _lectureData in SelectedMember.Lectures)
+                    //    {
+                    //        Lectures.Add(_lectureData);
+                    //        LecturesDict[_lectureData.Key] = _idx;
+                    //        _idx++;
+                    //    }
 
-                    }
+                    //}
 
                 }
 

@@ -102,6 +102,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             AutoGenerateColumns="False"
             CanUserAddRows="False"
+            RowHeight="30"
             SelectedItem="{Binding AppData.SelectedMember}"
             d:ItemsSource="{d:SampleData ItemCount=20}"
             ItemsSource="{Binding AppData.MemberList}">

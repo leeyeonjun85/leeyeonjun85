@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using OoManager.WPF.Services;
 
 namespace OoManager.WPF.ViewModels
 {
@@ -21,9 +22,9 @@ namespace OoManager.WPF.ViewModels
 
 
         [RelayCommand]
-        private async Task BtnTest1Async(object obj)
+        private void BtnTest1(object obj)
         {
-
+            Utiles.InitSQLiteDataBase();
         }
 
 

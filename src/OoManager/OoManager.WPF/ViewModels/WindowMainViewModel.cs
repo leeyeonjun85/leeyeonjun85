@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -36,34 +37,74 @@ namespace OoManager.WPF.ViewModels
         }
 
         [RelayCommand]
-        private async Task SelectionChangedAsync(object obj)
+        private async Task SelectionChangedAsync(ListBox listBox)
         {
-            if (obj is NavigationItem navigationItem)
+            if (listBox is ListBox)
             {
-                switch (navigationItem.Name)
+                AppData.SelectedPage = listBox.SelectedItem as NavigationItem;
+                AppData.SelectedIndex = listBox.SelectedIndex;
+
+                switch (listBox.SelectedIndex)
                 {
-                    case "Home":
+                    case PagesIndex.Home:
                         {
-                            await Utiles.OpenPageHomeAsync(AppData);
-                            break;
+                            await Utiles.OpenPageHomeAsync(AppData); break;
                         }
-                    case "Members":
+                    case PagesIndex.Members:
                         {
-                            await Utiles.OpenPageMembersAsync(AppData);
-                            break;
+                            await Utiles.OpenPageMembersAsync(AppData); break;
                         }
-                    case "Lectures":
+                    case PagesIndex.Lectures:
                         {
-                            await Utiles.OpenPageLectureAsync(AppData);
-                            break;
+                            await Utiles.OpenPageLectureAsync(AppData); break;
                         }
 
-                    default: throw new Exception();
+                    default: break;
                 }
 
                 WeakReferenceMessenger.Default.Send(new ValueChangedMessage<AppData>(AppData));
             }
-            else throw new Exception();
+            else 
+            {
+                //throw new Exception();
+            }
+            
+        }
+
+        [RelayCommand]
+        private async Task BtnConnectDataBaseAsync(Grid gridMain)
+        {
+            if (gridMain is null) return;
+
+            if (AppData.IsOoDbConnected)
+            {
+                Utiles.DisposeSQLite();
+                Utiles.TurnNaviButton(gridMain, PagesName.Members, false);
+                Utiles.TurnNaviButton(gridMain, PagesName.Lectures, false);
+                await Utiles.RefreshNaviItemsAsync();
+            }
+            else
+            {
+                await Utiles.GetSQLiteAsync();
+                Utiles.TurnNaviButton(gridMain, PagesName.Members, true);
+                Utiles.TurnNaviButton(gridMain, PagesName.Lectures, true);
+                await Utiles.RefreshNaviItemsAsync();
+            }
+        }
+
+        [RelayCommand]
+        private async Task BtnConnectServerAsync(object obj)
+        {
+            if (obj is null) return;
+
+            if (AppData.IsSignalRConnected)
+            {
+                Utiles.DisposeSignalR();
+            }
+            else
+            {
+                await Utiles.GetSignalRAsync();
+            }
         }
 
         protected async override void OnWindowLoaded(object sender, RoutedEventArgs e)
@@ -77,27 +118,15 @@ namespace OoManager.WPF.ViewModels
             theme.SetSecondaryColor(accentColor);
             paletteHelper.SetTheme(theme);
 
-            // Init OoDb
-            await Utiles.GetOoDbAsync(AppData);
+            // Init NaviItems
+            await Utiles.RefreshNaviItemsAsync();
 
             // Open PageHome
             await Utiles.OpenPageHomeAsync(AppData);
 
             // SignalR Address
-            if (string.IsNullOrEmpty(AppData.SignalRAddress))
-            {
-                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (IPAddress iPAddress in host.AddressList)
-                {
-                    if (iPAddress.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        AppData.SignalRIPv4 = iPAddress.ToString();
-                    }
-                }
-                AppData.SignalRPort = 6714;
-                AppData.SignalRHub = "chathub";
-                AppData.SignalRAddress = $"https://{AppData.SignalRIPv4}:{AppData.SignalRPort}/{AppData.SignalRHub}";
-            }
+            //await Utiles.GetSignalRAddressAsync();
+            //await Utiles.RefreshOoDbAsync();
 
             if (sender is WindowMain windowMain)
             {
@@ -117,39 +146,14 @@ namespace OoManager.WPF.ViewModels
                 //}
             }
 
-
             App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
         }
 
-        [RelayCommand]
-        private async Task BtnConnectServerAsync(object obj)
+        protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            AppData.SignalRIPv4 = AppData.SignalRAddress[AppData.SignalRAddress.IndexOf("//")..AppData.SignalRAddress.LastIndexOf(":")][2..];
-            AppData.SignalRPort = Convert.ToInt32(AppData.SignalRAddress[AppData.SignalRAddress.LastIndexOf(":")..AppData.SignalRAddress.LastIndexOf("/")][1..]);
-            AppData.SignalRHub = AppData.SignalRAddress[AppData.SignalRAddress.LastIndexOf($":{AppData.SignalRPort}/")..][$":{AppData.SignalRPort}/".Length..];
-            AppData.SignalRAddress = $"https://{App.Data.SignalRIPv4}:{App.Data.SignalRPort}/{App.Data.SignalRHub}";
-
-            await Task.Run(() =>
-            {
-                ProcessStartInfo psi = new()
-                {
-                    FileName = "OoManager.Server.exe",
-                    Arguments = $"\"{AppData.SignalRIPv4}\" \"{AppData.SignalRPort}\" \"{AppData.SignalRHub}\"",
-                    CreateNoWindow = true
-                };
-                AppData.SignalRServerProcess = Process.Start(psi);
-
-                AppData.IsSignalRConnected = true;
-                AppData.NoSignalRConnected = false;
-
-                //AppData.SignalRServerProcess = Process.Start("BlazorServerSignalRApp.exe", new string[3] { AppData.SignalRIPv4, AppData.SignalRPort.ToString(), AppData.SignalRHub });
-            });
-        }
-
-        protected override async void OnWindowClosing(object? sender, CancelEventArgs e)
-        {
-            await Utiles.DisposeAllAsync();
-
+            Utiles.DisposeAll();
+            App.Data.OoDbContext?.Dispose();
+            App.Data.OoDbContext = null;
             App.LOGGER!.LogInformation("프로그램이 종료되었습니다.");
         }
     }

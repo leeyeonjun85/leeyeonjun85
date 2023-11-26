@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using OoManager.Common.Models;
 using OoManager.WPF.Models;
+using OoManager.WPF.Services;
 
 namespace OoManager.WPF.ViewModels
 {
@@ -12,24 +14,16 @@ namespace OoManager.WPF.ViewModels
     {
         #region 바인딩 멤버
         [ObservableProperty]
-        private AppData _appData = new();
+        private AppData _appData = App.Data;
 
-        [ObservableProperty]
-        private string _gradeString = "중1";
-        [ObservableProperty]
-        private string _name = string.Empty;
-        [ObservableProperty]
-        private int _xp = 10;
-        [ObservableProperty]
-        private string _memo = $"회원등록 : {DateTime.Now:yyyy-MM-dd}";
-        [ObservableProperty]
-        private string _xpMemo = string.Empty;
+        int oldXp = 0;
         #endregion
 
 
         public WindowXpUpdateViewModel()
         {
             IsActive = true;
+            oldXp = AppData.MemberData.xp;
         }
 
         [RelayCommand]
@@ -37,27 +31,22 @@ namespace OoManager.WPF.ViewModels
         {
             try
             {
-                if (!string.IsNullOrEmpty(this.Name))
+                if (!string.IsNullOrEmpty(AppData.MemberData.name))
                 {
-                    //AppData.MemberData.Member.member_grade_str = GradeString;
-                    //AppData.MemberData.Member.member_grade = AppData.OoService!.ConvertGradeOld(AppData.MemberData.Member.member_grade_str);
-                    //AppData.MemberData.Member.member_name = Name;
-                    //AppData.MemberData.Member.member_text = Memo;
-                    //AppData.MemberData.Member.member_xp = Xp;
-                    //AppData.MemberData.Member.member_xp_log = XpMemo;
+                    if (oldXp != AppData.MemberData.xp)
+                    {
+                        AppData.MemberData.xpLog += $"{Environment.NewLine}{DateTime.Now:yyyy-MM-dd HH:mm:ss} {oldXp} → {AppData.MemberData.xp}";
+                    }
 
-                    //await AppData.OoService!.UpdateMemberAsync(AppData);
-
+                    await Utiles.UpdateMemberAsync(AppData);
                     Window?.Close();
                 }
                 else MessageBox.Show("이름은 꼭 있어야해!!");
             }
             catch (Exception)
             {
-
                 throw;
             }
-            
         }
 
         [RelayCommand]
