@@ -195,20 +195,21 @@ namespace OoManager.WPF.Services
         {
             if (App.Data.OoDbContext is null) return;
 
-            // Init Members
-            //await App.Data.OoDbContext.members.LoadAsync();
-            //App.Data.MemberList = App.Data.OoDbContext.members.Local.ToObservableCollection();
-
-            List<ModelMember> memberList = App.Data.OoDbContext.members
-                    .FromSql($"SELECT * FROM members")
-                    .OrderBy(b => b.id)
-                    .ToList();
-            App.Data.MemberList = new();
-            foreach (var member in memberList)
-                App.Data.MemberList.Add(member);
-
-
             // Init Lessons
+            await App.Data.OoDbContext.lessons.LoadAsync();
+            App.Data.LessonList = App.Data.OoDbContext.lessons.Local.ToObservableCollection();
+
+            // Init Members
+            await App.Data.OoDbContext.members.LoadAsync();
+            App.Data.MemberList = App.Data.OoDbContext.members.Local.ToObservableCollection();
+
+            //List<ModelMember> memberList = App.Data.OoDbContext.members
+            //        .FromSql($"SELECT * FROM members")
+            //        .OrderBy(b => b.id)
+            //        .ToList();
+            //App.Data.MemberList = new();
+            //foreach (var member in memberList)
+            //    App.Data.MemberList.Add(member);
 
             // Init Lessons
             //string sqlString = $"SELECT DISTINCT dateTimeStart ";

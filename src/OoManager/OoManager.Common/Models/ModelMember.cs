@@ -60,6 +60,6 @@ namespace OoManager.Common.Models
         public int xp { get; set; } = 10;
         public string xpLog { get; set; } = "Xp 기록";
 
-        public ICollection<ModelLessons>? ModelLessons { get; }
+        public ICollection<ModelLessons> ModelLessons { get; set; }
     }
 }

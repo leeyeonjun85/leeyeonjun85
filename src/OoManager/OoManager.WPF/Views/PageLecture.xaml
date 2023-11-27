@@ -27,7 +27,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
             <Setter Property="FontFamily" Value="{DynamicResource MaterialDesignFont}"/>
-            
+            <Setter Property="FontSize" Value="16"/>
         </Style>
     </Page.Resources>
 
@@ -118,9 +118,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn 
-                    d:Header="날짜가 들어가요"
-                    Header="{Binding LectureHeader1}">
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader1}" />
+                    </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button 
@@ -134,9 +135,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn 
-                    d:Header="날짜가 들어가요"
-                    Header="{Binding LectureHeader2}">
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader2}" />
+                    </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button 
@@ -150,13 +152,82 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn 
-                    d:Header="날짜가 들어가요"
-                    Header="{Binding LectureHeader3}">
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader3}" />
+                    </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button 
                                 Content="{Binding Lesson3.dateTimeStart}"
+                                Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                ToolTip="{Binding LectureUpdateToolTip}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LectureUpdateCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn}}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader4}" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Content="{Binding Lesson4.dateTimeStart}"
+                                Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                ToolTip="{Binding LectureUpdateToolTip}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LectureUpdateCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn}}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader5}" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Content="{Binding Lesson5.dateTimeStart}"
+                                Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                ToolTip="{Binding LectureUpdateToolTip}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LectureUpdateCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn}}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader6}" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Content="{Binding Lesson6.dateTimeStart}"
+                                Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                ToolTip="{Binding LectureUpdateToolTip}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LectureUpdateCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn}}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.AppData.LectureHeader7}" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Content="{Binding Lesson7.dateTimeStart}"
                                 Style="{StaticResource MaterialDesignFlatDarkButton}"
                                 ToolTip="{Binding LectureUpdateToolTip}"
                                 Command="{Binding RelativeSource={RelativeSource AncestorType=Page}, Path=DataContext.LectureUpdateCommand}"

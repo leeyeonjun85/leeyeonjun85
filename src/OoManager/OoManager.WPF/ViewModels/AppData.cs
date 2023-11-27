@@ -96,6 +96,8 @@ namespace OoManager.WPF.ViewModels
         // Page Lessons
         [ObservableProperty]
         private ObservableCollection<LessonData> _lessonDataList = new();
+        [ObservableProperty]
+        private ObservableCollection<ModelLessons> _lessonList = new();
         public LessonData? LessonData { get; set; }
         [ObservableProperty]
         private List<string> _lectureHeaderList = new();

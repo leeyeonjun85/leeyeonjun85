@@ -68,11 +68,16 @@ namespace OoManager.Common.Models
             //    }
             //);
 
+            //modelBuilder.Entity<ModelMember>()
+            //    .HasMany(e => e.ModelLessons)
+            //    .WithOne(e => e.ModelMember)
+            //    .HasForeignKey(e => e.memberId)
+            //    .HasPrincipalKey(e => e.id);
+
             modelBuilder.Entity<ModelMember>()
                 .HasMany(e => e.ModelLessons)
                 .WithOne(e => e.ModelMember)
-                .HasForeignKey(e => e.memberId)
-                .HasPrincipalKey(e => e.id);
+                .HasForeignKey(e => e.memberId);
         }
 
     }
