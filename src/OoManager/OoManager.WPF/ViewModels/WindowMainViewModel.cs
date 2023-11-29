@@ -146,7 +146,7 @@ namespace OoManager.WPF.ViewModels
                 //}
             }
 
-            App.LOGGER!.LogInformation("프로그램이 시작되었습니다.");
+            App.logger!.LogInformation("프로그램이 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
@@ -154,7 +154,7 @@ namespace OoManager.WPF.ViewModels
             Utiles.DisposeAll();
             App.Data.OoDbContext?.Dispose();
             App.Data.OoDbContext = null;
-            App.LOGGER!.LogInformation("프로그램이 종료되었습니다.");
+            App.logger!.LogInformation("프로그램이 종료되었습니다.");
         }
     }
 }

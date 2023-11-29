@@ -6,6 +6,8 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using DataBaseTools.Services;
+using OoManager.Common.Models;
 using OoManager.WPF.Services;
 using OoManager.WPF.Views;
 
@@ -16,9 +18,12 @@ namespace OoManager.WPF.ViewModels
         [ObservableProperty]
         private AppData _appData = App.Data;
 
+        public IViewService viewService;
+
         public PageMembersViewModel()
         {
             IsActive = true;
+            viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
         }
 
         [RelayCommand]
@@ -29,15 +34,11 @@ namespace OoManager.WPF.ViewModels
 
 
         [RelayCommand]
-        private void BtnUpdateMemberClick(object obj)
+        private void BtnUpdateMemberClick(ModelMember? member)
         {
-            if (AppData.SelectedMember is not null)
+            if (member is not null)
             {
-                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberUpdateViewModel))!;
-                Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberUpdate))!;
-                viewModel.SetWindow(view);
-                view.DataContext = viewModel;
-                view.Show();
+                viewService.ShowView<WindowMemberUpdate, WindowMemberUpdateViewModel>(member);
             };
         }
 
@@ -62,17 +63,13 @@ namespace OoManager.WPF.ViewModels
         [RelayCommand]
         private void BtnAddMemberClick(object obj)
         {
-            ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberAddViewModel))!;
-            Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberAdd))!;
-            viewModel.SetWindow(view);
-            view.DataContext = viewModel;
-            view.Show();
+            viewService.ShowView<WindowMemberAdd, WindowMemberAddViewModel>();
         }
 
 
         public void Receive(ValueChangedMessage<AppData> message)
         {
-            
+
         }
     }
 }

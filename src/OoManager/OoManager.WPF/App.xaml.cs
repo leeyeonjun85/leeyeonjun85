@@ -3,12 +3,14 @@ using System;
 using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using DataBaseTools.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OoManager.Common.Models;
+using OoManager.WPF.Services;
 using OoManager.WPF.ViewModels;
 using OoManager.WPF.Views;
 
@@ -19,15 +21,15 @@ namespace OoManager.WPF
     /// </summary>
     public partial class App : Application
     {
-        public static ILogger? LOGGER { get; set; }
+        public static ILogger? logger { get; set; }
         public static AppData Data { get; set; } = new();
         public App()
         {
             IServiceProvider serviceProvider = ConfigureServices();
             Ioc.Default.ConfigureServices(serviceProvider);
 
-            LOGGER = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
-            LOGGER!.LogInformation("프로그램이 시작되었습니다.");
+            logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
+            logger!.LogInformation("프로그램이 시작되었습니다.");
         }
 
         private static IServiceProvider ConfigureServices()
@@ -74,6 +76,8 @@ namespace OoManager.WPF
                 x.AddDebug();
             });
 
+            // Services
+            builder.Services.AddSingleton<IViewService, ViewService>();
 
             IHost host = builder.Build();
             return host.Services;
@@ -94,7 +98,7 @@ namespace OoManager.WPF
             }
             catch (Exception ex)
             {
-                LOGGER!.LogError($"Error in Show Main Window{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex}");
+                logger!.LogError($"Error in Show Main Window{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex}");
                 throw;
             }
             #endregion

@@ -69,6 +69,7 @@
                 Grid.Column="2"
                 Content="회원 수정"
                 Margin="5"
+                CommandParameter="{Binding AppData.SelectedMember}"
                 Command="{Binding BtnUpdateMemberClickCommand}"/>
             <Button
                 Grid.Column="3"

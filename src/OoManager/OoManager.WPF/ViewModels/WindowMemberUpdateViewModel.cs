@@ -5,6 +5,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using OoManager.Common.Models;
+using OoManager.WPF.Models;
 using OoManager.WPF.Services;
 
 namespace OoManager.WPF.ViewModels
@@ -22,7 +23,6 @@ namespace OoManager.WPF.ViewModels
         public WindowMemberUpdateViewModel()
         {
             IsActive = true;
-            UpdateMember = AppData.SelectedMember!;
         }
 
         [RelayCommand]
@@ -62,7 +62,10 @@ namespace OoManager.WPF.ViewModels
 
         void IParameterReceiver.ReceiveParameter(object parameter)
         {
-
+            if (parameter is ModelMember model)
+            {
+                UpdateMember = model;
+            }
         }
     }
 }

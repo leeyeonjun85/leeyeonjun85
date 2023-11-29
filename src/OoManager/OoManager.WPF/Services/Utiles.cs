@@ -265,22 +265,44 @@ namespace OoManager.WPF.Services
 
                 if (member.ModelLessons is not null)
                 {
+                    string hasCheck = "👌";
                     foreach (var lesson in member.ModelLessons)
                     {
                         if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader1)
+                        {
+                            addLessonData.CheckedInLesson1 = hasCheck;
                             addLessonData.Lesson1 = lesson;
+                        }
                         else if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader2)
+                        {
+                            addLessonData.CheckedInLesson2 = hasCheck;
                             addLessonData.Lesson2 = lesson;
+                        }
                         else if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader3)
+                            {
+                            addLessonData.CheckedInLesson3 = hasCheck;
                             addLessonData.Lesson3 = lesson;
+                        }
                         else if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader4)
+                            {
+                            addLessonData.CheckedInLesson4 = hasCheck;
                             addLessonData.Lesson4 = lesson;
+                        }
                         else if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader5)
+                            {
+                            addLessonData.CheckedInLesson5 = hasCheck;
                             addLessonData.Lesson5 = lesson;
+                        }
                         else if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader6)
+                            {
+                            addLessonData.CheckedInLesson6 = hasCheck;
                             addLessonData.Lesson6 = lesson;
+                        }
                         else if (lesson.dateTimeStart.ToString("yyyy-MM-dd") == App.Data.LectureHeader7)
+                            {
+                            addLessonData.CheckedInLesson7 = hasCheck;
                             addLessonData.Lesson7 = lesson;
+                        }
                     }
                 }
 
@@ -767,6 +789,18 @@ namespace OoManager.WPF.Services
 
                 
             }
+        }
+
+
+        public bool ActivateView<TView>() where TView : Window
+        {
+            IEnumerable<Window> windows = Application.Current.Windows.OfType<TView>();
+            if (windows.Any())
+            {
+                windows.ElementAt(0).Activate();
+                return true;
+            }
+            return false;
         }
     }
 }

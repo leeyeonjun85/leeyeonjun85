@@ -7,6 +7,14 @@ namespace OoManager.Common.Models
     {
         public ModelMember Member { get; set; } = new();
         public LessonDataToolTip? ToolTips { get; set; }
+
+        public string? CheckedInLesson1 { get; set; }
+        public string? CheckedInLesson2 { get; set; }
+        public string? CheckedInLesson3 { get; set; }
+        public string? CheckedInLesson4 { get; set; }
+        public string? CheckedInLesson5 { get; set; }
+        public string? CheckedInLesson6 { get; set; }
+        public string? CheckedInLesson7 { get; set; }
         public ModelLessons? Lesson1 { get; set; }
         public ModelLessons? Lesson2 { get; set; }
         public ModelLessons? Lesson3 { get; set; }

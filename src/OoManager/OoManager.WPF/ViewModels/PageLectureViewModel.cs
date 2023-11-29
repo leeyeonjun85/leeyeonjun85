@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,11 +7,8 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Firebase.Database;
-using Firebase.Database.Query;
-using Newtonsoft.Json.Linq;
+using DataBaseTools.Services;
 using OoManager.Common.Models;
-using OoManager.WPF.Models;
 using OoManager.WPF.Services;
 using OoManager.WPF.Views;
 
@@ -23,29 +19,26 @@ namespace OoManager.WPF.ViewModels
         [ObservableProperty]
         private AppData _appData = App.Data;
 
-        [ObservableProperty]
-        private string _a11 = "aaaa";
-
+        public IViewService viewService;
 
         public PageLectureViewModel()
         {
             IsActive = true;
+            viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
         }
 
         [RelayCommand]
-        private void MemberUpdate(object obj)
+        private async Task BtnRefreshClickAsync(object obj)
         {
-            if (AppData.SelectedMember is not null)
+            await Utiles.RefreshOoDbAsync();
+        }
+
+        [RelayCommand]
+        private void BtnUpdateMemberClick(ModelMember? member)
+        {
+            if (member is not null)
             {
-                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowMemberUpdateViewModel))!;
-                Window view = (Window)Ioc.Default.GetService(typeof(WindowMemberUpdate))!;
-                viewModel.SetWindow(view);
-                if (viewModel is IParameterReceiver parameterReceiver)
-                {
-                    parameterReceiver.ReceiveParameter(AppData);
-                }
-                view.DataContext = viewModel;
-                view.Show();
+                viewService.ShowView<WindowMemberUpdate, WindowMemberUpdateViewModel>(member);
             };
         }
 
@@ -72,12 +65,7 @@ namespace OoManager.WPF.ViewModels
             if (dataGrid is not null)
             {
                 AppData.MemberData = ((LessonData)dataGrid.SelectedItem).Member;
-
-                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(WindowXpUpdateViewModel))!;
-                Window view = (Window)Ioc.Default.GetService(typeof(WindowXpUpdate))!;
-                viewModel.SetWindow(view);
-                view.DataContext = viewModel;
-                view.Show();
+                viewService.ShowView<WindowXpUpdate, WindowXpUpdateViewModel>();
             }
         }
 
