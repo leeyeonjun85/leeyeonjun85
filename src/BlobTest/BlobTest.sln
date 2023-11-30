@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTest", "BlobTest\BlobTest.csproj", "{01451B40-24AE-45BB-87C7-43B639A3E63A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{CCDD889C-EC2C-4A97-BCDA-A14027C2F0D9}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01451B40-24AE-45BB-87C7-43B639A3E63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01451B40-24AE-45BB-87C7-43B639A3E63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01451B40-24AE-45BB-87C7-43B639A3E63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01451B40-24AE-45BB-87C7-43B639A3E63A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F1CC237-749F-4657-9FE7-CB69BBE83C94}
+	EndGlobalSection
+EndGlobal
