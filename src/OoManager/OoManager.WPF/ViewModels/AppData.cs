@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Data.Common;
 using System.Diagnostics;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Firebase.Database.Query;
-using MaterialDesignThemes.Wpf;
 using Microsoft.AspNetCore.SignalR.Client;
 using OoManager.Common.Models;
 using OoManager.WPF.Models;
@@ -55,23 +50,17 @@ namespace OoManager.WPF.ViewModels
 
         // Page Home
         [ObservableProperty]
-        private string _serverPath = string.Empty;
-
-        [ObservableProperty]
-        private string _fireBaseState = string.Empty;
-        [ObservableProperty]
         private int _membersTotal;
-        [ObservableProperty]
-        private string _membersTotalString = string.Empty;
         [ObservableProperty]
         private int _membersNormal;
         [ObservableProperty]
         private int _membersRest;
         [ObservableProperty]
-        private int _membersPutOff;
+        private int _membersAttention;
+        [ObservableProperty]
+        private int _membersCancel;
         [ObservableProperty]
         private int _membersTotalMoney;
-
 
 
         // Page Members
@@ -89,9 +78,7 @@ namespace OoManager.WPF.ViewModels
         public List<string> GradeStrings { get; set; } = new()
             { "6살", "7살", "초1", "초2", "초3", "초4", "초5", "초6", "중1", "중2", "중3", "고1", "고2", "고3" };
         public List<string> StateStrings4 { get; set; } = new()
-            { "전체", "재원", "휴원", "보류" };
-        public List<string> StateStrings3 { get; set; } = new()
-            { "재원", "휴원", "보류" };
+            { "재원", "휴원", "관심", "퇴회" };
 
         // Page Lessons
         [ObservableProperty]

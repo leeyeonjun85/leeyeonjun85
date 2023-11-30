@@ -203,6 +203,36 @@ namespace OoManager.WPF.Services
             await App.Data.OoDbContext.members.LoadAsync();
             App.Data.MemberList = App.Data.OoDbContext.members.Local.ToObservableCollection();
 
+            App.Data.MembersTotal = App.Data.MemberList.Count;
+            App.Data.MembersNormal = App.Data.MemberList
+                                        .Where(a => a.memberState == States.Normal)
+                                        .ToList().Count;
+            App.Data.MembersRest = App.Data.MemberList
+                                        .Where(a => a.memberState == States.Rest)
+                                        .ToList().Count;
+            App.Data.MembersAttention = App.Data.MemberList
+                                        .Where(a => a.memberState == States.Attention)
+                                        .ToList().Count;
+            App.Data.MembersCancel = App.Data.MemberList
+                                        .Where(a => a.memberState == States.Cancel)
+                                        .ToList().Count;
+            App.Data.MembersTotalMoney = App.Data.MemberList
+                                        .Where(a => a.memberState == States.Normal)
+                                        .Select(a => a.money)
+                                        .ToList().Sum();
+
+
+            // Init Lessons
+            //string sqlString = $"SELECT DISTINCT dateTimeStart ";
+            //sqlString += $"FROM lessons ";
+            //sqlString += $"WHERE dateTimeStart > {DateTime.Now.AddDays(-15)} ";
+            //FormattableString sql = $"{sqlString}";
+            //var recentLessonsDates = App.Data.OoDbContext.lessons
+            //                                    .FromSql(sql)
+            //                                    .ToList();
+
+
+            // Init Members
             //List<ModelMember> memberList = App.Data.OoDbContext.members
             //        .FromSql($"SELECT * FROM members")
             //        .OrderBy(b => b.id)
@@ -210,16 +240,6 @@ namespace OoManager.WPF.Services
             //App.Data.MemberList = new();
             //foreach (var member in memberList)
             //    App.Data.MemberList.Add(member);
-
-            // Init Lessons
-            //string sqlString = $"SELECT DISTINCT dateTimeStart ";
-            //sqlString += $"FROM lessons ";
-            //sqlString += $"WHERE dateTimeStart > {DateTime.Now.AddDays(-15)} ";
-            //FormattableString sql = $"{sqlString}";
-
-            //var recentLessonsDates = App.Data.OoDbContext.lessons
-            //                                    .FromSql(sql)
-            //                                    .ToList();
 
 
             List<string> recentLessonsDates = App.Data.OoDbContext.lessons

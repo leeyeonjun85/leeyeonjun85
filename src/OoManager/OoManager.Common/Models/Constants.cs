@@ -23,7 +23,7 @@
     {
         public const string Normal = "재원";
         public const string Rest = "휴원";
-        public const string Attention = "보류";
+        public const string Attention = "관심";
         public const string Cancel = "퇴회";
     }
 

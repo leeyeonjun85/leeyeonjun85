@@ -63,7 +63,7 @@
             Margin="5 0"
             HorizontalContentAlignment="Center"
             materialDesign:HintAssist.Hint="재원"
-            ItemsSource="{Binding AppData.StateStrings3}"
+            ItemsSource="{Binding AppData.StateStrings4}"
             SelectedValue="{Binding UpdateMember.memberState}"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="0" Grid.Column="5"/>

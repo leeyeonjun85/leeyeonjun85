@@ -42,7 +42,7 @@
         <GroupBox
             Grid.Row="0" Grid.Column="0"
             Grid.ColumnSpan="3"
-            Grid.RowSpan="5"
+            Grid.RowSpan="6"
             Margin="5"
             Padding="10 5"
             Header="프로그램 정보">   
@@ -94,14 +94,38 @@
                             Text="{Binding AppData.SignalRAddress}"/>
                     </DockPanel>
                 </Border>
+                
+                <!--<Grid
+                    Grid.RowSpan="1" Grid.ColumnSpan="6"
+                    Grid.Row="5" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
+                    <TextBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        Text="{Binding AppData.SignalRAddress}"
+                        Grid.RowSpan="1" Grid.ColumnSpan="3"
+                        Grid.Row="0" Grid.Column="0"/>
+
+                    <Button 
+                        Margin="10 0"
+                        Content="버튼1"
+                        Command="{Binding BtnTest1Command}"
+                        Grid.Row="0" Grid.Column="3"/>
+                </Grid>-->
             </Grid>
         </GroupBox>
 
         <GroupBox
             Grid.Row="0" Grid.Column="3"
             Grid.ColumnSpan="3"
-            Grid.RowSpan="5"
+            Grid.RowSpan="6"
             Margin="5"
             Padding="10 5"
             Header="회원 현황">
@@ -141,7 +165,7 @@
                     Content="명"
                     Grid.Row="0" Grid.Column="2"/>
 
-                
+
                 <Label 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -162,7 +186,7 @@
                     Content="명"
                     Grid.Row="1" Grid.Column="2"/>
 
-                
+
                 <Label 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -183,19 +207,19 @@
                     Content="명"
                     Grid.Row="2" Grid.Column="2"/>
 
-                
+
                 <Label 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     FontSize="14"
-                    Content="보류 :"
+                    Content="관심 :"
                     Grid.Row="3" Grid.Column="0"/>
                 <TextBox
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     TextAlignment="Center"
                     d:Text="5"
-                    Text="{Binding AppData.MembersPutOff}"
+                    Text="{Binding AppData.MembersAttention}"
                     Grid.Row="3" Grid.Column="1"/>
                 <Label 
                     HorizontalAlignment="Center"
@@ -204,19 +228,18 @@
                     Content="명"
                     Grid.Row="3" Grid.Column="2"/>
 
-
                 <Label 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     FontSize="14"
-                    Content="재원 회비 합계 :"
+                    Content="퇴회 :"
                     Grid.Row="4" Grid.Column="0"/>
                 <TextBox
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     TextAlignment="Center"
                     d:Text="5"
-                    Text="{Binding AppData.MembersTotalMoney}"
+                    Text="{Binding AppData.MembersCancel}"
                     Grid.Row="4" Grid.Column="1"/>
                 <Label 
                     HorizontalAlignment="Center"
@@ -225,34 +248,27 @@
                     Content="원"
                     Grid.Row="4" Grid.Column="2"/>
 
+                <Label 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="재원 회비 합계 :"
+                    Grid.Row="5" Grid.Column="0"/>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    d:Text="5"
+                    Text="{Binding AppData.MembersTotalMoney}"
+                    Grid.Row="5" Grid.Column="1"/>
+                <Label 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Content="원"
+                    Grid.Row="5" Grid.Column="2"/>
+
             </Grid>
         </GroupBox>
-
-
-        <Grid
-            Grid.RowSpan="1" Grid.ColumnSpan="6"
-            Grid.Row="5" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBox
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                TextAlignment="Center"
-                Text="{Binding AppData.SignalRAddress}"
-                Grid.RowSpan="1" Grid.ColumnSpan="3"
-                Grid.Row="0" Grid.Column="0"/>
-
-            <Button 
-                Margin="10 0"
-                Content="버튼1"
-                Command="{Binding BtnTest1Command}"
-                Grid.Row="0" Grid.Column="3"/>      
-        </Grid>
-
     </Grid>
 </Page>
