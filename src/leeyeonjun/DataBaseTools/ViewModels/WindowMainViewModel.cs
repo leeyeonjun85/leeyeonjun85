@@ -1,8 +1,5 @@
 ﻿#pragma warning disable CA2254 // 템플릿은 정적 표현식이어야 합니다.
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Configuration;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +10,6 @@ using DataBaseTools.Models;
 using DataBaseTools.Services;
 using DataBaseTools.Views;
 using MaterialDesignThemes.Wpf;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace DataBaseTools.ViewModels
