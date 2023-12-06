@@ -1,10 +1,8 @@
-using BlazorServerSignalRApp.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.ResponseCompression;
-using BlazorServerSignalRApp.Server.Hubs;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
+using BlazorServerSignalRApp.Data;
+using BlazorServerSignalRApp.Server.Hubs;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace BlazorServerSignalRApp
 {
