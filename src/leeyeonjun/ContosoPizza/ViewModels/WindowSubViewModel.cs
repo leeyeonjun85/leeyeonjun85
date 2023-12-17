@@ -6,6 +6,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.Logging;
 using ContosoPizza.Models;
+using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContosoPizza.ViewModels
 {
@@ -14,32 +16,35 @@ namespace ContosoPizza.ViewModels
         private PizzaContext? _context { get; set; }
         [ObservableProperty]
         private AppData _appData = App.Data;
+
         [ObservableProperty]
-        private SubData _subData = new();
-        [ObservableProperty]
-        private string _statusBar1 = "Ready";
-        [ObservableProperty]
-        private string _statusBar2 = "Meassage";
-        [ObservableProperty]
-        private bool _progressBarIsIndeterminate = false;
-        [ObservableProperty]
-        private int _statusBarProgressBar = 80;
+        private ObservableCollection<Sauce> _itemsSourceSauce = new();
 
         public WindowSubViewModel()
         {
         }
 
+        public ObservableCollection<Sauce> GetAllSauce(PizzaContext context)
+        {
+            ObservableCollection<Sauce> returnData = new();
+
+            context.Sauces
+                    .AsNoTracking()
+                    .ToList()
+                    .ForEach(x => { returnData.Add(x); });
+
+            return returnData;
+        }
 
         [RelayCommand]
         private void BtnOkClick(object? obj)
         {
-            SubData _subData = new()
+            Pizza pizza = new()
             {
-                Name = SubData.Name,
-                Old = SubData.Old,
+                
             };
 
-            ValueChangedMessage<SubData> message = new(_subData);
+            ValueChangedMessage<Pizza> message = new(pizza);
             WeakReferenceMessenger.Default.Send(message);
             Window?.Close();
         }
@@ -63,6 +68,7 @@ namespace ContosoPizza.ViewModels
             if (parameter is PizzaContext context)
             {
                 _context = context;
+                ItemsSourceSauce = GetAllSauce(_context);
             }
         }
     }

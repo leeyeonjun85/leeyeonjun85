@@ -36,6 +36,8 @@
         <DataGrid
             AutoGenerateColumns="False"
             CanUserAddRows="False"
+            Background="White"
+            d:ItemsSource="{d:SampleData ItemCount=5}"
             ItemsSource="{Binding ItemsSourcePizza}"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="0" Grid.Column="0">
@@ -47,7 +49,7 @@
                     IsReadOnly="True"/>
                 <DataGridTextColumn 
                     Binding="{Binding Name}" 
-                    Header="이름" 
+                    Header="Name" 
                     Width="5*"
                     IsReadOnly="True"/>
             </DataGrid.Columns>
