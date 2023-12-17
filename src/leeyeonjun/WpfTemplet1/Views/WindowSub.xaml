@@ -1,0 +1,148 @@
+﻿<Window x:Class="WpfTemplet1.Views.WindowSub"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTemplet1.Views"
+        mc:Ignorable="d"
+        Title="WindowSub"
+        FontSize="20"
+        Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Receive Parameter"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="0" Grid.Column="0">
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Label
+                    Margin="10 0"
+                    d:Content="이름"
+                    Content="{Binding SubData.Name}"
+                    VerticalAlignment="Center"
+                    Grid.ColumnSpan="1"
+                    Grid.Row="1" Grid.Column="1" />
+                <TextBlock
+                    Margin="10 0"
+                    d:Text="나이"
+                    Text="{Binding SubData.Old}"
+                    VerticalAlignment="Center"
+                    Grid.ColumnSpan="1"
+                    Grid.Row="1" Grid.Column="1" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Receive Parameter"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="1" Grid.Column="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Content="To Main Message : "
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Margin="10 0"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1" Grid.Column="0" />
+
+                <TextBox
+                    d:Text="메시지 입력"
+                    Text="{Binding SubData.Message}"
+                    Margin="10 0"
+                    VerticalAlignment="Center"
+                    Grid.ColumnSpan="4"
+                    Grid.Row="1" Grid.Column="1" />
+            </Grid>
+        </GroupBox>
+
+        
+
+        <Grid
+            Margin="10 5"
+            Grid.RowSpan="1" Grid.ColumnSpan="6"
+            Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Grid.Row="1" Grid.Column="0"
+                Margin="10 3"
+                Content="OK" 
+                Command="{Binding BtnOkClickCommand}"/>
+            <Button 
+                Grid.Row="1" Grid.Column="1"
+                Margin="10 3"
+                Content="Cancel" 
+                Command="{Binding BtnCancelClickCommand}"/>
+        </Grid>
+
+
+
+        <StatusBar
+            Grid.Row="99" Grid.Column="0"
+            Grid.RowSpan="1" Grid.ColumnSpan="6">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem>
+                <TextBlock
+                    d:Text="Ready"
+                    Text="{Binding StatusBar1}" />
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock
+                    d:Text="Meassage"
+                    Text="{Binding StatusBar2}" />
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4">
+                <ProgressBar
+                    Width="140" Height="20" 
+                    IsIndeterminate="{Binding ProgressBarIsIndeterminate}" 
+                    Value="{Binding StatusBarProgressBar}" />
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
