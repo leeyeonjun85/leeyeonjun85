@@ -13,11 +13,10 @@ namespace ContosoPizza.Services
         {
             try
             {
-                ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(TViewModel))!;
-                Window view = (Window)Ioc.Default.GetService(typeof(TView))!;
-
                 if (ActivateView<TView>())
                 {
+                    ViewModelBase viewModel = (ViewModelBase)Ioc.Default.GetService(typeof(TViewModel))!;
+                    Window view = (Window)Ioc.Default.GetService(typeof(TView))!;
                     viewModel.SetWindow(view);
 
                     if (parameter != null && viewModel is IParameterReceiver parameterReceiver)
@@ -42,9 +41,9 @@ namespace ContosoPizza.Services
             if (windows.Any())
             {
                 windows.ElementAt(0).Activate();
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

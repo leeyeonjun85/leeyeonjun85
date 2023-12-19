@@ -25,8 +25,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -88,7 +88,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction
-                                Command="{Binding SelectionChangedCommand}" 
+                                Command="{Binding SelectionChangedSauceCommand}" 
                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItem}"
                                 PassEventArgsToCommand="True" />
                         </i:EventTrigger>
@@ -130,7 +130,7 @@
                     AutoGenerateColumns="False"
                     Background="White"
                     d:ItemsSource="{d:SampleData ItemCount=5}"
-                    ItemsSource="{Binding ItemsSourceSauce}"
+                    ItemsSource="{Binding ItemsSourceTopping}"
                     Grid.RowSpan="1" Grid.ColumnSpan="2"
                     Grid.Row="0" Grid.Column="0">
                     <DataGrid.Columns>
@@ -154,22 +154,22 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction
-                                Command="{Binding SelectionChangedCommand}" 
-                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItem}"
+                                Command="{Binding SelectionChangedToppingCommand}" 
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
 
                 <Button 
-                    Margin="10 3"
+                    Margin="0 3 5 3"
                     Content="Save" 
-                    Command="{Binding BtnOkClickCommand}"
+                    Command="{Binding BtnToppingSaveClickCommand}"
                     Grid.Row="1" Grid.Column="0" />
                 <Button 
-                    Margin="10 3"
+                    Margin="5 3 0 3"
                     Content="Delete" 
-                    Command="{Binding BtnOkClickCommand}"
+                    Command="{Binding BtnToppingDeleteClickCommand}"
                     Grid.Row="1" Grid.Column="1" />
             </Grid>
 
@@ -182,24 +182,47 @@
             Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
+            <DockPanel
+                VerticalAlignment="Center"
+                Grid.Row="0" Grid.Column="0">
+                <Label Content="Name : "/>
+                <TextBox 
+                    VerticalAlignment="Center"
+                    d:Text="Sample Text"
+                    Text="{Binding NewPizzaName}"/>
+            </DockPanel>
+
+            <Label
+                VerticalAlignment="Center"
+                d:Content="Sauce : "
+                Content="{Binding SelectedSauceName}"
+                Grid.Row="0" Grid.Column="1" />
+
+            <TextBlock
+                Grid.ColumnSpan="2"
+                d:Text="Toppings : "
+                Text="{Binding SelectedToppingsName}"
+                Grid.Row="1" Grid.Column="0" />
 
             <Button 
                 Margin="10 3"
                 Content="OK" 
                 Command="{Binding BtnOkClickCommand}"
-                Grid.Row="1" Grid.Column="0" />
+                Grid.Row="0" Grid.Column="2" />
             <Button 
                 Margin="10 3"
                 Content="Cancel" 
                 Command="{Binding BtnCancelClickCommand}"
-                Grid.Row="1" Grid.Column="1" />
+                Grid.Row="1" Grid.Column="2" />
         </Grid>
-
 
 
     </Grid>

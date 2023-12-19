@@ -32,74 +32,114 @@
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
 
-
-        <DataGrid
-            AutoGenerateColumns="False"
-            CanUserAddRows="False"
-            Background="White"
-            d:ItemsSource="{d:SampleData ItemCount=5}"
-            ItemsSource="{Binding ItemsSourcePizza}"
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="All Pizza List"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="0" Grid.Column="0">
-            <DataGrid.Columns>
-                <DataGridTextColumn 
-                    Binding="{Binding Id}" 
-                    Header="Id" 
-                    Width="2*"
-                    IsReadOnly="True"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Name}" 
-                    Header="Name" 
-                    Width="5*"
-                    IsReadOnly="True"/>
-            </DataGrid.Columns>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction
-                        Command="{Binding SelectionChangedCommand}" 
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItem}"
-                        PassEventArgsToCommand="True" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </DataGrid>
 
-        <Grid
+            <DataGrid
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                Background="White"
+                d:ItemsSource="{d:SampleData ItemCount=5}"
+                ItemsSource="{Binding AllPizza}"
+                SelectedItem="{Binding SelectedPizza}"
+                Grid.RowSpan="1" Grid.ColumnSpan="1"
+                Grid.Row="0" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Binding="{Binding Id}" 
+                        Header="Id" 
+                        Width="2*"
+                        IsReadOnly="True"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Name}" 
+                        Header="Name" 
+                        Width="5*"
+                        IsReadOnly="True"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+                            Command="{Binding SelectionChangedCommand}" 
+                            CommandParameter="{Binding ElementName=ToppingsWrapPanel}"
+                            PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </GroupBox>
+
+
+        <GroupBox
+            Margin="5 3"
+            Padding="5"
+            Header="Selected Pizza"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="0" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
+            <Grid
+                Grid.RowSpan="1" Grid.ColumnSpan="1"
+                Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
 
-            <Label
-                Margin="10 0"
-                d:Content="Pizza Name"
-                Content="{Binding PizzaName}"
-                VerticalAlignment="Center"
-                Grid.ColumnSpan="1"
-                Grid.Row="0" Grid.Column="1" />
+                <DockPanel
+                    VerticalAlignment="Center"
+                    Grid.Row="0" Grid.Column="0">
+                    <Label Content="Name : "/>
+                    <TextBox 
+                        Margin="0 0 10 0"
+                        VerticalAlignment="Center"
+                        d:Text="Sample Text"
+                        Text="{Binding SelectedPizzaName}"/>
+                </DockPanel>
 
-            <Label
-                Margin="10 0"
-                d:Content="Sauce"
-                Content="{Binding PizzaSauce}"
-                VerticalAlignment="Center"
-                Grid.ColumnSpan="1"
-                Grid.Row="1" Grid.Column="1" />
+                <DockPanel
+                    VerticalAlignment="Center"
+                    Grid.Row="1" Grid.Column="0">
+                    <Label Content="Sauce : "/>
+                    <ComboBox 
+                        Margin="0 0 10 0"
+                        SelectedValue="{Binding SelectedPizzaSauceName}"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding AllSauceString}" />
+                </DockPanel>
 
-            <Label
-                Margin="10 0"
-                d:Content="Toppings"
-                Content="{Binding PizzaToppings}"
-                VerticalAlignment="Center"
-                Grid.ColumnSpan="1"
-                Grid.Row="2" Grid.Column="1" />
-        </Grid>
+                <GroupBox
+                    Margin="5 3"
+                    Padding="5"
+                    Header="Toppings"
+                    Grid.RowSpan="1" Grid.ColumnSpan="1"
+                    Grid.Row="2" Grid.Column="0">
+
+                    <WrapPanel
+                        x:Name="ToppingsWrapPanel"
+                        Grid.Row="2" Grid.Column="0">
+                        <CheckBox 
+                            Margin="10 5"
+                            VerticalContentAlignment="Center"
+                            IsChecked="True"
+                            Content="Sample1" />
+                        <CheckBox 
+                            Margin="10 5"
+                            VerticalContentAlignment="Center"
+                            IsChecked="True"
+                            Content="Sample2" />
+                    </WrapPanel>
+
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+
+        
 
         <Grid
             Grid.RowSpan="1" Grid.ColumnSpan="2"

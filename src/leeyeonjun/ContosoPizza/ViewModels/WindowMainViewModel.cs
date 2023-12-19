@@ -5,24 +5,36 @@ using System.Windows;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using ContosoPizza.Models;
 using ContosoPizza.Views;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Documents;
+using System.Xml.Linq;
 
 namespace ContosoPizza.ViewModels
 {
-    public partial class WindowMainViewModel : ViewModelBase
+    public partial class WindowMainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<Pizza>>
     {
         [ObservableProperty]
         private string _connectionString = string.Empty;
         [ObservableProperty]
-        private ObservableCollection<Pizza> _itemsSourcePizza = new();
+        private ObservableCollection<Pizza> _allPizza = new();
+        private List<Sauce> AllSauce { get; set; } = new();
         [ObservableProperty]
-        private string? _pizzaName;
+        private ObservableCollection<string> _allSauceString = new();
+        private List<Topping> AllTopping { get; set; } = new();
         [ObservableProperty]
-        private string? _pizzaSauce;
+        private Pizza? _selectedPizza;
         [ObservableProperty]
-        private string? _pizzaToppings;
+        private Sauce? _selectedPizzaSauce;
+        [ObservableProperty]
+        private string? _selectedPizzaName;
+        [ObservableProperty]
+        private string? _selectedPizzaSauceName;
+        [ObservableProperty]
+        private string? _selectedPizzaToppings;
 
         private PizzaContext _context { get; set; }
         private DbConnection? _conn { get; set; }
@@ -32,6 +44,7 @@ namespace ContosoPizza.ViewModels
 
         public WindowMainViewModel(PizzaContext context)
         {
+            IsActive = true;
             _context = context;
         }
 
@@ -42,22 +55,28 @@ namespace ContosoPizza.ViewModels
         }
 
         [RelayCommand]
-        private void SelectionChanged(Pizza? selectedPizza)
+        private void SelectionChanged(WrapPanel? wrapPanel)
         {
-            if (selectedPizza is not null)
+            if (wrapPanel is not null && SelectedPizza is not null)
             {
-                selectedPizza = GetById(selectedPizza.Id);
+                Pizza? selectedPizza = GetById(SelectedPizza.Id);
                 if (selectedPizza is not null)
                 {
-                    PizzaName = $"Pizza Name : {selectedPizza.Name}";
-                    PizzaSauce = $"Sauce Name : {selectedPizza.Sauce?.Name}";
-                    if (selectedPizza.Toppings is not null && selectedPizza.Toppings.Count > 0)
+                    wrapPanel.Children.Clear();
+                    SelectedPizzaName = $"{selectedPizza.Name}";
+                    SelectedPizzaSauceName = $"{selectedPizza.Sauce?.Name}";
+                    foreach (Topping topping in AllTopping)
                     {
-                        PizzaToppings = $"Toppiongs{Environment.NewLine}";
-                        selectedPizza.Toppings
-                            .ToList()
-                            .ForEach(x => { PizzaToppings += $"{x.Name}, "; });
-                        PizzaToppings = PizzaToppings[..^2];
+                        if (selectedPizza.Toppings.Contains<Topping>(topping))
+                        {
+                            wrapPanel.Children.Add(new CheckBox()
+                            {
+                                Margin = new Thickness(10, 5, 10, 5),
+                                Content = $"{topping.Name}({topping.Calories}cal)",
+                                IsChecked = true,
+                                VerticalContentAlignment = VerticalAlignment.Center
+                            });
+                        }
                     }
                 }
             }
@@ -137,6 +156,11 @@ namespace ContosoPizza.ViewModels
             return returnData;
         }
 
+        public void Receive(ValueChangedMessage<Pizza> newPizza)
+        {
+            Create(newPizza.Value);
+        }
+
         public void Initialize(PizzaContext context)
         {
 
@@ -195,6 +219,29 @@ namespace ContosoPizza.ViewModels
             context.SaveChanges();
         }
 
+        private List<Sauce> GetAllSauce(PizzaContext context)
+        {
+            List<Sauce> returnData = new();
+
+            context.Sauces
+                    .AsNoTracking()
+                    .ToList()
+                    .ForEach(x => { returnData.Add(x); });
+
+            return returnData;
+        }
+        private List<Topping> GetAllTopping(PizzaContext context)
+        {
+            List<Topping> returnData = new();
+
+            context.Toppings
+                    .AsNoTracking()
+                    .ToList()
+                    .ForEach(x => { returnData.Add(x); });
+
+            return returnData;
+        }
+
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             _context.Database.EnsureCreated();
@@ -206,7 +253,11 @@ namespace ContosoPizza.ViewModels
 
             Initialize(_context);
 
-            ItemsSourcePizza = GetAllPizza(_context);
+            AllPizza = GetAllPizza(_context);
+            AllSauce = GetAllSauce(_context);
+            AllTopping = GetAllTopping(_context);
+
+            AllSauce.ForEach(x => { AllSauceString.Add(x.Name); });
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
