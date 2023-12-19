@@ -38,7 +38,7 @@ namespace ContosoPizza.ViewModels
         [RelayCommand]
         private void BtnShowWindowSubClick(object? obj)
         {
-            App.ViewService?.ShowView<WindowSub, WindowSubViewModel>(_context);
+            App.ViewService?.ShowView<WindowNewPizza, WindowNewPizzaViewModel>(_context);
         }
 
         [RelayCommand]

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContosoPizza.ViewModels
 {
-    public partial class WindowSubViewModel : ViewModelBase, IParameterReceiver
+    public partial class WindowNewPizzaViewModel : ViewModelBase, IParameterReceiver
     {
         private PizzaContext? _context { get; set; }
         [ObservableProperty]
@@ -20,7 +20,7 @@ namespace ContosoPizza.ViewModels
         [ObservableProperty]
         private ObservableCollection<Sauce> _itemsSourceSauce = new();
 
-        public WindowSubViewModel()
+        public WindowNewPizzaViewModel()
         {
         }
 
@@ -34,6 +34,12 @@ namespace ContosoPizza.ViewModels
                     .ForEach(x => { returnData.Add(x); });
 
             return returnData;
+        }
+
+        [RelayCommand]
+        private void BtnSauceSaveClick(object? obj)
+        {
+            
         }
 
         [RelayCommand]
