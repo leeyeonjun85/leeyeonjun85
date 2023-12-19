@@ -12,29 +12,24 @@ using ContosoPizza.Views;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Documents;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace ContosoPizza.ViewModels
 {
     public partial class WindowMainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<Pizza>>
     {
         [ObservableProperty]
-        private string _connectionString = string.Empty;
+        private ObservableCollection<Pizza> _allPizza = [];
+        private List<Sauce> AllSauce { get; set; } = [];
         [ObservableProperty]
-        private ObservableCollection<Pizza> _allPizza = new();
-        private List<Sauce> AllSauce { get; set; } = new();
-        [ObservableProperty]
-        private ObservableCollection<string> _allSauceString = new();
-        private List<Topping> AllTopping { get; set; } = new();
+        private ObservableCollection<string> _allSauceString = [];
+        private List<Topping> AllTopping { get; set; } = [];
         [ObservableProperty]
         private Pizza? _selectedPizza;
-        [ObservableProperty]
-        private Sauce? _selectedPizzaSauce;
         [ObservableProperty]
         private string? _selectedPizzaName;
         [ObservableProperty]
         private string? _selectedPizzaSauceName;
-        [ObservableProperty]
-        private string? _selectedPizzaToppings;
 
         private PizzaContext _context { get; set; }
         private DbConnection? _conn { get; set; }
@@ -46,6 +41,20 @@ namespace ContosoPizza.ViewModels
         {
             IsActive = true;
             _context = context;
+        }
+
+        [RelayCommand]
+        private void BtnNewPizzaClick(string? newPizzaName)
+        {
+            if (newPizzaName is not null)
+            {
+                Pizza newPizza = new()
+                {
+                    Name = newPizzaName
+                };
+
+                Create(newPizza);
+            }
         }
 
         [RelayCommand]
@@ -65,17 +74,34 @@ namespace ContosoPizza.ViewModels
                     wrapPanel.Children.Clear();
                     SelectedPizzaName = $"{selectedPizza.Name}";
                     SelectedPizzaSauceName = $"{selectedPizza.Sauce?.Name}";
-                    foreach (Topping topping in AllTopping)
+                    if (selectedPizza.Toppings is not null)
                     {
-                        if (selectedPizza.Toppings.Contains<Topping>(topping))
+                        foreach (Topping topping in AllTopping)
                         {
-                            wrapPanel.Children.Add(new CheckBox()
+                            var findThing = selectedPizza.Toppings
+                                            .Where(x => x.Id == topping.Id)
+                                            .ToList();
+
+                            if (findThing.Count > 0)
                             {
-                                Margin = new Thickness(10, 5, 10, 5),
-                                Content = $"{topping.Name}({topping.Calories}cal)",
-                                IsChecked = true,
-                                VerticalContentAlignment = VerticalAlignment.Center
-                            });
+                                wrapPanel.Children.Add(new CheckBox()
+                                {
+                                    Margin = new Thickness(10, 5, 10, 5),
+                                    Content = $"{topping.Name}({topping.Calories}cal)",
+                                    IsChecked = true,
+                                    VerticalContentAlignment = VerticalAlignment.Center
+                                });
+                            }
+                            else
+                            {
+                                wrapPanel.Children.Add(new CheckBox()
+                                {
+                                    Margin = new Thickness(10, 5, 10, 5),
+                                    Content = $"{topping.Name}({topping.Calories}cal)",
+                                    IsChecked = false,
+                                    VerticalContentAlignment = VerticalAlignment.Center
+                                });
+                            }
                         }
                     }
                 }
@@ -84,11 +110,13 @@ namespace ContosoPizza.ViewModels
 
         public Pizza? GetById(int id)
         {
-            return _context.Pizzas
-                .Include(p => p.Toppings)
-                .Include(p => p.Sauce)
-                .AsNoTracking()
-                .SingleOrDefault(p => p.Id == id);
+            Pizza? pizza = _context.Pizzas
+                    .Include(p => p.Toppings)
+                    .Include(p => p.Sauce)
+                    .AsNoTracking()
+                    .SingleOrDefault(p => p.Id == id);
+
+            return pizza;
         }
 
         public Pizza Create(Pizza newPizza)
@@ -124,10 +152,7 @@ namespace ContosoPizza.ViewModels
                 throw new InvalidOperationException("Pizza or topping does not exist");
             }
 
-            if (pizzaToUpdate.Toppings is null)
-            {
-                pizzaToUpdate.Toppings = new List<Topping>();
-            }
+            pizzaToUpdate.Toppings ??= new List<Topping>();
 
             pizzaToUpdate.Toppings.Add(toppingToAdd);
 
@@ -146,7 +171,7 @@ namespace ContosoPizza.ViewModels
 
         public ObservableCollection<Pizza> GetAllPizza(PizzaContext context)
         {
-            ObservableCollection<Pizza> returnData = new();
+            ObservableCollection<Pizza> returnData = [];
 
             context.Pizzas
                     .AsNoTracking()
@@ -182,37 +207,37 @@ namespace ContosoPizza.ViewModels
 
             var pizzas = new Pizza[]
             {
-                new Pizza
-                    {
-                        Name = "Meat Lovers",
-                        Sauce = tomatoSauce,
-                        Toppings = new List<Topping>
-                            {
-                                pepperoniTopping,
-                                sausageTopping,
-                                hamTopping,
-                                chickenTopping
-                            }
-                    },
-                new Pizza
-                    {
-                        Name = "Hawaiian",
-                        Sauce = tomatoSauce,
-                        Toppings = new List<Topping>
-                            {
-                                pineappleTopping,
-                                hamTopping
-                            }
-                    },
-                new Pizza
-                    {
-                        Name="Alfredo Chicken",
-                        Sauce = alfredoSauce,
-                        Toppings = new List<Topping>
-                            {
-                                chickenTopping
-                            }
+                new()
+                {
+                    Name = "Meat Lovers",
+                    Sauce = tomatoSauce,
+                    Toppings = new List<Topping>
+                        {
+                            pepperoniTopping,
+                            sausageTopping,
+                            hamTopping,
+                            chickenTopping
                         }
+                },
+                new()
+                {
+                    Name = "Hawaiian",
+                    Sauce = tomatoSauce,
+                    Toppings = new List<Topping>
+                        {
+                            pineappleTopping,
+                            hamTopping
+                        }
+                },
+                new()
+                {
+                    Name="Alfredo Chicken",
+                    Sauce = alfredoSauce,
+                    Toppings = new List<Topping>
+                        {
+                            chickenTopping
+                        }
+                }
             };
 
             context.Pizzas.AddRange(pizzas);
@@ -221,7 +246,7 @@ namespace ContosoPizza.ViewModels
 
         private List<Sauce> GetAllSauce(PizzaContext context)
         {
-            List<Sauce> returnData = new();
+            List<Sauce> returnData = [];
 
             context.Sauces
                     .AsNoTracking()
@@ -232,7 +257,7 @@ namespace ContosoPizza.ViewModels
         }
         private List<Topping> GetAllTopping(PizzaContext context)
         {
-            List<Topping> returnData = new();
+            List<Topping> returnData = [];
 
             context.Toppings
                     .AsNoTracking()
@@ -257,7 +282,13 @@ namespace ContosoPizza.ViewModels
             AllSauce = GetAllSauce(_context);
             AllTopping = GetAllTopping(_context);
 
-            AllSauce.ForEach(x => { AllSauceString.Add(x.Name); });
+            AllSauce.ForEach(x => 
+            { 
+                if(x.Name is not null)
+                {
+                    AllSauceString.Add(x.Name);
+                }
+            });
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)

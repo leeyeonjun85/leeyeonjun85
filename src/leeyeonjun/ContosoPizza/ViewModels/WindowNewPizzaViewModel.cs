@@ -15,8 +15,6 @@ namespace ContosoPizza.ViewModels
     public partial class WindowNewPizzaViewModel : ViewModelBase, IParameterReceiver
     {
         private PizzaContext? _context { get; set; }
-        [ObservableProperty]
-        private AppData _appData = App.Data;
 
         [ObservableProperty]
         private ObservableCollection<Sauce> _itemsSourceSauce = new();
@@ -123,12 +121,12 @@ namespace ContosoPizza.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.Logger?.LogInformation("SubView Loaded");
+
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.Logger?.LogInformation("SubView Closing");
+
         }
 
         public void ReceiveParameter(object parameter)

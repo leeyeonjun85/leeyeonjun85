@@ -15,12 +15,8 @@ namespace ContosoPizza
     /// </summary>
     public partial class App : Application
     {
-        private static ILogger? _logger;
         private static IViewService? _viewService;
-        private static AppData _data = new();
-        public static ILogger? Logger { get => _logger; set => _logger = value; }
         public static IViewService? ViewService { get => _viewService; set => _viewService = value; }
-        public static AppData Data { get => _data; set => _data = value; }
 
         private static IServiceProvider ConfigureServices()
         {
@@ -55,7 +51,6 @@ namespace ContosoPizza
         {
             Ioc.Default.ConfigureServices(ConfigureServices());
 
-            Logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
             ViewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
         }
 
