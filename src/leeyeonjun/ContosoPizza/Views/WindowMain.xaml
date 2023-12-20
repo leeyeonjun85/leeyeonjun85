@@ -19,6 +19,11 @@
             <Setter Property="Margin" Value="10 0" />
             <Setter Property="Padding" Value="5" />
         </Style>
+
+        <Style TargetType="CheckBox">
+            <EventSetter Event="CheckBox.Checked" Handler="OnClickCheckBox" />
+            <EventSetter Event="CheckBox.Unchecked" Handler="OnClickCheckBox" />
+        </Style>
     </Window.Resources>
 
 
@@ -40,6 +45,7 @@
             Grid.Row="0" Grid.Column="0">
 
             <DataGrid
+                x:Name="AllPizzaDataGrid"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 Background="White"
@@ -98,7 +104,7 @@
                         Margin="0 0 10 0"
                         VerticalAlignment="Center"
                         d:Text="Sample Text"
-                        Text="{Binding SelectedPizzaName}"/>
+                        Text="{Binding SelectedPizzaName}" />
                 </DockPanel>
 
                 <DockPanel
@@ -107,9 +113,29 @@
                     <Label Content="Sauce : "/>
                     <ComboBox 
                         Margin="0 0 10 0"
-                        SelectedValue="{Binding SelectedPizzaSauceName}"
+                        SelectedIndex="{Binding SelectedPizzaSauceIndex}"
+                        SelectedItem="{Binding SelectedPizzaSauce}"
                         VerticalAlignment="Center"
-                        ItemsSource="{Binding AllSauceString}" />
+                        ItemsSource="{Binding AllSauce}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" (Vegan? " />
+                                    <TextBlock Text="{Binding IsVegan}" />
+                                    <TextBlock Text=")" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
+                                    Command="{Binding SelectionChangedSauceCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                    PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
                 </DockPanel>
 
                 <GroupBox
@@ -165,10 +191,26 @@
             <Button 
                 Margin="10 5" Padding="10"
                 Content="New Pizza" 
-                CommandParameter="{Binding ElementName=NewPizzaNameTextBox, Path=Text}"
+                CommandParameter="{Binding ElementName=NewPizzaNameTextBox}"
                 Command="{Binding BtnNewPizzaClickCommand}"
                 Grid.RowSpan="1" Grid.ColumnSpan="1"
                 Grid.Row="0" Grid.Column="1" />
+
+            <Button 
+                Margin="10 5" Padding="10"
+                Content="Delete Pizza" 
+                CommandParameter="{Binding ElementName=AllPizzaDataGrid}"
+                Command="{Binding BtnDeletePizzaClickCommand}"
+                Grid.RowSpan="1" Grid.ColumnSpan="1"
+                Grid.Row="1" Grid.Column="1" />
+
+            <Button 
+                Margin="10 5" Padding="10"
+                Content="Update Toppings" 
+                CommandParameter="{Binding ElementName=ToppingsWrapPanel}"
+                Command="{Binding BtnUpdateToppingsClickCommand}"
+                Grid.RowSpan="1" Grid.ColumnSpan="1"
+                Grid.Row="0" Grid.Column="2" />
         </Grid>
     </Grid>
 </Window>

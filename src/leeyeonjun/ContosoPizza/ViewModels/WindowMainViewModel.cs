@@ -19,17 +19,24 @@ namespace ContosoPizza.ViewModels
     public partial class WindowMainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<Pizza>>
     {
         [ObservableProperty]
-        private ObservableCollection<Pizza> _allPizza = [];
-        private List<Sauce> AllSauce { get; set; } = [];
+        private ObservableCollection<Pizza> _allPizza = new();
         [ObservableProperty]
-        private ObservableCollection<string> _allSauceString = [];
-        private List<Topping> AllTopping { get; set; } = [];
+        private ObservableCollection<Sauce> _allSauce = new();
+        [ObservableProperty]
+        private ObservableCollection<string> _allSauceString = new();
+        [ObservableProperty]
+        private List<Topping> _allTopping = new();
         [ObservableProperty]
         private Pizza? _selectedPizza;
         [ObservableProperty]
         private string? _selectedPizzaName;
+        
+        [ObservableProperty]
+        private Sauce? _selectedPizzaSauce;
         [ObservableProperty]
         private string? _selectedPizzaSauceName;
+        [ObservableProperty]
+        private int _selectedPizzaSauceIndex;
 
         private PizzaContext _context { get; set; }
         private DbConnection? _conn { get; set; }
@@ -44,16 +51,48 @@ namespace ContosoPizza.ViewModels
         }
 
         [RelayCommand]
-        private void BtnNewPizzaClick(string? newPizzaName)
+        private void BtnUpdateToppingsClick(WrapPanel? wrapPanel)
         {
-            if (newPizzaName is not null)
+            if (wrapPanel is not null)
+            {
+                var checkBoxs = wrapPanel.Children;
+
+                foreach (CheckBox checkBox in checkBoxs)
+                {
+                    var a2 = checkBox.Content.ToString()?.Contains("");
+                }
+
+
+                foreach (Topping topping in AllTopping)
+                {
+
+                }
+
+                    UpdateSauce(SelectedPizza.Id, SelectedPizzaSauce.Id);
+            }
+        }
+
+        [RelayCommand]
+        private void BtnNewPizzaClick(TextBox? newPizzaTextBox)
+        {
+            if (newPizzaTextBox is not null && !string.IsNullOrEmpty(newPizzaTextBox.Text))
             {
                 Pizza newPizza = new()
                 {
-                    Name = newPizzaName
+                    Name = newPizzaTextBox.Text
                 };
 
-                Create(newPizza);
+                AddNewPizza(newPizza);
+                newPizzaTextBox.Text = string.Empty;
+            }
+        }
+
+        [RelayCommand]
+        private void BtnDeletePizzaClick(DataGrid? allPizzaDataGrid)
+        {
+            if (allPizzaDataGrid is not null && allPizzaDataGrid.SelectedItem is Pizza selectedPizza)
+            {
+                DeleteById(selectedPizza.Id);
             }
         }
 
@@ -64,16 +103,31 @@ namespace ContosoPizza.ViewModels
         }
 
         [RelayCommand]
+        private void SelectionChangedSauce(ComboBox? comboBoxPizzaSauce)
+        {
+            if (SelectedPizza is not null && comboBoxPizzaSauce is not null)
+            {
+                var selectedPizzaSauce = comboBoxPizzaSauce.SelectedItem as Sauce;
+                if (selectedPizzaSauce is not null)
+                    UpdateSauce(SelectedPizza.Id, selectedPizzaSauce.Id);
+            }
+        }
+
+        [RelayCommand]
         private void SelectionChanged(WrapPanel? wrapPanel)
         {
             if (wrapPanel is not null && SelectedPizza is not null)
             {
-                Pizza? selectedPizza = GetById(SelectedPizza.Id);
+                Pizza? selectedPizza = GetById(this.SelectedPizza.Id);
                 if (selectedPizza is not null)
                 {
                     wrapPanel.Children.Clear();
                     SelectedPizzaName = $"{selectedPizza.Name}";
-                    SelectedPizzaSauceName = $"{selectedPizza.Sauce?.Name}";
+                    SelectedPizzaSauce = selectedPizza.Sauce;
+                    if (selectedPizza.Sauce is not null)
+                        SelectedPizzaSauceIndex = AllSauce.Select(x => x.Id).ToList().IndexOf(selectedPizza.Sauce.Id);
+                    else
+                        SelectedPizzaSauceIndex = -1;
                     if (selectedPizza.Toppings is not null)
                     {
                         foreach (Topping topping in AllTopping)
@@ -113,16 +167,26 @@ namespace ContosoPizza.ViewModels
             Pizza? pizza = _context.Pizzas
                     .Include(p => p.Toppings)
                     .Include(p => p.Sauce)
-                    .AsNoTracking()
                     .SingleOrDefault(p => p.Id == id);
 
             return pizza;
         }
 
-        public Pizza Create(Pizza newPizza)
+        public PizzaTopping? GetPizzaToppingById(int pizzaId, int toppingId)
+        {
+            PizzaTopping? pizzaTopping = _context.PizzaTopping
+                    .AsNoTracking()
+                    .Where(p => p.PizzaId == pizzaId)
+                    .SingleOrDefault(p => p.ToppingId == toppingId);
+
+            return pizzaTopping;
+        }
+
+        public Pizza AddNewPizza(Pizza newPizza)
         {
             _context.Pizzas.Add(newPizza);
             _context.SaveChanges();
+
 
             return newPizza;
         }
@@ -159,6 +223,18 @@ namespace ContosoPizza.ViewModels
             _context.SaveChanges();
         }
 
+        public void RemoveTopping(int pizzaId, int toppingId)
+        {
+            var pizzaToppingToRemove = GetPizzaToppingById(pizzaId, toppingId);
+
+            if (pizzaToppingToRemove is not null)
+            {
+                _context.PizzaTopping.Remove(pizzaToppingToRemove);
+                _context.SaveChanges();
+            }
+
+        }
+
         public void DeleteById(int id)
         {
             var pizzaToDelete = _context.Pizzas.Find(id);
@@ -169,21 +245,9 @@ namespace ContosoPizza.ViewModels
             }
         }
 
-        public ObservableCollection<Pizza> GetAllPizza(PizzaContext context)
-        {
-            ObservableCollection<Pizza> returnData = [];
-
-            context.Pizzas
-                    .AsNoTracking()
-                    .ToList()
-                    .ForEach(x => { returnData.Add(x); });
-
-            return returnData;
-        }
-
         public void Receive(ValueChangedMessage<Pizza> newPizza)
         {
-            Create(newPizza.Value);
+            AddNewPizza(newPizza.Value);
         }
 
         public void Initialize(PizzaContext context)
@@ -244,25 +308,43 @@ namespace ContosoPizza.ViewModels
             context.SaveChanges();
         }
 
-        private List<Sauce> GetAllSauce(PizzaContext context)
+        public ObservableCollection<Pizza> GetAllPizza(PizzaContext context)
         {
-            List<Sauce> returnData = [];
+            ObservableCollection<Pizza> returnData = new();
 
-            context.Sauces
-                    .AsNoTracking()
-                    .ToList()
-                    .ForEach(x => { returnData.Add(x); });
+            //context.Pizzas
+            //        .AsNoTracking()
+            //        .ToList()
+            //        .ForEach(x => { returnData.Add(x); });
+            context.Pizzas.Load();
+            returnData = context.Pizzas.Local.ToObservableCollection();
+
+            return returnData;
+        }
+
+        private ObservableCollection<Sauce> GetAllSauce(PizzaContext context)
+        {
+            ObservableCollection<Sauce> returnData = new();
+
+            //context.Sauces
+            //        .AsNoTracking()
+            //        .ToList()
+            //        .ForEach(x => { returnData.Add(x); });
+            context.Sauces.Load();
+            returnData = context.Sauces.Local.ToObservableCollection();
 
             return returnData;
         }
         private List<Topping> GetAllTopping(PizzaContext context)
         {
-            List<Topping> returnData = [];
+            List<Topping> returnData = new();
 
-            context.Toppings
-                    .AsNoTracking()
-                    .ToList()
-                    .ForEach(x => { returnData.Add(x); });
+            //context.Toppings
+            //        .AsNoTracking()
+            //        .ToList()
+            //        .ForEach(x => { returnData.Add(x); });
+            context.Toppings.Load();
+            returnData = context.Toppings.Local.ToList();
 
             return returnData;
         }
@@ -282,7 +364,7 @@ namespace ContosoPizza.ViewModels
             AllSauce = GetAllSauce(_context);
             AllTopping = GetAllTopping(_context);
 
-            AllSauce.ForEach(x => 
+            AllSauce.ToList().ForEach(x => 
             { 
                 if(x.Name is not null)
                 {
