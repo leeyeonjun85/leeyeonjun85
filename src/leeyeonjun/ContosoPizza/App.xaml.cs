@@ -15,8 +15,8 @@ namespace ContosoPizza
     /// </summary>
     public partial class App : Application
     {
-        private static IViewService? _viewService;
-        public static IViewService? ViewService { get => _viewService; set => _viewService = value; }
+        private IViewService? _viewService;
+        public IViewService? ViewService { get => _viewService; set => _viewService = value; }
 
         private static IServiceProvider ConfigureServices()
         {
@@ -51,14 +51,13 @@ namespace ContosoPizza
         public App()
         {
             Ioc.Default.ConfigureServices(ConfigureServices());
-
             ViewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            App.ViewService?.ShowView<WindowMain, WindowMainViewModel>();
+            ViewService?.ShowView<WindowMain, WindowMainViewModel>();
         }
     }
 

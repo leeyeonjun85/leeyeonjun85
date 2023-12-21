@@ -24,6 +24,7 @@
             <EventSetter Event="CheckBox.Checked" Handler="OnClickCheckBox" />
             <EventSetter Event="CheckBox.Unchecked" Handler="OnClickCheckBox" />
         </Style>
+
     </Window.Resources>
 
 
@@ -76,7 +77,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction
-                            Command="{Binding SelectionChangedCommand}" 
+                            Command="{Binding SelectionChangedPizzaCommand}" 
                             CommandParameter="{Binding ElementName=ToppingsWrapPanel}"
                             PassEventArgsToCommand="True" />
                     </i:EventTrigger>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.Xml.Linq;
 
 namespace ContosoPizza.Models
 {
@@ -32,17 +33,20 @@ namespace ContosoPizza.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Pizza>()
-            //    .HasMany(e => e.Toppings)
-            //    .WithMany(e => e.Pizzas)
-            //    .UsingEntity<PizzaTopping>();
-
+            // Entity Setting
             modelBuilder.Entity<Pizza>()
                 .HasMany(e => e.Toppings)
                 .WithMany(e => e.Pizzas)
                 .UsingEntity<PizzaTopping>(
                     l => l.HasOne<Topping>().WithMany().HasForeignKey(e => e.ToppingId),
                     r => r.HasOne<Pizza>().WithMany().HasForeignKey(e => e.PizzaId));
+
+            //modelBuilder.Entity<Pizza>()
+            //    .HasMany(e => e.Toppings)
+            //    .WithMany(e => e.Pizzas)
+            //    .UsingEntity<PizzaTopping>();
+
+            
 
             //modelBuilder.Entity<PizzaTopping>()
             //    .HasKey(d => new { d.PizzasId, d.ToppingsId });

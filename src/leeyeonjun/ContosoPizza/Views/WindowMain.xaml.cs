@@ -1,5 +1,8 @@
-﻿using ContosoPizza.Models;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using ContosoPizza.Models;
+using ContosoPizza.Services;
 using ContosoPizza.ViewModels;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,11 +23,12 @@ namespace ContosoPizza.Views
         {
             WindowMainViewModel? viewModel = this.DataContext as WindowMainViewModel;
             CheckBox? checkBox = sender as CheckBox;
+            IPizzaService pizzaService = (IPizzaService)Ioc.Default.GetService(typeof(IPizzaService))!;
             string? checkBoxContent = checkBox?.Content.ToString();
             Pizza? selectedPizza = viewModel?.SelectedPizza;
-            List<Topping>? allToppings = viewModel?.AllTopping;
+            ObservableCollection<Topping>? allToppings = viewModel?.AllTopping;
 
-            if (viewModel is not null 
+            if (pizzaService is not null 
                 && checkBox is not null 
                 && checkBoxContent is not null
                 && selectedPizza is not null
@@ -36,12 +40,12 @@ namespace ContosoPizza.Views
                     {
                         if ((bool)checkBox.IsChecked!)
                         {
-                            viewModel.AddTopping(selectedPizza.Id, topping.Id);
+                            pizzaService.AddPizzaTopping(selectedPizza.Id, topping.Id);
                             break;
                         }
                         else
                         {
-                            viewModel.RemoveTopping(selectedPizza.Id, topping.Id);
+                            pizzaService.RemovePizzaTopping(selectedPizza.Id, topping.Id);
                             break;
                         }
                     }
