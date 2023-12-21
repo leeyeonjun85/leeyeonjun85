@@ -70,18 +70,18 @@ namespace ContosoPizza.ViewModels
 
 
         [RelayCommand]
-        private void BtnNewPizzaClick(TextBox? newPizzaTextBox)
+        private void BtnNewPizzaClick(object? newPizzaTextBox)
         {
-            if (newPizzaTextBox is not null && !string.IsNullOrEmpty(newPizzaTextBox.Text))
-            {
-                Pizza newPizza = new()
-                {
-                    Name = newPizzaTextBox.Text
-                };
+            //if (newPizzaTextBox is not null && !string.IsNullOrEmpty(newPizzaTextBox.Text))
+            //{
+            //    Pizza newPizza = new()
+            //    {
+            //        Name = newPizzaTextBox.Text
+            //    };
 
-                _pizzaService.AddNewPizza(newPizza);
-                newPizzaTextBox.Text = string.Empty;
-            }
+            //    _pizzaService.AddNewPizza(newPizza);
+            //    newPizzaTextBox.Text = string.Empty;
+            //}
         }
 
         [RelayCommand]
