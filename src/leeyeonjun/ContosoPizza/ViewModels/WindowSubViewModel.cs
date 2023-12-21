@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace ContosoPizza.ViewModels
 {
-    public partial class WindowNewPizzaViewModel : ViewModelBase, IParameterReceiver
+    public partial class WindowSubViewModel : ViewModelBase, IParameterReceiver
     {
         private PizzaContext? _context { get; set; }
 
@@ -29,7 +29,7 @@ namespace ContosoPizza.ViewModels
         private Sauce SelectedSauce { get; set; } = new();
         private List<Topping> SelectedToppings { get; set; } = new();
 
-        public WindowNewPizzaViewModel()
+        public WindowSubViewModel()
         {
         }
 

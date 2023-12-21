@@ -3,11 +3,11 @@
 namespace ContosoPizza.Views
 {
     /// <summary>
-    /// WindowNewPizza.xaml에 대한 상호 작용 논리
+    /// WindowSub.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class WindowNewPizza : Window
+    public partial class WindowSub : Window
     {
-        public WindowNewPizza()
+        public WindowSub()
         {
             InitializeComponent();
         }

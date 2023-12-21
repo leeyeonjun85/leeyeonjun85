@@ -50,27 +50,30 @@ namespace ContosoPizza.ViewModels
             _context = context;
         }
 
+
+
+
         [RelayCommand]
-        private void BtnUpdateToppingsClick(WrapPanel? wrapPanel)
+        private void BtnMakePizzaClick(object? obj)
         {
-            if (wrapPanel is not null)
+            if (SelectedPizza is not null)
             {
-                var checkBoxs = wrapPanel.Children;
-
-                foreach (CheckBox checkBox in checkBoxs)
+                string messageContent = $"Name : {SelectedPizza.Name}{Environment.NewLine}";
+                messageContent += $"Sauce : {SelectedPizza.Sauce?.Name}{Environment.NewLine}";
+                messageContent += $"Toppings : ";
+                if (SelectedPizza.Toppings is not null) 
                 {
-                    var a2 = checkBox.Content.ToString()?.Contains("");
+                    foreach (var topping in SelectedPizza.Toppings)
+                    {
+                        messageContent += $"{topping.Name}, ";
+                    }
                 }
+                messageContent = messageContent[..^2];
 
-
-                foreach (Topping topping in AllTopping)
-                {
-
-                }
-
-                    UpdateSauce(SelectedPizza.Id, SelectedPizzaSauce.Id);
+                MessageBox.Show(messageContent, "Wow! Pizza~!");
             }
         }
+
 
         [RelayCommand]
         private void BtnNewPizzaClick(TextBox? newPizzaTextBox)
@@ -88,18 +91,18 @@ namespace ContosoPizza.ViewModels
         }
 
         [RelayCommand]
-        private void BtnDeletePizzaClick(DataGrid? allPizzaDataGrid)
+        private void DeletePizzaClick(object? obj)
         {
-            if (allPizzaDataGrid is not null && allPizzaDataGrid.SelectedItem is Pizza selectedPizza)
+            if (SelectedPizza is not null)
             {
-                DeleteById(selectedPizza.Id);
+                DeleteById(SelectedPizza.Id);
             }
         }
 
         [RelayCommand]
         private void BtnShowWindowSubClick(object? obj)
         {
-            App.ViewService?.ShowView<WindowNewPizza, WindowNewPizzaViewModel>(_context);
+            App.ViewService?.ShowView<WindowSub, WindowSubViewModel>(_context);
         }
 
         [RelayCommand]
@@ -175,7 +178,7 @@ namespace ContosoPizza.ViewModels
         public PizzaTopping? GetPizzaToppingById(int pizzaId, int toppingId)
         {
             PizzaTopping? pizzaTopping = _context.PizzaTopping
-                    .AsNoTracking()
+                    //.AsNoTracking()
                     .Where(p => p.PizzaId == pizzaId)
                     .SingleOrDefault(p => p.ToppingId == toppingId);
 

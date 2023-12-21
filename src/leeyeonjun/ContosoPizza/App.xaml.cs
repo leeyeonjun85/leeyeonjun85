@@ -24,11 +24,11 @@ namespace ContosoPizza
 
             // Views
             builder.Services.AddSingleton<WindowMain>();
-            builder.Services.AddTransient<WindowNewPizza>();
+            builder.Services.AddTransient<WindowSub>();
 
             // ViewModels
             builder.Services.AddSingleton<WindowMainViewModel>();
-            builder.Services.AddTransient<WindowNewPizzaViewModel>();
+            builder.Services.AddTransient<WindowSubViewModel>();
 
             // Logging
             builder.Services.AddLogging(x =>
