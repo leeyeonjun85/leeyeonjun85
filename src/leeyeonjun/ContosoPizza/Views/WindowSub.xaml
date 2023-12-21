@@ -25,8 +25,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -85,14 +85,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction
-                                Command="{Binding SelectionChangedSauceCommand}" 
-                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItem}"
-                                PassEventArgsToCommand="True" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                 </DataGrid>
 
                 <Button 
@@ -151,14 +143,6 @@
                             Binding="{Binding Calories}" 
                             Header="Calories" />
                     </DataGrid.Columns>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction
-                                Command="{Binding SelectionChangedToppingCommand}" 
-                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                PassEventArgsToCommand="True" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                 </DataGrid>
 
                 <Button 
@@ -175,55 +159,6 @@
 
 
         </GroupBox>
-
-        <Grid
-            Margin="5"
-            Grid.RowSpan="1" Grid.ColumnSpan="6"
-            Grid.Row="1" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <DockPanel
-                VerticalAlignment="Center"
-                Grid.Row="0" Grid.Column="0">
-                <Label Content="Name : "/>
-                <TextBox 
-                    VerticalAlignment="Center"
-                    d:Text="Sample Text"
-                    Text="{Binding NewPizzaName}"/>
-            </DockPanel>
-
-            <Label
-                VerticalAlignment="Center"
-                d:Content="Sauce : "
-                Content="{Binding SelectedSauceName}"
-                Grid.Row="0" Grid.Column="1" />
-
-            <TextBlock
-                Grid.ColumnSpan="2"
-                d:Text="Toppings : "
-                Text="{Binding SelectedToppingsName}"
-                Grid.Row="1" Grid.Column="0" />
-
-            <Button 
-                Margin="10 3"
-                Content="OK" 
-                Command="{Binding BtnOkClickCommand}"
-                Grid.Row="0" Grid.Column="2" />
-            <Button 
-                Margin="10 3"
-                Content="Cancel" 
-                Command="{Binding BtnCancelClickCommand}"
-                Grid.Row="1" Grid.Column="2" />
-        </Grid>
-
 
     </Grid>
 </Window>

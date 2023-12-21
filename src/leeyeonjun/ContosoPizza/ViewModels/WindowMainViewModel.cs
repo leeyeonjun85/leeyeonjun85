@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Windows.Documents;
 using System.Xml.Linq;
 using System.Linq;
+using ContosoPizza.Services;
 
 namespace ContosoPizza.ViewModels
 {
@@ -42,12 +43,15 @@ namespace ContosoPizza.ViewModels
         private DbConnection? _conn { get; set; }
         private DbCommand? _cmd { get; set; }
 
-
-
-        public WindowMainViewModel(PizzaContext context)
+        private IPizzaService _pizzaService { get; set; }
+        private IViewService _viewService { get; set; }
+        
+        public WindowMainViewModel(PizzaContext context, IViewService viewService, IPizzaService pizzaService)
         {
             IsActive = true;
             _context = context;
+            _viewService = viewService;
+            _pizzaService = pizzaService;
         }
 
 
@@ -363,7 +367,7 @@ namespace ContosoPizza.ViewModels
 
             Initialize(_context);
 
-            AllPizza = GetAllPizza(_context);
+            AllPizza = _pizzaService.GetAllPizza(_context);
             AllSauce = GetAllSauce(_context);
             AllTopping = GetAllTopping(_context);
 

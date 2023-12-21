@@ -39,6 +39,7 @@ namespace ContosoPizza
 
             // Services
             builder.Services.AddSingleton<IViewService, ViewService>();
+            builder.Services.AddSingleton<IPizzaService, PizzaService>();
 
             // Add SQLite Database
             builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
