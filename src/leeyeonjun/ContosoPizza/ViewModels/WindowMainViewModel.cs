@@ -15,11 +15,11 @@ namespace ContosoPizza.ViewModels
     public partial class WindowMainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<Pizza>>
     {
         [ObservableProperty]
-        private ObservableCollection<Pizza> _allPizza = new();
+        private ObservableCollection<Pizza> _allPizza = [];
         [ObservableProperty]
-        private ObservableCollection<Sauce> _allSauce = new();
+        private ObservableCollection<Sauce> _allSauce = [];
         [ObservableProperty]
-        private ObservableCollection<Topping> _allTopping = new();
+        private ObservableCollection<Topping> _allTopping = [];
 
         [ObservableProperty]
         private Pizza? _selectedPizza;

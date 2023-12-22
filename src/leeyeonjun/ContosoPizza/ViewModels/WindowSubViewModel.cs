@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using ContosoPizza.Models;
 using ContosoPizza.Services;
 using System.Collections.ObjectModel;
@@ -13,11 +11,10 @@ namespace ContosoPizza.ViewModels
 {
     public partial class WindowSubViewModel : ViewModelBase, IParameterReceiver
     {
-
         [ObservableProperty]
-        private ObservableCollection<Sauce> _itemsSourceSauce = new();
+        private ObservableCollection<Sauce> _itemsSourceSauce = [];
         [ObservableProperty]
-        private ObservableCollection<Topping> _itemsSourceTopping = new();
+        private ObservableCollection<Topping> _itemsSourceTopping = [];
         [ObservableProperty]
         private Sauce _selectedSauce = new();
         [ObservableProperty]
