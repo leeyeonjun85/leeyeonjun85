@@ -137,7 +137,7 @@ namespace ContosoPizza.ViewModels
                             {
                                 wrapPanel.Children.Add(new CheckBox()
                                 {
-                                    Margin = new Thickness(10, 5, 10, 5),
+                                    Margin = new Thickness(10, 3, 10, 3),
                                     Content = $"{topping.Name}({topping.Calories}cal)",
                                     IsChecked = true,
                                     VerticalContentAlignment = VerticalAlignment.Center
@@ -147,7 +147,7 @@ namespace ContosoPizza.ViewModels
                             {
                                 wrapPanel.Children.Add(new CheckBox()
                                 {
-                                    Margin = new Thickness(10, 5, 10, 5),
+                                    Margin = new Thickness(10, 3, 10, 3),
                                     Content = $"{topping.Name}({topping.Calories}cal)",
                                     IsChecked = false,
                                     VerticalContentAlignment = VerticalAlignment.Center

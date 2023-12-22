@@ -53,7 +53,7 @@ namespace ContosoPizza.ViewModels
         }
         [RelayCommand]
         private void BtnToppingNewClick(DataGrid? dataGrid)
-        {
+        {s
             ItemsSourceTopping.Add(new Topping());
         }
         [RelayCommand]
