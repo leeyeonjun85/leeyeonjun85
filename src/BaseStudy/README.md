@@ -22,6 +22,32 @@ Install-Package Microsoft.AspNetCore.SignalR.Client
 
 
 
+## DotNetDebugging
+- 피보나치 프로그램으로 Visual Studio Debugging 학습
+
+### Reference
+- 최신 개발을 위해 Visual Studio 사용 -  Visual Studio 디버거를 사용하여 대화형으로 .NET 앱 디버그 
+https://learn.microsoft.com/ko-kr/training/modules/dotnet-debug-visual-studio/4-use-visual-studio-debugger
+
+
+
+## LangtonsAntProject
+- 단계별 프로젝트, 클래스, 메서드, 속성
+https://learn.microsoft.com/ko-kr/training/modules/guided-project-classes-methods-properties/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

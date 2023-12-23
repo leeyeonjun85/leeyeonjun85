@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using ContosoPizza.Models;
 using ContosoPizza.Services;
 using System.Collections.ObjectModel;
@@ -12,6 +14,8 @@ namespace ContosoPizza.ViewModels
     public partial class WindowSubViewModel : ViewModelBase, IParameterReceiver
     {
         [ObservableProperty]
+        private string _windowTitle = @"Edit Sauce & Toppings";
+        [ObservableProperty]
         private ObservableCollection<Sauce> _itemsSourceSauce = [];
         [ObservableProperty]
         private ObservableCollection<Topping> _itemsSourceTopping = [];
@@ -19,7 +23,10 @@ namespace ContosoPizza.ViewModels
         private Sauce _selectedSauce = new();
         [ObservableProperty]
         private Topping _selectedTopping = new();
+        private Pizza SelectedPizza { get; set; } = new();
+        private int SelectedPizzaIndex { get; set; }
         private IPizzaService _pizzaService { get; set; }
+        
 
         public WindowSubViewModel(IPizzaService pizzaService)
         {
@@ -35,6 +42,10 @@ namespace ContosoPizza.ViewModels
         private void BtnOKClick(object? obj)
         {
             _pizzaService.SaveChanges();
+
+            ValueChangedMessage<int> message = new(SelectedPizzaIndex);
+            WeakReferenceMessenger.Default.Send(message);
+
             Window?.Close();
         }
 
@@ -53,7 +64,7 @@ namespace ContosoPizza.ViewModels
         }
         [RelayCommand]
         private void BtnToppingNewClick(DataGrid? dataGrid)
-        {s
+        {
             ItemsSourceTopping.Add(new Topping());
         }
         [RelayCommand]
@@ -75,7 +86,8 @@ namespace ContosoPizza.ViewModels
 
         public void ReceiveParameter(object? parameter)
         {
-
+            if (parameter is int param)
+                SelectedPizzaIndex = param;
         }
     }
 }

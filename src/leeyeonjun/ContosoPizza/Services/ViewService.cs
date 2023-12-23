@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using ContosoPizza.ViewModels;
 
 namespace ContosoPizza.Services

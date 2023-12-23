@@ -1,17 +1,21 @@
-﻿<Window 
-    x:Class="ContosoPizza.Views.WindowMain"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:ContosoPizza.Views"
-    xmlns:Models="clr-namespace:ContosoPizza.Models"
-    xmlns:ViewModels="clr-namespace:ContosoPizza.ViewModels"
-    mc:Ignorable="d"
-    FontSize="16"
-    Title="Contos Pizza Manager"
-    Height="450" Width="800">
+﻿<Window x:Class="ContosoPizza.Views.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ContosoPizza.Views"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="{Binding WindowTitle}"
+        Height="450" Width="800">
 
     <Window.Resources>
         <Style TargetType="CheckBox">
@@ -45,6 +49,7 @@
                 Background="White"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding AllPizza}"
+                SelectedIndex="{Binding SelectedPizzaIndex}"
                 SelectedItem="{Binding SelectedPizza}"
                 Grid.RowSpan="1" Grid.ColumnSpan="1"
                 Grid.Row="0" Grid.Column="0">
@@ -100,7 +105,7 @@
                     x:Name="NewPizzaNameTextBox"
                     Margin="10 0"
                     VerticalAlignment="Center"
-                    d:Text="New Pizza Name"
+                    materialDesign:HintAssist.Hint="New Pizza Name"
                     Text="{Binding NewPizzaName}"/>
 
                 <Button 
@@ -140,7 +145,7 @@
                     <TextBox 
                         Margin="0 0 10 0"
                         VerticalAlignment="Center"
-                        d:Text="Sample Text"
+                        materialDesign:HintAssist.Hint="Selected Pizza Name"
                         Text="{Binding SelectedPizzaName}" />
                 </DockPanel>
 
@@ -153,6 +158,7 @@
                         SelectedIndex="{Binding SelectedPizzaSauceIndex}"
                         SelectedItem="{Binding SelectedPizzaSauce}"
                         VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Sauce Name"
                         ItemsSource="{Binding AllSauce}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -212,7 +218,7 @@
             </Grid.ColumnDefinitions>
             <Button 
                 Margin="10 15"
-                Content="Edit Sause / Topping" 
+                Content="Edit Sause, Topping" 
                 Command="{Binding BtnShowWindowSubClickCommand}"
                 Grid.RowSpan="1" Grid.ColumnSpan="1"
                 Grid.Row="0" Grid.Column="0" />

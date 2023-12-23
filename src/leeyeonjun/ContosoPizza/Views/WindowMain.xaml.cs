@@ -1,11 +1,10 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using ContosoPizza.Models;
 using ContosoPizza.Services;
 using ContosoPizza.ViewModels;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ContosoPizza.Views
 {
@@ -28,13 +27,13 @@ namespace ContosoPizza.Views
             Pizza? selectedPizza = viewModel?.SelectedPizza;
             ObservableCollection<Topping>? allToppings = viewModel?.AllTopping;
 
-            if (pizzaService is not null 
-                && checkBox is not null 
+            if (pizzaService is not null
+                && checkBox is not null
                 && checkBoxContent is not null
                 && selectedPizza is not null
                 && allToppings is not null)
             {
-                foreach(Topping topping in allToppings)
+                foreach (Topping topping in allToppings)
                 {
                     if (checkBoxContent.Contains($"{topping.Name}"))
                     {
@@ -51,7 +50,7 @@ namespace ContosoPizza.Views
                     }
                 }
             }
-            
+
         }
     }
 }

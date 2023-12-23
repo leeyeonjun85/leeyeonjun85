@@ -5,15 +5,9 @@ using System.Data.Common;
 
 namespace ContosoPizza.Services
 {
-    public class PizzaService : IPizzaService
+    public class PizzaService(PizzaContext context) : IPizzaService
     {
-        private PizzaContext _context { get; set; }
-
-        public PizzaService(PizzaContext context)
-        {
-            _context = context;
-        }
-
+        private PizzaContext _context { get; set; } = context;
 
         public void AddPizzaTopping(int pizzaId, int toppingId)
         {
@@ -125,7 +119,7 @@ namespace ContosoPizza.Services
 
         public ObservableCollection<Pizza> GetAllPizza()
         {
-            ObservableCollection<Pizza> returnData = new();
+            ObservableCollection<Pizza> returnData = [];
 
             //enumData.Pizzas
             //        .AsNoTracking()
@@ -139,7 +133,7 @@ namespace ContosoPizza.Services
 
         public ObservableCollection<Sauce> GetAllSauce()
         {
-            ObservableCollection<Sauce> returnData = new();
+            ObservableCollection<Sauce> returnData = [];
 
             //enumData.Sauces
             //        .AsNoTracking()
@@ -152,7 +146,7 @@ namespace ContosoPizza.Services
         }
         public ObservableCollection<Topping> GetAllTopping()
         {
-            ObservableCollection<Topping> returnData = new();
+            ObservableCollection<Topping> returnData = [];
 
             //enumData.Toppings
             //        .AsNoTracking()
@@ -174,6 +168,11 @@ namespace ContosoPizza.Services
             {
                 return;   // DB has been seeded
             }
+
+            // Clear All Rows
+            foreach (var item in _context.Pizzas) _context.Pizzas.Remove(item);
+            foreach (var item in _context.Toppings) _context.Toppings.Remove(item);
+            foreach (var item in _context.Sauces) _context.Sauces.Remove(item);
 
             // DB Setting
             DbConnection _conn = _context.Database.GetDbConnection();
@@ -236,7 +235,7 @@ namespace ContosoPizza.Services
 
         public ObservableCollection<T> ConvertEnumToObservableCollection<T>(IEnumerable<T> enumData)
         {
-            ObservableCollection<T> returnData = new();
+            ObservableCollection<T> returnData = [];
 
             foreach (var data in enumData)
             {

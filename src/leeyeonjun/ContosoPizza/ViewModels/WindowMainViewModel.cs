@@ -9,11 +9,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ContosoPizza.ViewModels
 {
-    public partial class WindowMainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<Pizza>>
+    public partial class WindowMainViewModel : ViewModelBase, IRecipient<ValueChangedMessage<int>>
     {
+        [ObservableProperty]
+        private string _windowTitle = @"Contos Pizza Manager!";
         [ObservableProperty]
         private ObservableCollection<Pizza> _allPizza = [];
         [ObservableProperty]
@@ -22,7 +25,7 @@ namespace ContosoPizza.ViewModels
         private ObservableCollection<Topping> _allTopping = [];
 
         [ObservableProperty]
-        private Pizza? _selectedPizza;
+        private Pizza? _selectedPizza = new();
         [ObservableProperty]
         private string? _selectedPizzaName;
 
@@ -33,7 +36,8 @@ namespace ContosoPizza.ViewModels
         [ObservableProperty]
         private int _selectedPizzaSauceIndex;
 
-
+        [ObservableProperty]
+        private int _selectedPizzaIndex;
         private IPizzaService _pizzaService { get; set; }
         private IViewService _viewService { get; set; }
 
@@ -43,9 +47,6 @@ namespace ContosoPizza.ViewModels
             _viewService = viewService;
             _pizzaService = pizzaService;
         }
-
-
-
 
         [RelayCommand]
         private void BtnMakePizzaClick(object? obj)
@@ -82,6 +83,8 @@ namespace ContosoPizza.ViewModels
                 _pizzaService.AddNewPizza(newPizza);
                 newPizzaTextBox.Text = string.Empty;
             }
+            else
+                MessageBox.Show("Insert Correct Pizza Name Please!");
         }
 
         [RelayCommand]
@@ -96,7 +99,7 @@ namespace ContosoPizza.ViewModels
         [RelayCommand]
         private void BtnShowWindowSubClick(object? obj)
         {
-            _viewService.ShowView<WindowSub, WindowSubViewModel>();
+            _viewService.ShowView<WindowSub, WindowSubViewModel>(SelectedPizzaIndex);
         }
 
         [RelayCommand]
@@ -159,9 +162,10 @@ namespace ContosoPizza.ViewModels
             }
         }
 
-        public void Receive(ValueChangedMessage<Pizza> newPizza)
+        public void Receive(ValueChangedMessage<int> pizzaIndex)
         {
-            _pizzaService.AddNewPizza(newPizza.Value);
+            SelectedPizzaIndex = -1;
+            SelectedPizzaIndex = pizzaIndex.Value;
         }
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
@@ -171,11 +175,70 @@ namespace ContosoPizza.ViewModels
             AllPizza = _pizzaService.GetAllPizza();
             AllSauce = _pizzaService.GetAllSauce();
             AllTopping = _pizzaService.GetAllTopping();
+
+            SelectedPizzaIndex = 0;
+            if (sender is WindowMain window)
+            {
+                WrapPanel? wrapPanel = FindChild<WrapPanel>(window, "ToppingsWrapPanel");
+                SelectionChangedPizza(wrapPanel);
+            }
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
 
+        }
+
+
+        /// <summary>
+        /// Finds a Child of a given item in the visual tree. 
+        /// </summary>
+        /// <wrapPanel name="parent">A direct parent of the queried item.</wrapPanel>
+        /// <typeparam name="T">The type of the queried item.</typeparam>
+        /// <wrapPanel name="childName">x:Name or Name of child. </wrapPanel>
+        /// <returns>The first parent item that matches the submitted type parameter. 
+        /// If not matching item can be found, 
+        /// a null parent is being returned.</returns>
+        public T? FindChild<T>(DependencyObject parent, string childName)
+           where T : DependencyObject
+        {
+            // Confirm parent and childName are valid. 
+            if (parent == null) return null;
+
+            T? foundChild = null;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                // If the child is not of the request child type child
+                if (child is not T)
+                {
+                    // recursively drill down the tree
+                    foundChild = FindChild<T>(child, childName);
+
+                    // If the child is found, break so we do not overwrite the found child. 
+                    if (foundChild != null) break;
+                }
+                else if (!string.IsNullOrEmpty(childName))
+                {
+                    // If the child's name is set for search
+                    if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
+                    {
+                        // if the child's name is of the request name
+                        foundChild = (T)child;
+                        break;
+                    }
+                }
+                else
+                {
+                    // child element found.
+                    foundChild = (T)child;
+                    break;
+                }
+            }
+
+            return foundChild;
         }
     }
 }
