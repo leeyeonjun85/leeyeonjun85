@@ -12,7 +12,6 @@ namespace Utiles
             string jsonString = File.ReadAllText(filePath);
             JObject jobject = JObject.Parse(jsonString);
 
-
             //JsonModel jsonModel = JsonSerializer.Deserialize<JsonModel>(jsonString)!;
             return jobject;
         }
