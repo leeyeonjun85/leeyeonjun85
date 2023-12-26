@@ -1,0 +1,70 @@
+[
+  {
+    "Id": 0,
+    "Name": "Meat Lovers",
+    "Sauce": {
+      "Id": 0,
+      "Name": "Tomato",
+      "IsVegan": true
+    },
+    "Toppings": [
+      {
+        "Id": 0,
+        "Name": "Pepperoni",
+        "Calories": 130
+      },
+      {
+        "Id": 0,
+        "Name": "Sausage",
+        "Calories": 100
+      },
+      {
+        "Id": 0,
+        "Name": "Ham",
+        "Calories": 70
+      },
+      {
+        "Id": 0,
+        "Name": "Chicken",
+        "Calories": 50
+      }
+    ]
+  },
+  {
+    "Id": 0,
+    "Name": "Hawaiian",
+    "Sauce": {
+      "Id": 0,
+      "Name": "Tomato",
+      "IsVegan": true
+    },
+    "Toppings": [
+      {
+        "Id": 0,
+        "Name": "Pineapple",
+        "Calories": 75
+      },
+      {
+        "Id": 0,
+        "Name": "Ham",
+        "Calories": 70
+      }
+    ]
+  },
+  {
+    "Id": 0,
+    "Name": "Alfredo Chicken",
+    "Sauce": {
+      "Id": 0,
+      "Name": "Alfredo",
+      "IsVegan": false
+    },
+    "Toppings": [
+      {
+        "Id": 0,
+        "Name": "Chicken",
+        "Calories": 50
+      }
+    ]
+  }
+]
