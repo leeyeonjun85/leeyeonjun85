@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JsonBase.Models
+namespace JsonStudy.Models
 {
-    public class Sauce
+    public class Pizza
     {
         public int Id { get; set; }
 
@@ -10,6 +10,8 @@ namespace JsonBase.Models
         [MaxLength(100)]
         public string Name { get; set; } = string.Empty;
 
-        public bool IsVegan { get; set; }
+        public Sauce? Sauce { get; set; }
+
+        public ICollection<Topping>? Toppings { get; set; }
     }
 }
