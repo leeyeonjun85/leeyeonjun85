@@ -27,6 +27,10 @@ Install-Package Microsoft.AspNetCore.SignalR.Client
 - ASP.NET Core 컨트롤러를 사용하여 웹 API 만들기
 - https://learn.microsoft.com/ko-kr/training/modules/build-web-api-aspnet-core/
 
+## AlpineSkiHouse
+- Visual Studio를 사용하여 Azure에 웹앱 게시
+- https://learn.microsoft.com/ko-kr/training/modules/publish-azure-web-app-with-visual-studio/
+
 
 
 ## DotNetDebugging
