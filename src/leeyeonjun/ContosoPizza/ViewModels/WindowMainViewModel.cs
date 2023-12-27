@@ -38,14 +38,14 @@ namespace ContosoPizza.ViewModels
 
         [ObservableProperty]
         private int _selectedPizzaIndex;
-        private IPizzaService _pizzaService { get; set; }
-        private IViewService _viewService { get; set; }
+        private IPizzaService PizzaService { get; set; }
+        private IViewService ViewService { get; set; }
 
         public WindowMainViewModel(IViewService viewService, IPizzaService pizzaService)
         {
             IsActive = true;
-            _viewService = viewService;
-            _pizzaService = pizzaService;
+            ViewService = viewService;
+            PizzaService = pizzaService;
         }
 
         [RelayCommand]
@@ -80,7 +80,7 @@ namespace ContosoPizza.ViewModels
                     Name = newPizzaTextBox.Text
                 };
 
-                _pizzaService.AddNewPizza(newPizza);
+                PizzaService.AddNewPizza(newPizza);
                 newPizzaTextBox.Text = string.Empty;
             }
             else
@@ -92,14 +92,14 @@ namespace ContosoPizza.ViewModels
         {
             if (SelectedPizza is not null)
             {
-                _pizzaService.DeletePizzaById(SelectedPizza.Id);
+                PizzaService.DeletePizzaById(SelectedPizza.Id);
             }
         }
 
         [RelayCommand]
         private void BtnShowWindowSubClick(object? obj)
         {
-            _viewService.ShowView<WindowSub, WindowSubViewModel>(SelectedPizzaIndex);
+            ViewService.ShowView<WindowSub, WindowSubViewModel>(SelectedPizzaIndex);
         }
 
         [RelayCommand]
@@ -109,7 +109,7 @@ namespace ContosoPizza.ViewModels
             {
                 var selectedPizzaSauce = comboBoxPizzaSauce.SelectedItem as Sauce;
                 if (selectedPizzaSauce is not null)
-                    _pizzaService.UpdatePizzaSauce(SelectedPizza.Id, selectedPizzaSauce.Id);
+                    PizzaService.UpdatePizzaSauce(SelectedPizza.Id, selectedPizzaSauce.Id);
             }
         }
 
@@ -118,7 +118,7 @@ namespace ContosoPizza.ViewModels
         {
             if (wrapPanel is not null && SelectedPizza is not null)
             {
-                Pizza? selectedPizza = _pizzaService.GetPizzaById(this.SelectedPizza.Id);
+                Pizza? selectedPizza = PizzaService.GetPizzaById(this.SelectedPizza.Id);
                 if (selectedPizza is not null)
                 {
                     wrapPanel.Children.Clear();
@@ -170,11 +170,11 @@ namespace ContosoPizza.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            _pizzaService.Initialize();
+            PizzaService.Initialize();
 
-            AllPizza = _pizzaService.GetAllPizza();
-            AllSauce = _pizzaService.GetAllSauce();
-            AllTopping = _pizzaService.GetAllTopping();
+            AllPizza = PizzaService.GetAllPizza();
+            AllSauce = PizzaService.GetAllSauce();
+            AllTopping = PizzaService.GetAllTopping();
 
             SelectedPizzaIndex = 0;
             if (sender is WindowMain window)

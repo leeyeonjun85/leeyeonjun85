@@ -6,14 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContosoPizza.Views"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="14"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontSize="16"
         Title="{Binding WindowTitle}"
         Height="450" Width="800">
 
@@ -105,7 +98,6 @@
                     x:Name="NewPizzaNameTextBox"
                     Margin="10 0"
                     VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="New Pizza Name"
                     Text="{Binding NewPizzaName}"/>
 
                 <Button 
@@ -145,7 +137,6 @@
                     <TextBox 
                         Margin="0 0 10 0"
                         VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="Selected Pizza Name"
                         Text="{Binding SelectedPizzaName}" />
                 </DockPanel>
 
@@ -158,7 +149,6 @@
                         SelectedIndex="{Binding SelectedPizzaSauceIndex}"
                         SelectedItem="{Binding SelectedPizzaSauce}"
                         VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="Sauce Name"
                         ItemsSource="{Binding AllSauce}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -207,6 +197,7 @@
         </GroupBox>
 
         <Grid
+            Margin="10"
             Grid.RowSpan="1" Grid.ColumnSpan="1"
             Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>

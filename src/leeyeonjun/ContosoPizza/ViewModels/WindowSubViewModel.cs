@@ -25,15 +25,15 @@ namespace ContosoPizza.ViewModels
         private Topping _selectedTopping = new();
         private Pizza SelectedPizza { get; set; } = new();
         private int SelectedPizzaIndex { get; set; }
-        private IPizzaService _pizzaService { get; set; }
+        private IPizzaService PizzaService { get; set; }
         
 
         public WindowSubViewModel(IPizzaService pizzaService)
         {
-            _pizzaService = pizzaService;
+            PizzaService = pizzaService;
 
-            ItemsSourceSauce = _pizzaService.GetAllSauce();
-            ItemsSourceTopping = _pizzaService.GetAllTopping();
+            ItemsSourceSauce = PizzaService.GetAllSauce();
+            ItemsSourceTopping = PizzaService.GetAllTopping();
         }
 
 
@@ -41,7 +41,7 @@ namespace ContosoPizza.ViewModels
         [RelayCommand]
         private void BtnOKClick(object? obj)
         {
-            _pizzaService.SaveChanges();
+            PizzaService.SaveChanges();
 
             ValueChangedMessage<int> message = new(SelectedPizzaIndex);
             WeakReferenceMessenger.Default.Send(message);
@@ -60,7 +60,7 @@ namespace ContosoPizza.ViewModels
         [RelayCommand]
         private void DeleteSauceClick(object? obj)
         {
-            _pizzaService.DeleteSauceById(SelectedSauce.Id);
+            PizzaService.DeleteSauceById(SelectedSauce.Id);
         }
         [RelayCommand]
         private void BtnToppingNewClick(DataGrid? dataGrid)
@@ -70,7 +70,7 @@ namespace ContosoPizza.ViewModels
         [RelayCommand]
         private void DeleteToppingClick(object? obj)
         {
-            _pizzaService.DeleteToppingById(SelectedTopping.Id);
+            PizzaService.DeleteToppingById(SelectedTopping.Id);
         }
 
 
