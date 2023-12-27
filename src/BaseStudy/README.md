@@ -19,20 +19,27 @@ Install-Package Newtonsoft.Json
 Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
+## mslearn-create-razor-pages-aspnet-core
+- ASP.NET Coreë¥¼ ì‚¬ìš©í•˜ì—¬ ì›¹ UI ë§Œë“¤ê¸°
+- https://learn.microsoft.com/ko-kr/training/modules/create-razor-pages-aspnet-core/
+
+## WebApplication1
+- ASP.NET Core ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì‚¬ìš©í•˜ì—¬ ì›¹ API ë§Œë“¤ê¸°
+- https://learn.microsoft.com/ko-kr/training/modules/build-web-api-aspnet-core/
 
 
 
 ## DotNetDebugging
-- ÇÇº¸³ªÄ¡ ÇÁ·Î±×·¥À¸·Î Visual Studio Debugging ÇĞ½À
+- í”¼ë³´ë‚˜ì¹˜ í”„ë¡œê·¸ë¨ìœ¼ë¡œ Visual Studio Debugging í•™ìŠµ
 
 ### Reference
-- ÃÖ½Å °³¹ßÀ» À§ÇØ Visual Studio »ç¿ë -  Visual Studio µğ¹ö°Å¸¦ »ç¿ëÇÏ¿© ´ëÈ­ÇüÀ¸·Î .NET ¾Û µğ¹ö±× 
+- ìµœì‹  ê°œë°œì„ ìœ„í•´ Visual Studio ì‚¬ìš© -  Visual Studio ë””ë²„ê±°ë¥¼ ì‚¬ìš©í•˜ì—¬ ëŒ€í™”í˜•ìœ¼ë¡œ .NET ì•± ë””ë²„ê·¸ 
 https://learn.microsoft.com/ko-kr/training/modules/dotnet-debug-visual-studio/4-use-visual-studio-debugger
 
 
 
 ## LangtonsAntProject
-- ´Ü°èº° ÇÁ·ÎÁ§Æ®, Å¬·¡½º, ¸Ş¼­µå, ¼Ó¼º
+- ë‹¨ê³„ë³„ í”„ë¡œì íŠ¸, í´ë˜ìŠ¤, ë©”ì„œë“œ, ì†ì„±
 https://learn.microsoft.com/ko-kr/training/modules/guided-project-classes-methods-properties/
 
 

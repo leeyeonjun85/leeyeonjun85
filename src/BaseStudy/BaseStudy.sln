@@ -18,9 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루�
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetDebugging", "DotNetDebugging\DotNetDebugging.csproj", "{2248C168-84D2-4214-BDFF-08986D608C63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetDebugging", "DotNetDebugging\DotNetDebugging.csproj", "{2248C168-84D2-4214-BDFF-08986D608C63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LangtonsAntProject", "LangtonsAntProject\LangtonsAntProject.csproj", "{98EA468F-2981-4021-8346-E7CC5D27F779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LangtonsAntProject", "LangtonsAntProject\LangtonsAntProject.csproj", "{98EA468F-2981-4021-8346-E7CC5D27F779}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
