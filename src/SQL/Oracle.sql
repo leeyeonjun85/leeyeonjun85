@@ -18,7 +18,7 @@ SELECT *
 FROM all_objects
 WHERE object_type = 'TABLE';
 
-
+```
 
 
 --테이블 삭제
@@ -39,7 +39,7 @@ INSERT INTO "LeeyeonjunTestTable1" VALUES (5, '이연준', 12 );
 SELECT *
 FROM "LeeyeonjunTestTable1";
 
-
+`
 DROP TABLE SAMPLETABLE;
 
 CREATE TABLE SAMPLETABLE (
