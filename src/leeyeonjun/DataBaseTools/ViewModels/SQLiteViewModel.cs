@@ -87,12 +87,12 @@ namespace DataBaseTools.ViewModels
 
         protected override void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            App.logger.LogInformation("SQLite가 시작되었습니다.");
+            App.Logger?.LogInformation("SQLite가 시작되었습니다.");
         }
 
         protected override void OnWindowClosing(object? sender, CancelEventArgs e)
         {
-            App.logger.LogInformation("SQLite가 종료되었습니다.");
+            App.Logger?.LogInformation("SQLite가 종료되었습니다.");
         }
 
         public async void ReceiveParameter(object parameter)

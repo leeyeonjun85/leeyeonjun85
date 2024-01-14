@@ -316,7 +316,7 @@ namespace DataBaseTools.Services
                     caption: "Error", MessageBoxButtons.OK,
                     icon: MessageBoxIcon.Error);
 
-            App.logger!.LogError($"{ex.ToString}{Environment.NewLine}{ex}");
+            App.Logger!.LogError($"{ex.ToString}{Environment.NewLine}{ex}");
         }
 
 

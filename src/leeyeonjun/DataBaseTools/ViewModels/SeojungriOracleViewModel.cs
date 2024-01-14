@@ -152,7 +152,7 @@ namespace DataBaseTools.ViewModels
         {
             conn?.Close();
 
-            App.logger.LogInformation("서정리 오라클이 종료되었습니다.");
+            App.Logger?.LogInformation("서정리 오라클이 종료되었습니다.");
         }
 
 

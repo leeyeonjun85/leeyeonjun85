@@ -20,9 +20,12 @@ namespace DataBaseTools
     /// </summary>
     public partial class App : Application
     {
-        public static ILogger logger;
-        public static IViewService viewService;
-        public static AppData Data = new();
+        private static ILogger? _logger;
+        private static IViewService? _viewService;
+        private static AppData _data = new();
+        public static ILogger? Logger { get => _logger; set => _logger = value; }
+        public static IViewService? ViewService { get => _viewService; set => _viewService = value; }
+        public static AppData Data { get => _data; set => _data = value; }
 
         private IServiceProvider ConfigureServices()
         {
@@ -62,14 +65,14 @@ namespace DataBaseTools
         {
             Ioc.Default.ConfigureServices(ConfigureServices());
 
-            logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
-            viewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
+            Logger = (ILogger<App>)Ioc.Default.GetService(typeof(ILogger<App>))!;
+            ViewService = (IViewService)Ioc.Default.GetService(typeof(IViewService))!;
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            App.viewService.ShowView<WindowMain, WindowMainViewModel>();
+            App.ViewService?.ShowView<WindowMain, WindowMainViewModel>();
         }
     }
 }

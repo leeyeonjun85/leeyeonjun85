@@ -55,7 +55,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand(CanExecute = nameof(IsNotEmptyAndIsNumeric))]
         private void BtnShowWindowSubClick(ViewModelBase? obj)
         {
-            App.viewService.ShowView<WindowSub, WindowSubViewModel>(
+            App.ViewService?.ShowView<WindowSub, WindowSubViewModel>(
                 new SubData() { Name = TbName, Old = Convert.ToInt32(TbOld), Message = TbMessage }
             );
         }
@@ -281,7 +281,7 @@ namespace DataBaseTools.ViewModels
         [RelayCommand]
         private void Sftp(ViewModelBase? obj)
         {
-            App.viewService.ShowView<SftpView, SftpViewModel>();
+            App.ViewService?.ShowView<SftpView, SftpViewModel>();
         }
 
 

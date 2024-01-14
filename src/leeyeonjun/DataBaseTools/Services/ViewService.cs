@@ -35,7 +35,7 @@ namespace DataBaseTools.Services
             }
             catch (Exception ex)
             {
-                App.logger.LogError($"Error in Show Window{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex}");
+                App.Logger?.LogError($"Error in Show Window{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex}");
                 throw;
             }
         }
