@@ -146,3 +146,6 @@ BEGIN
 END
 SELECT * FROM leeyeonjun.dbo.Table_int;
 
+
+
+
