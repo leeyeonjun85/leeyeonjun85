@@ -96,6 +96,24 @@ FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'schema', 'dbo', 'Table_1', 'LOCATION', 'co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*******************************************/
 /*******************************************/
 --
@@ -145,6 +163,85 @@ BEGIN
     SET @idx = @idx + 1
 END
 SELECT * FROM leeyeonjun.dbo.Table_int;
+
+
+
+
+
+
+
+
+--------------------------------------------
+--------------------------------------------
+--
+--		leeyeonjun.dbo.Table_2
+--
+--------------------------------------------
+--------------------------------------------
+
+CREATE TABLE Table_2 (
+	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
+	gender bit,
+	old int NOT NULL
+);
+
+DROP TABLE Table_2;
+
+SELECT * FROM Table_2;
+
+INSERT INTO Table_2 (name, gender, old) VALUES('이연준', 0, 39)
+INSERT INTO Table_2 (name, gender, old) VALUES('김건희', 1, 52)
+INSERT INTO Table_2 (name, gender, old) VALUES('윤석렬', 0, 59);
+
+
+/* 테이블 코멘트 추가 */
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', Table_1
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '컬럼3개ㅐ', 'USER', dbo, 'TABLE', Table_2;
+
+/* 테이블 코멘트 수정 */
+EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '컬럼3개', 'USER', dbo, 'TABLE', Table_2;
+
+/* 테이블 코멘트 삭제 */
+EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_2;
+
+
+
+--테이블 코멘트 조회
+SELECT objname FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT);
+
+--테이블 조회하여 테이블 Comment 삭제
+BEGIN TRAN
+	--임시테이블 생성
+	DECLARE @TempTable TABLE(
+			 SEQ int IDENTITY
+			 ,objname VARCHAR(100)
+			)
+	INSERT @TempTable (objname)
+	SELECT objname FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT)
+	--반복문에 필요한 변수생성
+	DECLARE @i INT, @j INT
+		SELECT @i = 1, @j = @@rowcount
+	WHILE @i <= @j
+	BEGIN
+		DECLARE @objname VARCHAR(100)
+			SELECT @objname		= objname
+			FROM @TempTable
+			WHERE seq = @i
+		--반복작업
+		EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', @objname;
+		SET @i = @i + 1
+	END
+COMMIT TRAN;
+
+
+
+--컬럼 코멘트 조회
+SELECT * FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'SCHEMA', 'DBO', 'TABLE', 'Table_1', 'COLUMN', DEFAULT);
+
+
+
+
+
 
 
 
