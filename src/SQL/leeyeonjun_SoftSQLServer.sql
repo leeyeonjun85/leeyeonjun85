@@ -1,3 +1,8 @@
+-- DROP SCHEMA dbo;
+
+CREATE SCHEMA dbo;
+
+
 
 -- Tabel List
 SELECT * FROM sys.tables;
@@ -15,15 +20,16 @@ SELECT * FROM sys.tables;
 
 CREATE TABLE Table_1 (
 	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
-	old int NOT NULL
-);
+	[old] int NOT NULL
+)
+INSERT INTO Table_1 (name, old) VALUES('이연준', 39)
+INSERT INTO Table_1 (name, old) VALUES('윤석렬', 59);
 
 DROP TABLE Table_1;
 
 SELECT * FROM Table_1;
 
-INSERT INTO Table_1 (name, old) VALUES('이연준', 39);
-INSERT INTO Table_1 (name, old) VALUES('윤석렬', 59);
+
 
 
 --SP 기본
@@ -91,22 +97,6 @@ EXECUTE SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_
 
 
 
-SELECT *
-FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'schema', 'dbo', 'Table_1', 'LOCATION', 'column', DEFAULT);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -134,6 +124,7 @@ SELECT * FROM leeyeonjun.dbo.Table_int;
 DROP TABLE leeyeonjun.dbo.Table_int;
 
 
+-- 랜덤
 SELECT
 	FLOOR(RAND()*6+1) AS '1부터 6까지 랜덤 정수값',
 	FLOOR(RAND()*(100)+1) AS '1부터 100까지 랜덤 정수값';
@@ -168,9 +159,6 @@ SELECT * FROM leeyeonjun.dbo.Table_int;
 
 
 
-
-
-
 --------------------------------------------
 --------------------------------------------
 --
@@ -183,15 +171,16 @@ CREATE TABLE Table_2 (
 	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
 	gender bit,
 	old int NOT NULL
-);
-
-DROP TABLE Table_2;
-
-SELECT * FROM Table_2;
-
+)
 INSERT INTO Table_2 (name, gender, old) VALUES('이연준', 0, 39)
 INSERT INTO Table_2 (name, gender, old) VALUES('김건희', 1, 52)
 INSERT INTO Table_2 (name, gender, old) VALUES('윤석렬', 0, 59);
+
+DROP TABLE Table_2;
+
+SELECT * FROM [leeyeonjun].[dbo].[Table_2];
+
+
 
 
 /* 테이블 코멘트 추가 */
@@ -207,7 +196,7 @@ EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_2;
 
 
 --테이블 코멘트 조회
-SELECT objname FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT);
+SELECT * FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT);
 
 --테이블 조회하여 테이블 Comment 삭제
 BEGIN TRAN
