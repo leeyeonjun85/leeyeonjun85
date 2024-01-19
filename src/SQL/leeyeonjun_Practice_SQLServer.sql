@@ -24,6 +24,37 @@ ORDER BY [type] , name
 
 
 
+--------------------------------------------
+--------------------------------------------
+--
+--		leeyeonjun.dbo 테이블생성
+--
+--------------------------------------------
+--------------------------------------------
+
+CREATE TABLE [leeyeonjun].[dbo].[00_TestTable_1] (
+	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
+	gender bit,
+	[old] int NOT NULL)
+INSERT INTO [leeyeonjun].[dbo].[00_TestTable_1] (name, gender, old) VALUES('이연준', 0, 39)
+INSERT INTO [leeyeonjun].[dbo].[00_TestTable_1] (name, gender, old) VALUES('김건희', 1, 52)
+INSERT INTO [leeyeonjun].[dbo].[00_TestTable_1] (name, gender, old) VALUES('윤석렬', 0, 59)
+SELECT * FROM [leeyeonjun].[dbo].[00_TestTable_1];
+
+--DROP TABLE [leeyeonjun].[dbo].[00_TestTable_1];
+
+CREATE TABLE [00_TestTable_2] (IntNumber int NOT NULL)
+DECLARE @max INT SET @max = 10
+DECLARE @idx INT SET @idx = 1
+WHILE (@idx <= @max)
+BEGIN
+    INSERT INTO [00_TestTable_2] (IntNumber) values (@idx)
+    SET @idx = @idx + 1
+END
+SELECT * FROM [00_TestTable_2];
+--DROP TABLE [00_TestTable_2];
+
+
 
 
 
@@ -42,20 +73,22 @@ ORDER BY [type] , name
 
 
 --SP 기본
-CREATE PROCEDURE SelectAllTable_1
+CREATE PROCEDURE SelectAllTable_Basic
 AS
 	SELECT *
-	FROM leeyeonjun.dbo.Table_1
+	FROM [leeyeonjun].[dbo].[00_TestTable_1]
 ;
+--DROP PROCEDURE SelectAllTable_Basic;
 
 --SP 파라미터 사용하기
 CREATE PROCEDURE SelectAllName
 	@Column_Name NVARCHAR(50)
 AS
 	SELECT *
-	FROM leeyeonjun.dbo.Table_1
+	FROM [leeyeonjun].[dbo].[00_TestTable_1]
 	WHERE name = @Column_Name
 ;
+--DROP PROCEDURE SelectAllName;
 
 --SP 파라미터 이용하여 테이블이름 전달하기
 CREATE PROCEDURE SelectAllTable
@@ -63,103 +96,18 @@ CREATE PROCEDURE SelectAllTable
 AS
 BEGIN
 	DECLARE @SQLString NVARCHAR(500)
-	SET @SQLString = CONCAT('SELECT * FROM ', @TableName)
+	SET @SQLString = CONCAT(N'SELECT * FROM ', @TableName)
 	
 	EXEC sp_executesql @SQLString
 END;
+--DROP PROCEDURE SelectAllTable;
 
 
+EXEC SelectAllTable_Basic;
 
+EXEC SelectAllName '이연준';
 
-
-
-DROP PROCEDURE SelectAllTable_1;
-
-EXEC SelectAllTable_1;
-
-DROP PROCEDURE SelectAllName;
-
-EXEC SelectAllName @Column_Name = '이연준';
-
-DROP PROCEDURE SelectAllTable;
-
-EXEC SelectAllTable @TableName = 'Table_1';
-EXECUTE SelectAllTable 'Table_int';
-
-
-
---------------------------------------------
---------------------------------------------
---
---		leeyeonjun.dbo 테이블생성
---
---------------------------------------------
---------------------------------------------
-
-
-DECLARE @TableName NVARCHAR(100)
-SET @TableName = '[00_TestTable_1]'
-CREATE TABLE @TableName (
-	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
-	[old] int NOT NULL)
-INSERT INTO @TableName (name, old) VALUES('이연준', 39)
-INSERT INTO @TableName (name, old) VALUES('윤석렬', 59)
-SELECT * FROM @TableName;
-
-
-DROP TABLE @TableName;
-
-SELECT * FROM @TableName;
-
-
-
-CREATE TABLE [00_TestTable_1] (
-	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
-	[old] int NOT NULL);
-
-
-
-
-CREATE TABLE leeyeonjun.dbo.Table_int (IntNumber int NOT NULL)
-DECLARE @max INT SET @max = 10
-DECLARE @idx INT SET @idx = 1
-WHILE (@idx <= @max)
-BEGIN
-    INSERT INTO leeyeonjun.dbo.Table_int (IntNumber) values (@idx)
-    SET @idx = @idx + 1
-END
-SELECT * FROM leeyeonjun.dbo.Table_int;
-DROP TABLE leeyeonjun.dbo.Table_int;
-
-
-
-
-CREATE TABLE Table_2 (
-	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
-	gender bit,
-	old int NOT NULL
-)
-INSERT INTO Table_2 (name, gender, old) VALUES('이연준', 0, 39)
-INSERT INTO Table_2 (name, gender, old) VALUES('김건희', 1, 52)
-INSERT INTO Table_2 (name, gender, old) VALUES('윤석렬', 0, 59);
-
-DROP TABLE Table_2;
-
-SELECT * FROM [leeyeonjun].[dbo].[Table_2];
-
-
-
-
-
-
---------------------------------------------
---------------------------------------------
---
---		MS SQL Server : Cursor Practice
---
---------------------------------------------
---------------------------------------------
-
+EXEC SelectAllTable @TableName = '[00_TestTable_1]';
 
 
 
@@ -173,48 +121,37 @@ SELECT * FROM [leeyeonjun].[dbo].[Table_2];
 --------------------------------------------
 
 
-
 /* 테이블 코멘트 추가 */
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', Table_1;
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '연습테이블ㄹㄹㄹ', 'USER', dbo, 'TABLE', [00_TestTable_1];
+
+/* 테이블 코멘트 조회 */
+SELECT * FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT);
 
 /* 테이블 코멘트 수정 */
-EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '이름', 'USER', dbo, 'TABLE', Table_1;
+EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '연습테이블1', 'USER', dbo, 'TABLE', [00_TestTable_1];
 
 /* 테이블 코멘트 삭제 */
-EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_1;
+EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [00_TestTable_1];
 
 
 /* 컬럼 코멘트 추가 */
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', Table_1, 'COLUMN', name;
-EXECUTE SP_ADDEXTENDEDPROPERTY 'MS_Description', '나잉ㅇㅇㅇ', 'USER', dbo, 'TABLE', Table_1, 'COLUMN', old;
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', name
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '나잉ㅇㅇㅇ', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', [old];
+
+/* 테이블 코멘트 조회 */
+SELECT * FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'SCHEMA', 'DBO', 'TABLE', '00_TestTable_1', 'COLUMN', DEFAULT);
 
 /* 컬럼 코멘트 수정 */
-EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '이름', 'USER', dbo, 'TABLE', Table_1, 'COLUMN', name;
-EXECUTE SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '나이', 'USER', dbo, 'TABLE', Table_1, 'COLUMN', old;
+EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '이름', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', name
+EXECUTE SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '나이', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', 'old';
 
 /* 컬럼 코멘트 삭제 */
-EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_1, 'COLUMN', name;
-EXECUTE SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_1, 'COLUMN', old;
+EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', name
+EXECUTE SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', 'old';
 
 
 
 
-
-
-/* 테이블 코멘트 추가 */
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', Table_1
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '컬럼3개ㅐ', 'USER', dbo, 'TABLE', Table_2;
-
-/* 테이블 코멘트 수정 */
-EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '컬럼3개', 'USER', dbo, 'TABLE', Table_2;
-
-/* 테이블 코멘트 삭제 */
-EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', Table_2;
-
-
-
---테이블 코멘트 조회
-SELECT * FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT);
 
 --테이블 조회하여 테이블 Comment 삭제
 BEGIN TRAN
@@ -229,22 +166,16 @@ BEGIN TRAN
 	DECLARE @i INT, @j INT
 		SELECT @i = 1, @j = @@rowcount
 	WHILE @i <= @j
-	BEGIN
-		DECLARE @objname VARCHAR(100)
-			SELECT @objname		= objname
-			FROM @TempTable
-			WHERE seq = @i
-		--반복작업
-		EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', @objname;
-		SET @i = @i + 1
-	END
+		BEGIN
+			DECLARE @objname VARCHAR(100)
+				SELECT @objname		= objname
+				FROM @TempTable
+				WHERE seq = @i
+			--반복작업
+			EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', @objname;
+			SET @i = @i + 1
+		END
 COMMIT TRAN;
-
-
-
---컬럼 코멘트 조회
-SELECT * FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'SCHEMA', 'DBO', 'TABLE', 'Table_1', 'COLUMN', DEFAULT);
-
 
 
 
@@ -259,23 +190,112 @@ SELECT * FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'SCHEMA', 'DBO', 'TABLE', 'Table_1
 --------------------------------------------
 
 
--- 랜덤
 SELECT
 	FLOOR(RAND()*6+1) AS '1부터 6까지 랜덤 정수값',
 	FLOOR(RAND()*(100)+1) AS '1부터 100까지 랜덤 정수값';
 
-
 SELECT FLOOR(RAND()*10);
 
+-- min <= rand < max
+DECLARE @max INT SET @max = 3
+DECLARE @min INT SET @min = 1
+SELECT CONVERT(INT, (@max  - @min) * RAND()  + @min) AS '랜덤정수';
 
 DECLARE @max INT SET @max = 3
 DECLARE @min INT SET @min = 1
-SELECT CAST(((@max + 1) - @min) * RAND() + @min AS INT) AS '랜덤정수';
+SELECT CAST((@max  - @min) * RAND()  + @min AS INT) AS '랜덤정수';
+
+-- Create Stored Procedure to Get Random Int
+CREATE PROCEDURE spGetRandIntMinMax
+	@return INT OUTPUT,
+	@min INT = 0,
+	@max INT = 100
+AS
+	SELECT @return = CONVERT(INT, (@max  - @min) * RAND()  + @min)
+RETURN @return;
+--DROP PROCEDURE spGetRandIntMinMax;
+
+DECLARE @answer INT
+EXEC spGetRandIntMinMax @answer OUTPUT, 2, 5
+SELECT @answer AS '랜덤정수';
 
 
-DECLARE @max INT SET @max = 3
-DECLARE @min INT SET @min = 1
-SELECT CONVERT(INT, ((@max + 1) - @min) * RAND()  + @min) AS '랜덤정수';
+-- 테이블에 랜덤숫자 입력
+DECLARE @min INT SET @min = 3
+DECLARE @max INT SET @max = 5
+DECLARE @idx INT SET @idx = 1
+WHILE (@idx <= 10)
+	BEGIN
+	    INSERT INTO [00_TestTable_2] (IntNumber) values (CONVERT(INT, (@max  - @min) * RAND()  + @min))
+	    SET @idx = @idx + 1
+	END
+SELECT * FROM [00_TestTable_2];
+
+
+
+
+
+
+
+--------------------------------------------
+--------------------------------------------
+--
+--		Date : GETDATE()
+--
+--------------------------------------------
+--------------------------------------------
+
+--현재 날짜 출력--
+SELECT GETDATE() AS 시스템일자;
+
+--현재 날짜의 연,월,일 출력--
+SELECT 
+	CONCAT(YEAR(GETDATE()), '-',MONTH(GETDATE()), '-', DAY(GETDATE())) AS NowISO, 
+	YEAR(GETDATE()) AS 년,
+	MONTH(GETDATE()) AS 월,
+	DAY(GETDATE()) AS 일;
+
+--YYYYMMDD--
+SELECT CONVERT(varchar(10), Getdate(), 112);
+
+--HH:MM:SS--
+SELECT CONVERT(varchar(8), Getdate(), 108);
+
+--HH:MM:SS:mmm--
+Select Convert(varchar(12),Getdate(),114)
+
+--HHMMSS--
+Select Replace(Convert(varchar(8),Getdate(),108),':','')
+
+--HHMMSSmmm--
+Select Replace(Convert(varchar(12),Getdate(),114),':','')
+
+--YYYY/MM/DD HH:MM:SS--
+Select Replace(Convert(varchar(30),Getdate(),120),'-','/')
+
+--YYYY/MM/DD HH:MM:SS--
+Select Replace(Convert(varchar(30),Getdate(),121),'-','/')
+
+--YYYY/MM/DD HH:MM:SS--
+Select Convert(varchar(10),Getdate(),111) + Space(1) + Convert(varchar(8),Getdate(),108)
+
+--YYYYMMDDHHMMSS--
+Select Convert(varchar(10),Getdate(),112) + Replace(Convert(varchar(8),Getdate(),108),':','')
+
+
+
+
+
+CREATE PROC spToday
+	@Today varchar(4) OUTPUT
+	AS
+		SELECT @Today=CONVERT(varchar(2), DATEPART(dd, GETDATE()))
+RETURN @Today;
+
+DECLARE @answer varchar(4)
+EXEC spToday @answer OUTPUT
+SELECT @answer AS 오늘날짜;
+
 
 
 
@@ -306,7 +326,13 @@ SELECT * FROM leeyeonjun.dbo.Table_int;
 
 
 
-
+--------------------------------------------
+--------------------------------------------
+--
+--		MS SQL Server : Cursor Practice
+--
+--------------------------------------------
+--------------------------------------------
 
 
 
