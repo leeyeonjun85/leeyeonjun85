@@ -32,27 +32,27 @@ ORDER BY [type] , name
 --------------------------------------------
 --------------------------------------------
 
-CREATE TABLE [leeyeonjun].[dbo].[00_TestTable_1] (
+CREATE TABLE [leeyeonjun].[dbo].[TestTable_1] (
 	name varchar(50) COLLATE Korean_Wansung_CI_AS NOT NULL,
 	gender bit,
 	[old] int NOT NULL)
-INSERT INTO [leeyeonjun].[dbo].[00_TestTable_1] (name, gender, old) VALUES('이연준', 0, 39)
-INSERT INTO [leeyeonjun].[dbo].[00_TestTable_1] (name, gender, old) VALUES('김건희', 1, 52)
-INSERT INTO [leeyeonjun].[dbo].[00_TestTable_1] (name, gender, old) VALUES('윤석렬', 0, 59)
-SELECT * FROM [leeyeonjun].[dbo].[00_TestTable_1];
+INSERT INTO [leeyeonjun].[dbo].[TestTable_1] (name, gender, old) VALUES('이연준', 0, 39)
+INSERT INTO [leeyeonjun].[dbo].[TestTable_1] (name, gender, old) VALUES('김건희', 1, 52)
+INSERT INTO [leeyeonjun].[dbo].[TestTable_1] (name, gender, old) VALUES('윤석렬', 0, 59)
+SELECT * FROM [leeyeonjun].[dbo].[TestTable_1];
 
---DROP TABLE [leeyeonjun].[dbo].[00_TestTable_1];
+--DROP TABLE [leeyeonjun].[dbo].[TestTable_1];
 
-CREATE TABLE [00_TestTable_2] (IntNumber int NOT NULL)
+CREATE TABLE TestTable_2 (IntNumber int NOT NULL)
 DECLARE @max INT SET @max = 10
 DECLARE @idx INT SET @idx = 1
 WHILE (@idx <= @max)
 BEGIN
-    INSERT INTO [00_TestTable_2] (IntNumber) values (@idx)
+    INSERT INTO TestTable_2 (IntNumber) values (@idx)
     SET @idx = @idx + 1
 END
-SELECT * FROM [00_TestTable_2];
---DROP TABLE [00_TestTable_2];
+SELECT * FROM TestTable_2;
+--DROP TABLE TestTable_2;
 
 
 
@@ -76,7 +76,7 @@ SELECT * FROM [00_TestTable_2];
 CREATE PROCEDURE SelectAllTable_Basic
 AS
 	SELECT *
-	FROM [leeyeonjun].[dbo].[00_TestTable_1]
+	FROM [leeyeonjun].[dbo].[TestTable_1]
 ;
 --DROP PROCEDURE SelectAllTable_Basic;
 
@@ -85,7 +85,7 @@ CREATE PROCEDURE SelectAllName
 	@Column_Name NVARCHAR(50)
 AS
 	SELECT *
-	FROM [leeyeonjun].[dbo].[00_TestTable_1]
+	FROM [leeyeonjun].[dbo].[TestTable_1]
 	WHERE name = @Column_Name
 ;
 --DROP PROCEDURE SelectAllName;
@@ -107,7 +107,7 @@ EXEC SelectAllTable_Basic;
 
 EXEC SelectAllName '이연준';
 
-EXEC SelectAllTable @TableName = '[00_TestTable_1]';
+EXEC SelectAllTable @TableName = '[TestTable_1]';
 
 
 
@@ -122,32 +122,32 @@ EXEC SelectAllTable @TableName = '[00_TestTable_1]';
 
 
 /* 테이블 코멘트 추가 */
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '연습테이블ㄹㄹㄹ', 'USER', dbo, 'TABLE', [00_TestTable_1];
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '연습테이블ㄹㄹㄹ', 'USER', dbo, 'TABLE', [TestTable_1];
 
 /* 테이블 코멘트 조회 */
 SELECT * FROM ::FN_LISTEXTENDEDPROPERTY (NULL, 'SCHEMA', 'DBO', 'TABLE', DEFAULT, DEFAULT, DEFAULT);
 
 /* 테이블 코멘트 수정 */
-EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '연습테이블1', 'USER', dbo, 'TABLE', [00_TestTable_1];
+EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '연습테이블1', 'USER', dbo, 'TABLE', [TestTable_1];
 
 /* 테이블 코멘트 삭제 */
-EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [00_TestTable_1];
+EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [TestTable_1];
 
 
 /* 컬럼 코멘트 추가 */
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', name
-EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '나잉ㅇㅇㅇ', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', [old];
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '이름ㅁㅁㅁ', 'USER', dbo, 'TABLE', [TestTable_1], 'COLUMN', name
+EXEC SP_ADDEXTENDEDPROPERTY 'MS_Description', '나잉ㅇㅇㅇ', 'USER', dbo, 'TABLE', [TestTable_1], 'COLUMN', [old];
 
 /* 테이블 코멘트 조회 */
-SELECT * FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'SCHEMA', 'DBO', 'TABLE', '00_TestTable_1', 'COLUMN', DEFAULT);
+SELECT * FROM ::FN_LISTEXTENDEDPROPERTY(NULL, 'SCHEMA', 'DBO', 'TABLE', 'TestTable_1', 'COLUMN', DEFAULT);
 
 /* 컬럼 코멘트 수정 */
-EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '이름', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', name
-EXECUTE SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '나이', 'USER', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', 'old';
+EXEC SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '이름', 'USER', dbo, 'TABLE', [TestTable_1], 'COLUMN', name
+EXECUTE SP_UPDATEEXTENDEDPROPERTY 'MS_Description', '나이', 'USER', dbo, 'TABLE', [TestTable_1], 'COLUMN', 'old';
 
 /* 컬럼 코멘트 삭제 */
-EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', name
-EXECUTE SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [00_TestTable_1], 'COLUMN', 'old';
+EXEC SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [TestTable_1], 'COLUMN', name
+EXECUTE SP_DROPEXTENDEDPROPERTY 'MS_Description', 'SCHEMA', dbo, 'TABLE', [TestTable_1], 'COLUMN', 'old';
 
 
 
@@ -190,9 +190,43 @@ COMMIT TRAN;
 --------------------------------------------
 
 
-SELECT
-	FLOOR(RAND()*6+1) AS '1부터 6까지 랜덤 정수값',
-	FLOOR(RAND()*(100)+1) AS '1부터 100까지 랜덤 정수값';
+
+
+BEGIN TRAN
+	BEGIN
+	--변수지정
+		DECLARE @min1 INT SET @min1 = 3
+		DECLARE @max1 INT SET @max1 = 6 -- 3~6 사이의 임의의 정수 
+		DECLARE @min2 INT SET @min2 = 5
+		DECLARE @max2 INT SET @max2 = 10 -- 5~10 사이의 임의의 정수
+		DECLARE @varString1 INT SET @min1 = 3
+		DECLARE @max1 INT SET @max1 = 6 -- 3~6 사이의 임의의 정수 
+		DECLARE @idxStart INT SET @idxStart = 1
+		DECLARE @idxEnd INT SET @idxEnd = 12
+		DECLARE @test1 TABLE(
+			RandInt1 INT,
+			RandInt2 INT
+		);
+		
+	--반복문
+		WHILE (@idxStart <= @idxEnd)
+		BEGIN
+		    INSERT INTO @test1 (RandInt1, RandInt2) values (
+		    	CONVERT(INT, (@max1 - @min1) * RAND() + @min1),
+		    	CONVERT(INT, (@max2 - @min2) * RAND() + @min2)
+		    	)
+		    SET @idxStart = @idxStart + 1
+		END;
+		
+	--화면표시
+		SELECT 
+			RandInt1 AS '3~6 사이의 임의의 정수',
+			RandInt2 AS '5~10 사이의 임의의 정수'
+		FROM @test1;
+	END;
+COMMIT TRAN;
+
+
 
 SELECT FLOOR(RAND()*10);
 
