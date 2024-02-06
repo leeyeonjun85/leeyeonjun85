@@ -12,7 +12,9 @@
 
 SHOW variables like 'lower%';
 
+SHOW databases;
 
+USE sakila;
 
 
 
@@ -129,6 +131,123 @@ SELECT substring_index('aaa 123 aaa...ENDaaa 456', 'aaa', 3);	-- aaa 123 aaa...E
 
 
 
+
+###############################################
+###############################################
+##
+##		MySQL 각종 연산자와 함수
+##
+###############################################
+###############################################
+
+
+##		산술 연산자(arithmetic operator)
+
+SELECT 	504.7 + 13,
+		504.7 * 0.9,
+		504.7 / 2,
+		504.7 DIV 2,
+		504.7 % 2,
+		504.7 MOD 2;
+
+##		비교 연산자(comparison operator)
+SELECT 	3 = 3,      		-- 3과 3이 같은지를 비교
+		4 = 5,          	-- 1과 2가 같은지를 비교
+		0 = NULL,          	-- 0과 NULL이 같은지를 비교
+		3 IS TRUE,         	-- 1과 TRUE가 같은지를 비교
+		4 IS NULL,         	-- 1과 NULL이 같은지를 비교
+		4 BETWEEN 5 AND 7, 	-- 4이 5보다 크거나 같고, 7보다 작거나 같은지를 비교
+		5 BETWEEN 5 AND 7, 	-- 5이 5보다 크거나 같고, 7보다 작거나 같은지를 비교
+		6 BETWEEN 5 AND 7, 	-- 6이 5보다 크거나 같고, 7보다 작거나 같은지를 비교
+		7 BETWEEN 5 AND 7, 	-- 7이 5보다 크거나 같고, 7보다 작거나 같은지를 비교
+		8 BETWEEN 5 AND 7, 	-- 8이 5보다 크거나 같고, 7보다 작거나 같은지를 비교
+		5 IN (2, 3, 4, 5); 	-- 5가 2, 3, 4, 5중에 포함되는지를 비교
+	
+##		논리 연산자(logical operator)
+SELECT 	NOT 0, 		-- 피연산자가 0이면 1을 반환하고, 1이면 0을 반환함.
+		NOT TRUE,
+		1 AND 1,    -- 피연산자가 모두 1일때만 1을 반환하고, 나머지 경우에는 0을 반환함.
+		1 && TRUE,
+		0 OR 0,     -- 피연산자가 모두 0일때만 0을 반환하고, 나머지 경우에는 1을 반환함.
+		1 XOR 0;    -- 피연산자가 서로 다르면 1을 반환하고, 서로 같으면 0을 반환함.
+
+##		비트 연산자(bitwise operator)
+SELECT 	b'1001' & b'1111', 		-- 연산 결과는 b'1001' = 9
+		b'1000' | b'1111',      -- 모든 비트에 하나라도 1이 포함되어 있으므로, 연산 결과는 b'1111'이 됨.
+		b'1000' ^ b'1111',      -- 첫 번째 비트를 제외한 모든 비트가 서로 다르므로, 연산 결과는 b'0111'이 됨.
+		b'1100' >> 1,           -- 모든 비트를 1비트씩 오른쪽으로 이동시키므로, 연산 결과는 b'0110'이 됨.
+		b'10' << 1,
+		1 << 1,
+		1 << 2,
+		1 << 3,
+		3 >> 1,
+		4 >> 1,
+		5 >> 1,
+		6 >> 1,
+		(1 << 1) << 1,
+		b'11' & b'11',
+		b'1100' >> 2;           -- 모든 비트를 2비트씩 오른쪽으로 이동시키므로, 연산 결과는 b'0011'이 됨.
+
+##		흐름 제어
+SELECT 
+	CASE 1
+	WHEN 0 THEN 'zero'
+    WHEN 1 THEN 'one'
+    ELSE 'more' 
+    END,
+    CASE 3
+	WHEN 0 THEN 'zero'
+    WHEN 1 THEN 'one'
+    ELSE 'more'
+	END;
+
+SELECT 	IF(0 < 1, 'yes', 'no'),	-- true이면 'yes', false이면 'no'
+		IF(0 = 1, 'yes', 'no');
+
+SELECT 	IFNULL(NULL, '전달받은 값이 null입니다.'),
+		IFNULL(3, '전달받은 값이 null입니다.');
+
+SELECT 	NULLIF(3, 3),
+		NULLIF(3, 4);
+	
+##		패턴 매칭(pattern matching)
+SELECT *
+FROM film
+WHERE title LIKE 'love%';
+
+SELECT *
+FROM film
+WHERE title LIKE '%love';
+
+SELECT *
+FROM film
+WHERE title NOT LIKE '%love%';
+
+SELECT *
+FROM film
+WHERE title LIKE 'A__ %';
+
+SELECT *
+FROM film
+WHERE title REGEXP '^love | love$';
+
+SELECT *
+FROM film
+WHERE title not REGEXP '^love | love$';
+
+##		타입 변환(type casting)
+SELECT 	BINARY 'a' = 'A', 		-- BINARY 연산자는 뒤에 오는 문자열을 바이너리 문자열로 변환
+		'a' = 'A';
+
+SELECT 	4 / '2',
+		4 / 2,
+		4 / CAST('2' AS UNSIGNED);
+
+
+
+
+
+		
 ###############################################
 ###############################################
 ##
@@ -205,6 +324,20 @@ CREATE TABLE `Test_Table_2` (
 DROP TABLE Test_Table_2;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ###############################################
 ###############################################
 ##
@@ -259,6 +392,22 @@ EXEC SelectAllTable_Basic;
 EXEC SelectAllName '이연준';
 
 EXEC SelectAllTable @TableName = '[TestTable_1]';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
