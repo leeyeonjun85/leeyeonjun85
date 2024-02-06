@@ -243,9 +243,11 @@ SELECT 	4 / '2',
 		4 / 2,
 		4 / CAST('2' AS UNSIGNED);
 
+SELECT CONVERT('abc' USING utf8);
 
 
-
+SELECT CAST('[1,2,3]' as JSON);
+SELECT CAST('{"opening":"Sicilian","variations":["pelikan","dragon","najdorf"]}' as JSON);
 
 		
 ###############################################
