@@ -1,6 +1,34 @@
--- DROP SCHEMA dbo;
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+##		
+##		
+##		TCPschool - MySQL
+##		`https://tcpschool.com/mysql/intro`
+##		
+##		
+###################################################################
+###################################################################
+###################################################################
+###################################################################
 
--- CREATE SCHEMA dbo;
+
+
+
+###################################################################
+##
+##		1. MySQL 시작
+##
+###################################################################
+
+SHOW DATABASES;
+
+CREATE DATABASE test1;
+
+USE test1;
+
+--	DROP SCHEMA test1;
 
 
 /* 
@@ -10,135 +38,114 @@
  * 2 : 테이블과 데이터베이스의 이름을 대소문자를 구분해서 생성
  */
 
-SHOW variables like 'lower%';
-
-SHOW databases;
-
-USE sakila;
+SHOW variables LIKE 'lower%';
 
 
+##		기본 데이터
+CREATE TABLE Reservation(ID INT, Name VARCHAR(30), ReserveDate DATE, RoomNum INT);
+CREATE TABLE Customer (ID INT, Name VARCHAR(30), Age INT, Address VARCHAR(20));
+
+INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum) VALUES(1, '홍길동', '2016-01-05', 2014);
+INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum) VALUES(2, '임꺽정', '2016-02-12', 918);
+INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum) VALUES(3, '장길산', '2016-01-16', 1208);
+INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum) VALUES(4, '홍길동', '2016-03-17', 504);
+
+INSERT INTO Customer (ID, Name, Age, Address) VALUES (1, '홍길동', 17, '서울');
+INSERT INTO Customer (ID, Name, Age, Address) VALUES (2, '임꺽정', 11, '인천');
+INSERT INTO Customer (ID, Name, Age, Address) VALUES (3, '장길산', 13, '서울');
+INSERT INTO Customer (ID, Name, Age, Address) VALUES (4, '전우치', 17, '수원');
 
 
-###############################################
-###############################################
+
+
+###################################################################
 ##
-##		MySQL 기초문법
+##		2. MySQL 문법
 ##
-###############################################
-###############################################
+###################################################################
+
+# 한 줄 주석
+
+-- 두 개 이상의 하이픈(-) 뒤에는 반드시 한 칸의 공백이 존재해야만 주석으로 정상 인식
+
+/* 
+ * 두 줄
+ * 이상의
+ * 주석 
+ */
 
 
-SHOW databases;
+CREATE TABLE Test
+(
+    ID INT,
+    Name VARCHAR(30),
+    ReserveDate DATE,
+    RoomNum INT
+);
 
-USE sakila;
+--	DROP TABLE IF EXISTS Test;
+--	DROP TABLE Test;
 
-SHOW TABLES;
+ALTER TABLE Test ADD Phone INT;
 
-DESCRIBE actor;
-DESC actor;	-- 짧게 줄여써도 된다
+INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum) VALUES(5, '이순신', '2016-02-16', 1108);
+INSERT INTO Reservation(ID, Name) VALUES (6, '김유신');
+INSERT INTO Reservation(ID, Name, ReserveDate) VALUES (7, '김구', CURDATE());
 
-SELECT * FROM actor;
-SELECT * FROM sakila.actor;	-- 동일한 결과 조회
+UPDATE Reservation
+SET RoomNum = 2002
+WHERE Name = '홍길동';
 
-SELECT * FROM actor
-LIMIT 3;
+DELETE FROM Reservation
+WHERE Name = '김유신';
 
-SELECT * FROM actor
-ORDER BY first_name ASC;	-- 오름차순 정렬
-
-SELECT * FROM actor
-ORDER BY first_name DESC;	-- 내림차순 정렬
-
-SELECT 	actor_id,
-		last_name AS 성,
-		first_name 이름,	-- AS 생략가능
-		last_update
-FROM actor;
-
-SELECT actor_id actorId
-		, first_name fName
-		, last_name lName
-		, last_update
-FROM actor
-WHERE first_name = 'zero';
-
-SELECT actor_id actorId
-		, first_name fName
-		, last_name lName
-		, last_update
-FROM actor
-WHERE first_name = 'ZERO';
-
-SELECT actor_id actorId
-		, first_name fName
-		, last_name lName
-		, last_update
-FROM actor
-WHERE actor_id >= 25 && actor_id < 30;
-
-SELECT actor_id actorId
-		, first_name fName
-		, last_name lName
-		, last_update
-FROM actor
-WHERE 1=1
-AND last_name = 'KILMER'
-AND actor_id < 100;
+SELECT *
+FROM Reservation;
 
 
 
 
-
-
-###############################################
-###############################################
+###################################################################
 ##
-##		MySQL 문자열 다루기
+##		3. 타입
 ##
-###############################################
-###############################################
+###################################################################
 
-SELECT concat('123', '456', '789');	-- 123456789
-SELECT concat_ws('/', 'AB', 'CD', 'EF', 'GH');	-- AB-CD-EF-GH
-SELECT concat_ws('-', '010', '1234', '5678');	-- 010-1234-5678
-SELECT concat_ws('-', '2022','12','25');	-- 2022/12/25
-SELECT format(123.456789, 2);	-- 123.46
-SELECT format(123.45, 7);	-- 123.4500000
-SELECT insert('korea _word_ fighting', 7, 6, 'FOOTBALL');	-- korea FOOTBALL fighting
-SELECT left('korea FOOTBALL fighting', 5);	-- korea
-SELECT right('korea FOOTBALL fighting', 8);	-- fighting
-SELECT upper('football');	-- FOOTBALL
-SELECT lower('FOOTBALL');	-- football
-SELECT lpad('i love you', 14, '♡');	-- ♡♡♡♡i love you
-SELECT rpad('i love you', 14, '♡♥');	-- i love you♥♥♥♥
-SELECT lpad('please don\'t cut me', 6, '!!!');	-- please
-SELECT ltrim('       i love you       ');		-- i love you       (좌측만 공백제거)
-SELECT rtrim('       i love you       ');		--        i love you(우측만 공백제거)
-SELECT ltrim(rtrim('       i love you       '));	-- i love you
-SELECT trim('       i love you       ');		-- i love you
-SELECT repeat('i love you! ', 3);	-- i love you! i love you! i love you! 
-SELECT concat('i love ', repeat('~', 7), ' you');	-- i love ~~~~~~~ you
-SELECT length('i love you');	-- 10
-SELECT length(concat('i love ', repeat('~', 7), ' you'));	-- 18
-SELECT replace('i love her', 'her', 'you');	-- i love you
-SELECT reverse('기러기 토마토 스위스 인도인 별똥별 역삼역');	-- 역삼역 별똥별 인도인 스위스 토마토 기러기
-SELECT substring('i love you', 3, 4);	-- love
-SELECT substring_index('aaa 123 aaa...ENDaaa 456', 'aaa', 3);	-- aaa 123 aaa...END
+/*
+ * TINYINT		1바이트
+ * SMALLINT		2바이트
+ * MEDIUMINT	3바이트
+ * INT			4바이트
+ * BIGINT		8바이트
+ */
+
+ALTER TABLE Reservation
+MODIFY COLUMN RoomNum DECIMAL(7,2);
+
+ALTER TABLE Reservation
+ADD Code BIT(7);
+
+INSERT INTO Reservation(ID, Name, Code) VALUES (8, '이연준', b'100');
+
+SELECT *, BIN(Code), ROOMNUM >> 1 AS 'RoomNum/2' FROM RESERVATION R ;
+
+
+ALTER TABLE Reservation
+ADD COLUMN RoomType ENUM('Single', 'Twin', 'Double', 'Triple');
+
+INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum, Code, RoomType)
+	VALUES(9, '이승만', CURDATE(), 1108, b'100', 'Single');
 
 
 
 
-
-
-
-
-###############################################
-###############################################
+###################################################################
 ##
-##		MySQL 각종 연산자와 함수
+##		4. 연산자와 함수
 ##
-###############################################
-###############################################
+###################################################################
+
+
 
 
 ##		산술 연산자(arithmetic operator)
@@ -249,7 +256,146 @@ SELECT CONVERT('abc' USING utf8);
 SELECT CAST('[1,2,3]' as JSON);
 SELECT CAST('{"opening":"Sicilian","variations":["pelikan","dragon","najdorf"]}' as JSON);
 
-		
+
+
+
+
+
+
+###############################################
+###############################################
+##
+##		MySQL 제약 조건(constraint)
+##
+###############################################
+###############################################
+
+CREATE DATABASE Test1;
+USE Test1;
+
+CREATE TABLE Test
+(
+    ID INT NOT NULL,  
+    Name VARCHAR(30),
+    ReserveDate DATE,
+    RoomNum INT
+);
+
+-- DROP TABLE Test;
+
+INSERT INTO Test (Name, ReserveDate, RoomNum)
+VALUES('이순신', CURDATE(), 1108);
+
+
+
+
+
+
+
+
+###############################################
+###############################################
+##
+##		MySQL 문자열 다루기
+##
+###############################################
+###############################################
+
+
+
+
+
+DESCRIBE actor;
+DESC actor;	-- 짧게 줄여써도 된다
+
+SELECT * FROM actor;
+SELECT * FROM sakila.actor;	-- 동일한 결과 조회
+
+SELECT * FROM actor
+LIMIT 3;
+
+SELECT * FROM actor
+ORDER BY first_name ASC;	-- 오름차순 정렬
+
+SELECT * FROM actor
+ORDER BY first_name DESC;	-- 내림차순 정렬
+
+SELECT 	actor_id,
+		last_name AS 성,
+		first_name 이름,	-- AS 생략가능
+		last_update
+FROM actor;
+
+SELECT actor_id actorId
+		, first_name fName
+		, last_name lName
+		, last_update
+FROM actor
+WHERE first_name = 'zero';
+
+SELECT actor_id actorId
+		, first_name fName
+		, last_name lName
+		, last_update
+FROM actor
+WHERE first_name = 'ZERO';
+
+SELECT actor_id actorId
+		, first_name fName
+		, last_name lName
+		, last_update
+FROM actor
+WHERE actor_id >= 25 && actor_id < 30;
+
+SELECT actor_id actorId
+		, first_name fName
+		, last_name lName
+		, last_update
+FROM actor
+WHERE 1=1
+AND last_name = 'KILMER'
+AND actor_id < 100;
+
+
+
+
+
+
+SELECT concat('123', '456', '789');	-- 123456789
+SELECT concat_ws('/', 'AB', 'CD', 'EF', 'GH');	-- AB-CD-EF-GH
+SELECT concat_ws('-', '010', '1234', '5678');	-- 010-1234-5678
+SELECT concat_ws('-', '2022','12','25');	-- 2022/12/25
+SELECT format(123.456789, 2);	-- 123.46
+SELECT format(123.45, 7);	-- 123.4500000
+SELECT insert('korea _word_ fighting', 7, 6, 'FOOTBALL');	-- korea FOOTBALL fighting
+SELECT left('korea FOOTBALL fighting', 5);	-- korea
+SELECT right('korea FOOTBALL fighting', 8);	-- fighting
+SELECT upper('football');	-- FOOTBALL
+SELECT lower('FOOTBALL');	-- football
+SELECT lpad('i love you', 14, '♡');	-- ♡♡♡♡i love you
+SELECT rpad('i love you', 14, '♡♥');	-- i love you♥♥♥♥
+SELECT lpad('please don\'t cut me', 6, '!!!');	-- please
+SELECT ltrim('       i love you       ');		-- i love you       (좌측만 공백제거)
+SELECT rtrim('       i love you       ');		--        i love you(우측만 공백제거)
+SELECT ltrim(rtrim('       i love you       '));	-- i love you
+SELECT trim('       i love you       ');		-- i love you
+SELECT repeat('i love you! ', 3);	-- i love you! i love you! i love you! 
+SELECT concat('i love ', repeat('~', 7), ' you');	-- i love ~~~~~~~ you
+SELECT length('i love you');	-- 10
+SELECT length(concat('i love ', repeat('~', 7), ' you'));	-- 18
+SELECT replace('i love her', 'her', 'you');	-- i love you
+SELECT reverse('기러기 토마토 스위스 인도인 별똥별 역삼역');	-- 역삼역 별똥별 인도인 스위스 토마토 기러기
+SELECT substring('i love you', 3, 4);	-- love
+SELECT substring_index('aaa 123 aaa...ENDaaa 456', 'aaa', 3);	-- aaa 123 aaa...END
+
+
+
+
+
+
+
+
+
 ###############################################
 ###############################################
 ##
