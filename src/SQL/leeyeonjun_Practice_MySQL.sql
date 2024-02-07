@@ -149,7 +149,6 @@ INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum, Code, RoomType)
 
 
 ##		산술 연산자(arithmetic operator)
-
 SELECT 	504.7 + 13,
 		504.7 * 0.9,
 		504.7 / 2,
@@ -218,29 +217,21 @@ SELECT 	NULLIF(3, 3),
 		NULLIF(3, 4);
 	
 ##		패턴 매칭(pattern matching)
-SELECT *
-FROM film
-WHERE title LIKE 'love%';
+SELECT * 
+FROM Reservation 
+WHERE Name LIKE '장%';
 
-SELECT *
-FROM film
-WHERE title LIKE '%love';
+SELECT * 
+FROM Reservation 
+WHERE Name LIKE '홍_동';
 
-SELECT *
-FROM film
-WHERE title NOT LIKE '%love%';
+SELECT * 
+FROM Reservation 
+WHERE Name REGEXP '^홍|^장';
 
-SELECT *
-FROM film
-WHERE title LIKE 'A__ %';
-
-SELECT *
-FROM film
-WHERE title REGEXP '^love | love$';
-
-SELECT *
-FROM film
-WHERE title not REGEXP '^love | love$';
+SELECT * 
+FROM Reservation 
+WHERE Name NOT REGEXP '^홍|^장';
 
 ##		타입 변환(type casting)
 SELECT 	BINARY 'a' = 'A', 		-- BINARY 연산자는 뒤에 오는 문자열을 바이너리 문자열로 변환
@@ -252,23 +243,19 @@ SELECT 	4 / '2',
 
 SELECT CONVERT('abc' USING utf8);
 
-
 SELECT CAST('[1,2,3]' as JSON);
 SELECT CAST('{"opening":"Sicilian","variations":["pelikan","dragon","najdorf"]}' as JSON);
 
 
 
 
-
-
-
-###############################################
-###############################################
+###################################################################
 ##
-##		MySQL 제약 조건(constraint)
+##		5. 제약조건
 ##
-###############################################
-###############################################
+###################################################################
+
+
 
 CREATE DATABASE Test1;
 USE Test1;
@@ -285,6 +272,148 @@ CREATE TABLE Test
 
 INSERT INTO Test (Name, ReserveDate, RoomNum)
 VALUES('이순신', CURDATE(), 1108);
+
+
+
+
+###################################################################
+##
+##		6. 다중 테이블 연산
+##
+###################################################################
+
+
+
+
+
+###################################################################
+##
+##		7. INDEX
+##
+###################################################################
+
+CREATE INDEX NameIdx
+On Reservation (Name);
+
+SHOW INDEX
+FROM Reservation;
+
+CREATE UNIQUE INDEX IdIdx
+On Reservation (ID);
+
+
+
+
+###################################################################
+##
+##		8. VIEW
+##
+###################################################################
+
+
+
+
+
+###################################################################
+##
+##		9. MySQL 내장 함수
+##
+###################################################################
+
+
+
+SELECT LENGTH('12345678');
+
+SELECT 	CONCAT('Ora', 'cle Cor', 'poration'), 
+		CONCAT('Oracle', NULL, 'Corporation');
+
+SELECT 	LOCATE('abc', 'ababcDEFabc'), 
+		LOCATE('abc', 'ababcDEFabc', 4);
+
+SELECT 	LEFT('MySQL PHP HTML Java', 5), 
+		RIGHT('MySQL PHP HTML Java', 4);
+
+SELECT 	LOWER('MySQL PHP HTML Java'), 
+		UPPER('MySQL PHP HTML Java');
+
+SELECT 	REPLACE('MySQL', 'My', 'MS ');
+	
+SELECT 	TRIM('   !!!MySQL PHP HTML Java!!!    '), 
+		TRIM(LEADING '!' FROM '!!!MySQL PHP HTML Java!!!'),
+		TRIM(TRAILING '!' FROM '!!!MySQL PHP HTML Java!!!');
+	
+SELECT 	FORMAT(123456789.123456, 3);
+	
+SELECT 	FLOOR(10.35),
+		CEIL(10.35),
+		FLOOR(-10.35),
+		CEIL(-10.35);
+	
+SELECT 	ROUND(10.49),
+		ROUND(10.5),
+		ROUND(-10.5),
+		ROUND(-10.49);
+	
+SELECT 	SQRT(9), 
+		POW(2, 3),
+		EXP(3), 					-- 자연상수 e의 거듭제곱을 계산하여 반환
+		POW(2.718281828459, 3),
+		LOG(3),						-- 전달받은 수의 자연로그 값을 계산하여 반환
+		POW(2.718281828459, 1.0986122886681098),
+		LOG(20.085536923187668);
+	
+SELECT 	SIN(PI()/2), 
+		COS(PI()), 
+		TAN(PI()/4);
+	
+SELECT 	ABS(-3), 
+		ROUND(RAND()*100, 0);
+	
+SELECT 	NOW(),
+		CURDATE(),
+		CURTIME();
+
+SELECT 	DATE(NOW()), 
+		MONTH(NOW()), 
+		DAY(NOW()),
+		DAYNAME(NOW()),
+		HOUR(NOW()), 
+		MINUTE(NOW()), 
+		SECOND(NOW());
+
+SELECT 	DAYOFMONTH('2016-10-28'), 
+		DAYOFWEEK('2016-10-28'), 
+		DAYOFYEAR('2016-10-28');
+	
+SELECT 	DATE_FORMAT(NOW(), '%D %y %a %d %m %b %j'),
+		DATE_FORMAT(NOW(), '%Y년 %m월 %d일(%a) %p %l시 %i분 %s초');
+-- https://tcpschool.com/mysql/mysql_builtInFunction_dateTime
+	
+SELECT COUNT(*) AS NumberOfRervation, MAX(Name) AS MaxName
+FROM Reservation;
+
+SELECT MAX(Name) AS MaxName
+FROM Customer;
+
+SELECT SUM(Age) AS SumOfAge, AVG(Age) AS AverageOfAge
+FROM Customer;
+
+SELECT Age, COUNT(*) AS NumOfCustomer
+FROM Customer
+GROUP BY Age;
+
+SELECT Address, Name, MAX(Age) AS MaxAge
+FROM Customer
+GROUP BY Address
+HAVING MaxAge > 15;
+
+
+
+
+
+
+
+
 
 
 
