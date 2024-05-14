@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WPF_EFCore_GetStartedWPF
-build_property.ProjectDir = D:\yeonjunsCode\leeyeonjun85\src\EFCore\WPF_EFCore_GetStartedWPF\
+build_property.ProjectDir = C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\WPF_EFCore_GetStartedWPF\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

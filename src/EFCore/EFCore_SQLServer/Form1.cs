@@ -28,6 +28,7 @@ namespace EFCore_SQLServer
             }
             else
             {
+                context.Database.EnsureCreated();
                 lbStatus.Text = $"상태 : 연결 실패";
             }
         }

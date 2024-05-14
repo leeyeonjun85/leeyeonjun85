@@ -2,6 +2,7 @@
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using System;
+using System.Windows.Forms;
 
 namespace EFCore_SQLServer.Models
 {
@@ -11,6 +12,7 @@ namespace EFCore_SQLServer.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

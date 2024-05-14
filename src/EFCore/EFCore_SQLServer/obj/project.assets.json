@@ -3179,36 +3179,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\leeye\\.nuget\\packages\\": {},
-    "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\uurang\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLServer\\EFCore_SQLServer.csproj",
+      "projectUniqueName": "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\EFCore_SQLServer\\EFCore_SQLServer.csproj",
       "projectName": "EFCore_SQLServer",
-      "projectPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLServer\\EFCore_SQLServer.csproj",
-      "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
-      "outputPath": "C:\\yeonjunsCode\\leeyeonjun85\\src\\EFCore\\EFCore_SQLServer\\obj\\",
+      "projectPath": "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\EFCore_SQLServer\\EFCore_SQLServer.csproj",
+      "packagesPath": "C:\\Users\\uurang\\.nuget\\packages\\",
+      "outputPath": "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\EFCore_SQLServer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\leeye\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.1.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\uurang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
+        "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3221,6 +3215,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -3251,7 +3250,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
