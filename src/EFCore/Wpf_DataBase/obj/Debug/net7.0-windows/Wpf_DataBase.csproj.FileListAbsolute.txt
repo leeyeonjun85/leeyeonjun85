@@ -182,3 +182,14 @@ C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wp
 C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\ref\Wpf_DataBase.dll
 C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\bin\Debug\net7.0-windows\leeyeonjun.dll
 C:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\bin\Debug\net7.0-windows\leeyeonjun.pdb
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase.csproj.AssemblyReference.cache
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Views\FireBaseView.g.cs
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Views\MainView.g.cs
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Views\MongoDbView.g.cs
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Views\SubView.g.cs
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\App.g.cs
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase_MarkupCompile.cache
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase_MarkupCompile.lref
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase.dll
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\refint\Wpf_DataBase.dll
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\Wpf_DataBase.pdb

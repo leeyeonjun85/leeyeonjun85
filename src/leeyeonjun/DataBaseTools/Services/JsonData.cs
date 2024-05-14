@@ -9,7 +9,7 @@ namespace DataBaseTools.Services
     {
         private static JObject GetEdcoreWorksJsonObject()
         {
-            string fileName = $"yeonjunsCode{Path.DirectorySeparatorChar}EdcoreWorks{Path.DirectorySeparatorChar}EDCORE_Data.json";
+            string fileName = $"private{Path.DirectorySeparatorChar}leeyeonjun_data.json";
             string filePath = Path.Combine(Path.GetPathRoot(Directory.GetCurrentDirectory())!, fileName);
             JObject jObject = new();
 

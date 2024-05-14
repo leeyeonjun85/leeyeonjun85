@@ -34,6 +34,10 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\leeyeonjun\leeyeonjun.csproj" />
+	</ItemGroup>
+
     <ItemGroup>
         <Reference Include="websocket-sharp">
             <HintPath>..\..\dll\websocket-sharp.dll</HintPath>

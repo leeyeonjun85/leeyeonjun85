@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\obj\Debug\net7.0-windows\
 Wpf_DataBase
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-D:\yeonjunsCode\leeyeonjun85\src\EFCore\Wpf_DataBase\App.xaml
+C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\Wpf_DataBase\App.xaml
 4-1552766267
 
 16-330245971
-2071779810490
+2651130567840
 Views\FireBaseView.xaml;Views\MainView.xaml;Views\MongoDbView.xaml;Views\SubView.xaml;
 
 True
