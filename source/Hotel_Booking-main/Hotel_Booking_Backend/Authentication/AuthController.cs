@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Hotel_Booking_Backend.Models;
 using Hotel_Booking_Backend.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -62,18 +62,7 @@ public class AuthController : ControllerBase
             Audience = _configuration["Jwt:Audience"],
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
-        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-
-        try
-        {
-            var a1 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFsZXgiLCJyb2xlIjoiQWRtaW4iLCJ1bmlxdWVfbmFtZSI6IkFsZXgiLCJuYmYiOjE3MTM1MDAyNjcsImV4cCI6MTcxMzUwMzg0NiwiaWF0IjoxNzEzNTAwMjY3LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDg3IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo3MDg3In0.M5q4eMPQu1xDElmXI9Dw4j2JpQvQ3zR_WGNvPgW26Ec";
-            JwtSecurityToken jwtSecurityToken = tokenHandler.ReadJwtToken(a1);
-        }
-        catch (Exception e)
-        {
-            var a2 = e.Message;
-        }
-    
+        var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
 }
