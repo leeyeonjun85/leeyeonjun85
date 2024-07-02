@@ -20,7 +20,7 @@ https://hyeinisfree.tistory.com/22
 
 <table width="100%">
     <td width="30%" style="align:center;">
-        <img style="border-radius: 50%; padding: 5px; border-radius: 50%"  
+        <img style="border-radius: 50%; padding: 5px; border-radius: 50%;"  
             border="1px solid #888"
             src="https://github.com/leeyeonjun85/leeyeonjun85.github.io/blob/main/assets/images/profile/load3.JPG"/>
     </td>
