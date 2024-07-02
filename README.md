@@ -22,14 +22,14 @@ https://hyeinisfree.tistory.com/22
     <td width="30%" style="align:center;">
         <img style="border-radius: 50%; padding: 5px; border-radius: 50%"  
             border="1px solid #888"
-            src="https://drive.google.com/uc?id=1oOoeMltD6g4W4mtx--Hrua5nGjm_dWWe"/>
+            src="https://github.com/leeyeonjun85/leeyeonjun85.github.io/blob/main/assets/images/profile/load3.JPG?raw=true"/>
     </td>
     <td width="70%">
         <h2 style="text-align:center;">🔎 My Links 📌</h2>
         <div style="text-align:left;">
-            <a href="http://15.164.244.197/" target='_blank'>
+            <a href="" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
-                http://15.164.244.197/
+                공사중...🚧
             </a><br>
             <a href="mailto:leeyeonjun85@gmail.com">
                 <img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
