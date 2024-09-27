@@ -26,24 +26,24 @@ namespace EFCore_MySQL
             context = _context;
             //context.ChangeTracker.DetectChanges();
 
-            string selectSql = $"SELECT * FROM STUDENT";
+            //string selectSql = $"SELECT * FROM STUDENT";
 
-            sqlConnection = new SqlConnection("Server=localhost;Database=testdb;Uid=root;Pwd=0316165110;");
-            sqlConnection.Open();
-            sqlCommand = new SqlCommand(selectSql, sqlConnection);
+            //sqlConnection = new SqlConnection("Server=localhost;Database=testdb;Uid=root;Pwd=0316165110;");
+            //sqlConnection.Open();
+            //sqlCommand = new SqlCommand(selectSql, sqlConnection);
 
-            sqlDependency = new SqlDependency(sqlCommand);
-            adapter = new SqlDataAdapter(selectSql, sqlConnection);
-            dataTable = new DataTable();
-            //adapter.Fill(dataTable);
-            //dataGridView1.DataSource = dataTable;
+            //sqlDependency = new SqlDependency(sqlCommand);
+            //adapter = new SqlDataAdapter(selectSql, sqlConnection);
+            //dataTable = new DataTable();
+            ////adapter.Fill(dataTable);
+            ////dataGridView1.DataSource = dataTable;
 
-            //context.Students.Load();
-            //dataGridView1.DataSource = context.Students.Local.ToBindingList();
+            ////context.Students.Load();
+            ////dataGridView1.DataSource = context.Students.Local.ToBindingList();
 
-            //sqlCommand.ExecuteNonQuery();
-            //sqlConnection.Close();
-            sqlDependency.OnChange += new OnChangeEventHandler(OnDependencyChange);
+            ////sqlCommand.ExecuteNonQuery();
+            ////sqlConnection.Close();
+            //sqlDependency.OnChange += new OnChangeEventHandler(OnDependencyChange);
         }
 
         private void OnDependencyChange(object sender, SqlNotificationEventArgs args)
@@ -65,8 +65,8 @@ namespace EFCore_MySQL
                 lblStatus.Text = $"상태 : 연결 완료";
                 context.Database.EnsureCreated();
 
-                context.Students.Load();
-                dataGridView1.DataSource = context.Students.Local.ToBindingList();
+                context.TEST_MAUI.Load();
+                //dataGridView1.DataSource = context.Students.Local.ToBindingList();
 
                 //var query = from s in context.Schools
                 //            select new { s.Name };
@@ -88,14 +88,14 @@ namespace EFCore_MySQL
         {
             try
             {
-                var addData = new Student
-                {
-                    Name = tbName.Text,
-                };
+                //var addData = new Student
+                //{
+                //    Name = tbName.Text,
+                //};
 
-                context.Students.Add(addData);
-                context.SaveChanges();
-                lblStatus.Text = $"상태 : 데이터 추가";
+                //context.Students.Add(addData);
+                //context.SaveChanges();
+                //lblStatus.Text = $"상태 : 데이터 추가";
             }
             catch (Exception ex)
             {
@@ -107,16 +107,16 @@ namespace EFCore_MySQL
         {
             try
             {
-                int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                Student foundStudent = context.Students.Find(foundId);
+                //int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                //Student foundStudent = context.Students.Find(foundId);
 
-                var updateName = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
+                //var updateName = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
 
-                foundStudent.Name = updateName;
+                //foundStudent.Name = updateName;
 
-                context.Entry(foundStudent).State = EntityState.Modified;
-                context.SaveChanges();
-                lblStatus.Text = $"상태 : 데이터 수정";
+                //context.Entry(foundStudent).State = EntityState.Modified;
+                //context.SaveChanges();
+                //lblStatus.Text = $"상태 : 데이터 수정";
             }
             catch (Exception)
             {
@@ -129,11 +129,11 @@ namespace EFCore_MySQL
         {
             try
             {
-                int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                Student foundStudent = context.Students.Find(foundId);
-                context.Students.Remove(foundStudent);
-                context.SaveChanges();
-                lblStatus.Text = $"상태 : 데이터 삭제";
+                //int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                //Student foundStudent = context.Students.Find(foundId);
+                //context.Students.Remove(foundStudent);
+                //context.SaveChanges();
+                //lblStatus.Text = $"상태 : 데이터 삭제";
             }
             catch (Exception)
             {

@@ -52,9 +52,9 @@ namespace Wpf_DataBase.ViewModels
             //TbOld = ConfigurationManager.AppSettings["MyOld"]?.ToString() ?? "0";
 
 
-            JsonModel jsonModel = Utiles.GetJsonModel();
-            TbName = jsonModel.MyProfile.Name;
-            TbOld = (DateTime.Now.Year - Convert.ToDateTime(jsonModel.MyProfile.BirthDay).Year).ToString();
+            //JsonModel jsonModel = Utiles.GetJsonModel();
+            //TbName = jsonModel.MyProfile.Name;
+            //TbOld = (DateTime.Now.Year - Convert.ToDateTime(jsonModel.MyProfile.BirthDay).Year).ToString();
 
 
 
