@@ -1,6 +1,6 @@
 ﻿namespace EFCore_MySQL
 {
-    partial class MainForm
+    partial class MainForm3
     {
         /// <summary>
         ///  Required designer variable.
@@ -162,7 +162,7 @@
             tbxDbName.Size = new Size(142, 23);
             tbxDbName.TabIndex = 13;
             // 
-            // MainForm
+            // MainForm3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -179,7 +179,7 @@
             Controls.Add(btnSave);
             Controls.Add(btnConnect);
             Controls.Add(lblStatus);
-            Name = "MainForm";
+            Name = "MainForm3";
             Text = "Form1";
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

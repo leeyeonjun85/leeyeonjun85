@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wpf_DataBase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba63df2da1a139b9f6b8bfa61c4e6c79b475c711")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28a1de5f61da3a7a656256433f7be51e63cbb56a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wpf_DataBase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wpf_DataBase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

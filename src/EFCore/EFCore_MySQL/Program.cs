@@ -15,7 +15,7 @@ namespace EFCore_MySQL
 
             // Service Add
             var services = new ServiceCollection()
-                                .AddSingleton<MainForm>()
+                                .AddSingleton<MainForm3>()
                                 .AddLogging(builder =>
                                 {
                                     builder.AddDebug();
@@ -23,7 +23,7 @@ namespace EFCore_MySQL
                                 })
                                 .AddDbContext<ModelContext>()
                                 .BuildServiceProvider()
-                                .GetRequiredService<MainForm>();
+                                .GetRequiredService<MainForm3>();
             Application.Run(services);
         }
     }

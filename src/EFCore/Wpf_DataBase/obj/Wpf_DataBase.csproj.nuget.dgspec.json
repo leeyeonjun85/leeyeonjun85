@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj": {}
+    "D:\\leeyeonjun\\git\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj": {}
   },
   "projects": {
-    "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj": {
+    "D:\\leeyeonjun\\git\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj",
+        "projectUniqueName": "D:\\leeyeonjun\\git\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj",
         "projectName": "Wpf_DataBase",
-        "projectPath": "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj",
-        "packagesPath": "C:\\Users\\uurang\\.nuget\\packages\\",
-        "outputPath": "C:\\leeyeonjun\\gitRepository\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\obj\\",
+        "projectPath": "D:\\leeyeonjun\\git\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\Wpf_DataBase.csproj",
+        "packagesPath": "C:\\Users\\leeye\\.nuget\\packages\\",
+        "outputPath": "D:\\leeyeonjun\\git\\leeyeonjun85\\src\\EFCore\\Wpf_DataBase\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\uurang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leeye\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,7 +27,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
@@ -94,7 +92,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

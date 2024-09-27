@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\WpfSQLite\obj\Debug\net7.0-windows\
+D:\leeyeonjun\git\leeyeonjun85\src\EFCore\WpfSQLite\obj\Debug\net7.0-windows\
 WpfSQLite
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\leeyeonjun\gitRepository\leeyeonjun85\src\EFCore\WpfSQLite\App.xaml
+D:\leeyeonjun\git\leeyeonjun85\src\EFCore\WpfSQLite\App.xaml
 3-1382008178
 
 15127639269
-237599203165
+237-672861891
 MainWindow.xaml;Views\MainView.xaml;Views\SubView.xaml;
 
 False

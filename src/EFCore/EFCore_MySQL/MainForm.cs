@@ -2,6 +2,9 @@ using EFCore_MySQL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Asn1.Pkcs;
+using Serilog.Sinks.File;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -66,13 +69,21 @@ namespace EFCore_MySQL
                 context.Database.EnsureCreated();
 
                 context.TEST_MAUI.Load();
-                //dataGridView1.DataSource = context.Students.Local.ToBindingList();
+                //dataGridView1.DataSource = context.TEST_MAUI.Local.ToBindingList();
 
-                //var query = from s in context.Schools
+                var query = from s in context.TEST_MAUI
+                            select new { s.Id, s.ANIM_NAME, s.ANIM_DESC };
+                var values = query.ToList();
+
+                dataGridView1.DataSource = values;
+
+                //var query = from s in context.TEST_MAUI
                 //            select new { s.Name };
                 //var values = query.ToList();
 
-                //var values = context.Schools.Select(p => p.Name).ToList();
+                //var values = context.TEST_MAUI.Select(p => p.Name).ToList();
+
+                //var values = context.TEST_MAUI.ToList();
 
 
                 _logger.Log(LogLevel.Information, "데이터베이스 연결");
@@ -88,14 +99,32 @@ namespace EFCore_MySQL
         {
             try
             {
-                //var addData = new Student
-                //{
-                //    Name = tbName.Text,
-                //};
+                byte[] ImageData = null;
+                OpenFileDialog of = new OpenFileDialog();
 
-                //context.Students.Add(addData);
-                //context.SaveChanges();
-                //lblStatus.Text = $"상태 : 데이터 추가";
+                if (of.ShowDialog() == DialogResult.OK)
+                {
+                    string FileName = of.FileName;
+                    var fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
+                    //var br = new BinaryReader(fs);
+                    //ImageData = br.ReadBytes((int)fs.Length);
+
+                    ImageData = new byte[(UInt32)fs.Length];
+                    fs.Read(ImageData, 0, (int)fs.Length);
+                    //br.Close();
+                    fs.Close();
+                }
+
+                var addData = new TEST_MAUI
+                {
+                    ANIM_NAME = "나를 보는 치타",
+                    ANIM_DESC = "",
+                    ANIM_PICT = ImageData
+                };
+
+                context.TEST_MAUI.Add(addData);
+                context.SaveChanges();
+                lblStatus.Text = $"상태 : 데이터 추가";
             }
             catch (Exception ex)
             {
@@ -107,16 +136,12 @@ namespace EFCore_MySQL
         {
             try
             {
-                //int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                //Student foundStudent = context.Students.Find(foundId);
-
-                //var updateName = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
-
-                //foundStudent.Name = updateName;
-
-                //context.Entry(foundStudent).State = EntityState.Modified;
-                //context.SaveChanges();
-                //lblStatus.Text = $"상태 : 데이터 수정";
+                int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                var foundItem = context.TEST_MAUI.Find(foundId);
+                foundItem.ANIM_DESC = Convert.ToString(dataGridView1.CurrentRow.Cells[2].Value);
+                context.Entry(foundItem).State = EntityState.Modified;
+                context.SaveChanges();
+                lblStatus.Text = $"상태 : 데이터 수정";
             }
             catch (Exception)
             {
@@ -139,6 +164,13 @@ namespace EFCore_MySQL
             {
                 throw;
             }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            var foundItem = context.TEST_MAUI.Find(foundId);
+            var a1 = foundItem.ANIM_PICT;
         }
     }
 }
