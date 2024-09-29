@@ -36,7 +36,7 @@
             btnConnect = new Button();
             dataGridView1 = new DataGridView();
             studentBindingSource = new BindingSource(components);
-            tbName = new TextBox();
+            tbxName = new TextBox();
             tbxIP = new TextBox();
             tbxPort = new TextBox();
             tbxID = new TextBox();
@@ -116,12 +116,12 @@
             // 
             studentBindingSource.DataSource = typeof(Models.Student);
             // 
-            // tbName
+            // tbxName
             // 
-            tbName.Location = new Point(3, 193);
-            tbName.Name = "tbName";
-            tbName.Size = new Size(142, 23);
-            tbName.TabIndex = 8;
+            tbxName.Location = new Point(3, 193);
+            tbxName.Name = "tbxName";
+            tbxName.Size = new Size(142, 23);
+            tbxName.TabIndex = 8;
             // 
             // tbxIP
             // 
@@ -184,7 +184,7 @@
             flowLayoutPanel1.Controls.Add(tbxPW);
             flowLayoutPanel1.Controls.Add(btnConnect);
             flowLayoutPanel1.Controls.Add(lblStatus);
-            flowLayoutPanel1.Controls.Add(tbName);
+            flowLayoutPanel1.Controls.Add(tbxName);
             flowLayoutPanel1.Controls.Add(btnSave);
             flowLayoutPanel1.Controls.Add(btnUpdate);
             flowLayoutPanel1.Controls.Add(btnDelete);
@@ -229,7 +229,7 @@
         private Button btnDelete;
         private Button btnConnect;
         private DataGridView dataGridView1;
-        private TextBox tbName;
+        private TextBox tbxName;
         private BindingSource studentBindingSource;
         private TextBox tbxIP;
         private TextBox tbxPort;

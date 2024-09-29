@@ -31,12 +31,12 @@ namespace EFCore_MySQL
 
             //string selectSql = $"SELECT * FROM STUDENT";
 
-            //sqlConnection = new SqlConnection("Server=localhost;Database=testdb;Uid=root;Pwd=0316165110;");
-            //sqlConnection.Open();
-            //sqlCommand = new SqlCommand(selectSql, sqlConnection);
+            //conn = new SqlConnection("Server=localhost;Database=testdb;Uid=root;Pwd=0316165110;");
+            //conn.Open();
+            //cmd = new SqlCommand(selectSql, conn);
 
-            //sqlDependency = new SqlDependency(sqlCommand);
-            //adapter = new SqlDataAdapter(selectSql, sqlConnection);
+            //sqlDependency = new SqlDependency(cmd);
+            //adapter = new SqlDataAdapter(selectSql, conn);
             //dataTable = new DataTable();
             ////adapter.Fill(dataTable);
             ////dataGridView1.DataSource = dataTable;
@@ -44,8 +44,8 @@ namespace EFCore_MySQL
             ////context.Students.Load();
             ////dataGridView1.DataSource = context.Students.Local.ToBindingList();
 
-            ////sqlCommand.ExecuteNonQuery();
-            ////sqlConnection.Close();
+            ////cmd.ExecuteNonQuery();
+            ////conn.Close();
             //sqlDependency.OnChange += new OnChangeEventHandler(OnDependencyChange);
         }
 

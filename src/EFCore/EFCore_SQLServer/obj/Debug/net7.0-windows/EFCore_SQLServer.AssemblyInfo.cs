@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EFCore_SQLServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28a1de5f61da3a7a656256433f7be51e63cbb56a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00e6fe5e507cc999a143fc4783e46ce81bef77d4")]
 [assembly: System.Reflection.AssemblyProductAttribute("EFCore_SQLServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EFCore_SQLServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

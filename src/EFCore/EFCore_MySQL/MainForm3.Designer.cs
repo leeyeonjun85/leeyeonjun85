@@ -34,7 +34,6 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             btnConnect = new Button();
-            panel1 = new Panel();
             dataGridView1 = new DataGridView();
             studentBindingSource = new BindingSource(components);
             tbName = new TextBox();
@@ -43,15 +42,20 @@
             tbxID = new TextBox();
             tbxPW = new TextBox();
             tbxDbName = new TextBox();
-            panel1.SuspendLayout();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)studentBindingSource).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(12, 221);
+            lblStatus.Location = new Point(3, 175);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(78, 15);
             lblStatus.TabIndex = 1;
@@ -59,7 +63,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(12, 268);
+            btnSave.Location = new Point(3, 222);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(142, 24);
             btnSave.TabIndex = 3;
@@ -69,7 +73,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(12, 298);
+            btnUpdate.Location = new Point(3, 252);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(142, 24);
             btnUpdate.TabIndex = 5;
@@ -79,7 +83,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(12, 328);
+            btnDelete.Location = new Point(3, 282);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(142, 24);
             btnDelete.TabIndex = 6;
@@ -89,7 +93,7 @@
             // 
             // btnConnect
             // 
-            btnConnect.Location = new Point(12, 157);
+            btnConnect.Location = new Point(3, 148);
             btnConnect.Name = "btnConnect";
             btnConnect.Size = new Size(142, 24);
             btnConnect.TabIndex = 0;
@@ -97,24 +101,17 @@
             btnConnect.UseVisualStyleBackColor = true;
             btnConnect.Click += btnConnect_Click;
             // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.Controls.Add(dataGridView1);
-            panel1.Location = new Point(160, 12);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(443, 338);
-            panel1.TabIndex = 7;
-            // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Location = new Point(163, 3);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(443, 338);
+            dataGridView1.Size = new Size(449, 140);
             dataGridView1.TabIndex = 0;
+            dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
+            dataGridView1.MouseDoubleClick += dataGridView1_MouseDoubleClick;
             // 
             // studentBindingSource
             // 
@@ -122,70 +119,108 @@
             // 
             // tbName
             // 
-            tbName.Location = new Point(12, 239);
+            tbName.Location = new Point(3, 193);
             tbName.Name = "tbName";
             tbName.Size = new Size(142, 23);
             tbName.TabIndex = 8;
             // 
             // tbxIP
             // 
-            tbxIP.Location = new Point(12, 12);
+            tbxIP.Location = new Point(3, 3);
             tbxIP.Name = "tbxIP";
             tbxIP.Size = new Size(142, 23);
             tbxIP.TabIndex = 9;
             // 
             // tbxPort
             // 
-            tbxPort.Location = new Point(12, 41);
+            tbxPort.Location = new Point(3, 32);
             tbxPort.Name = "tbxPort";
             tbxPort.Size = new Size(142, 23);
             tbxPort.TabIndex = 10;
             // 
             // tbxID
             // 
-            tbxID.Location = new Point(12, 99);
+            tbxID.Location = new Point(3, 90);
             tbxID.Name = "tbxID";
             tbxID.Size = new Size(142, 23);
             tbxID.TabIndex = 11;
             // 
             // tbxPW
             // 
-            tbxPW.Location = new Point(12, 128);
+            tbxPW.Location = new Point(3, 119);
             tbxPW.Name = "tbxPW";
             tbxPW.Size = new Size(142, 23);
             tbxPW.TabIndex = 12;
             // 
             // tbxDbName
             // 
-            tbxDbName.Location = new Point(12, 70);
+            tbxDbName.Location = new Point(3, 61);
             tbxDbName.Name = "tbxDbName";
             tbxDbName.Size = new Size(142, 23);
             tbxDbName.TabIndex = 13;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(dataGridView1, 1, 0);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(pictureBox1, 1, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40.3314934F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 59.6685066F));
+            tableLayoutPanel1.Size = new Size(615, 362);
+            tableLayoutPanel1.TabIndex = 14;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Controls.Add(tbxIP);
+            flowLayoutPanel1.Controls.Add(tbxPort);
+            flowLayoutPanel1.Controls.Add(tbxDbName);
+            flowLayoutPanel1.Controls.Add(tbxID);
+            flowLayoutPanel1.Controls.Add(tbxPW);
+            flowLayoutPanel1.Controls.Add(btnConnect);
+            flowLayoutPanel1.Controls.Add(lblStatus);
+            flowLayoutPanel1.Controls.Add(tbName);
+            flowLayoutPanel1.Controls.Add(btnSave);
+            flowLayoutPanel1.Controls.Add(btnUpdate);
+            flowLayoutPanel1.Controls.Add(btnDelete);
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.Location = new Point(3, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            tableLayoutPanel1.SetRowSpan(flowLayoutPanel1, 2);
+            flowLayoutPanel1.Size = new Size(154, 356);
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(163, 149);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(449, 210);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
             // 
             // MainForm3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(615, 362);
-            Controls.Add(tbxDbName);
-            Controls.Add(tbxPW);
-            Controls.Add(tbxID);
-            Controls.Add(tbxPort);
-            Controls.Add(tbxIP);
-            Controls.Add(tbName);
-            Controls.Add(panel1);
-            Controls.Add(btnDelete);
-            Controls.Add(btnUpdate);
-            Controls.Add(btnSave);
-            Controls.Add(btnConnect);
-            Controls.Add(lblStatus);
+            Controls.Add(tableLayoutPanel1);
             Name = "MainForm3";
             Text = "Form1";
-            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)studentBindingSource).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -194,7 +229,6 @@
         private Button btnUpdate;
         private Button btnDelete;
         private Button btnConnect;
-        private Panel panel1;
         private DataGridView dataGridView1;
         private TextBox tbName;
         private BindingSource studentBindingSource;
@@ -203,5 +237,8 @@
         private TextBox tbxID;
         private TextBox tbxPW;
         private TextBox tbxDbName;
+        private TableLayoutPanel tableLayoutPanel1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private PictureBox pictureBox1;
     }
 }

@@ -3,8 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
+using MySqlX.XDevAPI.Relational;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace EFCore_MySQL
 {
@@ -13,9 +17,13 @@ namespace EFCore_MySQL
         private readonly ILogger _logger;
         private readonly ModelContext context;
 
-        MySqlConnection sqlConnection;
-        MySqlCommand sqlCommand;
-        DataTable dataTable;
+        MySqlConnection conn;
+        MySqlCommand cmd;
+        DataTable dt;
+
+
+        string connStringn;
+        string newId;
 
         public MainForm3(ILogger<MainForm3> logger, ModelContext _context)
         {
@@ -29,25 +37,24 @@ namespace EFCore_MySQL
         {
             try
             {
-                
+                MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+                conn_string.Server = tbxIP.Text;
+                conn_string.Port = Convert.ToUInt32(tbxPort.Text);
+                conn_string.UserID = tbxID.Text;
+                conn_string.Password = tbxPW.Text;
+                conn_string.Database = tbxDbName.Text;
 
-                //MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-                //conn_string.Server = tbxIP.Text;
-                //conn_string.Port = Convert.ToUInt32(tbxPort.Text);
-                //conn_string.UserID = tbxID.Text;
-                //conn_string.Password = tbxPW.Text;
-                //conn_string.Database = tbxDbName.Text;
+                using (MySqlConnection conn = new MySqlConnection(conn_string.ToString()))
+                {
+                    conn.Open();
 
-                sqlConnection = new MySqlConnection(connStringn);
-                sqlConnection.Open();
+                    string selectSql = $"SELECT * FROM TEST_MAUI";
+                    cmd = new MySqlCommand(selectSql, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    SetData(rdr);
 
-
-                string selectSql = $"SELECT * FROM TEST_MAUI";
-                sqlCommand = new MySqlCommand(selectSql, sqlConnection);
-                MySqlDataReader rdr = sqlCommand.ExecuteReader();
-
-                dataTable = GetTable(rdr);
-                dataGridView1.DataSource = dataTable;
+                    conn.Clone();
+                }
             }
             catch (Exception)
             {
@@ -55,10 +62,10 @@ namespace EFCore_MySQL
             }
         }
 
-        public System.Data.DataTable GetTable(MySqlDataReader reader)
+        public void SetData(MySqlDataReader reader)
         {
             System.Data.DataTable table = reader.GetSchemaTable();
-            System.Data.DataTable dt = new System.Data.DataTable();
+            dt = new System.Data.DataTable();
             System.Data.DataColumn dc;
             System.Data.DataRow row;
             System.Collections.ArrayList aList = new System.Collections.ArrayList();
@@ -87,7 +94,8 @@ namespace EFCore_MySQL
                 }
                 dt.Rows.Add(row);
             }
-            return dt;
+
+            dataGridView1.DataSource = dt;
         }
 
 
@@ -96,14 +104,50 @@ namespace EFCore_MySQL
         {
             try
             {
-                //var addData = new Student
-                //{
-                //    Name = tbName.Text,
-                //};
+                using (MySqlConnection conn = new MySqlConnection(connStringn))
+                {
+                    conn.Open();
 
-                //context.Students.Add(addData);
-                //context.SaveChanges();
-                //lblStatus.Text = $"상태 : 데이터 추가";
+                    byte[] ImageData = null;
+                    OpenFileDialog of = new OpenFileDialog();
+
+                    if (of.ShowDialog() == DialogResult.OK)
+                    {
+                        string FileName = of.FileName;
+                        var fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
+                        var br = new BinaryReader(fs);
+                        //ImageData = br.ReadBytes((int)fs.Length);
+
+                        ImageData = new byte[(UInt32)fs.Length];
+                        fs.Read(ImageData, 0, (int)fs.Length);
+                        br.Close();
+                        fs.Close();
+                    }
+
+                    string CmdString = "INSERT INTO TEST_MAUI(ANIM_IDNT, ANIM_NAME, ANIM_DESC, ANIM_PICT) VALUES(?ANIM_IDNT, ?ANIM_NAME, ?ANIM_DESC, ?ANIM_PICT)";
+                    cmd = new MySqlCommand(CmdString, conn);
+                    newId = DateTime.Now.ToString("yyyyMMddHHmmssffffff");
+                    cmd.Parameters.Add(new MySqlParameter("?ANIM_IDNT", newId));
+                    cmd.Parameters.Add(new MySqlParameter("?ANIM_NAME", "잠자는 치타"));
+                    cmd.Parameters.Add(new MySqlParameter("?ANIM_DESC", ""));
+                    cmd.Parameters.Add(new MySqlParameter("?ANIM_PICT", ImageData));
+
+                    int RowsAffected = cmd.ExecuteNonQuery();
+
+                    if (RowsAffected > 0)
+                    {
+                        string selectSql = $"SELECT * FROM TEST_MAUI";
+                        cmd = new MySqlCommand(selectSql, conn);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        SetData(rdr);
+                    }
+
+                    conn.Clone();
+                }
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -147,6 +191,69 @@ namespace EFCore_MySQL
             {
                 throw;
             }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //var rows = dt.Rows;
+
+            //foreach (var item in rows)
+            //{
+
+            //    var row = (DataRow)item;
+
+            var picID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            //var picNAme = (string)row.ItemArray[0];
+            //var a1 = (string)row.ItemArray[1];
+
+
+            using (MySqlConnection conn = new MySqlConnection(connStringn))
+            {
+                conn.Open();
+
+                string selectSql = $"SELECT * FROM TEST_MAUI WHERE ANIM_IDNT = {picID}";
+                cmd = new MySqlCommand(selectSql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                //SetData(rdr);
+
+
+                while (rdr.Read())
+                {
+                    var picArray = rdr["ANIM_PICT"];
+                    var picImage = new ImageConverter().ConvertFrom(picArray) as Image;
+
+                    pictureBox1.Image = picImage;
+
+                    //row = dt.NewRow();
+                    //for (int i = 0; i < aList.Count; i++)
+                    //{
+                    //    row[((System.String)aList[i])] = rdr[(System.String)aList[i]];
+                    //}
+                    //dt.Rows.Add(row);
+                }
+
+                conn.Clone();
+            }
+
+
+
+            //if (picNAme == null) return;
+
+            //var a6 = new ImageConverter().ConvertFrom(picNAme) as Image;
+
+            //pictureBox1.Image = a6;
+
+
+
+            //int foundId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            //Student foundStudent = context.Students.Find(foundId);
+            //var updateName = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
+
         }
     }
 }
