@@ -1,0 +1,25 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="DevFlyout.Views.AboutPage">
+    <Grid RowDefinitions="100,*,Auto">
+        <Grid>
+            <Image Source="background" HorizontalOptions="FillAndExpand" Aspect="Fill"/>
+            <StackLayout VerticalOptions="Center" Margin="0,10,0,10">
+                <Label Text=".NET MAUI Controls" FontSize="20" HorizontalOptions="Center"/>
+                <Label Text="from DevExpress" HorizontalOptions="Center"/>
+            </StackLayout>                
+        </Grid>
+        <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto" Padding="25,25,25,15" RowSpacing="10">
+            <Label Grid.Row="0" Style="{StaticResource PrimaryText}" Text="Get the most out of your mobile hardware and OS"/>
+            <Label Grid.Row="1" Style="{StaticResource SecondaryText}" Text="All .NET MAUI UI controls are written in Objective-C for iOS and Java/Kotlin for Android and are seamlessly integrated with the .NET MAUI platform." />
+            <Label Grid.Row="2" Style="{StaticResource SecondaryText}" Text="DevExpress UI controls abstract the complexities of native mobile development and deliver unmatched performance, usability, and functionality." Padding="0,0,0,7"/>
+        </Grid>
+        <Button Grid.Row="2" Margin="25,20,25,20"
+                Text="Learn more"
+                Command="{Binding OpenWebCommand}"/>
+    </Grid>
+</ContentPage>

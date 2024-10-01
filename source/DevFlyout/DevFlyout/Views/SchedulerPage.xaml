@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             Title="{Binding Title}"
+             IconImageSource="scheduler"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="DevFlyout.Views.SchedulerPage">
+    <ContentPage.Content>
+        <dx:DayView x:Name="dayView">
+            <dx:DayView.DataStorage>
+                <dx:SchedulerDataStorage>
+                    <dx:SchedulerDataStorage.DataSource>
+                        <dx:DataSource AppointmentsSource="{Binding Items}">
+                            <dx:DataSource.AppointmentMappings>
+                                <dx:AppointmentMappings 
+                                    Id="Id" 
+                                    Start="StartTime" 
+                                    End="EndTime" 
+                                    Subject="Text"
+                                    />      
+                            </dx:DataSource.AppointmentMappings>
+                        </dx:DataSource>
+                    </dx:SchedulerDataStorage.DataSource>
+                </dx:SchedulerDataStorage>
+            </dx:DayView.DataStorage>
+        </dx:DayView>
+    </ContentPage.Content>
+</ContentPage>

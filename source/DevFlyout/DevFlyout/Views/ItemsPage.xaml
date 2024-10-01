@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:local="clr-namespace:DevFlyout.ViewModels"
+             xmlns:model="clr-namespace:DevFlyout.Models"
+             Title="{Binding Title}"
+             IconImageSource="browse"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="DevFlyout.Views.ItemsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="ADD" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <Grid RowDefinitions="Auto, *">
+        <dx:DXCollectionView x:Name="ItemsListView" Grid.Row="2"
+            ItemsSource="{Binding Items}"
+                SelectionMode="None" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <dx:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackLayout Padding="18,20,10,01" x:DataType="model:Item">
+                                <Label Text="{Binding Text}"
+                                        LineBreakMode="NoWrap"
+                                        Style="{StaticResource PrimaryText}"/>
+                                <Label Text="{Binding Description}"
+                                        LineBreakMode="NoWrap"
+                                        Style="{StaticResource SecondaryText}"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
+                                            CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </dx:DXCollectionView.ItemTemplate>
+            </dx:DXCollectionView>
+    </Grid>
+</ContentPage>

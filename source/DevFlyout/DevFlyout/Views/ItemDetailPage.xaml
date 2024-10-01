@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="DevFlyout.Views.ItemDetailPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="5" Padding="15">
+            <Label Text="Text:" FontFamily="Roboto" Style="{StaticResource SecondaryText}"/>
+            <Label Text="{Binding Text}" FontFamily="Roboto" Margin="0, 0, 0, 15"/>
+            <Label Text="Description:" FontFamily="Roboto" Style="{StaticResource SecondaryText}" />
+            <Label Text="{Binding Description}" FontFamily="Roboto"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

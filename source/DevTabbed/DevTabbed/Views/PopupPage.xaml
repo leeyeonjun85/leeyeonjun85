@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="DevTabbed.Views.PopupPage">
+    <ContentPage.Content>
+        <Grid>
+            <Button VerticalOptions="Center"
+                    Margin="25,0,25,20"
+                    Text="Show Popup"
+                    Clicked="OnButtonClicked"/>
+            <dx:DXPopup x:Name="Popup" Margin="16">
+                <StackLayout Padding="16">
+                    <Label Text="This is the DevExpress Popup component for .NET MAUI.
+                                &#10;Tap outside the popup to hide it."
+                        Margin="5, 5"/>
+                </StackLayout>
+            </dx:DXPopup>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

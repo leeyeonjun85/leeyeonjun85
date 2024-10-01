@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             Title="{Binding Title}"
+             IconImageSource="browse"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="DevTabbed.Views.DataGridPage">
+    <dx:DataGridView x:Name="grid" ItemsSource="{Binding Items}">
+        <dx:DataGridView.Columns>
+            <dx:TextColumn FieldName="Text" Caption="Text" />
+            <dx:TextColumn FieldName="Description" Caption="Description" />
+            <dx:DateColumn FieldName="StartTime" Caption="Time" DisplayFormat="h:mm tt" />
+        </dx:DataGridView.Columns>
+    </dx:DataGridView>
+</ContentPage>

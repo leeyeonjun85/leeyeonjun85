@@ -1,0 +1,37 @@
+﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="DevFlyout.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+            <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+
+             <DataTemplate x:Key="ShellMenuItemTemplate">            
+                <Grid ColumnDefinitions="51,*" ColumnSpacing="0" RowSpacing="0" Margin="0" Padding="0, 15, 0, 15" BackgroundColor="White">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{dx:ThemeColor Primary}" />                                         
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <dx:DXImage x:Name="Image" Source="{Binding Icon}" HorizontalOptions="Center" TintColor="{dx:ThemeColor Primary}"/>
+                    <Label x:Name="FlyoutItemLabel" Text="{Binding Title}"
+                        Grid.Column="1"
+                        TextColor="{dx:ThemeColor OnSurface}"
+                        Margin="0,0,0,0"
+                        VerticalOptions="Center"
+                        FontFamily="Roboto"
+                        HorizontalOptions="StartAndExpand">                            
+                    </Label>
+                </Grid>
+           </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
