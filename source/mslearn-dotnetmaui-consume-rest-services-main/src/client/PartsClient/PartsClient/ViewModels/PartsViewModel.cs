@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using PartsClient.Data;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace PartsClient.ViewModels;
 
@@ -74,6 +75,10 @@ public partial class PartsViewModel : ObservableObject
                     Parts.Add(part);                        
                 }
             });
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e);
         }
         finally
         {    
