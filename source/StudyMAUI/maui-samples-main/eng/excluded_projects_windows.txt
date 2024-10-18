@@ -1,0 +1,6 @@
+# Add projects with relative paths and use forward slashes, for example: ./8.0/Sample/App/Project.csproj
+# This file excludes projects only for projects that are built on a Windows build host
+
+# Xamarin projects need to be built different, effort to set that up vs gain isn't worth doing that, so exclude
+./Upgrading/CustomRenderer/XamarinCustomRenderer/XamarinCustomRenderer/XamarinCustomRenderer.Android/XamarinCustomRenderer.Android.csproj
+./Upgrading/CustomRenderer/XamarinCustomRenderer/XamarinCustomRenderer/XamarinCustomRenderer.iOS/XamarinCustomRenderer.iOS.csproj
