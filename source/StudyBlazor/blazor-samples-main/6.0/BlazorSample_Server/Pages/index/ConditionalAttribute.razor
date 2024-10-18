@@ -1,0 +1,16 @@
+﻿@page "/conditional-attribute"
+
+<h1>Conditional Attribute Example</h1>
+
+<label>
+    <input type="checkbox" checked="@isCompleted" />
+    Is Completed?
+</label>
+
+<button @onclick="@(() => isCompleted = !isCompleted)">
+    Change isCompleted
+</button>
+
+@code {
+    private bool isCompleted;
+}
