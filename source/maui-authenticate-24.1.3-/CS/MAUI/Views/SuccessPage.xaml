@@ -1,0 +1,19 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Welcome"
+             IconImageSource="browse"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:viewModels="clr-namespace:MAUI.ViewModels"
+             xmlns:webService="clr-namespace:MAUI.Services"
+             ios:Page.UseSafeArea="true"
+             x:Class="MAUI.Views.SuccessPage">
+    <ContentPage.BindingContext>
+        <viewModels:SuccessViewModel/>
+    </ContentPage.BindingContext>
+    <dx:DXStackLayout Orientation="Vertical" Padding="20">
+        <dx:DXImage Source="devexpress.png" HorizontalOptions="Center" Margin="10"/>
+        <Label FontSize="30" Text="{Binding Header}" HorizontalOptions="Center" Margin="10"/>
+        <Label Text="{Binding Info}" FontSize="20" HorizontalOptions="Center" Margin="10"/>
+    </dx:DXStackLayout>
+</ContentPage>
