@@ -9,6 +9,7 @@
        FlyoutBackgroundImage="photo.jpg"
        FlyoutBackgroundImageAspect="AspectFill"
        FlyoutHeaderBehavior="CollapseOnScroll">
+
     <Shell.Resources>
         <Style x:Key="BaseStyle"
                TargetType="Element">
