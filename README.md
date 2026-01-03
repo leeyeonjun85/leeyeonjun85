@@ -6,12 +6,14 @@ https://hyeinisfree.tistory.com/22
  -->
 
 
-<!-- 방문자 수 통계 -->
+<!-- 방문자 수 통계 
 <div align="right">
     <a href="https://hits.seeyoufarm.com">
         <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fleeyeonjun85&count_bg=%2379C83D&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Counts&edge_flat=false"/>
     </a>
 </div>
+-->
+
 
 <!-- [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fleeyeonjun85&count_bg=%2379C83D&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Counts&edge_flat=false)](https://hits.seeyoufarm.com) -->
 
@@ -27,9 +29,9 @@ https://hyeinisfree.tistory.com/22
     <td width="70%">
         <h2 style="text-align:center;">🔎 My Links 📌</h2>
         <div style="text-align:left;">
-            <a href="" target='_blank'>
+            <a href="leeyeonjun.com" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
-                공사중...🚧
+                wwww.leeyeonjun.com
             </a><br>
             <a href="mailto:leeyeonjun85@gmail.com">
                 <img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
