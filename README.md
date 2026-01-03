@@ -29,9 +29,9 @@ https://hyeinisfree.tistory.com/22
     <td width="70%">
         <h2 style="text-align:center;">🔎 My Links 📌</h2>
         <div style="text-align:left;">
-            <a href="leeyeonjun.com" target='_blank'>
+            <a href="https://leeyeonjun.com" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
-                wwww.leeyeonjun.com
+                https://leeyeonjun.com
             </a><br>
             <a href="mailto:leeyeonjun85@gmail.com">
                 <img src="https://img.shields.io/badge/Mail-EA4335?style=flat-square&logo=gmail&logoColor=white"/>
