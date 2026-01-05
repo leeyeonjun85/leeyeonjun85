@@ -50,7 +50,9 @@ https://hyeinisfree.tistory.com/22
             src="https://github.com/leeyeonjun85/leeyeonjun85/blob/main/src/images/profile/load3.JPG"/>
     </td>
     <td width="70%">
-        <h4>📌 My Links </h4>
+        <div>
+            <h2>📌 My Links </h2>
+        </div>
         <div style="text-align:left;">
             <a href="https://leeyeonjun.com" target='_blank'>
                 <img src="https://img.shields.io/badge/Home-4285F4?style=flat-square&logo=googlehome&logoColor=white"/>
