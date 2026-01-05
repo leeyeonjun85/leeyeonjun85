@@ -248,7 +248,7 @@ https://hyeinisfree.tistory.com/22
 <br><br><br>
 
 
-## <i class="fa fa-github-square" aria-hidden="true"></i><i class="bi bi-github"></i>📊 GitHub Statistics
+## 📊 GitHub Statistics
 
 <p align="center">
   <img src="https://github-readme-stats-leeyeonjun85.vercel.app/api?username=leeyeonjun85&show_icons=true&theme=dark" alt="Stats Card" />
