@@ -1,8 +1,11 @@
-<!-- 📌 각종 참고 링크 모음 🎁🎁
+<!-- 
+
+📌 각종 참고 링크 모음 🎁🎁
 방문자 수 통계 : https://hits.seeyoufarm.com/
 각종 배찌 : https://shields.io/
 아이콘 : https://simpleicons.org/
 https://hyeinisfree.tistory.com/22
+
  -->
 
 
@@ -18,9 +21,31 @@ https://hyeinisfree.tistory.com/22
 <!-- [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fleeyeonjun85&count_bg=%2379C83D&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Counts&edge_flat=false)](https://hits.seeyoufarm.com) -->
 
 
-<h1>😄 Welcom~! Introduce Myself 🚀</h1>
+# 😄 Hi there, I'm Lee Yeonjun 👋
 
-<table width="100%">
+<p align="left">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=4285F4&width=435&lines=
+  C%23+Software+Developer;
+  AI,+Data+Scientist;
+  MES,+RCP+Industrial+Engineering
+  " alt="Typing SVG" />
+</p>
+
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/leeyeonjun85/leeyeonjun85.github.io/blob/main/assets/images/profile/load3.JPG" width="150" style="border-radius: 50%; border: 3px solid #4285F4;"/>
+  
+  <p>
+    <a href="https://leeyeonjun.com"><img src="https://img.shields.io/badge/Website-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white"/></a>
+    <a href="mailto:leeyeonjun85@gmail.com"><img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/></a>
+    <a href="https://leeyeonjun85.github.io/"><img src="https://img.shields.io/badge/Tech_Blog-181717?style=for-the-badge&logo=github&logoColor=white"/></a>
+  </p>
+</div>
+
+
+
+<!-- <table width="100%">
     <td width="30%" style="align:center;">
         <img style="border-radius: 50%; padding: 5px; border-radius: 50%;"  
             border="1px solid #888"
@@ -41,21 +66,21 @@ https://hyeinisfree.tistory.com/22
                 <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/> 
                 https://leeyeonjun85.github.io
             </a><br>
-            <!-- <a href="https://www.instagram.com/leeyeonjun85/" target='_blank'>
+            <a href="https://www.instagram.com/leeyeonjun85/" target='_blank'>
                 <img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white"/> 
                 https://www.instagram.com/leeyeonjun85/
-            </a><br> -->
-            <!-- <a href="http://leeyj85.shop/aboutme/" target='_blank'>
+            </a><br>
+            <a href="http://leeyj85.shop/aboutme/" target='_blank'>
                 <img src="https://img.shields.io/badge/이력서-00a408?style=flat-square"/> 
                 http://leeyj85.shop/aboutme/
-            </a><br> -->
-            <!-- <a href="http://leeyj85.shop/portfolio/" target='_blank'>
+            </a><br>
+            <a href="http://leeyj85.shop/portfolio/" target='_blank'>
                 <img src="https://img.shields.io/badge/포트폴리오-5b0000?style=flat-square"/> 
                 http://leeyj85.shop/portfolio/
-            </a><br> -->
+            </a><br>
         </div>
     </td>
-</table>
+</table> -->
 
 <!-- <div style="display: grid; grid-template-columns: 4fr 8fr; grid-template-areas:'image links';">
     <div style="grid-area: image;" align="center">
@@ -73,20 +98,83 @@ https://hyeinisfree.tistory.com/22
     </div>
 </div> -->
 
-<br><hr><br>
+<br><br><br>
 
-### 주요 경력
-#### AI Model Developer 📊💻 
+## 💼 Experience
+#### 📊 AI Model Developer
   - MES, SPC AI 모듈 개발
-#### SmartFactory Manager ⚒️🏭
+#### 🏭 SmartFactory Manager
   - 스마트팩토리 공급기업 담당자
   - RS485, Modbus, PLC 통신 모듈 개발
-#### RCP Engineer ✈️🏗️
+#### ✈️ RCP Engineer
   - 중국 청두 ECHINT 프로젝트
   - 대만 타이중 Micron 프로젝트
   - 말레이시아 페낭 Micron 프로젝트
 
-<br><hr><br>
+<br><br><br>
+
+## 🛠 Tech Stack
+<div class="mb-4">
+    <h3>Software Engineering</h3>
+    <div class="d-flex flex-wrap gap-2 ps-2">
+        <img src="https://img.shields.io/badge/C%23-239120?style=flat-square&logo=C#&logoColor=white" />
+        <img src="https://img.shields.io/badge/ASP.NET%20Core-512BD4?style=flat-square&logo=dotnet&logoColor=white" />
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white" />
+        <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white" />
+        <img src="https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white" />
+        <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white" />
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css&logoColor=white" />
+        <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white" />
+    </div>
+</div>
+
+<div class="mb-4">
+    <h3>Data & AI Science</h3>
+    <div class="d-flex flex-wrap gap-2 ps-2">
+        <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=PyTorch&logoColor=white" />
+        <img src="https://img.shields.io/badge/Tensorflow-FF6F00?style=flat-square&logo=Tensorflow&logoColor=white" />
+        <img src="https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=Pandas&logoColor=white" />
+        <img src="https://img.shields.io/badge/scikit_learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white" />
+        <img src="https://img.shields.io/badge/Transformer-165300?style=flat-square&logo=huggingface&logoColor=white" />
+        <img src="https://img.shields.io/badge/YOLO5-400062?style=flat-square&logo=yolo&logoColor=white" />
+        <img src="https://img.shields.io/badge/GAN-005426?style=flat-square&logo=pytorch&logoColor=white" />
+        <img src="https://img.shields.io/badge/XGBoost-7f000b?style=flat-square&logo=python&logoColor=white" />
+        <img src="https://img.shields.io/badge/Regression-2496ED?style=flat-square&logo=scikitlearn&logoColor=white" />
+        <img src="https://img.shields.io/badge/Metabase-509EE3?style=flat-square&logo=Metabase&logoColor=white" />
+        <img src="https://img.shields.io/badge/Looker-4285F4?style=flat-square&logo=Looker&logoColor=white" />
+        <img src="https://img.shields.io/badge/Tableau-E97627?style=flat-square&logo=thestorygraph&logoColor=white" />
+    </div>
+</div>
+
+<div class="mb-4">
+    <h3>Industrial Engineering & Infra</h3>
+    <div class="d-flex flex-wrap gap-2 ps-2">
+        <img src="https://img.shields.io/badge/MES,%20RCP-D22128?style=flat-square&logo=htmx&logoColor=white" />
+        <img src="https://img.shields.io/badge/MSSQL%20Server-165300?style=flat-square&logo=databricks&logoColor=white" />
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white" />
+        <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=PostgreSQL&logoColor=white" />
+        <img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=SQLite&logoColor=white" />
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white" />
+        <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=Firebase&logoColor=white" />
+        <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white" />
+        <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white" />
+        <img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=flat-square&logo=internetcomputer&logoColor=white" />
+        <img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=Selenium&logoColor=white" />
+        <img src="https://img.shields.io/badge/BeautifulSoup-8b87c3?style=flat-square&logo=rocket&logoColor=white" />
+        <img src="https://img.shields.io/badge/APScheduler-758865?style=flat-square&logo=blockbench&logoColor=white" />
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- 
 
 <h2 align="left">📚 Tech Stack 💻</h2>
 <div align="center">
@@ -154,12 +242,25 @@ https://hyeinisfree.tistory.com/22
         </tr>
     </tbody>
 </table>
-</div>
+</div> -->
 
 
-<br><hr><br>
+<br><br><br>
 
-<h2 align="left"><img src="https://img.shields.io/badge/GitHub-181717?style=plastic&logo=GitHub&logoColor=white"/> My GitHub Stats 📑</h2>
+
+## 📊 GitHub Statistics
+
+<p align="center">
+  <img src="https://github-readme-stats-leeyeonjun85.vercel.app/api?username=leeyeonjun85&show_icons=true&theme=dark" alt="Stats Card" />
+  <img src="https://github-readme-stats-leeyeonjun85.vercel.app/api/top-langs/?username=leeyeonjun85&layout=compact&theme=dark" alt="Top Langs" />
+</p>
+
+
+
+<br><br><br>
+
+
+<!-- <h2 align="left"><img src="https://img.shields.io/badge/GitHub-181717?style=plastic&logo=GitHub&logoColor=white"/> My GitHub Stats 📑</h2> -->
 
 
 
@@ -175,7 +276,7 @@ https://only-wanna.tistory.com/entry/Github-Stats%EC%9D%98-Maximum-retries-excee
 https://vercel.com/leeyeonjun85
  -->
 
-<p align="center">
+<!-- <p align="center">
 <picture>
 <source 
   srcset="https://github-readme-stats-leeyeonjun85.vercel.app/api?username=leeyeonjun85&show_icons=true&theme=dark"
@@ -187,7 +288,7 @@ https://vercel.com/leeyeonjun85
 />
 <img src="https://github-readme-stats-leeyeonjun85.vercel.app/api?username=leeyeonjun85&show_icons=true" />
 </picture>
-</p>
+</p> -->
 
 
 <!-- ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=leeyeonjun85&show_icons=true&theme=highcontrast) -->
