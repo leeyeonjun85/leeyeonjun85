@@ -47,7 +47,7 @@ https://hyeinisfree.tistory.com/22
     <td width="30%" style="align:center;">
         <img style="border-radius: 50%; padding: 5px; border-radius: 50%;"  
             border="1px solid #888"
-            src="https://github.com/leeyeonjun85/src/images/profile/load3.JPG"/>
+            src="https://github.com/leeyeonjun85/leeyeonjun85/blob/main/src/images/profile/load3.JPG"/>
     </td>
     <td width="70%">
         <h2 style="text-align:center;">🔎 My Links 📌</h2>
