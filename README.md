@@ -82,7 +82,7 @@ https://hyeinisfree.tistory.com/22
 <table style="width:90%; margin:auto;">
     <tbody>
         <tr>
-            <th>😉</th>
+            <th>Category</th>
             <th colspan="4" style="text-align:center;">Skills</th>
         </tr>
         <tr>
@@ -99,6 +99,7 @@ https://hyeinisfree.tistory.com/22
             <td><img src="https://img.shields.io/badge/Metabase-509EE3?style=plastic&logo=Metabase&logoColor=white"/></td>
         </tr>
         <tr>
+            <td><img src="https://img.shields.io/badge/C%23-FFCA28?style=plastic&logo=C#&logoColor=white"/></td>
             <td><img src="https://img.shields.io/badge/Looker-4285F4?style=plastic&logo=Looker&logoColor=white"/></td>
             <td><img src="https://img.shields.io/badge/Tableau-E97627?style=plastic&logo=Tableau&logoColor=white"/></td>
             <td>　</td>
