@@ -81,7 +81,7 @@ https://hyeinisfree.tistory.com/22
 #### SmartFactory Manager ⚒️🏭
   - 스마트팩토리 공급기업 담당자
   - RS485, Modbus, PLC 통신 모듈 개발
-#### 2025년 OCS Engineer ✈️🏗️
+#### RCP Engineer ✈️🏗️
   - 중국 청두 ECHINT 프로젝트
   - 대만 타이중 Micron 프로젝트
   - 말레이시아 페낭 Micron 프로젝트
