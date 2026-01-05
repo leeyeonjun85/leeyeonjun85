@@ -23,17 +23,15 @@ https://hyeinisfree.tistory.com/22
 
 # 😄 Hi there, I'm Lee Yeonjun 👋
 
-<p align="left">
+<!-- <p align="left">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=4285F4&width=435&lines=
   C%23+Software+Developer;
   AI,+Data+Scientist;
   MES,+RCP+Industrial+Engineering
   " alt="Typing SVG" />
-</p>
+</p> -->
 
-<br><br>
-
-<div align="center">
+<!-- <div align="center">
   <img src="https://github.com/leeyeonjun85/leeyeonjun85.github.io/blob/main/assets/images/profile/load3.JPG" width="150" style="border-radius: 50%; border: 3px solid #4285F4;"/>
   
   <p>
@@ -42,14 +40,14 @@ https://hyeinisfree.tistory.com/22
     <a href="https://leeyeonjun85.github.io/"><img src="https://img.shields.io/badge/Tech_Blog-181717?style=for-the-badge&logo=github&logoColor=white"/></a>
   </p>
 </div>
+ -->
 
 
-
-<!-- <table width="100%">
+<table width="100%">
     <td width="30%" style="align:center;">
         <img style="border-radius: 50%; padding: 5px; border-radius: 50%;"  
             border="1px solid #888"
-            src="https://github.com/leeyeonjun85/leeyeonjun85.github.io/blob/main/assets/images/profile/load3.JPG"/>
+            src="https://github.com/leeyeonjun85/src/images/profile/load3.JPG"/>
     </td>
     <td width="70%">
         <h2 style="text-align:center;">🔎 My Links 📌</h2>
@@ -66,7 +64,7 @@ https://hyeinisfree.tistory.com/22
                 <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"/> 
                 https://leeyeonjun85.github.io
             </a><br>
-            <a href="https://www.instagram.com/leeyeonjun85/" target='_blank'>
+            <!-- <a href="https://www.instagram.com/leeyeonjun85/" target='_blank'>
                 <img src="https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white"/> 
                 https://www.instagram.com/leeyeonjun85/
             </a><br>
@@ -77,10 +75,10 @@ https://hyeinisfree.tistory.com/22
             <a href="http://leeyj85.shop/portfolio/" target='_blank'>
                 <img src="https://img.shields.io/badge/포트폴리오-5b0000?style=flat-square"/> 
                 http://leeyj85.shop/portfolio/
-            </a><br>
+            </a><br> -->
         </div>
     </td>
-</table> -->
+</table>
 
 <!-- <div style="display: grid; grid-template-columns: 4fr 8fr; grid-template-areas:'image links';">
     <div style="grid-area: image;" align="center">
