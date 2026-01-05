@@ -73,9 +73,20 @@ https://hyeinisfree.tistory.com/22
     </div>
 </div> -->
 
-
 <br><hr><br>
 
+### 주요 경력
+#### AI Model Developer 📊💻 
+  - MES, SPC AI 모듈 개발
+#### SmartFactory Manager ⚒️🏭
+  - 스마트팩토리 공급기업 담당자
+  - RS485, Modbus, PLC 통신 모듈 개발
+#### 2025년 OCS Engineer ✈️🏗️
+  - 중국 청두 ECHINT 프로젝트
+  - 대만 타이중 Micron 프로젝트
+  - 말레이시아 페낭 Micron 프로젝트
+
+<br><hr><br>
 
 <h2 align="left">📚 Tech Stack 💻</h2>
 <div align="center">
